@@ -14,6 +14,7 @@ syntax: regexp
 ^example/logs/dash\.log
 ^example/media/news-images/
 ^example/media/news-images-/
+^example/example/images/images/
 ^example/media/cache/
 ^example/static/
 ^news-images/
