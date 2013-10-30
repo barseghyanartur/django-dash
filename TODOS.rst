@@ -40,6 +40,10 @@ Core and contrib
 + Add licenses.
 + In the example app, make use of bulk-save.
 - When user is not logged in and log out link is chosen to be shown, show the log in link.
+- Add navigation (at right and left) to navigate through the workspaces (like in Android).
+- Update documentation on what's related to Windows 8 layout placeholders.
+- At the moment, plugin widget UIDs are invalid in terms of HTML (should start with a letter). Fix this.
+- In documentation, link to specific plugin directory on github or code in documentation.
 
 Should haves
 ===============================================
@@ -60,6 +64,7 @@ Core and contrib
   the images grabbing script in such a way, that it no longer requires mercurial (just downloads the zip
   and unpacks it).
 - Add translations for Armenian, Dutch and Russian.
+- Image plugin (with options to: crop, fit width or fit height).
 
 Example app
 -----------------------------------------------
@@ -80,6 +85,7 @@ Core and contrib
 - In-line editing.
 - Share dashboard feature, when user chooses some other users to share his dashboard with. It should most
   likely happen by adding user by email or username.
+- Choose custom image for dashboard workspace background.
 
 Would haves
 ===============================================

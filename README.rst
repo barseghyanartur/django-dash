@@ -95,7 +95,7 @@ the `django_dash_example_app_installer.sh`.
 
     $ ./django_dash_example_app_installer.sh
 
-Go to the backend and test the app.
+Open your browser and test the app.
 
 Dashboard:
 
@@ -469,7 +469,7 @@ Memo form (for `Sample Memo` plugin).
 >>>     def __init__(self, *args, **kwargs):
 >>>         super(MemoForm, self).__init__(*args, **kwargs)
 
-Now, that everything is ready, make your that both layout and the plugin modules are added to
+Now, that everything is ready, make sure your that both layout and the plugin modules are added to
 ``INSTALLED_APPS`` for your projects' Django settings.
 
 >>> INSTALLED_APPS = (
@@ -512,7 +512,7 @@ Tuning
 There are number of Dash settings you can override in the settings module of your Django project:
 
 - `DASH_RESTRICT_PLUGIN_ACCESS` (bool): If set to True, (Django) permission system for dash plugins is enabled.
-   Defaults to True.
+  Defaults to True.
 - `DASH_ACTIVE_LAYOUT` (str): Active layout UID. Defaults to "android".
 - `DASH_LAYOUT_CELL_UNITS` (str): Allowed values for layout cell units. Defaults to ("em", "px", "pt", "%").
 - `DASH_DISPLAY_LOGOUT_LINK` (bool): If set to True, the log out link is shown in the Dash drop-down menu.
