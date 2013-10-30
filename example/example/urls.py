@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 admin.autodiscover()
 
@@ -25,6 +26,8 @@ urlpatterns = patterns('',
 
     # django-registration URLs:
     (r'^accounts/', include('registration.backends.default.urls')),
+
+    url(r'^$', TemplateView.as_view(template_name='home.html')),
 
     # django-dash public dashboards contrib app:
     url(r'^', include('dash.contrib.apps.public_dashboard.urls')),

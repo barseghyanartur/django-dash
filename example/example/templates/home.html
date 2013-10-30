@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block body-attrs %} class="standalone"{% endblock body-attrs %}
+
+{% block page-title %}{% trans 'Home' %}{% endblock %}
+
+{% block content %}
+<div class="generic-content-wrapper">
+    <div class="wrapper-bg"></div>
+
+    <h2 class="content-title">{% trans "django-dash (Dash)" %}</h2>
+
+    <div class="content-body">
+            {% url 'dash.edit_dashboard' as edit_dashboard_url %}
+            {% blocktrans with edit_dashboard_url as edit_dashboard_url %}
+            <p>
+            Welcome to `django-dash`, a customisable, modular dashboard application framework for Django.
+            </p>
+            <p>
+            Dash allows users to create their own custom dashboards. Supports theming (in Dash themes are called layouts)
+            and multiple workspaces. Dash comes with extensive pythonic API which allows developers to create new Dash
+            plugins, as well as to modify bundled ones.
+            </p>
+            <p>
+            To make a clearer association, think of Android for tablets (shortcuts, widgets and apps) or Windows 8 for
+            tablets or desktops.
+            </p>
+            <p>
+            Dash inherits all those concepts and makes it possible to implement a dashboard system for Django
+            applications with minimal efforts.
+            </p>
+            <p>
+            Click <a href="{{ edit_dashboard_url }}">here</a> to go to your dashboard.
+            </p>
+            {% endblocktrans %}
+        </p>
+    </div>
+</div>
+{% endblock content %}

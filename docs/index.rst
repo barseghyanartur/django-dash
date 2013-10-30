@@ -3,9 +3,9 @@ django-dash
 ===============================================
 `django-dash` (later on named Dash) is a customisable, modular dashboard application framework for Django.
 
-Dash allows users to create and modify their own custom dashboards. Supports theming (in Dash
-themes are called layouts) and workspaces. Comes with extensive pythonic API which allows developers
-to create new Dash plugins, as well as to modify bundled ones.
+Dash allows users to create their own custom dashboards. Supports theming (in Dash themes are called layouts)
+and multiple workspaces. Dash comes with extensive pythonic API which allows developers to create new Dash
+plugins, as well as to modify bundled ones.
 
 To make a clearer association, think of Android for tablets (shortcuts, widgets and apps) or Windows 8 for
 tablets or desktops.
@@ -86,7 +86,7 @@ below for having the demo running within a minute.
 
 Grab the latest `django_dash_example_app_installer.sh`
 
-    $ wget https://raw.github.com/barseghyanartur/django-dash/stable/django-dash-example-app-installer.sh
+    $ wget https://raw.github.com/barseghyanartur/django-dash/stable/example/django_dash_example_app_installer.sh
 
 Create a new- or switch to existing- virtual environement, assign execute rights to the installer and run
 the `django_dash_example_app_installer.sh`.
@@ -97,7 +97,15 @@ the `django_dash_example_app_installer.sh`.
 
 Go to the backend and test the app.
 
-- URL: http://127.0.0.1:8001/admin/news/newsitem/
+Dashboard:
+
+- URL: http://127.0.0.1:8001/dashboard/
+- Admin username: test_admin
+- Admin password: test
+
+Django admin interface:
+
+- URL: http://127.0.0.1:8001/administration/
 - Admin username: test_admin
 - Admin password: test
 
