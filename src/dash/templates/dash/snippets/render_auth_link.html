@@ -1,0 +1,9 @@
+{% load i18n %}
+{% if auth_link %}
+                        <li class="sub-menu-item">
+                            <a href="{{ auth_link }}" class="menu-public-dashboard">
+                                <span class="iconic {{ auth_icon_class }}"></span>
+                                <span class="textonic">{{ auth_link_text }}</span>
+                            </a>
+                        </li>
+{% endif %}

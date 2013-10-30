@@ -2,6 +2,7 @@ __all__ = ('get_dash_plugin',)
 
 from django.template import Library, TemplateSyntaxError, Node
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 
 from dash.settings import ACTIVE_LAYOUT, DISPLAY_LOGOUT_LINK
 from dash.utils import get_workspaces
@@ -145,22 +146,45 @@ def get_dash_workspaces(parser, token):
 # ***************************************************************************************
 # ***************************************************************************************
 
-@register.inclusion_tag('dash/snippets/render_logout_link.html', takes_context=True)
-def render_logout_link(context):
+def render_auth_link(context):
     """
     Render logout link.
     """
     if not DISPLAY_LOGOUT_LINK:
         return {}
 
-    try:
-        logout_url = settings.LOGOUT_URL
-    except Exception as e:
-        logout_url = ''
+    request = context.get('request', None)
+    if request and request.user.is_authenticated():
+        try:
+            auth_url = settings.LOGOUT_URL
+            auth_icon_class = 'icon-signout'
+            auth_link_text = _('Log out')
+        except Exception as e:
+            auth_url = ''
+            auth_icon_class = ''
+            auth_link_text = ''
+    else:
+        try:
+            auth_url = settings.LOGIN_URL
+            auth_icon_class = 'icon-signin'
+            auth_link_text = _('Log in')
+        except Exception as e:
+            auth_url = ''
+            auth_icon_class = ''
+            auth_link_text = ''
 
     return {
-        'logout_link': logout_url,
+        'auth_link': auth_url,
+        'auth_icon_class': auth_icon_class,
+        'auth_link_text': auth_link_text
     }
+
+# For backwards compatibilty. TODO: Raise deprecation warning.
+def render_logout_link(context):
+    return render_auth_link(context)
+
+register.inclusion_tag('dash/snippets/render_auth_link.html', takes_context=True)(render_auth_link)
+register.inclusion_tag('dash/snippets/render_auth_link.html', takes_context=True)(render_logout_link)
 
 # ***************************************************************************************
 # ***************************************************************************************

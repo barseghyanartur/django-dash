@@ -665,7 +665,7 @@ class BaseDashboardPlugin(object):
 
         self.data = DashboardPluginDataStorage()
 
-        self._html_id = uuid.uuid4()
+        self._html_id = 'p{0}'.format(uuid.uuid4())
 
     @property
     def html_id(self):
