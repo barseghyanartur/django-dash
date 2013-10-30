@@ -8,6 +8,7 @@ syntax: regexp
 ^MANIFEST\.in~
 ^tmp/
 \.zip
+^release/
 ^example/db/example\.db
 ^example/tmp/
 ^example/logs/django\.log
