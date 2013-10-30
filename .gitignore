@@ -23,4 +23,4 @@ builddocs.zip
 build/
 dist/
 src/django_dash.egg-info
-
+example/example/local_settings.py
