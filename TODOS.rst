@@ -39,6 +39,7 @@ Core and contrib
   Delusional Insanity images as image factory. Take those images from a bitbucket repository.
 + Add licenses.
 + In the example app, make use of bulk-save.
+- When user is not logged in and log out link is chosen to be shown, show the log in link.
 
 Should haves
 ===============================================
