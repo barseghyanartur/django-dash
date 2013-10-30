@@ -289,7 +289,7 @@ In case of Android layout (UID "android") it would be as follows.
 
 Base your layout specific custom CSS on presence of those classes.
 
-Same goes for Placeholders. Each placeholder gets "id_" + placeholders' UID and the classes
+Same goes for Placeholders. Each placeholder gets `id_` + placeholders' UID and the classes
 "placeholder" and "placeholder-" + placeholders' UID. So, the ``ExampleMainPlaceholder`` would look
 as follows.
 

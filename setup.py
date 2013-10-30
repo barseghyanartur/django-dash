@@ -82,7 +82,7 @@ setup(
     keywords = 'dashboard, django',
     author = 'Artur Barseghyan',
     author_email = 'artur.barseghyan@gmail.com',
-    url = 'https://bitbucket.org/barseghyanartur/django-dash/',
+    url = 'https://github.com/barseghyanartur/django-dash/',
     package_dir = {'':'src'},
     packages = find_packages(where='./src'),
     license = 'GPL 2.0/LGPL 2.1',
