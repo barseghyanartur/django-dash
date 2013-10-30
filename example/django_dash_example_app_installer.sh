@@ -13,5 +13,6 @@ cp local_settings.example local_settings.py
 ./manage.py syncdb --noinput --traceback -v 3
 ./manage.py migrate --noinput
 ./manage.py collectstatic --noinput --traceback -v 3
+./manage.py news_create_test_data --traceback -v 3
 ./manage.py dash_create_test_data --traceback -v 3
 ./manage.py runserver 0.0.0.0:8001 --traceback -v 3
