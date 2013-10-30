@@ -112,6 +112,8 @@ Django admin interface:
 Take a look at the "example/example/templates" directory for getting a better idea of how to integrate templates
 of other apps with into dash templates.
 
+See the documentation for some screen shots http://pythonhosted.org/django-dash/#screenshots
+
 Creating a new layout
 ===============================================
 Dash comes with several bundled layouts. Do check their source code as example.
