@@ -59,6 +59,7 @@ Core and contrib
 - Now that delusionalinsanity.images is available and downloadable on github, make changes to
   the images grabbing script in such a way, that it no longer requires mercurial (just downloads the zip
   and unpacks it).
+- Add translations for Armenian, Dutch and Russian.
 
 Example app
 -----------------------------------------------
