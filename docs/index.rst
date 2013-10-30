@@ -579,6 +579,8 @@ Artur Barseghyan <artur.barseghyan@gmail.com>
 
 Screenshots
 ===============================================
+Several screenshots of Android layout are presented below.
+
 Dashboard workspace (view mode) on which you can see the following plugins used:
 
     - URL plugin

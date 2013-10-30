@@ -34,7 +34,7 @@ Core and contrib
 + Basic Django tests.
 + Demo app (installer), which would create records.
 + Log out link.
-- List all (or most important) overridable settings.
++ List all (or most important) overridable settings.
 + Add news app to the demo app installer. Create a new workspace on which news app would be shown. Use
   Delusional Insanity images as image factory. Take those images from a bitbucket repository.
 + Add licenses.
@@ -55,6 +55,9 @@ Core and contrib
 - Contact form plugin.
 - Blog plugin.
 - When blog engine is ready, add notes about using a public site with blogs.
+- Now that delusionalinsanity.images is available and downloadable on github, make changes to
+  the images grabbing script in such a way, that it no longer requires mercurial (just downloads the zip
+  and unpacks it).
 
 Example app
 -----------------------------------------------
@@ -73,6 +76,8 @@ Core and contrib
 - Ubuntu 12.04 layout.
 - Mac layout.
 - In-line editing.
+- Share dashboard feature, when user chooses some other users to share his dashboard with. It should most
+  likely happen by adding user by email or username.
 
 Would haves
 ===============================================
