@@ -74,6 +74,10 @@ setup(
     description = ("Dashboard application for Django."),
     long_description=readme,
     classifiers = [
+	"Programming Language :: Python :: 2.6",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.3",
         "Environment :: Web Environment",
         "Intended Audience :: Developers",
         "Operating System :: OS Independent",
