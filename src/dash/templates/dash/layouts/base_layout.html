@@ -1,0 +1,17 @@
+{% extends "dash/base.html" %}
+
+{% load static %}
+
+{% block site-title %}{{ dashboard_settings.title }}{% endblock site-title %}
+
+{% block layout-stylesheets %}
+{% for css_file in layout.get_media_css %}
+<link href="{% static css_file %}" rel="stylesheet" media="all" />
+{% endfor %}
+{% endblock layout-stylesheets %}
+
+{% block layout-javascripts %}
+{% for js_file in layout.get_media_js %}
+<script src="{% static js_file %}"></script>
+{% endfor %}
+{% endblock layout-javascripts %}

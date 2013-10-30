@@ -1,0 +1,25 @@
+/*
+    Document   : dash_plugin_video.css
+    Created on : Sep 27, 2013, 01:37:37 PM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        Video plugin styles for django-dash (all layouts).
+
+        Tweaks to stretch the chosen Video to full content width
+        for both `main` placeholder. Note, that we know, that Video plugin
+        widgets are never greater in size than 1x1. This allows us to be
+        lazy and do not include the size specific classes here. Otherwise,
+        we would have to.
+*/
+.layout .placeholder .plugin.video .plugin-content-wrapper {
+    padding: 0!important;
+    margin: 0!important;
+}
+    .layout .placeholder .plugin.video .plugin-content-wrapper iframe {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        bottom: 0;
+        padding: 0;
+        margin: 0;
+    }

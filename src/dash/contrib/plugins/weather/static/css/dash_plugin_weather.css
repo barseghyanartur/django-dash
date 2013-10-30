@@ -1,0 +1,52 @@
+/*
+    Document   : dash_plugin_weather.css
+    Created on : Aug 29, 2013, 18:08:30 PM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        Weather plugin styles for django-dash.
+*/
+.plugin-weather .weather-image,
+.plugin-big_weather .weather-image {
+    padding: 0;
+    margin: 0;
+    float: left;
+    clear: both;
+    width: 100%;
+}
+    .plugin-weather .weather-image img,
+    .plugin-big_weather .weather-image img {
+        float: left;
+        margin: 0 8px 0 0;
+    }
+
+.plugin-weather .weather-info,
+.plugin-big_weather .weather-info {
+    padding: 0;
+    margin: 8px 0 0;
+    float: left;
+    width: 100%;
+}
+
+.plugin-weather .value ,
+.plugin-big_weather .value {
+    padding: 0;
+    margin: 0;
+}
+.plugin-weather .value.big-value ,
+.plugin-big_weather .value.big-value {
+    padding: 0;
+    margin: 0;
+}
+.plugin-weather .value.info-value ,
+.plugin-big_weather .value.info-value {
+    padding: 0;
+    margin: 0;
+}
+
+.plugin-weather .label ,
+.plugin-big_weather .label {
+    padding: 0;
+    margin: 0;
+    float: left;
+    min-width: 80px;
+}

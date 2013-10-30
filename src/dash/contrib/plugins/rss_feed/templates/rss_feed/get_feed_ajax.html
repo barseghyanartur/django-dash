@@ -1,0 +1,24 @@
+{% load rss_feed_tags %}
+
+                {% if show_feed_title and feed %}
+                <h1>
+                    <a href="{{ feed.channel.link }}" target="_blank">
+                        {% if custom_feed_title %}
+                            {{ custom_feed_title }}
+                        {% else %}
+                            {{ feed.channel.title }}
+                        {% endif %}
+                    </a>
+                </h1>
+                {% endif %}
+
+                {% if feed and feed.entries %}
+                <ul>
+                    {% for entry in feed.entries|slice:max_feed_items %}
+                    <li>
+                        <span class="date">{{ entry.published_parsed|convert_to_datetime|date:"Y-m-d H:i:s" }}</span>
+                        <a href="{{ entry.link }}" target="_blank" title="{{ entry.title }}">{{ entry.title|truncatechars:truncate_after }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}

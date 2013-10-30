@@ -1,0 +1,12 @@
+{% extends layout.get_edit_template_name %}
+{% load i18n %}
+
+{% block body-attrs %} class="standalone"{% endblock body-attrs %}
+
+{% block page-title %}{% trans 'Edit dashboard settings' %}{% endblock %}
+
+{% block workspaces-wrapper %}{% endblock workspaces-wrapper %}
+
+{% block content %}
+{% include "dash/edit_dashboard_settings_ajax.html" %}
+{% endblock content %}

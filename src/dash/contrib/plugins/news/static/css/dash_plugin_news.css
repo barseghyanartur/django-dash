@@ -1,0 +1,77 @@
+/*
+    Document   : dash_plugin_news.css
+    Created on : Aug 29, 2013, 21:25:30 PM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        News plugin styles for django-dash.
+*/
+.plugin-huge_news ul,
+.plugin-news ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: block;
+    clear: both;
+}
+    .plugin-huge_news ul li,
+    .plugin-news ul li {
+        padding: 10px 0 0 0;
+        margin: 0;
+        display: block;
+        clear: both;
+    }
+    .plugin-huge_news ul li:first-child,
+    .plugin-news ul li:first-child {
+        padding: 0;
+    }
+        .plugin-huge_news ul li .date,
+        .plugin-news ul li .date {
+            display: block;
+            clear: left;
+            font-size: 0.8em;
+            padding: 0;
+            color: #555;
+        }
+
+.plugin-huge_news .pagination-prev-next {
+    width: 100px;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    clear: none;
+    float: right;
+}
+    .plugin-huge_news .prevuous {
+        display: block;
+        float: left;
+        text-indent: -9999px;
+    }
+    .plugin-huge_news .next {
+        display: block;
+        float: right;
+    }
+
+.plugin.plugin-huge_news.width-4.height-5 {
+    
+}
+
+.news-page-title {
+    float: left;
+}
+
+.news-image {
+    float: left;
+    margin: 0 10px 0 0;
+    padding: 0;
+}
+
+.news-body {
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 80%;
+}
+
+.news-body p {
+    display: block;
+}

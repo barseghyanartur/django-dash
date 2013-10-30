@@ -1,0 +1,26 @@
+syntax: regexp
+\.pyc$
+\.hgignore~
+\.gitignore~
+\.git/
+\.tox/
+
+^MANIFEST\.in~
+^tmp/
+\.zip
+^example/db/example\.db
+^example/tmp/
+^example/logs/django\.log
+^example/logs/dash\.log
+^example/media/news-images/
+^example/media/news-images-/
+^example/media/cache/
+^example/static/
+^news-images/
+^delusionalinsanity.images/
+^builddocs/
+^builddocs.zip
+^build/
+^dist/
+^src/django_dash\.egg-info
+

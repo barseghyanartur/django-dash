@@ -1,0 +1,9 @@
+{% load i18n %}
+{% if logout_link %}
+                        <li class="sub-menu-item">
+                            <a href="{{ logout_link }}" class="menu-public-dashboard">
+                                <span class="iconic icon-signout"></span>
+                                <span class="textonic">{% trans "Log out" %}</span>
+                            </a>
+                        </li>
+{% endif %}

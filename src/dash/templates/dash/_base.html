@@ -1,0 +1,179 @@
+{% load i18n static dash_tags %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block page-title %}{% endblock page-title %} | {% block site-title %}{% endblock site-title %}</title>
+  {% block stylesheets %}
+    {#<link href="{% static 'css/fonts.css' %}" rel="stylesheet" type="text/css">#}
+    <link href="{% static 'jquery-ui/css/smoothness/jquery-ui-1.10.3.custom.min.css' %}" rel="stylesheet" media="all" />
+    <link href="{% static 'colorbox/colorbox.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/dash.css' %}" rel="stylesheet" media="all" />
+    {% if css %}
+    <style type="text/css">
+        {{ css|safe }}
+    </style>
+    {% endif %}
+  {% endblock stylesheets %}
+
+  {% block extra-stylesheets %}
+  {% endblock extra-stylesheets %}
+
+  {% block layout-stylesheets %}
+  {% endblock layout-stylesheets %}
+
+  {% block head-javascripts %}
+    <script src="{% static 'jquery-ui/js/jquery-1.9.1.js' %}"></script>
+    <script src="{% static 'jquery-ui/js/jquery-ui-1.10.3.custom.min.js' %}"></script>
+  {% endblock head-javascripts %}
+
+  {% block extra-head-javascripts %}
+  {% endblock extra-head-javascripts %}
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  {% block extrahead %}{% endblock extrahead %}
+</head>
+<body{% block body-attrs %}{% if layout %} class="layout {{ layout.html_class }}"{% endif %}{% endblock body-attrs %}>
+    {% block content-wrapper %}
+    <div class="wrapper">
+    {% block messages-wrapper %}
+        {% include "dash/snippets/messages_snippet.html" %}
+    {% endblock messages-wrapper %}
+    {% block top-menu %}
+        <div class="menu-wrapper">
+            {% block top-nav-menu-wrapper %}
+            <ul class="menu nav">
+                <li class="menu-item">
+                    <a href="{% url 'dash.dashboard' %}" class="menu-dashboard-home" title="{% trans 'Dashboard' %}">
+                        <span class="iconic icon-home icon-2x"></span>
+                    </a>
+                </li>
+
+                {% if edit_mode %}
+                <li class="menu-item">
+                    <a href="{% if current_workspace %}{% url 'dash.dashboard' current_workspace.slug %}{% else %}{% url 'dash.dashboard' %}{% endif %}" class="menu-dashboard-home" title="{% trans 'Dashboard' %}">
+                        <span class="iconic icon-eye-open icon-2x"></span>
+                    </a>
+                </li>
+                {% else %}
+                    {% has_edit_dashboard_permissions as has_edit_dashboard_permissions %}
+                    {% if has_edit_dashboard_permissions %}
+                <li class="menu-item">
+                    <a href="{% if current_workspace %}{% url 'dash.edit_dashboard' current_workspace.slug %}{% else %}{% url 'dash.edit_dashboard' %}{% endif %}" class="menu-dashboard-edit" title="{% trans 'Edit dashboard' %}">
+                        <span class="iconic icon-cog icon-2x"></span>
+                    </a>
+                </li>
+                    {% endif %}
+                {% endif %}
+                <li class="menu-item">
+                    <a href="javascript:;" class="menu-dashboard-settings" title="{% trans 'Menu' %}">
+                        <span class="iconic icon-reorder icon-2x"></span>
+                    </a>
+                    <ul class="submenu">
+                        {% if 'dash.add_dashboardworkspace' in perms %}
+                        <li class="sub-menu-item">
+                            <a href="{% url 'dash.create_dashboard_workspace' %}" class="menu-dashboard-create-workspace" title="{% trans 'Create a workspace' %}">
+                                <span class="iconic icon-plus-sign-alt"></span>
+                                <span class="textonic">{% trans "Create a workspace" %}</span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% if 'dash.change_dashboardsettings' in perms %}
+                        <li class="sub-menu-item">
+                            <a href="{% url 'dash.edit_dashboard_settings' %}" class="menu-dashboard-edit-settings" title="{% trans 'Dashboard settings' %}">
+                                <span class="iconic icon-gears"></span>
+                                <span class="textonic">{% trans "Dashboard settings" %}</span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% if current_workspace %}
+                            {% if 'dash.edit_dashboardworkspace' in perms %}
+                        <li class="sub-menu-item">
+                            <a href="{% url 'dash.edit_dashboard_workspace' current_workspace.pk %}" class="menu-dashboard-edit-workspace" title="{% trans 'Edit current workspace' %}">
+                                <span class="iconic icon-edit"></span>
+                                <span class="textonic">{% trans "Edit current workspace" %}</span>
+                            </a>
+                        </li>
+                            {% endif %}
+                            {% if 'dash.delete_dashboardworkspace' in perms %}
+                        <li class="sub-menu-item">
+                            <a href="{% url 'dash.delete_dashboard_workspace' current_workspace.pk %}" class="menu-dashboard-delete-workspace" title="{% trans 'Delete current workspace' %}">
+                                <span class="iconic icon-trash"></span>
+                                <span class="textonic">{% trans "Delete current workspace" %}</span>
+                            </a>
+                        </li>
+                            {% endif %}
+                        {% endif %}
+
+                        {% comment %}
+                        <li class="sub-menu-item">
+                            <a href="{% if current_workspace %}{% url 'dash.dashboard_workspaces' current_workspace.slug %}{% else %}{% url 'dash.dashboard_workspaces' %}{% endif %}" class="menu-dashboard-workspaces">
+                                <span class="iconic icon-windows"></span>
+                                <span class="textonic">{% trans "Workspaces" %}</span>
+                            </a>
+                        </li>
+                        {% endcomment %}
+
+                        {% if public_dashboard_url %}
+                        <li class="sub-menu-item">
+                            <a href="{{ public_dashboard_url }}" class="menu-public-dashboard">
+                                <span class="iconic icon-male"></span>
+                                <span class="textonic">{% trans "Public dashboard" %}</span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% render_logout_link %}
+                    </ul>
+                </li>
+            </ul>
+            {% endblock top-nav-menu-wrapper %}
+            {% block workspaces-wrapper %}
+            {% if workspaces %}
+            <ul class="workspaces">
+                <li class="menu-item{% if not current_workspace %} active{% endif %}">
+                    <a href="{% if edit_mode %}{% url 'dash.edit_dashboard' %}{% else %}{% url 'dash.dashboard' %}{% endif %}" title="{% trans 'Default' %}">
+                        <span class="iconic {% if not current_workspace %}icon-circle{% else %}icon-circle-blank{% endif %}"></span>
+                    </a>
+                </li>
+                {% if not workspaces %}
+                    {% if layout %}
+                        {% get_dash_workspaces layout.uid %}
+                    {% else %}
+                        {% get_dash_workspaces layout.uid %}
+                    {% endif %}
+                {% endif %}
+                {% for ws in workspaces %}
+                <li class="menu-item{% if ws == current_workspace %} active{% endif %}">
+                    <a href="{% if edit_mode %}{% url 'dash.edit_dashboard' ws.slug %}{% else %}{% url 'dash.dashboard' ws.slug %}{% endif %}" title="{{ ws.name }}">
+                        <span class="iconic {% if ws == current_workspace %}icon-circle{% else %}icon-circle-blank{% endif %}"></span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endblock workspaces-wrapper %}
+        </div>
+    {% endblock top-menu %}
+    {% block content %}
+
+    {% endblock content %}
+    </div>
+    {% endblock content-wrapper %}
+
+    {% block javascripts %}
+    <script src="{% static 'colorbox/jquery.colorbox-min.js' %}"></script>
+    <script src="{% static 'js/dash.js' %}"></script>
+    {% endblock javascripts %}
+
+    {% block extra-javascripts %}
+    {% endblock extra-javascripts %}
+
+    {% block layout-javascripts %}
+    {% endblock layout-javascripts %}
+</body>
+</html>

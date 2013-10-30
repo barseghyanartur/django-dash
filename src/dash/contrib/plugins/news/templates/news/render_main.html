@@ -1,0 +1,13 @@
+{% load i18n %}
+
+    {% if plugin.data.show_title %}<h2>{% trans "News" %}</h2>{% endif %}
+    {% if plugin.data.news_items %}
+        <ul>
+        {% for item in plugin.data.news_items %}
+            <li>
+                <span class="date">{{ item.date_published|date:"Y-m-d H:i:s" }}</span>
+                <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}

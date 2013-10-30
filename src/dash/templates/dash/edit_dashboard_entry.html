@@ -1,0 +1,18 @@
+{% extends layout.get_edit_template_name %}
+{% load i18n %}
+
+{% block body-attrs %} class="standalone"{% endblock body-attrs %}
+
+{% block page-title %}{% trans 'Edit dashboard entry' %}{% endblock %}
+
+{% block workspaces-wrapper %}{% endblock workspaces-wrapper %}
+
+{% block content %}
+{% include "dash/edit_dashboard_entry_ajax.html" %}
+{% endblock content %}
+
+{% block extra-head-javascripts %}
+    {% if form and form.media %}
+        {{ form.media }}
+    {% endif %}
+{% endblock extra-head-javascripts %}

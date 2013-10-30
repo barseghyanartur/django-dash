@@ -1,0 +1,15 @@
+    <script>
+        $(document).ready(function() {
+            RRF_getFeed(
+                "{{ plugin.html_id }}",
+                "{% url 'dash.contrib.plugins.rss_feed.get_feed' plugin.layout_uid plugin.placeholder_uid plugin.uid %}",
+                "{{ csrfmiddlewaretoken }}",
+                "{{ plugin.data.feed_url }}",
+                "{{ plugin.data.custom_feed_title }}",
+                {% if plugin.data.show_feed_title %}1{% else %}0{% endif %},
+                {{ plugin.data.max_items }},
+                {{ plugin.data.truncate_after }},
+                {{ plugin.data.cache_for }}
+            );
+        });
+    </script>

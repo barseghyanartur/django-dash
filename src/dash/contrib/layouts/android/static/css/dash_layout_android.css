@@ -1,0 +1,92 @@
+/* 
+    Document   : dash_layout_android.css
+    Created on : Aug 18, 2013, 1:22:19 PM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        Android layout/theme for django-dash.
+*/
+
+root {
+    display: block;
+}
+
+/* Layout specific styles, centering the layout */
+.layout-android .wrapper {
+    max-width: 1000px;
+    min-width: 968px;
+    max-height: 612px;
+    min-height: 612px;
+    width: 968px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+    .layout-android .placeholder {
+    }
+
+    .layout-android .placeholder.placeholder-main {
+        float: left;
+    }
+        .layout-android .placeholder.placeholder-main .plugin .plugin-content-wrapper {
+            padding: 20px;
+        }
+
+    .layout-android .placeholder.placeholder-shortcuts {
+        float: right;
+    }
+        .layout-android .placeholder.placeholder-shortcuts .plugin .plugin-content-wrapper {
+            padding: 2px;
+        }
+
+        /* No crazy things with widgets. */
+        .layout-android .placeholder.placeholder-shortcuts .plugin h1,
+        .layout-android .placeholder.placeholder-shortcuts .plugin h2,
+        .layout-android .placeholder.placeholder-shortcuts .plugin h3,
+        .layout-android .placeholder.placeholder-shortcuts .plugin h4,
+        .layout-android .placeholder.placeholder-shortcuts .plugin h5 {
+            font-size: 12px;
+        }
+
+/* Colours */
+
+.layout-android a:hover,
+.layout-android a:hover:before,
+.layout-android .menu-wrapper .nav .menu-item a:hover:before,
+.layout-android .menu-wrapper .workspaces .menu-item span:hover:before,
+.layout-android .placeholder .empty-widget-cell .add-plugin:hover,
+.layout-android .placeholder .plugin .edit-plugin:hover,
+.layout-android .placeholder .plugin .remove-plugin:hover {
+
+}
+
+/* General color for all icons */
+.layout-android a,
+.layout-android a:before,
+.layout-android span,
+.layout-android span:before,
+.layout-android .icon-2x:before {
+    
+}
+
+.layout-android .icon-2x:hover:before {
+    
+}
+
+
+/* General styles */
+.layout-android .iconic:before {
+    color: #777;
+}
+.layout-android .iconic:hover:before {
+    color: #9B251C;
+}
+
+.layout-android a .textonic {
+    color: #555;
+}
+.layout-android a:hover .textonic {
+    color: #000;
+}

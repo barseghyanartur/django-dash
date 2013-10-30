@@ -1,0 +1,29 @@
+{% extends master_template %}
+
+{% load i18n %}
+
+{% block page-title %}{% if current_workspace %}{{ current_workspace.name }}{% else %}{% trans "Default" %}{% endif %} - {% trans "Public dashboard" %}{% endblock page-title %}
+
+{% block site-title %}{{ dashboard_settings.title }}{% endblock site-title %}
+
+{% block top-nav-menu-wrapper %}
+{% endblock top-nav-menu-wrapper %}
+
+{% block workspaces-wrapper %}
+            {% if workspaces %}
+            <ul class="workspaces">
+                <li class="menu-item{% if not current_workspace %} active{% endif %}">
+                    <a href="{% url 'dash.public_dashboard' user.username %}" title="{% trans 'Default' %}">
+                        <span class="iconic {% if not current_workspace %}icon-circle{% else %}icon-circle-blank{% endif %}"></span>
+                    </a>
+                </li>
+                {% for ws in workspaces %}
+                <li class="menu-item{% if ws == current_workspace %} active{% endif %}">
+                    <a href="{% url 'dash.public_dashboard' user.username ws.slug %}" title="{{ ws.name }}">
+                        <span class="iconic {% if ws == current_workspace %}icon-circle{% else %}icon-circle-blank{% endif %}"></span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+{% endblock workspaces-wrapper %}

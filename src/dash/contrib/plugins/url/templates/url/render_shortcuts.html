@@ -1,0 +1,10 @@
+
+            <p>
+                <a href="{{ plugin.data.url }}" title="{{ plugin.data.title }}"{% if plugin.data.external %} target="_blank"{% endif %}>
+                    {% if plugin.data.image %}
+                    <i class="iconic {{ plugin.data.image }}"></i>
+                    {% else %}
+                    {{ plugin.data.title }}
+                    {% endif %}
+                </a>
+            </p>

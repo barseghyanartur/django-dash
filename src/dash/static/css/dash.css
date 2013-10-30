@@ -1,0 +1,347 @@
+/* 
+    Document   : dash.css
+    Created on : Aug 18, 2013, 1:24:11 PM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        Django-dash main styles.
+*/
+
+root { 
+    display: block;
+}
+
+body > * {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    /*font-family: 'Open Sans';*/
+}
+
+a {
+    text-decoration: none;
+}
+
+/*
+    Styles for placeholder size are generated dynamically based on the custom settings of each placeholder. 
+    Generic rules are defined here.
+*/
+
+/* Content of the placeholder shall not exceed the given dimensions. */
+.placeholder {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+    /* 
+        Each placeholder plugin is positioned absolutely. Dynamically generated CSS rules (you don't have to do
+        anything about it) make sure that each plugin is properly positioned. Empty cells are also positioned
+        absolutely.
+    */
+    .placeholder .empty-widget-cell,
+    .placeholder .plugin {
+        position: absolute;
+        overflow: hidden;
+        border-left: #ddd 1px solid;
+        border-right: #ddd 1px solid;
+        border-top: #ddd 1px solid;
+        border-bottom: #ddd 1px solid;
+        margin: 0;
+        padding: 0;
+        z-index: 1;
+        background-color: #fff;
+    }
+        /* `Add plugin widget` link for the empty widget cell. */
+        .placeholder .empty-widget-cell .add-plugin span {
+            z-index: 0;
+            display: block;
+            margin: 30% auto 0 auto;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+        }
+        .placeholder .empty-widget-cell .add-plugin:hover,
+        .placeholder .plugin .edit-plugin:hover,
+        .placeholder .plugin .remove-plugin:hover {
+
+        }
+
+        /* `Remove plugin widget` link for the empty widget cell. */
+        .placeholder .plugin .edit-plugin,
+        .placeholder .plugin .remove-plugin {
+            position: absolute;
+            width: 100%;
+            right: 2px;
+            top: 2px;
+            text-align: right;
+            background-color: #fff;
+            z-index: 9999;
+        }
+        .placeholder .plugin .edit-plugin {
+            right: 20px;
+        }
+        /* 
+            We don't have any margins or paddings between the plugin widgets. It's not really needed. Everything
+            you want to do can be done using the innner wrapper (plugin-content-wrapper).
+        */
+        .placeholder .plugin .plugin-content-wrapper {
+            padding: 4px;
+        }
+
+        /* No crazy things with widgets. */
+        .placeholder .plugin h1,
+        .placeholder .plugin h2,
+        .placeholder .plugin h3,
+        .placeholder .plugin h4,
+        .placeholder .plugin h5 {
+            font-size: 16px;
+            margin-top: 0;
+        }
+        .placeholder .plugin p {
+            margin-top: 0;
+        }
+
+/* Edit mode */
+body.edit {
+            
+}
+
+/* Generic form styles */
+.generic-form {
+    margin: 0;
+    padding: 0;
+}
+    .generic-form .entry,
+    .generic-form .buttons,
+    .generic-form .helptext-note,
+    .generic-form .errors {
+        width: 100%;
+        list-style: none;
+        display: block;
+        clear: both;
+        float: left;
+    }
+        .generic-form .errors .errorlist {
+            color: red;
+            font-weight: bold;
+            list-style: none;
+            margin: 0;
+            padding: 10px 0 0 0;
+            display: block;
+            clear: both;
+        }
+        .generic-form .entry .label {
+            width: 190px;
+            max-width: 190px;
+            float: left;
+        }
+        .generic-form .entry .field {
+            width: 300px;
+            max-width: 300px;
+            float: right;
+        }
+            .generic-form .entry .field ul {
+                list-style: none;
+                margin: 0;
+                padding: 0 0 5px 0;
+            }
+                .generic-form .entry .field ul li {
+                    border: none;
+                }
+    .generic-form .buttons div {
+        float: right;
+    }
+
+/* Generic content styles */
+.generic-content-wrapper {
+    width: 500px;
+    margin: auto;
+    padding: 16px;
+    position: absolute;
+    border-left: #ddd 1px solid;
+    border-right: #ddd 1px solid;
+    border-top: #ddd 1px solid;
+    border-bottom: #ddd 1px solid;
+    background-color: #fff;
+    z-index: 2;
+}
+    .generic-content-wrapper .wrapper-bg {
+        background-color: #ddd;
+        height: 60px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 0;
+        position: absolute;
+    }
+    .generic-content-wrapper .content-title {
+        position: relative;
+        z-index: 1;
+        margin: 0 0 auto 0;
+        padding: 0 0 auto 0;
+    }
+    .generic-content-wrapper .content-body {
+        margin: 35px 0 0 0;
+        padding: 0;
+    }
+        .generic-content-wrapper .content-body .content-listing {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+            .generic-content-wrapper .content-body .content-listing .helptext-note,
+            .generic-content-wrapper .content-body .content-listing .entry,
+            .generic-content-wrapper .content-body .content-listing .buttons {
+                margin: 0;
+                padding: 15px 0 15px 0;
+                border-bottom: #ddd 1px solid;
+            }
+            .generic-content-wrapper .content-body .content-listing .hidden-entry {
+                position: absolute;
+                left: -9999px;
+            }
+            .generic-content-wrapper .content-body .content-listing li:first-child {
+                padding-top: 0;
+            }
+            .generic-content-wrapper .content-body .content-listing li:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+
+/* Non-AJAX pages. */
+.standalone .menu-wrapper {
+    width: 532px;
+    margin: 0 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+    .standalone .menu-wrapper .menu.nav {
+        display: block;
+        position: static;
+        margin: 0;
+        padding: 0;
+        float: right;
+    }
+
+    .standalone .menu-wrapper .menu.nav .menu-item .submenu {
+        position: absolute;
+        z-index: 3;
+        right: 0;
+        top: 32px;
+    }
+
+.standalone .generic-content-wrapper {
+    left: 0;
+    margin: 0 auto;
+    right: 0;
+    top: 40px;
+}
+
+/* Menu */
+.menu-wrapper {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 60px;
+    float: left;
+    z-index: 3;
+}
+    .menu-wrapper .menu {
+        list-style: none;
+        z-index: 3;
+    }
+    .menu-wrapper .workspaces {
+        list-style: none;
+        z-index: 2;
+        width: 100%;
+        text-align: center;
+    }
+        .menu-wrapper .workspaces .menu-item {
+            display: inline;
+            padding: 0 5px 0 5px;
+        }
+            .menu-wrapper .workspaces .menu-item a {
+                width: 10px;
+                height: 10px;
+                z-index: 3;
+                text-decoration: none;
+            }
+    .menu-wrapper .nav {
+        right: 0;
+        position: absolute;
+    }
+        .menu-wrapper .nav .menu-item {
+            width: 30px;
+            height: 30px;
+            display: inline;
+            margin: 0 0 0 10px;
+            padding: 0;
+            z-index: 3;
+        }
+
+            .menu-wrapper .nav .submenu {
+                display: none;
+                list-style: none;
+                position: absolute;
+                margin: 0;
+                padding: 0;
+                right: 0;
+                width: 230px;
+                background-color: #fff;
+                text-align: right;
+                box-shadow: 2px 2px 2px #ddd;
+                border-top: #ddd 1px solid;
+                border-left: #ddd 1px solid;
+            }
+                .menu-wrapper .nav .submenu .sub-menu-item {
+                    margin: 0;
+                    padding: 15px 15px 15px 15px;
+                    border-bottom: #ddd 1px solid;
+                }
+                    .menu-wrapper .nav .submenu .sub-menu-item span {
+                        display: inherit;
+                    }
+
+.menu-wrapper .workspaces {
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+
+/* Messages */
+ul.messagelist {
+    margin: 0;
+    padding: 0 0 5px;
+}
+    ul.messagelist li {
+        background: url("../admin/img/icon_success.gif") no-repeat scroll 5px 0.3em #ffffcc;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        color: #666;
+        display: block;
+        font-size: 12px;
+        margin: 0 0 3px;
+        padding: 4px 5px 4px 25px;
+    }
+
+/* Workspaces list (dedicated page) */
+.content-listing.workspaces span {
+    text-indent: 2px;
+}
+
+/* General styles */
+.iconic:before {
+    color: #999;
+}
+.iconic:hover:before {
+    color: #000;
+}
+
+a .textonic {
+    color: #555;
+}
+a:hover .textonic {
+    color: #000;
+}

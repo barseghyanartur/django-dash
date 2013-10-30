@@ -1,0 +1,42 @@
+{% load i18n cache %}
+
+                {% if plugin.data.show_title %}<h1>{% trans "Weather" %}</h1>{% endif %}
+                {% if plugin.data.weather_data_json %}
+                <div>
+
+                    {% cache 600 plugin.data.weather_data_json %}
+                    <div class="weather-image">
+                        <img src="{{ plugin.data.weather_icon_url }}" alt="" />
+
+                        <div class="value big-value">{{ plugin.data.current.temp_c }}</div>
+
+                        <div class="value info-value">{{ plugin.data.current_weather_desc }}</div>
+                        {#<div class="value info-value">{{ plugin.data.weather_desc }}</div>#}
+
+                        {#<div class="label">{% trans "Temerature" %}</div>#}
+                        <div class="value">
+                            {% trans "Min" %} {{ plugin.data.temp_min_c }} &#8451; / {% trans "Max" %} {{ plugin.data.temp_max_c }} &#8451;
+                        </div>
+                    </div>
+                    <div class="weather-info">
+                        <div class="label">{% trans "Humidity" %}</div>
+                        <div class="value">{{ plugin.data.current_humidity }} %</div>
+
+                        <div class="label">{% trans "Visibility" %}</div>
+                        <div class="value">
+                            {% blocktrans with plugin.data.current_visibility as current_visibility %}
+                                {{ current_visibility }} km
+                            {% endblocktrans %}
+                        </div>
+
+                        <div class="label">{% trans "Wind" %}</div>
+                        <div class="value">
+                            {% blocktrans with plugin.data.windspeed_kmph as windspeed_kmph and plugin.data.wind_dir_16_point as wind_dir_16_point %}
+                                {{ windspeed_kmph }} kmph from the {{ wind_dir_16_point }}
+                            {% endblocktrans %}
+                        </div>
+                    </div>
+                    {% endcache %}
+
+                </div>
+                {% endif %}

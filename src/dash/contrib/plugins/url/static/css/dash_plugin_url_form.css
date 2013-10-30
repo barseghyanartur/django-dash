@@ -1,0 +1,24 @@
+/*
+    Document   : dash_plugin_url_form.css
+    Created on : Sep 25, 2013, 00:18:34 PM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        URL plugin styles for django-dash.
+*/
+
+.pick-images {
+    margin-top: 5px;
+}
+    .pick-images a {
+        display: block;
+        float: left;
+        padding: 8px;
+    }
+        .pick-images a i:before {
+            color: #666;
+            text-decoration: none;
+        }
+        .pick-images a.selected i:before,
+        .pick-images a i:hover:before {
+            color: #000;
+        }

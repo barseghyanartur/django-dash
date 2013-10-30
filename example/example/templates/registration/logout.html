@@ -1,0 +1,23 @@
+{% extends "registration/registration_base.html" %}
+
+{% load i18n %}
+
+{% block page-title %}{% trans "Logged out" %}{% endblock page-title %}
+
+{% block body-attrs %} class="standalone"{% endblock body-attrs %}
+
+{% block content %}
+{% url 'auth_login' as auth_login_url %}
+<div class="generic-content-wrapper">
+    <div class="wrapper-bg"></div>
+
+    <h2 class="content-title">{% trans "Logged out" %}</h2>
+
+    <div class="content-body">
+        <p>{% trans "Successfully logged out!" %}</p>
+        <p>
+            {% blocktrans %}<a href="{{ auth_login_url }}">Log in</a> again.{% endblocktrans %}
+        </p>
+    </div>
+</div>
+{% endblock content %}

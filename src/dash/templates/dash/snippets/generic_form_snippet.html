@@ -1,0 +1,30 @@
+{% load i18n %}
+                <li class="helptext-note">
+                    {% blocktrans %}Fields marked with <span class="required-symbol">*</span> are required{% endblocktrans %}
+                </li>
+
+            {% if form.non_field_errors %}
+                <li class="errors">
+                    {{ form.non_field_errors.as_ul }}
+                </li>
+            {% endif %}
+            {% for field in form %}
+
+                <li class="{% if field.is_hidden %}hidden-entry{% else %}entry{% endif %}">
+                {% if field.is_hidden %}
+                    <div class="hidden-field">{{ field }}</div>
+                {% else %}
+                    <div class="label">
+                        {{ field.label_tag }}
+                        {% if field.field.required %}
+                        <span class="required-field">*</span>
+                        {% endif %}
+                        {% if field.help_text %}
+                        <div class="helptext">{{ field.help_text }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="field">{{ field }}{{ field.errors }}</div>
+                {% endif %}
+                </li>
+
+            {% endfor %}

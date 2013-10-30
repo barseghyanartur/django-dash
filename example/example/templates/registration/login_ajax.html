@@ -1,0 +1,28 @@
+{% load i18n %}
+{% url 'auth_password_reset' as auth_pwd_reset_url %}
+{% url 'registration_register' as register_url%}
+
+<div class="generic-content-wrapper">
+    <div class="wrapper-bg"></div>
+
+    <h2 class="content-title">{% trans "Login" %}</h2>
+
+    <div class="content-body">
+        <form method="post" action="{{ request.path }}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <ul class="content-listing generic-form">
+                {% include "dash/snippets/generic_form_snippet.html" %}
+                <li class="buttons">
+                    <div>
+                        <button type="submit">{% trans "Submit" %}</button>
+                    </div>
+                    <p>
+                        {% blocktrans %}<a href="{{ auth_pwd_reset_url }}">Forgot</a> your password?
+                        <a href="{{ register_url }}">Need an account</a>?{% endblocktrans %}
+                        <input type="hidden" name="next" value="{{ next }}" />
+                    </p>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>

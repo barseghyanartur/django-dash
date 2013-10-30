@@ -1,0 +1,25 @@
+{% load i18n dash_tags %}
+
+{% for cell_html_class, cell_position in widget_cells %}
+    <div class="empty-widget-cell {{ cell_html_class }}">
+        <a href="{% if workspace %}{% url 'dash.plugin_widgets' placeholder_uid=placeholder.uid workspace=workspace position=cell_position %}{% else %}{% url 'dash.plugin_widgets' placeholder_uid=placeholder.uid position=cell_position %}{% endif %}" class="add-plugin" title="{% trans 'Add widget' %}">
+            <span class="iconic icon-plus-sign icon-2x"></span>
+        </a>
+    </div>
+{% endfor %}
+
+{% for entry in dashboard_entries %}
+        {% get_dash_plugin entry as plugin %}
+
+        <div id="{{ plugin.html_id }}" class="plugin {{ plugin.html_class }}">
+            <a href="{% url 'dash.delete_dashboard_entry' entry.pk %}" class="remove-plugin" title="{% trans 'Remove widget' %}">
+                <span class="iconic icon-remove-sign"></span>
+            </a>
+            <a href="{% url 'dash.edit_dashboard_entry' entry.pk %}" class="edit-plugin" title="{% trans 'Edit widget' %}">
+                <span class="iconic icon-edit-sign"></span>
+            </a>
+            <div class="plugin-content-wrapper">
+                {{ plugin.render }}
+            </div>
+        </div>
+{% endfor %}

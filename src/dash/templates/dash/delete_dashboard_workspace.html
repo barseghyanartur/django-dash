@@ -1,0 +1,12 @@
+{% extends layout.get_edit_template_name %}
+{% load i18n %}
+
+{% block body-attrs %} class="standalone"{% endblock body-attrs %}
+
+{% block page-title %}{% blocktrans with workspace_name as workspace_name %}Delete dashboard workspace {{ workspace_name }} {% endblocktrans%}{% endblock %}
+
+{% block workspaces-wrapper %}{% endblock workspaces-wrapper %}
+
+{% block content %}
+{% include "dash/delete_dashboard_workspace_ajax.html" %}
+{% endblock content %}

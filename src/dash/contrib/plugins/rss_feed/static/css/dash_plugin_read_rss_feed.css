@@ -1,0 +1,26 @@
+/*
+    Document   : dash_plugin_read_rss_feed.css
+    Created on : Aug 29, 2013, 18:08:30 PM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        Read RSS feed plugin styles for django-dash.
+*/
+.plugin-read_rss_feed ul,
+.plugin-big_read_rss_feed ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+    .plugin-big_read_rss_feed ul li,
+    .plugin-read_rss_feed ul li {
+        padding: 0 0 10px 0;
+        margin: 0;
+    }
+        .plugin-big_read_rss_feed ul li .date,
+        .plugin-read_rss_feed ul li .date {
+            display: block;
+            clear: both;
+            font-size: 0.8em;
+            padding: 0;
+            color: #555;
+        }

@@ -1,0 +1,28 @@
+{% load i18n %}
+<div class="generic-content-wrapper">
+    <div class="wrapper-bg"></div>
+
+    <h2 class="content-title">{% blocktrans with plugin.name as plugin_name %}Add {{ plugin_name }} to Dashboard{% endblocktrans %}</h2>
+
+    <div class="content-body">
+        <form method="post" action="{{ request.path }}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <ul class="content-listing generic-form">
+                {% include "dash/snippets/generic_form_snippet.html" %}
+                <li class="buttons">
+                    <div>
+                        <button type="submit">{% trans "Add" %}</button>
+                    </div>
+                </li>
+
+                {% if plugin.help_text %}
+                <li class="help-text">
+                    <div>
+                        {{ plugin.help_text|safe }}
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+        </form>
+    </div>
+</div>

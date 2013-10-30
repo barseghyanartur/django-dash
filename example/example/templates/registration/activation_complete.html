@@ -1,0 +1,28 @@
+{% extends "registration/registration_base.html" %}
+
+{% load i18n %}
+
+{% block page-title %}{% trans "Activation complete" %}{% endblock page-title %}
+
+{% block body-attrs %} class="standalone"{% endblock body-attrs %}
+
+{% block content %}
+{% url 'auth_login' as auth_login_url %}
+
+<div class="generic-content-wrapper">
+    <div class="wrapper-bg"></div>
+
+    <h2 class="content-title">{% trans "Activation complete" %}</h2>
+
+    <div class="content-body">
+        <p>
+        {% blocktrans %}
+        Thanks, activation complete!  You may now <a href="{{ auth_login_url }}">login</a> using the username and password you set at registration.
+        {% endblocktrans %}
+        </p>
+    </div>
+</div>
+
+{% endblock content %}
+
+

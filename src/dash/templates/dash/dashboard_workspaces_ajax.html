@@ -1,0 +1,25 @@
+{% load i18n %}
+<div class="generic-content-wrapper">
+    <div class="wrapper-bg"></div>
+
+    <h2 class="content-title">{% trans "Dashboard workspaces" %}</h2>
+
+    <div class="content-body">
+        <ul class="content-listing workspaces">
+            <li class="entry{% if not current_workspace %} active{% endif %}">
+                <a href="{% if edit_mode %}{% url 'dash.edit_dashboard' %}{% else %}{% url 'dash.dashboard' %}{% endif %}" title="{% trans 'Default' %}">
+                    <span class="iconic {% if not current_workspace %}icon-circle{% else %}icon-circle-blank{% endif %}"></span>
+                    <span class="textonic">{% trans "Default" %}</span>
+                </a>
+            </li>
+            {% for ws in workspaces %}
+            <li class="entry{% if ws == current_workspace %} active{% endif %}">
+                <a href="{% if edit_mode %}{% url 'dash.edit_dashboard' ws.slug %}{% else %}{% url 'dash.dashboard' ws.slug %}{% endif %}" title="{{ ws.name }}">
+                    <span class="iconic {% if ws == current_workspace %}icon-circle{% else %}icon-circle-blank{% endif %}"></span>
+                    <span class="textonic">{{ ws.name }}</span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+{% extends layout.get_view_template_name %}
+
+{% load i18n %}
+
+{% block content %}
+    <h1>{% trans "News detail" %}</h1>
+
+    <h2>{{ item.title }}</h2>
+    <div class="mceBody">{{ item.body|safe }}</div>
+
+        {% for translation in item.available_translations %}
+            {% if forloop.first %}
+    <h3>{% trans "Translations" %}</h3>
+    <ul>
+            {% endif %}
+        <li><a href="{{ translation.get_absolute_url }}">{{ translation }}</a></li>
+            {% if forloop.last %}
+    </ul>
+            {% endif %}
+        {% endfor %}
+
+    <a href="{% url 'news.browse' %}">{% trans "Back to foo home" %}</a>
+
+{% endblock content %}

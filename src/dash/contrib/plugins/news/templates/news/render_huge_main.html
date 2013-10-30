@@ -1,0 +1,13 @@
+    <script>
+        $(document).ready(function() {
+            HN_getNews(
+                "{{ plugin.html_id }}",
+                "{% url 'news.browse' %}",
+                "{{ csrfmiddlewaretoken }}",
+                "{{ PAGE_URL_PARAM }}",
+                1, // Initial page number
+                "{{ NUM_POSTS_URL_PARAM }}",
+                {{ plugin.data.max_items }}
+            );
+        });
+    </script>

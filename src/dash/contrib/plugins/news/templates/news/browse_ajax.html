@@ -1,0 +1,36 @@
+{% load thumbnail i18n %}
+
+    <h2 class="news-page-title">{% trans "News" %}</h2>
+
+    <div class="pagination-prev-next">
+        {% if has_previous and previous %}
+        <a href="{{ request_path }}?{{ PAGE_URL_PARAM }}={{ previous }}&amp;{{ NUM_POSTS_URL_PARAM }}={{ results_per_page }}" rel="prev" class="previous" title="{% trans 'Previous page' %}">
+            <span class="iconic icon-long-arrow-left icon-2x"></span>
+        </a>
+        {% endif %}
+
+        {% if has_next and next %}
+        <a href="{{ request_path }}?{{ PAGE_URL_PARAM }}={{ next }}&amp;{{ NUM_POSTS_URL_PARAM }}={{ results_per_page }}" rel="next" class="next" title="{% trans 'Next page' %}">
+            <span class="iconic icon-long-arrow-right icon-2x"></span>
+        </a>
+        {% endif %}
+    </div>
+
+    <ul>
+        {% for item in items %}
+        <li>
+            {% if item.image %}
+            <div class="news-image">
+                {% thumbnail item.image "80x80" crop="center" as im %}
+                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+            </div>
+            {% endif %}
+            <div class="news-body">
+                <a href="{{ item.get_absolute_url }}">{{ item }}</a>
+                <span class="date">{{ item.date_published|date:"Y-m-d H:i:s" }}</span>
+                <p>{{ item.body|striptags|truncatechars:100 }}</p>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+

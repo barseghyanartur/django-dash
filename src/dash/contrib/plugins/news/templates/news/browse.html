@@ -1,0 +1,15 @@
+{% extends layout.get_view_template_name %}
+
+{% load i18n slim_tags %}
+
+{% block content %}
+    <h1>{% trans "News listing" %}</h1>
+
+    {% get_current_language as current_language %}
+    {% with current_language|slim_language_name as current_language_name %}
+    <p>{% blocktrans %}List of items for current language: {{ current_language_name }}{% endblocktrans %}</p>
+    {% endwith %}
+
+    {% include "news/browse_ajax.html" %}
+
+{% endblock content %}

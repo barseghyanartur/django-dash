@@ -1,0 +1,23 @@
+{% extends "registration/registration_base.html" %}
+
+{% load i18n %}
+
+{% block page-title %}{% trans "Activation email sent" %}{% endblock page-title %}
+
+{% block body-attrs %} class="standalone"{% endblock body-attrs %}
+
+{% block content %}
+<div class="generic-content-wrapper">
+    <div class="wrapper-bg"></div>
+
+    <h2 class="content-title">{% trans "Activation email sent" %}</h2>
+
+    <div class="content-body">
+        <p>{% trans "An activation email has been sent." %}</p>
+        <p>
+            {% blocktrans %}Please check your email and click on the link to activate your account.{% endblocktrans %}
+        </p>
+    </div>
+</div>
+{% endblock content %}
+

@@ -1,0 +1,13 @@
+{% extends "dash/layouts/base_layout.html" %}
+
+{% load i18n %}
+
+{% block page-title %}{% if current_workspace %}{{ current_workspace.name }} - {% endif %}{% trans 'Edit dashboard' %}{% endblock %}
+
+{% block content %}
+    {% for placeholder in placeholders %}
+    <div id="{{ placeholder.html_id }}" class="placeholder {{ placeholder.html_class }}">
+        {{ placeholder.render_for_edit|safe }}
+    </div>
+    {% endfor %}
+{% endblock content %}

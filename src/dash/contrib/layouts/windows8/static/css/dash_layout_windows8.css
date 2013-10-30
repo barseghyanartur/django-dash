@@ -1,0 +1,61 @@
+/* 
+    Document   : dash_layout_windows8.css
+    Created on : Aug 18, 2013, 1:22:19 PM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        Windows 8 layout/theme for django-dash.
+*/
+
+root {
+    display: block;
+}
+
+/* Layout specific styles, centering the layout */
+.layout-windows8 .wrapper {
+    max-width: 1140px;
+    min-width: 1120px;
+    max-height: 612px;
+    min-height: 612px;
+    width: 1120px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+    .layout-windows8 .placeholder {
+    }
+
+    .layout-windows8 .placeholder.placeholder-main {
+        float: left;
+    }
+        .layout-windows8 .placeholder.placeholder-main .plugin .plugin-content-wrapper {
+            padding: 20px;
+        }
+
+    .layout-windows8 .placeholder.placeholder-sidebar {
+        float: right;
+    }
+        .layout-windows8 .placeholder.placeholder-sidebar .plugin .plugin-content-wrapper {
+            padding: 2px;
+        }
+
+        /* No crazy things with widgets. */
+        .layout-windows8 .placeholder.placeholder-sidebar .plugin h1,
+        .layout-windows8 .placeholder.placeholder-sidebar .plugin h2,
+        .layout-windows8 .placeholder.placeholder-sidebar .plugin h3,
+        .layout-windows8 .placeholder.placeholder-sidebar .plugin h4,
+        .layout-windows8 .placeholder.placeholder-sidebar .plugin h5 {
+            font-size: 12px;
+        }
+
+/* Colours */
+.layout-windows8 .menu-wrapper .nav .menu-item a:hover:before,
+.layout-windows8 .menu-wrapper .workspaces .menu-item span:hover:before,
+.layout-windows8 .placeholder .empty-widget-cell .add-plugin:hover,
+.layout-windows8 .placeholder .plugin .edit-plugin:hover,
+.layout-windows8 .placeholder .plugin .remove-plugin:hover {
+
+}
+
