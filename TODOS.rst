@@ -3,6 +3,9 @@ TODOs
 ===============================================
 Based on the MoSCoW principle. Must haves and should haves are planned to be worked on.
 
+* Features/issues marked with plus (+) are implemented/solved.
+* Features/issues marked with minus (-) are yet to be implemented.
+
 Must haves
 ===============================================
 Core and contrib
@@ -43,7 +46,7 @@ Core and contrib
 - Add navigation (at right and left) to navigate through the workspaces (like in Android).
 + Update documentation on what's related to Windows 8 layout placeholders.
 + At the moment, plugin widget UIDs are invalid in terms of HTML (should start with a letter). Fix this.
-- In documentation, link to specific plugin directory on github or code in documentation.
++ In documentation, link to specific plugin directory on github or code in documentation.
 
 Should haves
 ===============================================

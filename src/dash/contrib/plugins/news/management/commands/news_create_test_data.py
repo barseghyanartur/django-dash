@@ -149,15 +149,13 @@ def build_image_factory():
         logger.debug(e)
         return []
 
-IMAGE_FACTORY = build_image_factory()
-
 class Command(BaseCommand):
     """
     Populating dummy news items.
     """
     def handle(self, *args, **options):
         words = WORDS[:]
-        images = IMAGE_FACTORY[:]
+        images = build_image_factory()
 
         if not len(images):
             images = [None for i in range(NUM_ITEMS)]

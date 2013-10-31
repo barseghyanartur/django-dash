@@ -4,7 +4,7 @@ from django.template import Library, TemplateSyntaxError, Node
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
-from dash.settings import ACTIVE_LAYOUT, DISPLAY_LOGOUT_LINK
+from dash.settings import ACTIVE_LAYOUT, DISPLAY_AUTH_LINK
 from dash.utils import get_workspaces
 
 register = Library()
@@ -150,7 +150,7 @@ def render_auth_link(context):
     """
     Render logout link.
     """
-    if not DISPLAY_LOGOUT_LINK:
+    if not DISPLAY_AUTH_LINK:
         return {}
 
     request = context.get('request', None)

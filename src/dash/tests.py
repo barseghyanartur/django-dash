@@ -23,6 +23,7 @@ from dash.base import get_registered_plugins, get_registered_layouts, get_layout
 from dash.utils import get_occupied_cells, get_user_plugins
 from dash.models import DashboardEntry
 from dash.management.commands import dash_sync_plugins
+from dash.settings import WAIT_BETWEEN_TEST_STEPS, WAIT_AT_TEST_END
 
 DASH_TEST_USER_USERNAME = 'test_admin'
 DASH_TEST_USER_PASSWORD = 'test'
@@ -740,23 +741,23 @@ class DashBrowserTest(LiveServerTestCase):
         """
         Add dashboard entry test.
         """
-        return self.__add_dashboard_entry_test(wait=4)
+        return self.__add_dashboard_entry_test(wait=WAIT_AT_TEST_END)
 
     @print_info
     def test_02_edit_dashboard_entry(self):
         """
         Edit dashboard entry test.
         """
-        self.__add_dashboard_entry_test(wait=2)
-        return self.__edit_dashboard_entry_test(wait=4)
+        self.__add_dashboard_entry_test(wait=WAIT_BETWEEN_TEST_STEPS)
+        return self.__edit_dashboard_entry_test(wait=WAIT_AT_TEST_END)
 
     @print_info
     def test_03_delete_dashboard_entry(self):
         """
         Delete dashboard entry test.
         """
-        self.__add_dashboard_entry_test(wait=2)
-        return self.__delete_dashboard_entry_test(wait=4)
+        self.__add_dashboard_entry_test(wait=WAIT_BETWEEN_TEST_STEPS)
+        return self.__delete_dashboard_entry_test(wait=WAIT_AT_TEST_END)
 
 
 if __name__ == '__main__':

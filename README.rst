@@ -515,7 +515,7 @@ There are number of Dash settings you can override in the settings module of you
   Defaults to True.
 - `DASH_ACTIVE_LAYOUT` (str): Active layout UID. Defaults to "android".
 - `DASH_LAYOUT_CELL_UNITS` (str): Allowed values for layout cell units. Defaults to ("em", "px", "pt", "%").
-- `DASH_DISPLAY_LOGOUT_LINK` (bool): If set to True, the log out link is shown in the Dash drop-down menu.
+- `DASH_DISPLAY_AUTH_LINK` (bool): If set to True, the log out link is shown in the Dash drop-down menu.
   Defaults to True.
 
 For tuning of specific contrib plugin, see the docs in the plugin directory.
@@ -537,20 +537,31 @@ Bundled plugins
 -----------------------------------------------
 Below a short overview of the plugins. See README.rst directory of each plugin for details.
 
-- News plugin. Shows how to embed your Django news application (front-end part of it) into a Dash plugin widget.
-- Weather plugin. Allows to put a weather widget into dashboard.
-- RSS feed plugin. Allows users to put any RSS feed right into the dashboard.
-- Memo plugin. Allows users to put short notes on their dashboard.
-- URL plugin. Allows users to put links to their dashboard.
 - Dummy plugin. Mainly made for quick testing. Still, is perfect example of how to write a plugin and widgets.
+  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/dummy
+- Memo plugin. Allows users to put short notes on their dashboard.
+  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/memo
+- News plugin. Shows how to embed your Django news application (front-end part of it) into a Dash plugin widget.
+  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/news
+- RSS feed plugin. Allows users to put any RSS feed right into the dashboard.
+  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/rss_feed
+- URL plugin. Allows users to put links to their dashboard.
+  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/url
 - Video plugin. Allows users to put YouTube or Vimeo videos to their dashboard.
+  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/video
+- Weather plugin. Allows to put a weather widget into dashboard.
+  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/weather
 
 Bundled layouts
 -----------------------------------------------
 Below a short overview of the layouts. See README.rst directory of each layout for details.
 
-- Android (like) layout. Has two placeholders: main (6 cols x 5 rows) and shortcuts (1 col x 10 rows).
-- Windows 8 (like) layout. Has two placeholders: main (6 cols x 4 rows) and sidebar (2 cols x 4 rows).
+- Android (like) layout. Has two placeholders: main (6 cols x 5 rows, each block sized 150x110 px) and
+  shortcuts (1 col x 10 rows, each block sized 60x55 px).
+  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/android
+- Windows 8 (like) layout. Has two placeholders: main (6 cols x 4 rows, each block sized 140x135 px) and
+  sidebar (2 cols x 4 rows, each block sized 140x135 px).
+  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/windows8
 
 Naming conventions
 ===============================================
