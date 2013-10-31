@@ -550,7 +550,7 @@ Bundled layouts
 Below a short overview of the layouts. See README.rst directory of each layout for details.
 
 - Android (like) layout. Has two placeholders: main (6 cols x 5 rows) and shortcuts (1 col x 10 rows).
-- Windows 8 (like) layout. Has one placeholder called main (6 cols x 4 rows).
+- Windows 8 (like) layout. Has two placeholders: main (6 cols x 4 rows) and sidebar (2 cols x 4 rows).
 
 Naming conventions
 ===============================================
