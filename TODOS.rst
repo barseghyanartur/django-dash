@@ -47,7 +47,10 @@ Core and contrib
 + At the moment, plugin widget UIDs are invalid in terms of HTML (should start with a letter). Fix this.
 + In documentation, link to specific plugin directory on github or code in documentation.
 + Update documentatio in what's related the plugin access rights management.
-- Find out why huge news and rss feed plugin JavaScripts appear on pages where they are not used.
++ Find out why huge news and rss feed plugin JavaScripts appear on pages where they are not used. Somehow,
+  on the first page load, all plugins are loaded correctly, but when user goes to some other page where
+  other plugins are used and then goes back to the previous page, the plugin scripts from the initial page
+  are still loaded.
 
 Should haves
 ===============================================

@@ -43,7 +43,7 @@ for static_dir in static_dirs:
 #print(static_files)
 #raise Exception()
 
-version = '0.1.2'
+version = '0.1.3'
 
 install_requires = [
     'Pillow==2.1.0',

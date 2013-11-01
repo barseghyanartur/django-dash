@@ -175,25 +175,46 @@ class BaseDashboardLayout(object):
         return uids
 
     def collect_widget_media(self, dashboard_entries):
+        """
+        Collects the widget media files.
+
+        :param iterable dashboard_entries: Iterable of ``dash.models.DashboardEntry`` instances.
+        :return list:
+        """
         widget_media = collect_widget_media(dashboard_entries)
+        logger.debug(widget_media)
         if widget_media:
             self.widget_media_js, self.widget_media_css = widget_media['js'], widget_media['css']
 
     def get_media_css(self):
-        media_css = self.media_css
+        """
+        Gets all CSS media files (for the layout + plugins).
+
+        :return list:
+        """
+        media_css = self.media_css[:]
         if self.widget_media_css:
             media_css += self.widget_media_css
 
         media_css = list(set(media_css))
 
+        logger.debug(media_css)
+
         return media_css
 
     def get_media_js(self):
-        media_js = self.media_js
+        """
+        Gets all JavaScript media files (for the layout + plugins).
+
+        :return list:
+        """
+        media_js = self.media_js[:]
         if self.widget_media_js:
             media_js += self.widget_media_js
 
         media_js = list(set(media_js))
+
+        logger.debug(media_js)
 
         return media_js
 
