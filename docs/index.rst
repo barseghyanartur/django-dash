@@ -494,7 +494,34 @@ and check console for error notifications.
 Permissions
 ===============================================
 Plugin system allows administrators to specify the access rights to every plugin. Dash permissions
-are based on Django Users and User Groups.
+are based on Django Users and User Groups. Access rights are managable via Django admin
+(/administration/dash/dashboardplugin/). Note, that your admin URL prefix may vary from the one
+given in example (it's usually "/admin/", while in example it's "/administration/"). You can assign
+any specific plugin to users or/and groups. If user doesn't have the rights to access plugin, it
+doesn't appear on his dashboard even if has been added to it (imagine, you have once granted the
+right to use the news plugin to all users, but later on decided to limit it to Staff members group
+only). Note, that superusers have access to all plugins.
+
+>>>         Plugin access rights management interface in Django admin
+>>>┌──────────────────────────────┬───────────────────────┬───────────────────────┐
+>>>│ `Plugin`                     │ `Users`               │ `Groups`              │
+>>>├──────────────────────────────┼───────────────────────┼───────────────────────┤
+>>>│ Video (big_video)            │ John Doe              │ Dashboard users       │
+>>>├──────────────────────────────┼───────────────────────┼───────────────────────┤
+>>>│ TinyMCE memo (tinymce_memo)  │                       │ Dashboard users       │
+>>>├──────────────────────────────┼───────────────────────┼───────────────────────┤
+>>>│ News (news)                  │ Oscar, John Doe       │ Staff members         │
+>>>├──────────────────────────────┼───────────────────────┼───────────────────────┤
+>>>│ URL (url)                    │                       │ Dashboard users       │
+>>>├──────────────────────────────┼───────────────────────┼───────────────────────┤
+>>>│ Video (video)                │                       │ Dashboard users       │
+>>>├──────────────────────────────┼───────────────────────┼───────────────────────┤
+>>>│ Dummy (dummy)                │                       │ Testers               │
+>>>├──────────────────────────────┼───────────────────────┼───────────────────────┤
+>>>│ Dummy (large_dummy)          │                       │ Testers               │
+>>>├──────────────────────────────┼───────────────────────┼───────────────────────┤
+>>>│ Memo (big_memo)              │                       │ Dashboard users       │
+>>>└──────────────────────────────┴───────────────────────┴───────────────────────┘
 
 Management commands
 ===============================================
