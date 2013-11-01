@@ -196,12 +196,12 @@ def sync_plugins():
     if not non_synced_plugins:
         return
 
-    buffer = []
+    buf = []
 
     for plugin_uid in non_synced_plugins:
-        buffer.append(DashboardPlugin(plugin_uid=plugin_uid))
+        buf.append(DashboardPlugin(plugin_uid=plugin_uid))
 
-    DashboardPlugin._default_manager.bulk_create(buffer)
+    DashboardPlugin._default_manager.bulk_create(buf)
 
 def get_workspaces(user, layout_uid=None, workspace=None, public=False):
     """
