@@ -27,13 +27,13 @@ Key concepts
 - Placeholder is a space, in which the plugin widgets are placed.
 - Placeholders are rectangles consisting of cells. Each placeholder has its' own custom number of
   rows and columns.
-- Workspace is just another named dashboard. Users switch between workspaces
-  in navigation. Amount of workspaces is unlimited.
+- Workspace is just another named dashboard. Users switch between workspaces in navigation. Amount of
+  workspaces is unlimited.
 - Plugin is a (Django) micro app. Most heavy work should happen in plugin. Plugin may have its' own
   views, urls, etc. Rendering happens with use of plugin widgets.
 - Plugin widgets are mainly responsible for rendering of the plugin data. Each plugin widget has
-  its' own specific HTML/JavaScript/CSS. A single plugin widget is registered for a triple (layout, placeholder,
-  plugin).
+  its' own specific HTML/JavaScript/CSS. A single plugin widget is registered for a triple (layout,
+  placeholder, plugin).
 - Public dashboard (implemented as a contrib app, which makes it optional) allows users to make their
   workspaces public. If user chooses to make his dashboard public, default workspace becomes public.
   As for non-default workspaces, user can still make each of them private or public.
@@ -43,6 +43,7 @@ Main features
 - Customisable layouts (aka theeming).
 - Multiple workspaces.
 - Tunable access permissions to plugins.
+- Public dashboards (as a contrib app).
 
 Installation
 ===============================================
@@ -333,7 +334,7 @@ Creating a new plugin
 ===============================================
 Dash comes with several bundled plugins. Do check their source code as example.
 
-Plugins and Plugin Widgets are easy to create. There are some rules/guideles you should follow
+Plugins and plugin widgets are easy to create. There are some rules/guideles you should follow
 when making a new plugin.
 
 Let's assume that plugin is named `sample_memo`. The plugin directory should then have the
@@ -351,11 +352,11 @@ the sake of common sense.
 >>> │       └── dash_plugin_sample_memo.js # Plugin specific JavaScripts
 >>> ├── templates
 >>> │   └── sample_memo
->>> │       ├── render_main.html # Plugin Widget templ. for `main` Placeholder
->>> │       └── render_short.html # Plugin Widget templ. for `shortcuts` Placeholder
+>>> │       ├── render_main.html # Plugin widget templ. for `main` Placeholder
+>>> │       └── render_short.html # Plugin widget templ. for `shortcuts` Placeholder
 >>> ├── __init__.py
->>> ├── dash_plugins.py # Where Plugins and Widgets are defined and registered
->>> ├── dash_widgets.py # Where the Plugin Widgets are defined
+>>> ├── dash_plugins.py # Where plugins and widgets are defined and registered
+>>> ├── dash_widgets.py # Where the plugin widgets are defined
 >>> └── forms.py # Plugin configuration form
 
 In some cases, you would need plugin specific overridable settings (see ``dash.contrib.plugins.weather``
@@ -421,12 +422,12 @@ Required imports.
 Memo plugin widget for Example layout (Placeholder `main`).
 
 >>> class SampleExampleMemoExampleMainWidget(BaseDashboardPluginWidget):
->>>     layout_uid = 'example' # Layout for which the Widget is written
->>>     placeholder_uid = 'main' # Placeholder within the Layout for which
->>>                              # the Widget is written
->>>     plugin_uid = 'sample_memo' # Plugin for which the Widget is written
->>>     cols = 2 # Number of Widget columns
->>>     rows = 2 # Number of Widget rows
+>>>     layout_uid = 'example' # Layout for which the widget is written
+>>>     placeholder_uid = 'main' # Placeholder within the layout for which
+>>>                              # the widget is written
+>>>     plugin_uid = 'sample_memo' # Plugin for which the widget is written
+>>>     cols = 2 # Number of widget columns
+>>>     rows = 2 # Number of widget rows
 >>>
 >>>     def render(self, request=None):
 >>>         context = {'plugin': self.plugin}
@@ -538,8 +539,8 @@ Tuning
 There are number of Dash settings you can override in the settings module of your Django project:
 
 - `DASH_RESTRICT_PLUGIN_ACCESS` (bool): If set to True, (Django) permission system for dash plugins is enabled.
-  Defaults to True.
-- `DASH_ACTIVE_LAYOUT` (str): Active layout UID. Defaults to "android".
+  Defaults to True. Setting this to False makes all plugins available for all users.
+- `DASH_ACTIVE_LAYOUT` (str): Active (default) layout UID. Defaults to "android".
 - `DASH_LAYOUT_CELL_UNITS` (str): Allowed values for layout cell units. Defaults to ("em", "px", "pt", "%").
 - `DASH_DISPLAY_AUTH_LINK` (bool): If set to True, the log out link is shown in the Dash drop-down menu.
   Defaults to True.
