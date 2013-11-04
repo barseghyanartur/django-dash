@@ -47,7 +47,7 @@ Main features
 
 Installation
 ===============================================
-1. Install latest stable version from PyPI
+1. Install latest stable version from PyPI:
 
     $ pip install django-dash
 
@@ -81,16 +81,21 @@ Installation
 
 Demo
 ===============================================
-In order to be able to quickly evaluate the django-dash, a demo app (with a quick installer) has been created
+In order to be able to quickly evaluate the `django-dash`, a demo app (with a quick installer) has been created
 (works on Ubuntu/Debian, may work on other Linux systems as well, although not guaranteed). Follow the instructions
 below for having the demo running within a minute.
 
-Grab the latest `django_dash_example_app_installer.sh`
+Grab the latest `django_dash_example_app_installer.sh`:
 
     $ wget https://raw.github.com/barseghyanartur/django-dash/stable/example/django_dash_example_app_installer.sh
 
-Create a new- or switch to existing- virtual environement, assign execute rights to the installer and run
-the `django_dash_example_app_installer.sh`.
+Create a new- or switch to existing- virtual environement:
+
+    $ virtualenv dash
+
+    $ source dash/bin/activate
+
+Assign execute rights to the installer and run the `django_dash_example_app_installer.sh`:
 
     $ chmod +x django_dash_example_app_installer.sh
 
@@ -110,8 +115,8 @@ Django admin interface:
 - Admin username: test_admin
 - Admin password: test
 
-Take a look at the "example/example/templates" directory for getting a better idea of how to integrate templates
-of other apps with into dash templates.
+Take a look at the templates in "example/example/templates" directory for getting a better idea of how to
+transform your own- or thirdy-part- templates into Dash templates.
 
 See the documentation for some screen shots http://pythonhosted.org/django-dash/#screenshots
 
@@ -203,7 +208,7 @@ structure.
 
 Layout and placeholder classes should be placed in the `dash_layouts.py` file.
 
-Each layout should be put into the ``INSTALLED_APPS`` of your projects' Django settings.
+Each layout should be put into the ``INSTALLED_APPS`` of your Django projects' settings module.
 
 >>> INSTALLED_APPS = (
 >>>     # ...
@@ -213,8 +218,8 @@ Each layout should be put into the ``INSTALLED_APPS`` of your projects' Django s
 
 path/to/layout/example/dash_layouts.py
 -----------------------------------------------
-Step by step review of a how to create and register a layout and placeholders. Note, that dash
-autodiscovers your layouts by name of the file `dash_layouts.py`. The module in which the layouts
+Step by step review of a how to create and register a layout and placeholders. Note, that Dash
+autodiscovers your layouts by name of the file `dash_layouts.py`. The module, in which the layouts
 are defined, has to be named `dash_layouts.py`.
 
 Required imports.
@@ -305,11 +310,11 @@ And the ``ExampleShortcutsPlaceholder`` placeholder would look as follows.
 Same goes for plugin widgets. Apart from some other classes that each plugin widget would get for
 positioning, it gets the "plugin" and "plugin-" + plugin UID. See the following example (for the
 plugin Dummy with UID "dummy"). Each plugin also gets an automatic UID on the moment when rendered.
-In the example below it's the "6d06f17d-e142-4f45-b9c1-893c38fc2b01".
+In the example below it's the "p6d06f17d-e142-4f45-b9c1-893c38fc2b01".
 
-<div id="6d06f17d-e142-4f45-b9c1-893c38fc2b01" class="plugin plugin-dummy">
+<div id="p6d06f17d-e142-4f45-b9c1-893c38fc2b01" class="plugin plugin-dummy">
 
-Layout, Placeholder, Plugin and Plugin widget have properties for getting their HTML specific
+Layout, placeholder, plugin and plugin widget have properties for getting their HTML specific
 classes and IDs.
 
 Layout (instance)
@@ -334,8 +339,7 @@ Creating a new plugin
 ===============================================
 Dash comes with several bundled plugins. Do check their source code as example.
 
-Plugins and plugin widgets are easy to create. There are some rules/guideles you should follow
-when making a new plugin.
+Making of a plugin or a plugin widget is quite simple, although there are some rules/guideles you should follow.
 
 Let's assume that plugin is named `sample_memo`. The plugin directory should then have the
 following structure.
@@ -365,9 +369,9 @@ Django project settings module would have `DASH_PLUGIN_` prefix.
 
 path/to/plugin/sample_memo/dash_plugins.py
 -----------------------------------------------
-Step by step review of a how to create and register a plugin and plugin widgets. Note, that dash
-autodiscovers your plugins by name of the file `dash_plugins.py`. The module in which the plugins
-are defined, has to be named `dash_plugins.py`.
+Step by step review of a how to create and register a plugin and plugin widgets. Note, that Dash
+autodiscovers your plugins if you place them into a file named `dash_plugins.py` of any Django app
+listed in ``INSTALLED_APPS`` of your Django projects' settings module.
 
 Define and register the plugin
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -391,7 +395,7 @@ Registering the Sample Memo plugin.
 Register plugin widgets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Plugin widgets are defined in `dash_widgets.py` module (described later), but registered in the
-`dash_plugins.py`, which is autodiscovered by `dash`.
+`dash_plugins.py`, which is autodiscovered by Dash.
 
 Required imports.
 
@@ -475,6 +479,7 @@ Now, that everything is ready, make sure your that both layout and the plugin mo
 
 >>> INSTALLED_APPS = (
 >>>     # ...
+>>>     'path.to.layout.example',
 >>>     'path.to.plugin.sample_memo',
 >>>     # ...
 >>> )
@@ -562,7 +567,7 @@ for a single layout. It's possible to unregister a bundled widget and replace it
 
 Bundled plugins
 -----------------------------------------------
-Below a short overview of the plugins. See README.rst directory of each plugin for details.
+Below a short overview of the plugins. See the README.rst file in directory of each plugin for details.
 
 - Dummy plugin. Mainly made for quick testing. Still, is perfect example of how to write a plugin and widgets.
   https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/dummy
@@ -581,7 +586,7 @@ Below a short overview of the plugins. See README.rst directory of each plugin f
 
 Bundled layouts
 -----------------------------------------------
-Below a short overview of the layouts. See README.rst directory of each layout for details.
+Below a short overview of the layouts. See the README.rst file in directory of each layout for details.
 
 - Android (like) layout. Has two placeholders: main (6 cols x 5 rows, each block sized 150x110 px) and
   shortcuts (1 col x 10 rows, each block sized 60x55 px).
@@ -592,7 +597,7 @@ Below a short overview of the layouts. See README.rst directory of each layout f
 
 Naming conventions
 ===============================================
-Although you are free to name your plugins and widgets as want (although, you should comply with PEP
+Although you are free to name your plugins and widgets as you want (except that you should comply with PEP
 http://www.python.org/dev/peps/pep-0008/#function-names), there are some naming conventions introduced,
 that you are recommended to follow.
 
@@ -603,7 +608,8 @@ that you are recommended to follow.
 - HugeExampleWidget: 5x5
 - GiganticExampleWidget: 6x6
 
-When making non-square widgets (2x1, 1x2, 3x1, 1x3), use Portrait and Landscape names.
+When making non-square widgets (2x1, 1x2, 3x1, 1x3), add `Portrait` and `Landscape` to the name for
+better identification.
 
 License
 ===============================================
