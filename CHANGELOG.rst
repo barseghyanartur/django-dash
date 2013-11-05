@@ -28,7 +28,6 @@ Release history
 
 - Adding home page to example project.
 - Better documentation.
-- 
 
 0.1
 -------------------------------------
