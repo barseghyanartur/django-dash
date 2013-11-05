@@ -79,7 +79,7 @@ except:
 setup(
     name = 'django-dash',
     version = version,
-    description = ("Dashboard application for Django."),
+    description = ("Customisable, modular dashboard application framework for Django."),
     long_description = readme,
     classifiers = [
         "Programming Language :: Python :: 2.6",
