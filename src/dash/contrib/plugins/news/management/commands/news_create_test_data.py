@@ -3,8 +3,11 @@ import random
 import os
 import uuid
 import logging
+import zipfile
+import shutil
 
 from six import text_type, PY3
+from six.moves.urllib import request
 
 if PY3:
     from string import punctuation
@@ -123,7 +126,7 @@ def fix_image(image):
         image = image[1:]
     return image
 
-def build_image_factory():
+def _build_image_factory():
     """
     Clones the https://bitbucket.org/barseghyanartur/delusionalinsanity.images repository locally to
     grab the images. Then makes a list of all the images.
@@ -143,6 +146,54 @@ def build_image_factory():
         source_dir = os.path.join(settings.MEDIA_ROOT, 'delusionalinsanity.images', 'images')
         images_dir = os.path.join(settings.MEDIA_ROOT, NEWS_IMAGES_STORAGE_PATH)
         subprocess.call(['mv', source_dir, images_dir])
+        images = [os.path.join(images_dir, f) for f in os.listdir(images_dir)]
+        return [fix_image(i) for i in images]
+    except Exception as e:
+        logger.debug(e)
+        return []
+
+def build_image_factory():
+    """
+    Downloads the https://github.com/barseghyanartur/delusionalinsanity.images/archive/latest.zip locally,
+    unpacks it to grab the images. Then makes a list of all the images.
+
+    :return list: List of relative paths to images.
+    """
+    try:
+        shutil.rmtree(os.path.join(settings.MEDIA_ROOT, 'delusionalinsanity.images-latest'))
+    except Exception as e:
+        logger.debug(e)
+
+    try:
+        download_local = os.path.join(settings.MEDIA_ROOT, 'delusionalinsanity_images_latest.zip')
+        request.urlretrieve(
+            'https://github.com/barseghyanartur/delusionalinsanity.images/archive/latest.zip',
+            download_local
+            )
+
+        zfile = zipfile.ZipFile(download_local)
+        names = zfile.namelist()
+
+        for name in names:
+            try:
+                dirname, filename = os.path.split(name)
+
+                if not filename:
+                    continue
+
+                dirname = os.path.join(settings.MEDIA_ROOT, dirname)
+                if not os.path.exists(dirname):
+                    os.mkdir(dirname)
+
+                fd = open(os.path.join(settings.MEDIA_ROOT, name), "w")
+                fd.write(zfile.read(name))
+                fd.close()
+            except Exception as e:
+                logger.debug(e)
+
+        source_dir = os.path.join(settings.MEDIA_ROOT, 'delusionalinsanity.images-latest', 'images')
+        images_dir = os.path.join(settings.MEDIA_ROOT, NEWS_IMAGES_STORAGE_PATH)
+        shutil.move(source_dir, images_dir)
         images = [os.path.join(images_dir, f) for f in os.listdir(images_dir)]
         return [fix_image(i) for i in images]
     except Exception as e:

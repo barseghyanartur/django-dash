@@ -1,0 +1,352 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-05 12:17-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: settings.py:43
+msgid "English"
+msgstr ""
+
+#: settings.py:44
+msgid "Armenian"
+msgstr ""
+
+#: settings.py:45
+msgid "Dutch"
+msgstr ""
+
+#: settings.py:46
+msgid "Russian"
+msgstr ""
+
+#: admin_tools_dashboard/__init__.py:28 admin_tools_dashboard/menu.py:27
+msgid "Foo"
+msgstr ""
+
+#: admin_tools_dashboard/__init__.py:35 admin_tools_dashboard/menu.py:32
+msgid "News"
+msgstr ""
+
+#: admin_tools_dashboard/__init__.py:42 admin_tools_dashboard/menu.py:37
+msgid "Dash"
+msgstr ""
+
+#: admin_tools_dashboard/__init__.py:49 admin_tools_dashboard/menu.py:42
+msgid "Registration"
+msgstr ""
+
+#: admin_tools_dashboard/__init__.py:57 admin_tools_dashboard/menu.py:48
+msgid "Administration"
+msgstr ""
+
+#: admin_tools_dashboard/__init__.py:64 admin_tools_dashboard/__init__.py:78
+msgid "Recent Actions"
+msgstr ""
+
+#: admin_tools_dashboard/menu.py:23
+msgid "Dashboard"
+msgstr ""
+
+#: foo/management/commands/dash_create_test_data.py:491
+msgid "Test dashboard"
+msgstr ""
+
+#: foo/management/commands/dash_create_test_data.py:507
+msgid "Default workspace reordered"
+msgstr ""
+
+#: foo/management/commands/dash_create_test_data.py:524
+msgid "News and RSS feed"
+msgstr ""
+
+#: templates/base.html:5 templates/dash/base.html:5
+msgid "Example site"
+msgstr ""
+
+#: templates/home.html:7
+msgid "Home"
+msgstr ""
+
+#: templates/home.html:13
+msgid "django-dash (Dash)"
+msgstr ""
+
+#: templates/home.html:17
+#, python-format
+msgid ""
+"\n"
+"            <p>\n"
+"            Welcome to `django-dash`, a customisable, modular dashboard "
+"application framework for Django.\n"
+"            </p>\n"
+"            <p>\n"
+"            Dash allows users to create their own custom dashboards. "
+"Supports theming (in Dash themes are called layouts)\n"
+"            and multiple workspaces. Dash comes with extensive pythonic API "
+"which allows developers to create new Dash\n"
+"            plugins, as well as to modify bundled ones.\n"
+"            </p>\n"
+"            <p>\n"
+"            To make a clearer association, think of Android for tablets "
+"(shortcuts, widgets and apps) or Windows 8 for\n"
+"            tablets or desktops.\n"
+"            </p>\n"
+"            <p>\n"
+"            Dash inherits all those concepts and makes it possible to "
+"implement a dashboard system for Django\n"
+"            applications with minimal efforts.\n"
+"            </p>\n"
+"            <p>\n"
+"            Click <a href=\"%(edit_dashboard_url)s\">here</a> to go to your "
+"dashboard.\n"
+"            </p>\n"
+"            "
+msgstr ""
+
+#: templates/registration/activate.html:5
+#: templates/registration/activate.html:15
+#: templates/registration/activation_complete.html:5
+#: templates/registration/activation_complete.html:15
+msgid "Activation complete"
+msgstr ""
+
+#: templates/registration/activate.html:5
+#: templates/registration/activate.html:15
+msgid "Activation problem"
+msgstr ""
+
+#: templates/registration/activate.html:20
+#, python-format
+msgid ""
+"\n"
+"            Thanks %(account)s, activation complete!\n"
+"            You may now <a href='%(auth_login_url)s'>login</a> using the "
+"username and password you set at registration.\n"
+"            "
+msgstr ""
+
+#: templates/registration/activate.html:25
+msgid ""
+"Oops &ndash; it seems that your activation key is invalid.  Please check the "
+"url again."
+msgstr ""
+
+#: templates/registration/activation_complete.html:19
+#, python-format
+msgid ""
+"\n"
+"        Thanks, activation complete!  You may now <a href="
+"\"%(auth_login_url)s\">login</a> using the username and password you set at "
+"registration.\n"
+"        "
+msgstr ""
+
+#: templates/registration/activation_email.html:8
+#, python-format
+msgid ""
+"<body>\n"
+"<h3>Account registration for %(sitename)s</h3>\n"
+"<p>\n"
+"You (or someone pretending to be you) have asked to register an account at\n"
+"<b>%(sitename)s</b>.<br/>\n"
+"If this wasn't you, please ignore this email and your address will be "
+"removed\n"
+"from our records.\n"
+"</p>\n"
+"<p>\n"
+"To activate this account, please click the following link within the next \n"
+"<b>%(expiration_days)s</b> days:<br/>\n"
+"<a href=\"http://%(sitedomain)s%(activation_key_url)s\">http://%(sitedomain)s"
+"%(activation_key_url)s</a>\n"
+"</p>\n"
+"<p>\n"
+"Sincerely,<br/>\n"
+"%(sitename)s Management\n"
+"</p>\n"
+"</body>\n"
+msgstr ""
+
+#: templates/registration/activation_email.txt:3
+#, python-format
+msgid ""
+"\n"
+"You (or someone pretending to be you) have asked to register an account at\n"
+"%(sitename)s.  If this wasn't you, please ignore this email\n"
+"and your address will be removed from our records.\n"
+"\n"
+"To activate this account, please click the following link within the next \n"
+"%(expiration_days)s days:\n"
+"\n"
+"http://%(siteurl)s%(activation_key_url)s\n"
+"\n"
+"Sincerely,\n"
+"%(sitename)s Management\n"
+msgstr ""
+
+#: templates/registration/activation_email_subject.txt:1
+#, python-format
+msgid "Account registration for %(sitename)s"
+msgstr ""
+
+#: templates/registration/login.html:5
+#: templates/registration/login_ajax.html:8
+msgid "Login"
+msgstr ""
+
+#: templates/registration/login_ajax.html:17
+msgid "Submit"
+msgstr ""
+
+#: templates/registration/login_ajax.html:20
+#, python-format
+msgid ""
+"<a href=\"%(auth_pwd_reset_url)s\">Forgot</a> your password?\n"
+"                        <a href=\"%(register_url)s\">Need an account</a>?"
+msgstr ""
+
+#: templates/registration/logout.html:5 templates/registration/logout.html:14
+msgid "Logged out"
+msgstr ""
+
+#: templates/registration/logout.html:17
+msgid "Successfully logged out!"
+msgstr ""
+
+#: templates/registration/logout.html:19
+#, python-format
+msgid "<a href=\"%(auth_login_url)s\">Log in</a> again."
+msgstr ""
+
+#: templates/registration/password_change_done.html:5
+#: templates/registration/password_change_done.html:13
+msgid "Password changed"
+msgstr ""
+
+#: templates/registration/password_change_done.html:16
+msgid "Password successfully changed!"
+msgstr ""
+
+#: templates/registration/password_change_form.html:5
+#: templates/registration/password_change_form_ajax.html:6
+#: templates/registration/password_change_form_ajax.html:15
+msgid "Change password"
+msgstr ""
+
+#: templates/registration/password_reset_complete.html:5
+#: templates/registration/password_reset_complete.html:14
+msgid "Password reset complete"
+msgstr ""
+
+#: templates/registration/password_reset_complete.html:17
+msgid "Your password has been reset!"
+msgstr ""
+
+#: templates/registration/password_reset_complete.html:19
+#, python-format
+msgid "You may now <a href=\"%(auth_login_url)s\">log in</a>."
+msgstr ""
+
+#: templates/registration/password_reset_confirm.html:5
+#: templates/registration/password_reset_confirm.html:13
+msgid "Confirm password reset"
+msgstr ""
+
+#: templates/registration/password_reset_confirm.html:16
+msgid "Enter your new password below to reset your password:"
+msgstr ""
+
+#: templates/registration/password_reset_confirm.html:23
+msgid "Set password"
+msgstr ""
+
+#: templates/registration/password_reset_done.html:4
+#: templates/registration/password_reset_done_ajax.html:6
+msgid "Password reset"
+msgstr ""
+
+#: templates/registration/password_reset_done_ajax.html:10
+msgid ""
+"\n"
+"        We have sent you an email with a link to reset your password.\n"
+"        Please check your email and click the link to continue.\n"
+"        "
+msgstr ""
+
+#: templates/registration/password_reset_email.html:1
+msgid "Greetings"
+msgstr ""
+
+#: templates/registration/password_reset_email.html:3
+#, python-format
+msgid ""
+"You are receiving this email because you (or someone pretending to be you)\n"
+"requested that your password be reset on the %(domain)s site.  If you do "
+"not \n"
+"wish to reset your password, please ignore this message.\n"
+"\n"
+"To reset your password, please click the following link, or copy and paste "
+"it\n"
+"into your web browser:"
+msgstr ""
+
+#: templates/registration/password_reset_email.html:12
+#, python-format
+msgid ""
+"\n"
+"Your username, in case you've forgotten: %(username)s\n"
+"\n"
+"Best regards,\n"
+"%(site_name)s Management\n"
+msgstr ""
+
+#: templates/registration/password_reset_form.html:5
+#: templates/registration/password_reset_form_ajax.html:8
+#: templates/registration/password_reset_form_ajax.html:24
+msgid "Reset password"
+msgstr ""
+
+#: templates/registration/password_reset_form_ajax.html:12
+msgid ""
+"\n"
+"        Forgot your password?  Enter your email in the form below and we'll "
+"send you\n"
+"        instructions for creating a new one.\n"
+"        "
+msgstr ""
+
+#: templates/registration/registration_complete.html:5
+#: templates/registration/registration_complete.html:13
+msgid "Activation email sent"
+msgstr ""
+
+#: templates/registration/registration_complete.html:16
+msgid "An activation email has been sent."
+msgstr ""
+
+#: templates/registration/registration_complete.html:18
+msgid "Please check your email and click on the link to activate your account."
+msgstr ""
+
+#: templates/registration/registration_form.html:5
+#: templates/registration/registration_form_ajax.html:6
+msgid "Register for an account"
+msgstr ""
+
+#: templates/registration/registration_form_ajax.html:15
+msgid "Send activation email"
+msgstr ""

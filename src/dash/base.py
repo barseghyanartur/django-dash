@@ -182,7 +182,7 @@ class BaseDashboardLayout(object):
         :return list:
         """
         widget_media = collect_widget_media(dashboard_entries)
-        logger.debug(widget_media)
+        #logger.debug(widget_media)
         if widget_media:
             self.widget_media_js, self.widget_media_css = widget_media['js'], widget_media['css']
 
@@ -198,7 +198,7 @@ class BaseDashboardLayout(object):
 
         media_css = list(set(media_css))
 
-        logger.debug(media_css)
+        #logger.debug(media_css)
 
         return media_css
 
@@ -214,7 +214,7 @@ class BaseDashboardLayout(object):
 
         media_js = list(set(media_js))
 
-        logger.debug(media_js)
+        #logger.debug(media_js)
 
         return media_js
 

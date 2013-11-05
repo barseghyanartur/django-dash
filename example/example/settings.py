@@ -191,7 +191,7 @@ LOGOUT_URL = '/accounts/logout/'
 # localeurl locale independent paths (language code won't be appended)
 LOCALE_INDEPENDENT_PATHS = (
     r'^/sitemap.*\.xml$', # Global regex for all XML sitemaps
-    r'^/administration/',
+    #r'^/administration/',
     #r'^/dashboard/',
 )
 

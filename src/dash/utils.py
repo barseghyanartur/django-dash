@@ -130,7 +130,11 @@ def get_widgets(layout, placeholder, user=None, workspace=None, position=None, o
                 registered_widgets[plugin_group].append(
                     (
                         uid,
-                        '{0} ({1}x{2})'.format(force_text(plugin.name), plugin_widget.cols, plugin_widget.rows),
+                        '{0} ({1}x{2})'.format(
+                            force_text(plugin.name, encoding='utf-8'),
+                            plugin_widget.cols,
+                            plugin_widget.rows
+                            ),
                         reverse('dash.add_dashboard_entry', kwargs=kwargs)
                     )
                     )

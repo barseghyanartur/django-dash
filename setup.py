@@ -30,8 +30,13 @@ static_dirs = [
     "src/dash/contrib/plugins/weather/static", # Weather plugin
 ]
 
+locale_dirs = [
+    "src/dash/locale/nl",
+]
+
 templates = []
 static_files = []
+locale_files = []
 
 for template_dir in template_dirs:
     templates += [os.path.join(template_dir, f) for f in os.listdir(template_dir)]
@@ -39,11 +44,14 @@ for template_dir in template_dirs:
 for static_dir in static_dirs:
     static_files += [os.path.join(static_dir, f) for f in os.listdir(static_dir)]
 
+for locale_dir in locale_dirs:
+    locale_files += [os.path.join(locale_dir, f) for f in os.listdir(locale_dir)]
+
 #print(templates)
 #print(static_files)
 #raise Exception()
 
-version = '0.1.3'
+version = '0.1.4'
 
 install_requires = [
     'Pillow==2.1.0',
@@ -72,18 +80,21 @@ setup(
     name = 'django-dash',
     version = version,
     description = ("Dashboard application for Django."),
-    long_description=readme,
+    long_description = readme,
     classifiers = [
-	"Programming Language :: Python :: 2.6",
+        "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.3",
         "Environment :: Web Environment",
+        "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+        "License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)",
+        "Framework :: Django",
         "Intended Audience :: Developers",
         "Operating System :: OS Independent",
         "Development Status :: 4 - Beta",
     ],
-    keywords = 'dashboard, django',
+    keywords = 'dashboard, django, django dashboard',
     author = 'Artur Barseghyan',
     author_email = 'artur.barseghyan@gmail.com',
     url = 'https://github.com/barseghyanartur/django-dash/',
@@ -92,7 +103,7 @@ setup(
     license = 'GPL 2.0/LGPL 2.1',
     install_requires = install_requires,
     package_data = {
-        'dash': templates + static_files
+        'dash': templates + static_files + locale_files
     },
     include_package_data = True,
 )

@@ -20,6 +20,8 @@ syntax: regexp
 ^example/static/
 ^news-images/
 ^delusionalinsanity.images/
+^example/media/delusionalinsanity\.images-latest/
+^example/media/delusionalinsanity_images_latest\.zip
 ^builddocs/
 ^builddocs.zip
 ^build/

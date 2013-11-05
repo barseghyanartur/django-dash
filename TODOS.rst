@@ -51,6 +51,8 @@ Core and contrib
   on the first page load, all plugins are loaded correctly, but when user goes to some other page where
   other plugins are used and then goes back to the previous page, the plugin scripts from the initial page
   are still loaded.
+- Add workspace create/delete/edit tests.
+- Add dashboard settings (edit), including the layout change tests.
 
 Should haves
 ===============================================
@@ -59,7 +61,7 @@ Core and contrib
 - Dragging of widgets (within the Placeholder).
 - Reset dashboards triggers/hoocks.
 - Pre-defined template system for workspaces (with plugins in).
-- Think of a convention on naming the plugins and widgets.
++ Think of a convention on naming the plugins and widgets.
 - Strange problems with hover in IE (all versions).
 + Make installation instructions for all plugins, especially advanced ones (that require to be added
   to ``urls`` module).
@@ -67,9 +69,9 @@ Core and contrib
 - Contact form plugin.
 - Blog plugin.
 - When blog engine is ready, add notes about using a public site with blogs.
-- Now that delusionalinsanity.images is available and downloadable on github, make changes to
-  the images grabbing script in such a way, that it no longer requires mercurial (just downloads the zip
-  and unpacks it).
++ Now that delusionalinsanity.images is available and downloadable on github, make changes to
+  the images grabbing script in such a way, that it no longer requires mercurial or is system
+  dependant (just downloads the zip and unpacks it using python built-in shutils).
 - Add translations for Armenian, Dutch and Russian.
 - Image plugin (with options to: crop, fit width or fit height).
 - Add navigation (at right and left) to navigate through the workspaces (like in Android).
