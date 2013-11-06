@@ -15,6 +15,7 @@ example/logs/django.log
 example/logs/dash.log
 example/media/news-images/
 example/example/images/images/
+example/media/dash-image-plugin-images/
 example/media/news-images-/
 example/media/cache/
 example/static/

@@ -169,13 +169,14 @@ INSTALLED_APPS = (
     'dash', # Dash core
     'dash.contrib.layouts.android', # Android layout for Dash
     'dash.contrib.layouts.windows8', # Windows 8 layout for Dash
-    'dash.contrib.plugins.news', # Sample news plugin for Dash
+    'dash.contrib.plugins.dummy', # Dummy (testing) plugin for Dash
     'dash.contrib.plugins.memo', # Memo plugin for Dash
-    'dash.contrib.plugins.weather', # Weather plugin for Dash
+    'dash.contrib.plugins.image', # Image plugin for Dash
+    'dash.contrib.plugins.news', # Sample news plugin for Dash
     'dash.contrib.plugins.rss_feed', # RSS feed plugin for Dash
     'dash.contrib.plugins.url', # URL plugin for Dash
     'dash.contrib.plugins.video', # Video plugin for Dash
-    'dash.contrib.plugins.dummy', # Dummy (testing) plugin for Dash
+    'dash.contrib.plugins.weather', # Weather plugin for Dash
     'dash.contrib.apps.public_dashboard', # Public dashboard app for Dash
 
     # Other project specific apps

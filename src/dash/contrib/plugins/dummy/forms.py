@@ -40,7 +40,7 @@ class DummyForm(forms.Form, DashboardPluginFormBase):
                                           initial=DEFAULT_MAX_CHARS)
     text = forms.CharField(label=_("Generated lorem ipsum text"), required=False, widget=forms.widgets.HiddenInput)
 
-    def save_plugin_data(self):
+    def save_plugin_data(self, request=None):
         """
         We want to save the generated lorem ipsum text for later use. Thus, although we don't show it to the
         user, in case when ``generate_lipsum`` field is set to True, we silently generate the text and save

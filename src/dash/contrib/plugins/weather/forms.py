@@ -34,7 +34,7 @@ class WeatherForm(forms.Form, DashboardPluginFormBase):
     def __init__(self, *args, **kwargs):
         super(WeatherForm, self).__init__(*args, **kwargs)
 
-    def save_plugin_data(self):
+    def save_plugin_data(self, request=None):
         """
         For showing the weather, we need an IP address. Although we don't make it possible for the user to
         specify it manually, we silently obtain it and save into the plugin data.

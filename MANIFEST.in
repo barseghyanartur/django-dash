@@ -13,6 +13,9 @@ recursive-include src/dash/contrib/layouts/windows8/static *
 recursive-include src/dash/contrib/plugins/dummy/templates *
 recursive-include src/dash/contrib/plugins/dummy/static *
 
+recursive-include src/dash/contrib/plugins/image/templates *
+recursive-include src/dash/contrib/plugins/image/static *
+
 recursive-include src/dash/contrib/plugins/memo/templates *
 
 recursive-include src/dash/contrib/plugins/news/templates *

@@ -12,6 +12,7 @@ template_dirs = [
     "src/dash/contrib/layouts/android/templates/android", # Android layout
     "src/dash/contrib/layouts/windows8/templates/windows8", # Windows 8 layout
     "src/dash/contrib/plugins/dummy/templates/dummy", # Dummy plugin
+    "src/dash/contrib/plugins/image/templates/image", # Image plugin
     "src/dash/contrib/plugins/memo/templates/memo", # Memo plugin
     "src/dash/contrib/plugins/news/templates/news", # News plugin
     "src/dash/contrib/plugins/rss_feed/templates/rss_feed", # RSS feed plugin
@@ -23,6 +24,7 @@ static_dirs = [
     "src/dash/static", # Core static
     "src/dash/contrib/layouts/android/static", # Android layout
     "src/dash/contrib/layouts/windows8/static", # Windows 8 layout
+    "src/dash/contrib/plugins/image/static", # Image plugin
     "src/dash/contrib/plugins/news/static", # News plugin
     "src/dash/contrib/plugins/rss_feed/static", # RSS feed plugin
     "src/dash/contrib/plugins/url/static", # URL plugin
@@ -51,7 +53,7 @@ for locale_dir in locale_dirs:
 #print(static_files)
 #raise Exception()
 
-version = '0.1.4'
+version = '0.1.5'
 
 install_requires = [
     'Pillow==2.1.0',

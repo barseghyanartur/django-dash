@@ -46,11 +46,12 @@ class DashboardPluginFormBase(object):
     """
     plugin_data_fields = None
 
-    def _get_plugin_data(self, fields):
+    def _get_plugin_data(self, fields, request=None):
         """
         Gets plugin data.
 
         :param iterable fields: List of tuples to iterate.
+        :param django.http.HttpRequest request:
         :return string: JSON dumpled string.
         """
         data = {}
@@ -59,15 +60,17 @@ class DashboardPluginFormBase(object):
             data.update({field: self.cleaned_data.get(field)})
         return json.dumps(data)
 
-    def get_plugin_data(self):
+    def get_plugin_data(self, request=None):
         """
         Data that would be saved in the ``plugin_data`` field of the ``dash.models.DashboardEntry``
         subclassed model.
+
+        :param django.http.HttpRequest request:
         """
         if self.plugin_data_fields:
-            return self._get_plugin_data(self.plugin_data_fields)
+            return self._get_plugin_data(self.plugin_data_fields, request=request)
 
-    def save_plugin_data(self):
+    def save_plugin_data(self, request=None):
         """
         Dummy, but necessary.
         """

@@ -1,0 +1,15 @@
+{% load i18n thumbnail %}
+            <p>
+                {% if plugin.data.show_link %}
+                <a href="{{ MEDIA_URL }}{{ plugin.data.image }}" class="lightboxonic" title="{{ plugin.data.title }}">
+                {% endif %}
+                    {% if plugin.data.image %}
+                        {% thumbnail plugin.data.image "80x80" crop="center" as im %}
+                        <img src="{{ im.url }}" alt="{{ plugin.data.title }}"/>
+                    {% else %}
+                        {% trans "No image provided!" %}
+                    {% endif %}
+                {% if plugin.data.show_link %}
+                </a>
+                {% endif %}
+            </p>

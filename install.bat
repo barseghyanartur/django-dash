@@ -1,4 +1,4 @@
-C:\Python33\Scripts\pip.exe install -r example\requirements.txt
+C:\Python27\Scripts\pip.exe install -r example\requirements.txt
 python.exe setup.py install
 mkdir example\logs
 mkdir example\db

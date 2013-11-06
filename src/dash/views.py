@@ -180,10 +180,10 @@ def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None, po
             form = plugin.get_initialised_create_form_or_404(data=request.POST, files=request.FILES)
             if form.is_valid():
                 # Saving the plugin form data.
-                form.save_plugin_data()
+                form.save_plugin_data(request=request)
 
                 # Getting the plugin data.
-                obj.plugin_data = form.get_plugin_data()
+                obj.plugin_data = form.get_plugin_data(request=request)
 
                 # Handling the workspace.
                 obj.workspace = None
@@ -282,10 +282,10 @@ def edit_dashboard_entry(request, id, template_name='dash/edit_dashboard_entry.h
             form = plugin.get_initialised_edit_form_or_404(data=request.POST, files=request.FILES)
             if form.is_valid():
                 # Saving the plugin form data.
-                form.save_plugin_data()
+                form.save_plugin_data(request=request)
 
                 # Getting the plugin data.
-                obj.plugin_data = form.get_plugin_data()
+                obj.plugin_data = form.get_plugin_data(request=request)
 
                 # Save the object.
                 obj.save()
@@ -324,6 +324,7 @@ def delete_dashboard_entry(request, id):
     try:
         obj = DashboardEntry._default_manager.select_related('workspace').get(pk=id, user=request.user)
         plugin = obj.get_plugin()
+        plugin.request = request
         plugin.delete_plugin_data()
         workspace = getattr(obj.workspace, 'slug', None)
         obj.delete()
