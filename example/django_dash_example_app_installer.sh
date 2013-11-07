@@ -9,6 +9,8 @@ mkdir ../media/
 mkdir ../media/static/
 mkdir ../static/
 mkdir ../db/
+mkdir ../logs/
+mkdir ../tmp/
 cp local_settings.example local_settings.py
 ./manage.py syncdb --noinput --traceback -v 3
 ./manage.py migrate --noinput
