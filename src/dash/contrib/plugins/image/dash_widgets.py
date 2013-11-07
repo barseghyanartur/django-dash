@@ -99,7 +99,7 @@ class Image2x3AndroidMainWidget(Image1x1AndroidMainWidget):
 # ****************** Windows 8 widgets for Image plugin ****************
 # **********************************************************************
 
-class Image1x1Windows8MainWidget(BaseDashboardPluginWidget):
+class Image1x1Windows8MainWidget(Image1x1AndroidMainWidget):
     """
     Image1x1 plugin widget for Windows 8 layout (placeholder `main`).
     """
@@ -108,20 +108,6 @@ class Image1x1Windows8MainWidget(BaseDashboardPluginWidget):
     plugin_uid = 'image_1x1'
     cols = 1
     rows = 1
-    media_js = (
-        'js/dash_plugin_image.js',
-    )
-    media_css = (
-        'css/dash_plugin_image.css',
-    )
-
-    def render(self, request=None):
-        context = {
-            'plugin': self.plugin,
-            'MEDIA_URL': settings.MEDIA_URL,
-            'thumb_size': self.get_size(-8, -8),
-        }
-        return render_to_string('image/render_main.html', context)
 
 
 class Image1x1Windows8SidebarWidget(Image1x1Windows8MainWidget):
