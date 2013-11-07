@@ -1,4 +1,4 @@
-# `django-dash` Russian locale.
+# `django-dash` Armenian locale.
 # Copyright (C) Artur Barseghyan
 # This file is distributed under the same license as the `django-dash` package.
 # FIRST AUTHOR <artur.barseghyan@gmail.com>, 2013.
@@ -7,15 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.2.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-07 21:28+0100\n"
-"PO-Revision-Date: 2013-11-07 21:41+0100\n"
+"POT-Creation-Date: 2013-11-07 21:49+0100\n"
+"PO-Revision-Date: 2013-11-07 22:09+0100\n"
 "Last-Translator: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language-Team: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
-"Language: Russian\n"
+"Language: Armenian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: admin.py:18
 #: admin.py:46
@@ -24,47 +23,47 @@ msgstr ""
 #: models.py:119
 #: models.py:190
 msgid "User"
-msgstr "Пользователь"
+msgstr "Օգտագործող"
 
 #: admin.py:21
 #: contrib/plugins/news/admin.py:32
 msgid "Additional"
-msgstr "Дополнительно"
+msgstr "Լրացուցիչ"
 
 #: admin.py:28
 #: models.py:57
 msgid "Dashboard workspace"
-msgstr "Рабочее пространство панели управления"
+msgstr "Սարքատախտակի աշխատատեղ"
 
 #: admin.py:52
 #: models.py:130
 msgid "Dashboard entry"
-msgstr "Элемент панели управления"
+msgstr "Սարքատախտակի գրառում"
 
 #: admin.py:76
 #: models.py:196
 msgid "Dashboard plugin"
-msgstr "Плагин панели управления"
+msgstr "Սարքատախտակի պլագին"
 
 #: admin.py:99
 #: templates/dash/_base.html:86
 #: templates/dash/_base.html.py:88
 msgid "Dashboard settings"
-msgstr "Настройки панели управления"
+msgstr "Սարքատախտակի սարքինացում"
 
 #: base.py:652
 msgid "General"
-msgstr "Общая"
+msgstr "Ընդհանուր"
 
 #: base.py:1344
 msgid "Layout `{0}` does not exist!"
-msgstr "Макет `{0}` не существует!"
+msgstr "`{0}` շաբլոնը գոյություն չունի։"
 
 #: models.py:28
 #: models.py:49
 #: models.py:121
 msgid "Layout"
-msgstr "Макет"
+msgstr "Շաբլոն"
 
 #: models.py:29
 #: contrib/plugins/image/forms.py:28
@@ -74,144 +73,144 @@ msgstr "Макет"
 #: contrib/plugins/url/forms.py:27
 #: contrib/plugins/video/forms.py:18
 msgid "Title"
-msgstr "Заголовок"
+msgstr "Վերնագիր"
 
 #: models.py:30
 #: models.py:53
 msgid "Is public?"
-msgstr "Публично доступено?"
+msgstr ""
 
 #: models.py:31
 msgid "Makes your dashboard to be visible to the public. Visibility of workspaces could be adjust separately for each workspace, however setting your dashboard to be visible to public, makes your default workspace visible to public too."
-msgstr "Делает вашу панель управления публично видимой. Видимость отдельных рабочих пространств настраивается отдельно для каждого рабочего пространства, однако сделав вашу панель управления публично видомой, вы автоматически делаете ваше рабочее пространство по-умолчанию также публично видимым."
+msgstr ""
 
 #: models.py:50
 msgid "Name"
-msgstr "Название"
+msgstr "Անվանում"
 
 #: models.py:51
 #: contrib/plugins/news/models.py:37
 msgid "Slug"
-msgstr "Слаг"
+msgstr ""
 
 #: models.py:52
 #: models.py:125
 msgid "Position"
-msgstr "Позиция"
+msgstr "Դիրք"
 
 #: models.py:54
 msgid "Makes your workspace to be visible to the public."
-msgstr "Делает вашу панель управления публично видимой."
+msgstr ""
 
 #: models.py:58
 #: templates/dash/dashboard_workspaces.html:6
 #: templates/dash/dashboard_workspaces_ajax.html:5
 msgid "Dashboard workspaces"
-msgstr "Рабочие пространства панели управления"
+msgstr ""
 
 #: models.py:120
 msgid "Workspace"
-msgstr "Рабочее пространство"
+msgstr "Աշխատատեղ"
 
 #: models.py:122
 msgid "Placeholder"
-msgstr "Местозаполнитель"
+msgstr ""
 
 #: models.py:123
 msgid "Plugin name"
-msgstr "Название плагина"
+msgstr "Պլագինի անվանում"
 
 #: models.py:124
 msgid "Plugin data"
-msgstr "Данные плагина"
+msgstr "Պլագինի տվյալներ"
 
 #: models.py:131
 msgid "Dashboard entries"
-msgstr "Элементы панели управления"
+msgstr ""
 
 #: models.py:170
 #: models.py:206
 msgid "UID"
-msgstr "Уникальный идентификатор"
+msgstr ""
 
 #: models.py:188
 msgid "Plugin UID"
-msgstr "Уникальный идентификатор плагина"
+msgstr ""
 
 #: models.py:191
 msgid "Group"
-msgstr "Группа"
+msgstr ""
 
 #: models.py:197
 msgid "Dashboard plugins"
-msgstr "Плагины панели управления"
+msgstr ""
 
 #: models.py:215
 msgid "Plugin"
-msgstr "Плагин"
+msgstr ""
 
 #: models.py:225
 msgid "Groups"
-msgstr "Группы"
+msgstr ""
 
 #: models.py:235
 msgid "Users"
-msgstr "Пользователи"
+msgstr ""
 
 #: views.py:62
 #: views.py:118
 #: views.py:199
 msgid "The workspace with slug \"{0}\" does not belong to layout \"{1}\"."
-msgstr "Рабочее пространство со слагом \"{0}\" не принадлежит шаблону \"{1}\"."
+msgstr ""
 
 #: views.py:152
 #: views.py:369
 msgid "Invalid placeholder: {0}"
-msgstr "Неверный местозаполнитель: {0}"
+msgstr ""
 
 #: views.py:155
 msgid "Invalid plugin name: {0}"
-msgstr "Неверное название плагина: {0}"
+msgstr ""
 
 #: views.py:218
 msgid "The dashboard widget \"{0}\" was added successfully."
-msgstr "Виджет панели управления \"{0}\" добавлен успешно."
+msgstr ""
 
 #: views.py:295
 msgid "The dashboard widget \"{0}\" was edited successfully."
-msgstr "Виджет панели управления \"{0}\" изменен успешно."
+msgstr ""
 
 #: views.py:333
 msgid "The dashboard widget \"{0}\" was deleted successfully."
-msgstr "Виджет панели управления \"{0}\" удален успешно."
+msgstr ""
 
 #: views.py:414
 msgid "The dashboard workspace \"{0}\" was created successfully."
-msgstr "Рабочее пространство панели управления \"{0}\" добавлено успешно."
+msgstr ""
 
 #: views.py:461
 msgid "The dashboard workspace \"{0}\" was edited successfully."
-msgstr "Рабочее пространство панели управления \"{0}\" изменено успешно."
+msgstr ""
 
 #: views.py:510
 msgid "The dashboard workspace \"{0}\" was deleted successfully."
-msgstr "Рабочее пространство панели управления \"{0}\" удалено успешно."
+msgstr ""
 
 #: views.py:575
 msgid "Dashboard settings were edited successfully."
-msgstr "Настройки панели управления \"{0}\" изменены успешно."
+msgstr ""
 
 #: widgets.py:7
 msgid "Yes"
-msgstr "Да"
+msgstr ""
 
 #: widgets.py:8
 msgid "No"
-msgstr "Нет"
+msgstr ""
 
 #: contrib/apps/public_dashboard/views.py:75
 msgid "The workspace with slug \"{0}\" does not exist."
-msgstr "Рабочего пространства со слагом \"{0}\" не существует."
+msgstr ""
 
 #: contrib/apps/public_dashboard/templates/public_dashboard/public_dashboard.html:5
 #: contrib/apps/public_dashboard/templates/public_dashboard/public_dashboard.html:16
@@ -219,12 +218,12 @@ msgstr "Рабочего пространства со слагом \"{0}\" не
 #: templates/dash/dashboard_workspaces_ajax.html:10
 #: templates/dash/dashboard_workspaces_ajax.html:12
 msgid "Default"
-msgstr "По-умолчанию"
+msgstr ""
 
 #: contrib/apps/public_dashboard/templates/public_dashboard/public_dashboard.html:5
 #: templates/dash/_base.html:126
 msgid "Public dashboard"
-msgstr "Публичная панель управления"
+msgstr ""
 
 #: contrib/plugins/dummy/dash_plugins.py:23
 #: contrib/plugins/dummy/dash_plugins.py:25
@@ -235,29 +234,29 @@ msgstr "Публичная панель управления"
 #: contrib/plugins/dummy/dash_plugins.py:82
 #: contrib/plugins/dummy/dash_plugins.py:83
 msgid "Dummy"
-msgstr "Тестовый"
+msgstr ""
 
 #: contrib/plugins/dummy/forms.py:34
 #: contrib/plugins/news/forms.py:21
 #: contrib/plugins/weather/forms.py:28
 msgid "Show title?"
-msgstr "Показывать заголовок?"
+msgstr ""
 
 #: contrib/plugins/dummy/forms.py:36
 msgid "Generate lorem ipsum?"
-msgstr "Сгенерировать lorem ipsum?"
+msgstr ""
 
 #: contrib/plugins/dummy/forms.py:38
 msgid "Language"
-msgstr "Язый"
+msgstr ""
 
 #: contrib/plugins/dummy/forms.py:39
 msgid "Max number of chars for generated text"
-msgstr "Максимальное количество символов для сгенерированного текста"
+msgstr ""
 
 #: contrib/plugins/dummy/forms.py:41
 msgid "Generated lorem ipsum text"
-msgstr "Сгенерированного текст lorem ipsum"
+msgstr ""
 
 #: contrib/plugins/image/dash_plugins.py:23
 #: contrib/plugins/image/dash_plugins.py:24
@@ -265,71 +264,71 @@ msgstr "Сгенерированного текст lorem ipsum"
 #: contrib/plugins/news/models.py:72
 #: contrib/plugins/url/forms.py:30
 msgid "Image"
-msgstr "Изображение"
+msgstr ""
 
 #: contrib/plugins/image/defaults.py:16
 msgid "Smart crop"
-msgstr "Автоматически отсекать"
+msgstr ""
 
 #: contrib/plugins/image/defaults.py:17
 msgid "Crop center"
-msgstr "Отсекать по центру"
+msgstr ""
 
 #: contrib/plugins/image/defaults.py:18
 msgid "Crop scale"
-msgstr "Масштабировать"
+msgstr ""
 
 #: contrib/plugins/image/defaults.py:19
 msgid "Fit width"
-msgstr "В ширину"
+msgstr ""
 
 #: contrib/plugins/image/defaults.py:20
 msgid "Fit height"
-msgstr "В высоту"
+msgstr ""
 
 #: contrib/plugins/image/forms.py:30
 msgid "Fit method"
-msgstr "Подгонка размера"
+msgstr ""
 
 #: contrib/plugins/image/forms.py:32
 msgid "Show link?"
-msgstr "Показывать ссылку?"
+msgstr ""
 
 #: contrib/plugins/image/templates/image/render_main.html:14
 #: contrib/plugins/image/templates/image/render_shortcuts.html:14
 msgid "No image provided!"
-msgstr "Не предоставлено изображение!"
+msgstr ""
 
 #: contrib/plugins/memo/dash_plugins.py:23
 #: contrib/plugins/memo/dash_plugins.py:24
 #: contrib/plugins/memo/dash_plugins.py:77
 msgid "Memo"
-msgstr "Заметка"
+msgstr ""
 
 #: contrib/plugins/memo/dash_plugins.py:76
 msgid "TinyMCE memo"
-msgstr "TinyMCE заметка"
+msgstr ""
 
 #: contrib/plugins/memo/dash_plugins.py:79
 msgid "TinyMCE tags are available here."
-msgstr "Теги TinyMCE доступны."
+msgstr ""
 
 #: contrib/plugins/memo/forms.py:20
 msgid "Text"
-msgstr "Текст"
+msgstr ""
 
 #: contrib/plugins/memo/forms.py:43
 msgid "HTML"
-msgstr "HTML"
+msgstr ""
 
 #: contrib/plugins/news/admin.py:28
 msgid "Publication date"
-msgstr "Дата публикации"
+msgstr ""
 
 #: contrib/plugins/news/admin.py:39
 #: contrib/plugins/news/models.py:45
 msgid "News item"
-msgstr "Новость"
+msgstr ""
 
 #: contrib/plugins/news/dash_plugins.py:21
 #: contrib/plugins/news/dash_plugins.py:23
@@ -338,312 +337,312 @@ msgstr "Новость"
 #: contrib/plugins/news/templates/news/browse_ajax.html:3
 #: contrib/plugins/news/templates/news/render_2x5_main.html:3
 msgid "News"
-msgstr "Новости"
+msgstr ""
 
 #: contrib/plugins/news/forms.py:23
 #: contrib/plugins/rss_feed/forms.py:27
 msgid "Max feed items to show"
-msgstr "Максимально отображаемое количество элементов"
+msgstr ""
 
 #: contrib/plugins/news/forms.py:24
 #: contrib/plugins/rss_feed/forms.py:28
 msgid "Truncate after"
-msgstr "Урезать после"
+msgstr ""
 
 #: contrib/plugins/news/forms.py:25
 #: contrib/plugins/rss_feed/forms.py:29
 #: contrib/plugins/weather/forms.py:30
 msgid "Cache for"
-msgstr "Кешировать на"
+msgstr ""
 
 #: contrib/plugins/news/models.py:34
 msgid "Body"
-msgstr "Тело"
+msgstr ""
 
 #: contrib/plugins/news/models.py:35
 msgid "Headline image"
-msgstr "Главное изображение"
+msgstr ""
 
 #: contrib/plugins/news/models.py:36
 msgid "Date published"
-msgstr "Дата публикации"
+msgstr ""
 
 #: contrib/plugins/news/models.py:41
 msgid "Date created"
-msgstr "Дата создания"
+msgstr ""
 
 #: contrib/plugins/news/models.py:42
 msgid "Date updated"
-msgstr "Дата обновления"
+msgstr ""
 
 #: contrib/plugins/news/models.py:46
 msgid "News items"
-msgstr "Новости"
+msgstr ""
 
 #: contrib/plugins/news/views.py:63
 #: contrib/plugins/news/views.py:68
 msgid "Invalid page!"
-msgstr "Неверная страница!"
+msgstr ""
 
 #: contrib/plugins/news/templates/news/browse.html:6
 msgid "News listing"
-msgstr "Список новостей"
+msgstr ""
 
 #: contrib/plugins/news/templates/news/browse.html:10
 #, python-format
 msgid "List of items for current language: %(current_language_name)s"
-msgstr "Список элементов для текущего языка: %(current_language_name)s"
+msgstr ""
 
 #: contrib/plugins/news/templates/news/browse_ajax.html:7
 msgid "Previous page"
-msgstr "Предыдущая страница"
+msgstr ""
 
 #: contrib/plugins/news/templates/news/browse_ajax.html:13
 msgid "Next page"
-msgstr "Следуюшая страница"
+msgstr ""
 
 #: contrib/plugins/news/templates/news/detail.html:6
 msgid "News detail"
-msgstr "Новость полностью"
+msgstr ""
 
 #: contrib/plugins/news/templates/news/detail.html:13
 msgid "Translations"
-msgstr "Переводы"
+msgstr ""
 
 #: contrib/plugins/news/templates/news/detail.html:22
 msgid "Back to foo home"
-msgstr "Обратно к домашней странице foo"
+msgstr ""
 
 #: contrib/plugins/rss_feed/dash_plugins.py:20
 #: contrib/plugins/rss_feed/dash_plugins.py:35
 msgid "Read RSS feed"
-msgstr "Читать RSS поток"
+msgstr ""
 
 #: contrib/plugins/rss_feed/dash_plugins.py:22
 #: contrib/plugins/video/dash_plugins.py:23
 msgid "Internet"
-msgstr "Интернет"
+msgstr ""
 
 #: contrib/plugins/rss_feed/forms.py:23
 msgid "Feed URL"
-msgstr "Ссылка на поток"
+msgstr ""
 
 #: contrib/plugins/rss_feed/forms.py:24
 msgid "Custom feed title"
-msgstr "Измененный заголовок потока"
+msgstr ""
 
 #: contrib/plugins/rss_feed/forms.py:25
 msgid "Show feed title?"
-msgstr "Отображать заголовок потока?"
+msgstr ""
 
 #: contrib/plugins/url/dash_plugins.py:19
 #: contrib/plugins/url/forms.py:28
 #: contrib/plugins/video/forms.py:19
 msgid "URL"
-msgstr "Ссылка"
+msgstr ""
 
 #: contrib/plugins/url/dash_plugins.py:20
 msgid "URLs"
-msgstr "Ссылки"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:6
 msgid "Film"
-msgstr "Фильм"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:7
 msgid "Coffee"
-msgstr "Кофе"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:8
 msgid "Calendar"
-msgstr "Календарь"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:9
 msgid "Book"
-msgstr "Книга"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:10
 msgid "Music"
-msgstr "Музыка"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:11
 msgid "Picture"
-msgstr "Изображение"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:12
 msgid "RSS"
-msgstr "RSS"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:13
 msgid "Star"
-msgstr "Звезда"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:14
 msgid "Thumbs-up"
-msgstr "Отлично"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:15
 msgid "Smile"
-msgstr "Улыбка"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:16
 msgid "Gamepad"
-msgstr "Геймпад"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:17
 msgid "Plane"
-msgstr "Самолет"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:18
 msgid "Road"
-msgstr "Шоссе"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:19
 msgid "Camera"
-msgstr "Камера"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:20
 msgid "Download"
-msgstr "Скачать"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:21
 msgid "Food"
-msgstr "Еда"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:22
 msgid "Info"
-msgstr "Информация"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:23
 msgid "Shopping cart"
-msgstr "Корзина покупок"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:24
 msgid "Truck"
-msgstr "Грузовик"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:25
 msgid "Wrench"
-msgstr "Гаечный ключ"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:26
 msgid "Facebook"
-msgstr "Facebook"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:27
 msgid "Github"
-msgstr "Github"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:28
 msgid "Google plus"
-msgstr "Google plus"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:29
 msgid "LinkedIn"
-msgstr "LinkedIn"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:30
 msgid "Pinterest"
-msgstr "Pinterest"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:31
 msgid "Twitter"
-msgstr "Twitter"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:32
 msgid "Youtube"
-msgstr "Youtube"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:33
 msgid "Bitbucket"
-msgstr "Bitbucket"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:34
 msgid "Android"
-msgstr "Android"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:35
 msgid "Apple"
-msgstr "Apple"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:36
 msgid "Windows"
-msgstr "Windows"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:37
 msgid "Tumblr"
-msgstr "Tumblr"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:38
 msgid "Instagram"
-msgstr "Instagram"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:39
 msgid "Dropbox"
-msgstr "Dropbox"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:40
 msgid "Trophy"
-msgstr "Трофей"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:41
 msgid "Legal"
-msgstr "Юридический"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:42
 msgid "Lock"
-msgstr "Замок"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:43
 msgid "Heart"
-msgstr "Сердце"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:44
 msgid "Question"
-msgstr "Вопрос"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:45
 msgid "Headphones"
-msgstr "Наушники"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:46
 msgid "Gift"
-msgstr "Подарок"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:47
 msgid "Key"
-msgstr "Ключ"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:48
 msgid "Female"
-msgstr "Женщина"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:49
 msgid "Male"
-msgstr "Мужчина"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:50
 msgid "Comment"
-msgstr "Комментарий"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:51
 msgid "Bug"
-msgstr "Ошибка"
+msgstr ""
 
 #: contrib/plugins/url/defaults.py:52
 msgid "Bell"
-msgstr "Звонок"
+msgstr ""
 
 #: contrib/plugins/url/forms.py:29
 msgid "External?"
-msgstr "Внешняя ссылка?"
+msgstr ""
 
 #: contrib/plugins/video/dash_plugins.py:22
 #: contrib/plugins/video/dash_plugins.py:51
 #: contrib/plugins/video/dash_plugins.py:65
 #: contrib/plugins/video/dash_plugins.py:80
 msgid "Video"
-msgstr "Видео"
+msgstr ""
 
 #: contrib/plugins/weather/dash_plugins.py:27
 #: contrib/plugins/weather/dash_plugins.py:29
@@ -651,35 +650,35 @@ msgstr "Видео"
 #: contrib/plugins/weather/dash_plugins.py:112
 #: contrib/plugins/weather/templates/weather/render_main.html:3
 msgid "Weather"
-msgstr "Погода"
+msgstr ""
 
 #: contrib/plugins/weather/forms.py:27
 msgid "Custom title"
-msgstr "Измененный заголовок"
+msgstr ""
 
 #: contrib/plugins/weather/forms.py:31
 msgid "Public IP"
-msgstr "Публичный IP"
+msgstr ""
 
 #: contrib/plugins/weather/forms.py:32
 msgid "Weather data JSON"
-msgstr "Данные о погоде в формате JSON"
+msgstr ""
 
 #: contrib/plugins/weather/templates/weather/render_main.html:18
 msgid "Min"
-msgstr "Минимально"
+msgstr ""
 
 #: contrib/plugins/weather/templates/weather/render_main.html:18
 msgid "Max"
-msgstr "Максимально"
+msgstr ""
 
 #: contrib/plugins/weather/templates/weather/render_main.html:22
 msgid "Humidity"
-msgstr "Влажность"
+msgstr ""
 
 #: contrib/plugins/weather/templates/weather/render_main.html:25
 msgid "Visibility"
-msgstr "Видимость"
+msgstr ""
 
 #: contrib/plugins/weather/templates/weather/render_main.html:27
 #, python-format
@@ -688,13 +687,10 @@ msgid ""
 "                                %(current_visibility)s km\n"
 "                            "
 msgstr ""
-"\n"
-"                                %(current_visibility)s км\n"
-"                            "
 
 #: contrib/plugins/weather/templates/weather/render_main.html:32
 msgid "Wind"
-msgstr "Ветер"
+msgstr ""
 
 #: contrib/plugins/weather/templates/weather/render_main.html:34
 #, python-format
@@ -703,138 +699,135 @@ msgid ""
 "                                %(windspeed_kmph)s kmph from the %(wind_dir_16_point)s\n"
 "                            "
 msgstr ""
-"\n"
-"                                %(windspeed_kmph)s км/ч от %(wind_dir_16_point)s\n"
-"                            "
 
 #: templates/dash/_base.html:49
 #: templates/dash/_base.html.py:56
 #: templates/dash/layouts/base_view_layout.html:5
 msgid "Dashboard"
-msgstr "Панель управления"
+msgstr ""
 
 #: templates/dash/_base.html:64
 #: templates/dash/layouts/base_edit_layout.html:5
 msgid "Edit dashboard"
-msgstr "Редактировать панель управления"
+msgstr ""
 
 #: templates/dash/_base.html:71
 msgid "Menu"
-msgstr "Меню"
+msgstr ""
 
 #: templates/dash/_base.html:77
 #: templates/dash/_base.html.py:79
 msgid "Create a workspace"
-msgstr "Создать рабочее пространство"
+msgstr ""
 
 #: templates/dash/_base.html:96
 #: templates/dash/_base.html.py:98
 msgid "Edit current workspace"
-msgstr "Редактировать рабочее пространство"
+msgstr ""
 
 #: templates/dash/_base.html:104
 #: templates/dash/_base.html.py:106
 msgid "Delete current workspace"
-msgstr "Удалить рабочее пространство"
+msgstr ""
 
 #: templates/dash/add_dashboard_entry.html:6
 msgid "Add dashboard entry"
-msgstr "Добавить элемент панели управления"
+msgstr ""
 
 #: templates/dash/add_dashboard_entry_ajax.html:5
 #, python-format
 msgid "Add %(plugin_name)s to Dashboard"
-msgstr "Добавить %(plugin_name)s на панель управления"
+msgstr ""
 
 #: templates/dash/add_dashboard_entry_ajax.html:14
 #: templates/dash/create_dashboard_workspace_ajax.html:14
 msgid "Add"
-msgstr "Добавить"
+msgstr ""
 
 #: templates/dash/create_dashboard_workspace.html:6
 #: templates/dash/create_dashboard_workspace_ajax.html:5
 msgid "Add dashboard workspace"
-msgstr "Добавить рабочее пространство"
+msgstr ""
 
 #: templates/dash/delete_dashboard_workspace.html:6
 #, python-format
 msgid "Delete dashboard workspace %(workspace_name)s "
-msgstr "Удалить рабочее пространство %(workspace_name)s "
+msgstr ""
 
 #: templates/dash/delete_dashboard_workspace_ajax.html:4
 msgid "Delete dashboard workspace"
-msgstr "Удалить рабочее пространство"
+msgstr ""
 
 #: templates/dash/delete_dashboard_workspace_ajax.html:11
 #, python-format
 msgid "Are you sure you want to delete the dashboard workspace %(workspace_name)s?"
-msgstr "Вы уверены, что хотите удалить рабочее пространство %(workspace_name)s?"
+msgstr ""
 
 #: templates/dash/delete_dashboard_workspace_ajax.html:15
 msgid "Delete"
-msgstr "Удалить"
+msgstr ""
 
 #: templates/dash/delete_dashboard_workspace_ajax.html:17
 msgid "Cancel"
-msgstr "Отменить"
+msgstr ""
 
 #: templates/dash/edit_dashboard_entry.html:6
 msgid "Edit dashboard entry"
-msgstr "Редактировать элемент панели управления"
+msgstr ""
 
 #: templates/dash/edit_dashboard_entry_ajax.html:5
 #, python-format
 msgid "Edit %(plugin_name)s on Dashboard"
-msgstr "Редактировать %(plugin_name)s на панели управления"
+msgstr ""
 
 #: templates/dash/edit_dashboard_entry_ajax.html:14
 msgid "Save"
-msgstr "Сохранить"
+msgstr ""
 
 #: templates/dash/edit_dashboard_settings.html:6
 #: templates/dash/edit_dashboard_settings_ajax.html:5
 msgid "Edit dashboard settings"
-msgstr "Редактировать настройки панели управления"
+msgstr ""
 
 #: templates/dash/edit_dashboard_settings_ajax.html:14
 #: templates/dash/edit_dashboard_workspace_ajax.html:14
 msgid "Edit"
-msgstr "Редактировать"
+msgstr ""
 
 #: templates/dash/edit_dashboard_workspace.html:6
 #: templates/dash/edit_dashboard_workspace_ajax.html:5
 msgid "Edit dashboard workspace"
-msgstr "Редактировать рабочее пространство панели управления"
+msgstr ""
 
 #: templates/dash/plugin_widgets.html:6
 msgid "Plugin widgets"
-msgstr "Виджеты плагинов"
+msgstr ""
 
 #: templates/dash/plugin_widgets_ajax.html:5
 msgid "Widgets"
-msgstr "Виджеты"
+msgstr ""
 
 #: templates/dash/layouts/base_placeholder_edit.html:5
 msgid "Add widget"
-msgstr "Добавить виджет"
+msgstr ""
 
 #: templates/dash/layouts/base_placeholder_edit.html:15
 msgid "Remove widget"
-msgstr "Удалить виджет"
+msgstr ""
 
 #: templates/dash/layouts/base_placeholder_edit.html:18
 msgid "Edit widget"
-msgstr "Редактировать виджет"
+msgstr ""
 
 #: templates/dash/snippets/generic_form_snippet.html:3
 msgid "Fields marked with <span class=\"required-symbol\">*</span> are required"
-msgstr "Поля, отмеченные <span class=\"required-symbol\">*</span> обязательны для заполнения"
+msgstr ""
 
 #: templatetags/dash_tags.py:161
 msgid "Log out"
-msgstr "Выйти"
+msgstr ""
 
 #: templatetags/dash_tags.py:170
 msgid "Log in"
-msgstr "Войти"
+msgstr ""
 

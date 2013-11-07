@@ -34,6 +34,7 @@ static_dirs = [
 
 locale_dirs = [
     "src/dash/locale/nl",
+    "src/dash/locale/ru",
 ]
 
 templates = []
@@ -53,7 +54,7 @@ for locale_dir in locale_dirs:
 #print(static_files)
 #raise Exception()
 
-version = '0.2.1'
+version = '0.2.2'
 
 install_requires = [
     'Pillow==2.1.0',

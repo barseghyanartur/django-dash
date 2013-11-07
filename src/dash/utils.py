@@ -2,6 +2,8 @@ __all__ = ('get_allowed_plugin_uids', 'get_user_plugins', 'get_user_plugin_uids'
            'update_plugin_data', 'sync_plugins', 'get_workspaces', 'build_cells_matrix', \
            'get_or_create_dashboard_settings', 'get_dashboard_settings', 'get_public_dashboard_url')
 
+from six import PY3
+
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.encoding import force_text
@@ -127,17 +129,16 @@ def get_widgets(layout, placeholder, user=None, workspace=None, position=None, o
                 if not plugin_group in registered_widgets:
                     registered_widgets[plugin_group] = []
 
-                registered_widgets[plugin_group].append(
-                    (
-                        uid,
-                        '{0} ({1}x{2})'.format(
-                            force_text(plugin.name, encoding='utf-8'),
-                            plugin_widget.cols,
-                            plugin_widget.rows
-                            ),
-                        reverse('dash.add_dashboard_entry', kwargs=kwargs)
-                    )
-                    )
+                if PY3:
+                    widget_name = force_text(plugin.name, encoding='utf-8')
+                else:
+                    widget_name = force_text(plugin.name, encoding='utf-8').encode('utf-8')
+
+                registered_widgets[plugin_group].append((
+                    uid,
+                    '{0} ({1}x{2})'.format(widget_name, plugin_widget.cols, plugin_widget.rows),
+                    reverse('dash.add_dashboard_entry', kwargs=kwargs)
+                    ))
     else:
         allowed_plugin_uids = get_allowed_plugin_uids(user)
 

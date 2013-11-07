@@ -1,5 +1,12 @@
 Release history
 =====================================
+0.2.2
+-------------------------------------
+2013-11-07
+
+- Fixed bug with string translation (cyrillic) when adding a dashboard widget.
+- Russian translations added.
+
 0.2.1
 -------------------------------------
 2013-11-07

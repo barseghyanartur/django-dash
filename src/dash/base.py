@@ -12,7 +12,7 @@ __all__ = ('BaseDashboardLayout', 'BaseDashboardPlaceholder', 'BaseDashboardPlug
 import uuid
 import json
 
-from six import text_type
+from six import text_type, PY3
 
 from django.forms import ModelForm
 from django.forms.util import ErrorList
@@ -1262,7 +1262,11 @@ def get_registered_plugins():
     registered_plugins = []
 
     for uid, plugin in plugin_registry._registry.items():
-        registered_plugins.append((uid, force_text(plugin.name)))
+        if PY3:
+            plugin_name = force_text(plugin.name, encoding='utf-8')
+        else:
+            plugin_name = force_text(plugin.name, encoding='utf-8').encode('utf-8')
+        registered_plugins.append((uid, plugin_name))
 
     return registered_plugins
 
@@ -1308,7 +1312,11 @@ def get_registered_layouts():
     registered_layouts = []
 
     for uid, layout in layout_registry._registry.items():
-        registered_layouts.append((uid, force_text(layout.name)))
+        if PY3:
+            layout_name = force_text(layout.name, encoding='utf-8')
+        else:
+            layout_name = force_text(layout.name, encoding='utf-8').encode('utf-8')
+        registered_layouts.append((uid, layout_name))
 
     return registered_layouts
 

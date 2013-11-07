@@ -624,6 +624,11 @@ that you are recommended to follow.
     - Example6x1YourLayoutSidebarWidget: 6x1 widget for 6x1 example plugin (layout Your Layout,
       placeholder 'main')
 
+Available translations
+===============================================
+- Dutch (core and plugins)
+- Russian (core and plugins)
+
 License
 ===============================================
 GPL 2.0/LGPL 2.1

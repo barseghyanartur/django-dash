@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.1.3\n"
+"Project-Id-Version: 0.2.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-05 19:22+0100\n"
-"PO-Revision-Date: 2013-11-05 20:35+0100\n"
+"POT-Creation-Date: 2013-11-07 21:28+0100\n"
+"PO-Revision-Date: 2013-11-07 21:48+0100\n"
 "Last-Translator: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language-Team: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language: Dutch\n"
@@ -52,11 +52,11 @@ msgstr "Dashboard plugin"
 msgid "Dashboard settings"
 msgstr "Dashboard instellingen"
 
-#: base.py:646
+#: base.py:652
 msgid "General"
 msgstr "Algemeen"
 
-#: base.py:1303
+#: base.py:1344
 msgid "Layout `{0}` does not exist!"
 msgstr "Layout `{0}` bestaat niet!"
 
@@ -67,6 +67,7 @@ msgid "Layout"
 msgstr "Layout"
 
 #: models.py:29
+#: contrib/plugins/image/forms.py:28
 #: contrib/plugins/memo/forms.py:19
 #: contrib/plugins/memo/forms.py:42
 #: contrib/plugins/news/models.py:33
@@ -164,7 +165,7 @@ msgid "The workspace with slug \"{0}\" does not belong to layout \"{1}\"."
 msgstr "De werkruimte met slug \"{0}\" behoort niet tot layout \"{1}\"."
 
 #: views.py:152
-#: views.py:368
+#: views.py:369
 msgid "Invalid placeholder: {0}"
 msgstr "Ongeldige placeholder: {0}"
 
@@ -180,23 +181,23 @@ msgstr "Het dashboard widget \"{0}\" is succesvol aangemaakt."
 msgid "The dashboard widget \"{0}\" was edited successfully."
 msgstr "Het dashboard widget \"{0}\" is succesvol bijgewerkt."
 
-#: views.py:332
+#: views.py:333
 msgid "The dashboard widget \"{0}\" was deleted successfully."
 msgstr "Het dashboard widget \"{0}\" is succesvol verwijderd."
 
-#: views.py:413
+#: views.py:414
 msgid "The dashboard workspace \"{0}\" was created successfully."
 msgstr "Het dashboard werkruimte \"{0}\" is succesvol aangemaakt."
 
-#: views.py:460
+#: views.py:461
 msgid "The dashboard workspace \"{0}\" was edited successfully."
 msgstr "Het dashboard werkruimte \"{0}\" is succesvol bijgewerkt."
 
-#: views.py:509
+#: views.py:510
 msgid "The dashboard workspace \"{0}\" was deleted successfully."
 msgstr "Het dashboard werkruimte \"{0}\" is succesvol verwijderd."
 
-#: views.py:574
+#: views.py:575
 msgid "Dashboard settings were edited successfully."
 msgstr "Het dashboard instellingen zijn succesvol bijgewerkt."
 
@@ -258,23 +259,58 @@ msgstr "Maximum aantal tekens voor de gegenereerde tekst"
 msgid "Generated lorem ipsum text"
 msgstr "Gegenereerd lorem ipsum tekst"
 
+#: contrib/plugins/image/dash_plugins.py:23
+#: contrib/plugins/image/dash_plugins.py:24
+#: contrib/plugins/image/forms.py:29
+#: contrib/plugins/news/models.py:72
+#: contrib/plugins/url/forms.py:30
+msgid "Image"
+msgstr "Afbeelding"
+
+#: contrib/plugins/image/defaults.py:16
+msgid "Smart crop"
+msgstr "Slim afknippen"
+
+#: contrib/plugins/image/defaults.py:17
+msgid "Crop center"
+msgstr "Centraal afknippen"
+
+#: contrib/plugins/image/defaults.py:18
+msgid "Crop scale"
+msgstr "Schalen"
+
+#: contrib/plugins/image/defaults.py:19
+msgid "Fit width"
+msgstr "Volledige breedte"
+
+#: contrib/plugins/image/defaults.py:20
+msgid "Fit height"
+msgstr "Volledige hoogte"
+
+#: contrib/plugins/image/forms.py:30
+msgid "Fit method"
+msgstr "Formaat aanpassen"
+
+#: contrib/plugins/image/forms.py:32
+msgid "Show link?"
+msgstr "Link tonen?"
+
+#: contrib/plugins/image/templates/image/render_main.html:14
+#: contrib/plugins/image/templates/image/render_shortcuts.html:14
+msgid "No image provided!"
+msgstr "Geen afbeelding geleverd!"
+
+#: contrib/plugins/memo/dash_plugins.py:23
 #: contrib/plugins/memo/dash_plugins.py:24
-#: contrib/plugins/memo/dash_plugins.py:25
-#: contrib/plugins/memo/dash_plugins.py:40
-#: contrib/plugins/memo/dash_plugins.py:41
-#: contrib/plugins/memo/dash_plugins.py:55
-#: contrib/plugins/memo/dash_plugins.py:56
-#: contrib/plugins/memo/dash_plugins.py:72
-#: contrib/plugins/memo/dash_plugins.py:89
+#: contrib/plugins/memo/dash_plugins.py:77
 msgid "Memo"
 msgstr "Memo"
 
-#: contrib/plugins/memo/dash_plugins.py:71
-#: contrib/plugins/memo/dash_plugins.py:88
+#: contrib/plugins/memo/dash_plugins.py:76
 msgid "TinyMCE memo"
 msgstr "TinyMCE memo"
 
-#: contrib/plugins/memo/dash_plugins.py:74
+#: contrib/plugins/memo/dash_plugins.py:79
 msgid "TinyMCE tags are available here."
 msgstr "TinyMCE tags zijn hier bruikbaar."
 
@@ -300,7 +336,7 @@ msgstr "Nieuwsbericht"
 #: contrib/plugins/news/dash_plugins.py:50
 #: contrib/plugins/news/dash_plugins.py:52
 #: contrib/plugins/news/templates/news/browse_ajax.html:3
-#: contrib/plugins/news/templates/news/render_main.html:3
+#: contrib/plugins/news/templates/news/render_2x5_main.html:3
 msgid "News"
 msgstr "Nieuws"
 
@@ -344,11 +380,6 @@ msgstr "Datum geupdate"
 msgid "News items"
 msgstr "Nieuwsberichten"
 
-#: contrib/plugins/news/models.py:72
-#: contrib/plugins/url/forms.py:30
-msgid "Image"
-msgstr "Afbeelding"
-
 #: contrib/plugins/news/views.py:63
 #: contrib/plugins/news/views.py:68
 msgid "Invalid page!"
@@ -383,12 +414,12 @@ msgstr "Vertalingen"
 msgid "Back to foo home"
 msgstr "Terug naar foo hoofdpagina"
 
-#: contrib/plugins/rss_feed/dash_plugins.py:19
-#: contrib/plugins/rss_feed/dash_plugins.py:34
+#: contrib/plugins/rss_feed/dash_plugins.py:20
+#: contrib/plugins/rss_feed/dash_plugins.py:35
 msgid "Read RSS feed"
 msgstr "Lees RSS feed"
 
-#: contrib/plugins/rss_feed/dash_plugins.py:21
+#: contrib/plugins/rss_feed/dash_plugins.py:22
 #: contrib/plugins/video/dash_plugins.py:23
 msgid "Internet"
 msgstr "Internet"
@@ -618,8 +649,6 @@ msgstr "Video"
 #: contrib/plugins/weather/dash_plugins.py:29
 #: contrib/plugins/weather/dash_plugins.py:111
 #: contrib/plugins/weather/dash_plugins.py:112
-#: contrib/plugins/weather/dash_plugins.py:126
-#: contrib/plugins/weather/dash_plugins.py:127
 #: contrib/plugins/weather/templates/weather/render_main.html:3
 msgid "Weather"
 msgstr "Weer"
