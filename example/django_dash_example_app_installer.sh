@@ -7,6 +7,7 @@ pip install -r ../requirements.txt
 pip install -e git+https://github.com/barseghyanartur/django-dash@stable#egg=django-dash
 mkdir ../media/
 mkdir ../media/static/
+mkdir ../media/dash-image-plugin-images/
 mkdir ../static/
 mkdir ../db/
 mkdir ../logs/

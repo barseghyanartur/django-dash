@@ -35,7 +35,10 @@ class DashboardPluginFormBase(object):
     """
     Not a form actually. Defined for magic only.
 
-    :property iterable plugin_data_fields: Fields to get when calling the ``get_plugin_data`` method.
+    :property iterable plugin_data_fields: Fields to get when calling the ``get_plugin_data`` method. These
+        field will be JSON serialized. All other fields, even if they are part of the form, won't be.
+        Make sure all fields are serializable. If some of them aren't, override the ``save_plugin_data``
+        method and make them serializable there. See `dash.contrib.plugins.image.forms` as a good example.
 
     :example:
 
@@ -955,8 +958,8 @@ class BaseDashboardPlugin(object):
     def delete_plugin_data(self):
         """
         Used in ``dash.views.delete_dashboard_entry``. Fired automatically, when ``dash.models.DashboardEntry``
-        object is about to be deleted. Make use of it if your plugin creates database records that are not
-        monitored externally but by dash only.
+        object is about to be deleted. Make use of it if your plugin creates database records or files that are
+        not monitored externally but by dash only.
         """
 
     def pre_processor(self):

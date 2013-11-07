@@ -73,9 +73,10 @@ Core and contrib
   the images grabbing script in such a way, that it no longer requires mercurial or is system
   dependant (just downloads the zip and unpacks it using python built-in shutils).
 - Add translations for Armenian, Dutch and Russian.
-- Image plugin (with options to: crop, fit width or fit height).
++ Image plugin (with options to: crop, fit width or fit height).
+- File plugin.
 - Add navigation (at right and left) to navigate through the workspaces (like in Android).
-- Add `get_max_width` and `get_max_height` shortcut methods to the base plugin.
++ Add `get_width` and `get_height` shortcut methods to the base plugin widget.
 
 Example app
 -----------------------------------------------

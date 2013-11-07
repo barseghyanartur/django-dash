@@ -605,15 +605,24 @@ Although you are free to name your plugins and widgets as you want (except that 
 http://www.python.org/dev/peps/pep-0008/#function-names), there are some naming conventions introduced,
 that you are recommended to follow.
 
-- Example1x1Widget: 1x1
-- Example2x2Widget: 2x2
-- Example2x3Widget: 2x3
-- Example3x2Widget: 3x2
-- Example3x3Widget: 3x3
-- Example4x4Widget: 4x4
-- Example5x5Widget: 5x5
-- Example6x1Widget: 6x1
-- Example6x6Widget: 6x6
+- Example1x1Plugin: 1x1 example plugin
+    - Example1x1AndroidMainWidget: 1x1 widget for 1x1 example plugin (layout Android, placeholder 'main')
+    - Example1x1AndroidShortcutsWidget: 1x1 widget for 1x1 example plugin (layout Android,
+      placeholder 'shortcuts')
+    - Example1x1Windows8MainWidget: 1x1 widget for 1x1 example plugin (layout Windows 8,
+      placeholder 'main')
+    - Example1x1Windows8SidebarWidget: 1x1 widget for 1x1 example plugin (layout Windows 8,
+      placeholder 'sidebar')
+
+- Example2x3Plugin: 2x3 example plugin
+    - Example2x3Windows8MainWidget: 2x3 widget for 2x3 example plugin (layout Windows 8,
+      placeholder 'main')
+    - Example2x3Windows8SidebarWidget: 2x3 widget for 2x3 example plugin (layout Windows 8,
+      placeholder 'sidebar')
+
+- Example6x1Plugin: 6x1 example plugin
+    - Example6x1YourLayoutSidebarWidget: 6x1 widget for 6x1 example plugin (layout Your Layout,
+      placeholder 'main')
 
 License
 ===============================================
