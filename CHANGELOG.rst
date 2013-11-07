@@ -1,5 +1,15 @@
 Release history
 =====================================
+0.2
+-------------------------------------
+2013-11-07
+
+- Added Image plugin.
+- All existing plugin and widget names are brought in accordance with new naming 
+  convention (http://pythonhosted.org/django-dash/#naming-conventions). If you're using the
+  old plugins, you're likely want to clean up your dashboard and start over.
+- Some improvements of core.
+- Adding `get_size`, `get_width` and `get_height` methods to the plugin widget class.
 
 0.1.4
 -------------------------------------

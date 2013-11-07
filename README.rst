@@ -68,6 +68,7 @@ Installation
 >>>     'dash.contrib.layouts.android',
 >>>     'dash.contrib.layouts.windows8',
 >>>     'dash.contrib.plugins.dummy',
+>>>     'dash.contrib.plugins.image',
 >>>     'dash.contrib.plugins.memo',
 >>>     'dash.contrib.plugins.news',
 >>>     'dash.contrib.plugins.rss_feed',
@@ -571,6 +572,9 @@ Below a short overview of the plugins. See the README.rst file in directory of e
 
 - Dummy plugin. Mainly made for quick testing. Still, is perfect example of how to write a plugin and widgets.
   https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/dummy
+- Image plugin. Allows users to put images on their dashboard. If you plan to make a plugin that deals with
+  file uploads, make sure to check the source of this one first.
+  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/image
 - Memo plugin. Allows users to put short notes on their dashboard.
   https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/memo
 - News plugin. Shows how to embed your Django news application (front-end part of it) into a Dash plugin widget.
@@ -601,15 +605,15 @@ Although you are free to name your plugins and widgets as you want (except that 
 http://www.python.org/dev/peps/pep-0008/#function-names), there are some naming conventions introduced,
 that you are recommended to follow.
 
-- TinyExampleWidget: 1x1
-- SmallExampleWidget: 2x2
-- ExampleWidget: 3x3
-- BigExampleWidget: 4x4
-- HugeExampleWidget: 5x5
-- GiganticExampleWidget: 6x6
-
-When making non-square widgets (2x1, 1x2, 3x1, 1x3), add `Portrait` and `Landscape` to the name for
-better identification.
+- Example1x1Widget: 1x1
+- Example2x2Widget: 2x2
+- Example2x3Widget: 2x3
+- Example3x2Widget: 3x2
+- Example3x3Widget: 3x3
+- Example4x4Widget: 4x4
+- Example5x5Widget: 5x5
+- Example6x1Widget: 6x1
+- Example6x6Widget: 6x6
 
 License
 ===============================================

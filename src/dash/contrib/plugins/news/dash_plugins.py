@@ -1,4 +1,4 @@
-__all__ = ('NewsPlugin', 'HugeNewsPlugin')
+__all__ = ('News2x5Plugin', 'News4x5Plugin')
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -7,17 +7,17 @@ from slim.helpers import get_language_from_request
 from dash.base import BaseDashboardPlugin, plugin_registry, plugin_widget_registry
 from dash.contrib.plugins.news.models import NewsItem
 from dash.contrib.plugins.news.forms import NewsForm
-from dash.contrib.plugins.news.dash_widgets import NewsAndroidMainWidget, HugeNewsAndroidMainWidget
+from dash.contrib.plugins.news.dash_widgets import News2x5AndroidMainWidget, News4x5AndroidMainWidget
 
 # ***************************************************************************
 # ******************************* News plugin *******************************
 # ***************************************************************************
 
-class NewsPlugin(BaseDashboardPlugin):
+class News2x5Plugin(BaseDashboardPlugin):
     """
     News plugin.
     """
-    uid = 'news'
+    uid = 'news_2x5'
     name = _("News")
     form = NewsForm
     group = _("News")
@@ -36,30 +36,30 @@ class NewsPlugin(BaseDashboardPlugin):
                                        .order_by('-date_published')[:self.data.max_items]
 
 
-plugin_registry.register(NewsPlugin)
+plugin_registry.register(News2x5Plugin)
 
 # ***************************************************************************
 # ******************************* Huge news plugin **************************
 # ***************************************************************************
 
-class HugeNewsPlugin(BaseDashboardPlugin):
+class News4x5Plugin(BaseDashboardPlugin):
     """
     News plugin.
     """
-    uid = 'huge_news'
+    uid = 'news_4x5'
     name = _("News")
     form = NewsForm
     group = _("News")
 
 
-plugin_registry.register(HugeNewsPlugin)
+plugin_registry.register(News4x5Plugin)
 
 # *************************************************************************
 # ****************** Registering the widgets ******************************
 # *************************************************************************
 
 # Registering the Android widgets for News plugin plugin.
-plugin_widget_registry.register(NewsAndroidMainWidget)
+plugin_widget_registry.register(News2x5AndroidMainWidget)
 
 # Registering the Android widgets for Huge news plugin plugin.
-plugin_widget_registry.register(HugeNewsAndroidMainWidget)
+plugin_widget_registry.register(News4x5AndroidMainWidget)

@@ -17,9 +17,10 @@ Tuning
 ===============================================
 There are number of settings you can override in the settings module of your Django project:
 
-- `DASH_PLUGIN_URL_IMAGE_CHOICES` (tuple): Tuple of tuples. Icons available in form of (icon-name, icon-title).
-  For full overview of icons see the Font Awesome 3.2.1 docs (
-  http://fortawesome.github.io/Font-Awesome/3.2.1/icons/).
+- `DASH_PLUGIN_IMAGE_DEFAULT_FIT_METHOD` (string): Default fit method. Available options are:
+  smart, center, scale, fit_width, fit_height.
+- `DASH_PLUGIN_IMAGE_IMAGES_UPLOAD_DIR` (string): Path to directory where the images would be uploaded.
+  Defaults to "dash-image-plugin-images".
 
 For tuning of specific contrib plugin, see the docs in the plugin directory.
 

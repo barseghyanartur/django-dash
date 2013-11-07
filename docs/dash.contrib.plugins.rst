@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
 
     dash.contrib.plugins.dummy
+    dash.contrib.plugins.image
     dash.contrib.plugins.memo
     dash.contrib.plugins.news
     dash.contrib.plugins.rss_feed

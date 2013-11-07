@@ -1,4 +1,4 @@
-__all__ = ('VideoPlugin', 'BigVideoPlugin', 'HugeVideoPlugin', 'GiganticVideoPlugin')
+__all__ = ('Video2x2Plugin', 'Video3x3Plugin', 'Video4x4Plugin', 'Video5x5Plugin')
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -6,19 +6,19 @@ from vishap import render_video
 
 from dash.base import BaseDashboardPlugin, plugin_registry, plugin_widget_registry
 from dash.contrib.plugins.video.forms import VideoForm
-from dash.contrib.plugins.video.dash_widgets import VideoAndroidMainWidget, BigVideoAndroidMainWidget
-from dash.contrib.plugins.video.dash_widgets import HugeVideoAndroidMainWidget, GiganticVideoAndroidMainWidget
-from dash.contrib.plugins.video.dash_widgets import VideoWindows8MainWidget, VideoWindows8SidebarWidget
+from dash.contrib.plugins.video.dash_widgets import Video2x2AndroidMainWidget, Video3x3AndroidMainWidget
+from dash.contrib.plugins.video.dash_widgets import Video4x4AndroidMainWidget, Video5x5AndroidMainWidget
+from dash.contrib.plugins.video.dash_widgets import Video2x2Windows8MainWidget, Video2x2Windows8SidebarWidget
 
 # *************************************************************************
 # ******************************* Video plugin ****************************
 # *************************************************************************
 
-class VideoPlugin(BaseDashboardPlugin):
+class Video2x2Plugin(BaseDashboardPlugin):
     """
     Video dashboard plugin.
     """
-    uid = 'video'
+    uid = 'video_2x2'
     name = _("Video")
     group = _("Internet")
     form = VideoForm
@@ -28,7 +28,7 @@ class VideoPlugin(BaseDashboardPlugin):
         """
         If plugin has an image, we add a class `iconic` to it.
         """
-        html_class = super(VideoPlugin, self).html_class
+        html_class = super(Video2x2Plugin, self).html_class
         html_class += ' video'
         return html_class
 
@@ -36,62 +36,62 @@ class VideoPlugin(BaseDashboardPlugin):
         self.data.embed_code = render_video(self.data.url)
 
 
-plugin_registry.register(VideoPlugin)
+plugin_registry.register(Video2x2Plugin)
 
 
 # *************************************************************************
 # ******************************* Big video plugin ************************
 # *************************************************************************
 
-class BigVideoPlugin(VideoPlugin):
+class Video3x3Plugin(Video2x2Plugin):
     """
     Video dashboard plugin.
     """
-    uid = 'big_video'
+    uid = 'video_3x3'
     name = _("Video")
 
 
-plugin_registry.register(BigVideoPlugin)
+plugin_registry.register(Video3x3Plugin)
 
 # *************************************************************************
 # ******************************* Huge video plugin ***********************
 # *************************************************************************
 
-class HugeVideoPlugin(VideoPlugin):
+class Video4x4Plugin(Video2x2Plugin):
     """
     Video dashboard plugin.
     """
-    uid = 'huge_video'
+    uid = 'video_4x4'
     name = _("Video")
 
 
-plugin_registry.register(HugeVideoPlugin)
+plugin_registry.register(Video4x4Plugin)
 
 
 # *************************************************************************
 # ******************************* Gigantic video plugin *******************
 # *************************************************************************
 
-class GiganticVideoPlugin(VideoPlugin):
+class Video5x5Plugin(Video2x2Plugin):
     """
     Video dashboard plugin.
     """
-    uid = 'gigantic_video'
+    uid = 'video_5x5'
     name = _("Video")
 
 
-plugin_registry.register(GiganticVideoPlugin)
+plugin_registry.register(Video5x5Plugin)
 
 # *************************************************************************
 # ****************** Registering the widgets for Video plugin *************
 # *************************************************************************
 
 # Registering the Android widgets for Video plugin.
-plugin_widget_registry.register(VideoAndroidMainWidget)
-plugin_widget_registry.register(BigVideoAndroidMainWidget)
-plugin_widget_registry.register(HugeVideoAndroidMainWidget)
-plugin_widget_registry.register(GiganticVideoAndroidMainWidget)
+plugin_widget_registry.register(Video2x2AndroidMainWidget)
+plugin_widget_registry.register(Video3x3AndroidMainWidget)
+plugin_widget_registry.register(Video4x4AndroidMainWidget)
+plugin_widget_registry.register(Video5x5AndroidMainWidget)
 
 # Registering the Windows8widgets for Video plugin.
-plugin_widget_registry.register(VideoWindows8MainWidget)
-plugin_widget_registry.register(VideoWindows8SidebarWidget)
+plugin_widget_registry.register(Video2x2Windows8MainWidget)
+plugin_widget_registry.register(Video2x2Windows8SidebarWidget)

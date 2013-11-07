@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from dash.base import DashboardPluginFormBase
 from dash.widgets import BooleanRadioSelect
-from dash.contrib.plugins.image.settings import FIT_METHODS_CHOICES_WITH_EMPTY_OPTION, DEFAULT_FIT_METHOD
+from dash.contrib.plugins.image.settings import FIT_METHODS_CHOICES, DEFAULT_FIT_METHOD
 from dash.contrib.plugins.image.helpers import handle_uploaded_file
 
 class ImageForm(forms.Form, DashboardPluginFormBase):
@@ -27,9 +27,9 @@ class ImageForm(forms.Form, DashboardPluginFormBase):
 
     title = forms.CharField(label=_("Title"), required=True)
     image = forms.ImageField(label=_("Image"), required=True)
-    fit_method = forms.ChoiceField(label=_("Fit method"), required=False, \
-                                   choices=FIT_METHODS_CHOICES_WITH_EMPTY_OPTION)
-    show_link = forms.BooleanField(label=_("Show link?"), required=False, initial=False, widget=BooleanRadioSelect)
+    fit_method = forms.ChoiceField(label=_("Fit method"), required=False, initial=DEFAULT_FIT_METHOD, \
+                                   choices=FIT_METHODS_CHOICES)
+    show_link = forms.BooleanField(label=_("Show link?"), required=False, initial=True, widget=BooleanRadioSelect)
 
     def save_plugin_data(self, request=None):
         """

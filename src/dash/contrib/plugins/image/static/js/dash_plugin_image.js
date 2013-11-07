@@ -1,5 +1,5 @@
 /*
-    Document   : dash_plugin_url_form.js
+    Document   : dash_plugin_image.js
     Created on : Nov 6, 2013, 01:56:09 PM
     Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
     Description:
@@ -10,8 +10,7 @@
 ;
 $(document).ready(function() {
     // Add dashboard plugin.
-    $('.lightboxonic').colorbox({
+    $('.pictonic .plugin-content-wrapper a').colorbox({
         'opacity': '0.5'
     });
-    
 });

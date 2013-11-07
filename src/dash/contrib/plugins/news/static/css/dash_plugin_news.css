@@ -5,27 +5,27 @@
     Description:
         News plugin styles for django-dash.
 */
-.plugin-huge_news ul,
-.plugin-news ul {
+.plugin-news_4x5 ul,
+.plugin-news_2x5 ul {
     list-style: none;
     padding: 0;
     margin: 0;
     display: block;
     clear: both;
 }
-    .plugin-huge_news ul li,
-    .plugin-news ul li {
+    .plugin-news_4x5 ul li,
+    .plugin-news_2x5 ul li {
         padding: 10px 0 0 0;
         margin: 0;
         display: block;
         clear: both;
     }
-    .plugin-huge_news ul li:first-child,
-    .plugin-news ul li:first-child {
+    .plugin-news_4x5 ul li:first-child,
+    .plugin-news_2x5 ul li:first-child {
         padding: 0;
     }
-        .plugin-huge_news ul li .date,
-        .plugin-news ul li .date {
+        .plugin-news_4x5 ul li .date,
+        .plugin-news_2x5 ul li .date {
             display: block;
             clear: left;
             font-size: 0.8em;
@@ -33,7 +33,7 @@
             color: #555;
         }
 
-.plugin-huge_news .pagination-prev-next {
+.plugin-news_4x5 .pagination-prev-next {
     width: 100px;
     bottom: 10px;
     left: 0;
@@ -41,17 +41,17 @@
     clear: none;
     float: right;
 }
-    .plugin-huge_news .prevuous {
+    .plugin-news_4x5 .prevuous {
         display: block;
         float: left;
         text-indent: -9999px;
     }
-    .plugin-huge_news .next {
+    .plugin-news_4x5 .next {
         display: block;
         float: right;
     }
 
-.plugin.plugin-huge_news.width-4.height-5 {
+.plugin.plugin-news_4x5.width-4.height-5 {
     
 }
 

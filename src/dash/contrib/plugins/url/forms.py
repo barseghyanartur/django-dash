@@ -9,7 +9,7 @@ from dash.contrib.plugins.url.settings import IMAGE_CHOICES_WITH_EMPTY_OPTION
 
 class URLForm(forms.Form, DashboardPluginFormBase):
     """
-    URL form for `URLPlugin` plugin.
+    URL form for `URL1x1Plugin` plugin.
     """
     class Media:
         css = {

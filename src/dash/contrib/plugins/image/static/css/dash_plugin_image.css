@@ -1,0 +1,27 @@
+/*
+    Document   : dash_plugin_image.css
+    Created on : Nov 6, 2013, 19:05:39 PM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        Image plugin styles for django-dash.
+*/
+.layout .placeholder .plugin.pictonic .plugin-content-wrapper {
+    padding: 2px!important;
+    margin: 2px!important;
+}
+.layout .placeholder .plugin.pictonic .plugin-content-wrapper p,
+.layout .placeholder .plugin.pictonic .plugin-content-wrapper p a {
+    padding: 0!important;
+    margin: 0!important;
+}
+
+.layout .placeholder .plugin.pictonic .plugin-content-wrapper p a img {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    margin: auto!important;
+    padding: 0 !important;
+    position: absolute;
+}

@@ -993,9 +993,10 @@ class MetaBaseDashboardPluginWidget(type):
         return ' '.join(cls.html_classes)
 
 
-class classproperty(property):
+class ClassProperty(property):
     def __get__(self, cls, owner):
         return classmethod(self.fget).__get__(None, owner)()
+classproperty = ClassProperty
 
 
 class BaseDashboardPluginWidget(object):
@@ -1016,8 +1017,6 @@ class BaseDashboardPluginWidget(object):
     1, which means that a plugin occupies just 1 cell. But, certainly, there can be plugins that occupy
     more space in a placeholder.
     """
-    #__metaclass__ = MetaBaseDashboardPluginWidget
-
     layout_uid = None
     placeholder_uid = None
     plugin_uid = None
@@ -1057,6 +1056,34 @@ class BaseDashboardPluginWidget(object):
         """
         return ' '.join(cls.html_classes)
 
+    def get_width(self):
+        """
+        Gets widget width.
+
+        :return int:
+        """
+        return self.cols * self.plugin.placeholder.cell_width
+
+    def get_height(self):
+        """
+        Gets widget height.
+
+        :return int:
+        """
+        return self.rows * self.plugin.placeholder.cell_height
+
+    def get_size(self, delta_width=0, delta_height=0):
+        """
+        Gets widget size.
+        
+        :param int delta_width:
+        :param int delta_height:
+        :return tuple:
+        """
+        return (
+            (self.cols * self.plugin.placeholder.cell_width) + delta_width,
+            (self.rows * self.plugin.placeholder.cell_height) + delta_height
+        )
 
 class BaseRegistry(object):
     """

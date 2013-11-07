@@ -22,7 +22,7 @@ $(document).ready(function() {
     // Add dashboard plugin.
     $('.add-plugin').colorbox({
         'width': '576px',
-        'height': '520px',
+        'height': '550px',
         'opacity': '0.5',
         'onComplete': onLightboxAddPluginOpen
     });

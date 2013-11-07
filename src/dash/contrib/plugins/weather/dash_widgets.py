@@ -1,4 +1,4 @@
-__all__ = ('WeatherAndroidMainWidget', 'BigWeatherAndroidMainWidget')
+__all__ = ('Weather2x2AndroidMainWidget', 'Weather3x3AndroidMainWidget')
 
 from django.template.loader import render_to_string
 
@@ -8,13 +8,13 @@ from dash.base import BaseDashboardPluginWidget
 # ****************** Android widgets for Memo plugin ********************
 # ***********************************************************************
 
-class WeatherAndroidMainWidget(BaseDashboardPluginWidget):
+class Weather2x2AndroidMainWidget(BaseDashboardPluginWidget):
     """
     Weather plugin widget for Android layout (placeholder `main`).
     """
     layout_uid = 'android'
     placeholder_uid = 'main'
-    plugin_uid = 'weather'
+    plugin_uid = 'weather_2x2'
     cols = 2
     rows = 2
 
@@ -34,10 +34,10 @@ class WeatherAndroidMainWidget(BaseDashboardPluginWidget):
 # ****************** Android widgets for Big weather plugin *****************
 # ***************************************************************************
 
-class BigWeatherAndroidMainWidget(WeatherAndroidMainWidget):
+class Weather3x3AndroidMainWidget(Weather2x2AndroidMainWidget):
     """
-    Big memo plugin widget for Android layout (placeholder `main`).
+    Big weather plugin widget for Android layout (placeholder `main`).
     """
-    plugin_uid = 'big_weather'
+    plugin_uid = 'weather_3x3'
     cols = 3
     rows = 3

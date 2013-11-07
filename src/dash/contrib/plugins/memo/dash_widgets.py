@@ -1,7 +1,7 @@
-__all__ = ('MemoAndroidMainWidget', 'MemoAndroidShortcutWidget', 'BigMemoAndroidMainWidget', \
-           'BigMemoWindows8MainWidget', 'HugeMemoAndroidMainWidget', 'TinyMCEMemoAndroidMainWidget', \
-           'BigTinyMCEMemoAndroidMainWidget', 'MemoWindows8MainWidget', 'MemoWindows8SidebarWidget', \
-           'BigMemoWindows8MainWidget', 'BigMemoWindows8SidebarWidget')
+__all__ = ('Memo1x1AndroidShortcutWidget', 'Memo2x2AndroidMainWidget', 'Memo2x2Windows8MainWidget',
+           'Memo2x2Windows8SidebarWidget', 'Memo3x3AndroidMainWidget', 'Memo3x3Windows8MainWidget',
+           'Memo3x3Windows8MainWidget', 'Memo4x5AndroidMainWidget', 'TinyMCEMemo2x2AndroidMainWidget',
+           'TinyMCEMemo3x3AndroidMainWidget')
 
 from django.template.loader import render_to_string
 
@@ -11,13 +11,13 @@ from dash.base import BaseDashboardPluginWidget
 # ****************** Android widgets for Memo plugin ********************
 # ***********************************************************************
 
-class MemoAndroidMainWidget(BaseDashboardPluginWidget):
+class Memo2x2AndroidMainWidget(BaseDashboardPluginWidget):
     """
-    Memo plugin widget for Android layout (placeholder `main`).
+    Memo2x2 plugin widget for Android layout (placeholder `main`).
     """
     layout_uid = 'android'
     placeholder_uid = 'main'
-    plugin_uid = 'memo'
+    plugin_uid = 'memo_2x2'
     cols = 2
     rows = 2
 
@@ -26,11 +26,12 @@ class MemoAndroidMainWidget(BaseDashboardPluginWidget):
         return render_to_string('memo/render_main.html', context)
 
 
-class MemoAndroidShortcutWidget(MemoAndroidMainWidget):
+class Memo1x1AndroidShortcutWidget(Memo2x2AndroidMainWidget):
     """
-    Memo plugin widget for Android layout (placeholder `shortcuts`).
+    Memo1x1 plugin widget for Android layout (placeholder `shortcuts`).
     """
     placeholder_uid = 'shortcuts'
+    plugin_uid = 'memo_1x1'
     cols = 1
     rows = 1
 
@@ -42,33 +43,23 @@ class MemoAndroidShortcutWidget(MemoAndroidMainWidget):
 # ****************** Android widgets for Big memo plugin ********************
 # ***************************************************************************
 
-class BigMemoAndroidMainWidget(MemoAndroidMainWidget):
+class Memo3x3AndroidMainWidget(Memo2x2AndroidMainWidget):
     """
-    Big memo plugin widget for Android layout (placeholder `main`).
+    Memo3x3 plugin widget for Android layout (placeholder `main`).
     """
-    plugin_uid = 'big_memo'
+    plugin_uid = 'memo_3x3'
     cols = 3
     rows = 3
-
-# ***************************************************************************
-# ****************** Windows8 widgets for Big memo plugin *******************
-# ***************************************************************************
-
-class BigMemoWindows8MainWidget(BigMemoAndroidMainWidget):
-    """
-    Big memo plugin widget for Windows8 layout (placeholder `main`).
-    """
-    layout_uid = 'windows8'
 
 # ***************************************************************************
 # ****************** Android widgets for Huge memo plugin *******************
 # ***************************************************************************
 
-class HugeMemoAndroidMainWidget(MemoAndroidMainWidget):
+class Memo4x5AndroidMainWidget(Memo2x2AndroidMainWidget):
     """
     Huge memo plugin widget for Android layout (placeholder `main`).
     """
-    plugin_uid = 'huge_memo'
+    plugin_uid = 'memo_4x5'
     cols = 4
     rows = 5
 
@@ -77,13 +68,13 @@ class HugeMemoAndroidMainWidget(MemoAndroidMainWidget):
 # ****************** Android widgets for TinyMCEMemo plugin *************
 # ***********************************************************************
 
-class TinyMCEMemoAndroidMainWidget(BaseDashboardPluginWidget):
+class TinyMCEMemo2x2AndroidMainWidget(BaseDashboardPluginWidget):
     """
     TinyMCE memo plugin widget for Android layout (placeholder `main`).
     """
     layout_uid = 'android'
     placeholder_uid = 'main'
-    plugin_uid = 'tinymce_memo'
+    plugin_uid = 'tinymce_memo_2x2'
     cols = 2
     rows = 2
 
@@ -95,11 +86,11 @@ class TinyMCEMemoAndroidMainWidget(BaseDashboardPluginWidget):
 # ****************** Android widgets for Big TinyMCE memo plugin ************
 # ***************************************************************************
 
-class BigTinyMCEMemoAndroidMainWidget(TinyMCEMemoAndroidMainWidget):
+class TinyMCEMemo3x3AndroidMainWidget(TinyMCEMemo2x2AndroidMainWidget):
     """
-    Big memo plugin widget for Android layout (placeholder `main`).
+    Memo3x3 plugin widget for Android layout (placeholder `main`).
     """
-    plugin_uid = 'big_tinymce_memo'
+    plugin_uid = 'tinymce_memo_3x3'
     cols = 3
     rows = 3
 
@@ -108,13 +99,13 @@ class BigTinyMCEMemoAndroidMainWidget(TinyMCEMemoAndroidMainWidget):
 # ****************** Windows8 widgets for Memo plugin *******************
 # ***********************************************************************
 
-class MemoWindows8MainWidget(BaseDashboardPluginWidget):
+class Memo2x2Windows8MainWidget(BaseDashboardPluginWidget):
     """
-    Memo plugin widget for Windows 8 layout (placeholder `main`).
+    Memo2x2 plugin widget for Windows 8 layout (placeholder `main`).
     """
     layout_uid = 'windows8'
     placeholder_uid = 'main'
-    plugin_uid = 'memo'
+    plugin_uid = 'memo_2x2'
     cols = 2
     rows = 2
 
@@ -123,9 +114,9 @@ class MemoWindows8MainWidget(BaseDashboardPluginWidget):
         return render_to_string('memo/render_main.html', context)
 
 
-class MemoWindows8SidebarWidget(MemoWindows8MainWidget):
+class Memo2x2Windows8SidebarWidget(Memo2x2Windows8MainWidget):
     """
-    Memo plugin widget for Windows8 layout (placeholder `sidebar`).
+    Memo2x2 plugin widget for Windows8 layout (placeholder `sidebar`).
     """
     placeholder_uid = 'sidebar'
     cols = 1
@@ -137,26 +128,11 @@ class MemoWindows8SidebarWidget(MemoWindows8MainWidget):
 
 
 # ***************************************************************************
-# ****************** Windows 8 widgets for Big memo plugin ******************
+# ****************** Windows 8 widgets for Memo3x3 plugin ******************
 # ***************************************************************************
 
-class BigMemoWindows8MainWidget(MemoAndroidMainWidget):
+class Memo3x3Windows8MainWidget(Memo3x3AndroidMainWidget):
     """
-    Big memo plugin widget for Windows 8 layout (placeholder `main`).
-    """
-    layout_uid = 'windows8'
-    plugin_uid = 'big_memo'
-    cols = 3
-    rows = 3
-
-
-class BigMemoWindows8SidebarWidget(BigMemoWindows8MainWidget):
-    """
-    Big memo plugin widget for Windows 8 layout (placeholder `sidebar`).
+    Memo3x3 plugin widget for Windows8 layout (placeholder `main`).
     """
     layout_uid = 'windows8'
-    placeholder_uid = 'sidebar'
-    plugin_uid = 'big_memo'
-    cols = 2
-    rows = 2
-

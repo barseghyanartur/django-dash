@@ -1,4 +1,4 @@
-__all__ = ('ReadRSSFeedAndroidMainWidget', 'ReadRSSFeedWindows8MainWidget', 'BigReadRSSFeedAndroidMainWidget')
+__all__ = ('ReadRSSFeed2x3AndroidMainWidget', 'ReadRSSFeed2x3Windows8MainWidget', 'ReadRSSFeed3x3AndroidMainWidget')
 
 from django.core.context_processors import csrf
 from django.template.loader import render_to_string
@@ -8,13 +8,13 @@ from dash.base import BaseDashboardPluginWidget
 # ************************************************************************
 # ****************** Android widgets for Read RSS feed plugin ************
 # ************************************************************************
-class ReadRSSFeedAndroidMainWidget(BaseDashboardPluginWidget):
+class ReadRSSFeed2x3AndroidMainWidget(BaseDashboardPluginWidget):
     """
     Read RSS feed plugin widget for Android layout (placeholder `main`).
     """
     layout_uid = 'android'
     placeholder_uid = 'main'
-    plugin_uid = 'read_rss_feed'
+    plugin_uid = 'read_rss_feed_2x3'
     cols = 2
     rows = 3
 
@@ -32,11 +32,11 @@ class ReadRSSFeedAndroidMainWidget(BaseDashboardPluginWidget):
 # ************************************************************************
 # ****************** Android widgets for Big read RSS feed plugin ********
 # ************************************************************************
-class BigReadRSSFeedAndroidMainWidget(ReadRSSFeedAndroidMainWidget):
+class ReadRSSFeed3x3AndroidMainWidget(ReadRSSFeed2x3AndroidMainWidget):
     """
     Big read RSS feed plugin widget for Android layout (placeholder `main`).
     """
-    plugin_uid = 'big_read_rss_feed'
+    plugin_uid = 'read_rss_feed_3x3'
     cols = 3
     rows = 3
 
@@ -44,7 +44,7 @@ class BigReadRSSFeedAndroidMainWidget(ReadRSSFeedAndroidMainWidget):
 # ************************************************************************
 # ****************** Windows8 widgets for Read RSS feed plugin ***********
 # ************************************************************************
-class ReadRSSFeedWindows8MainWidget(ReadRSSFeedAndroidMainWidget):
+class ReadRSSFeed2x3Windows8MainWidget(ReadRSSFeed2x3AndroidMainWidget):
     """
     Read RSS feed plugin widget for Windows8 (placeholder `main`).
     """

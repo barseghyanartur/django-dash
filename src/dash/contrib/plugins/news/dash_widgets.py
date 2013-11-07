@@ -1,4 +1,4 @@
-__all__ = ('NewsAndroidMainWidget', 'HugeNewsAndroidMainWidget')
+__all__ = ('News2x5AndroidMainWidget', 'News4x5AndroidMainWidget')
 
 from django.template.loader import render_to_string
 
@@ -8,18 +8,18 @@ from dash.contrib.plugins.news.constants import PAGE_URL_PARAM, NUM_POSTS_URL_PA
 # ************************************************************************
 # ****************** Android widgets for Read RSS feed plugin ************
 # ************************************************************************
-class NewsAndroidMainWidget(BaseDashboardPluginWidget):
+class News2x5AndroidMainWidget(BaseDashboardPluginWidget):
     """
     News plugin widget for Android layout (placeholder `main`).
     """
     layout_uid = 'android'
     placeholder_uid = 'main'
-    plugin_uid = 'news'
+    plugin_uid = 'news_2x5'
     cols = 2
     rows = 5
 
     media_js = [
-        'js/dash_plugin_news.js',
+        'js/dash_plugin_2x5_news.js',
     ]
     media_css = [
         'css/dash_plugin_news.css',
@@ -27,22 +27,22 @@ class NewsAndroidMainWidget(BaseDashboardPluginWidget):
 
     def render(self, request=None):
         context = {'plugin': self.plugin,}
-        return render_to_string('news/render_main.html', context)
+        return render_to_string('news/render_2x5_main.html', context)
 
 
 # ************************************************************************
 # ****************** Android widgets for Read RSS feed plugin ************
 # ************************************************************************
-class HugeNewsAndroidMainWidget(NewsAndroidMainWidget):
+class News4x5AndroidMainWidget(News2x5AndroidMainWidget):
     """
     Huge news plugin widget for Android layout (placeholder `main`).
     """
-    plugin_uid = 'huge_news'
+    plugin_uid = 'news_4x5'
     cols = 4
     rows = 5
 
     media_js = [
-        'js/dash_plugin_huge_news.js',
+        'js/dash_plugin_4x5_news.js',
     ]
     media_css = [
         'css/dash_plugin_news.css',
@@ -54,4 +54,4 @@ class HugeNewsAndroidMainWidget(NewsAndroidMainWidget):
             'PAGE_URL_PARAM': PAGE_URL_PARAM,
             'NUM_POSTS_URL_PARAM': NUM_POSTS_URL_PARAM
             }
-        return render_to_string('news/render_huge_main.html', context)
+        return render_to_string('news/render_4x5_main.html', context)

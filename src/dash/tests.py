@@ -188,7 +188,7 @@ class DashCoreTest(TestCase):
         if 'android' == layout.uid:
             # *********** First test
             # 2 x 2 widget
-            r = get_occupied_cells(layout, placeholder, 'memo', 3)
+            r = get_occupied_cells(layout, placeholder, 'memo_2x2', 3)
 
             self.assertEqual(r, [3, 4, 9, 10])
 
@@ -197,7 +197,7 @@ class DashCoreTest(TestCase):
             # *********** Second test
 
             # 3 x 3 widget
-            r = get_occupied_cells(layout, placeholder, 'big_memo', 16)
+            r = get_occupied_cells(layout, placeholder, 'memo_3x3', 16)
 
             self.assertEqual(r, [16, 17,18, 22, 23, 24, 28, 29, 30])
 
@@ -206,7 +206,7 @@ class DashCoreTest(TestCase):
             # *********** Third test (the nasty one)
 
             # 3 x 3 widget
-            #r = get_occupied_cells(layout, placeholder, 'big_memo', 17)
+            #r = get_occupied_cells(layout, placeholder, 'memo_3x3', 17)
 
             #self.assertEqual(r, [16, 17,18, 22, 23, 24, 28, 29, 30])
 
@@ -252,7 +252,7 @@ class DashBrowserTest(LiveServerTestCase):
         :param str position: Example value "col-1 row-1"
         :param str plugin_widget_name: Example value "Dummy".
         :param str plugin_widget_name_with_dimensions: Example value "Dummy (1x1)".
-        :param str plugin_widget_css_class: Example value "plugin-dummy".
+        :param str plugin_widget_css_class: Example value "plugin-dummy1x1".
         :param list added_plugin_widget_css_classes: Example value ['width-1', 'height-1'].
         :param dict form_data: Example value {'title': "Lorem", 'text': "Lorem ipsum dolor sit amet"}.
         :param callable form_hook_func: Function to when add form is opened (to populate the data).
@@ -273,7 +273,7 @@ class DashBrowserTest(LiveServerTestCase):
                 position = "col-1 row-1",
                 plugin_widget_name = "URL",
                 plugin_widget_name_with_dimensions = "URL (1x1)",
-                plugin_widget_css_class = "plugin-url",
+                plugin_widget_css_class = "plugin-url_1x1",
                 added_plugin_widget_css_classes = ('width-1', 'height-1'),
                 form_data = {'title': "Test 1x1 URL", 'url': "http://delusionalinsanity.com/portfolio/"},
                 form_hook_func = choose_url_image
@@ -285,7 +285,7 @@ class DashBrowserTest(LiveServerTestCase):
                 position = "col-2 row-1",
                 plugin_widget_name = "Dummy",
                 plugin_widget_name_with_dimensions = "Dummy (2x1)",
-                plugin_widget_css_class = "plugin-large_dummy",
+                plugin_widget_css_class = "plugin-dummy2x1",
                 added_plugin_widget_css_classes = ('width-2', 'height-1')
                 )
 
@@ -295,7 +295,7 @@ class DashBrowserTest(LiveServerTestCase):
                 position = "col-4 row-1",
                 plugin_widget_name = "Memo",
                 plugin_widget_name_with_dimensions = "Memo (3x3)",
-                plugin_widget_css_class = "plugin-big_memo",
+                plugin_widget_css_class = "plugin-memo_3x3",
                 added_plugin_widget_css_classes = ('width-3', 'height-3'),
                 form_data = {'title': "Lorem", 'text': "Lorem ipsum dolor sit amet"}
                 )
@@ -306,7 +306,7 @@ class DashBrowserTest(LiveServerTestCase):
                 position = "col-1 row-2",
                 plugin_widget_name = "Video",
                 plugin_widget_name_with_dimensions = "Video (3x3)",
-                plugin_widget_css_class = "plugin-big_video",
+                plugin_widget_css_class = "plugin-video_3x3",
                 added_plugin_widget_css_classes = ('width-3', 'height-3'),
                 form_data = {'title': "Test 3x3 video", 'url': "http://www.youtube.com/watch?v=8GVIui0JK0M"}
                 )
@@ -440,7 +440,7 @@ class DashBrowserTest(LiveServerTestCase):
             position = "col-1 row-1",
             plugin_widget_name = "URL",
             plugin_widget_name_with_dimensions = "URL (1x1)",
-            plugin_widget_css_class = "plugin-url",
+            plugin_widget_css_class = "plugin-url_1x1",
             added_plugin_widget_css_classes = ('width-1', 'height-1'),
             form_data = {'title': "Test 1x1 URL", 'url': "http://delusionalinsanity.com/portfolio/"},
             form_hook_func = choose_url_image
@@ -451,7 +451,7 @@ class DashBrowserTest(LiveServerTestCase):
             position = "col-2 row-1",
             plugin_widget_name = "Dummy",
             plugin_widget_name_with_dimensions = "Dummy (2x1)",
-            plugin_widget_css_class = "plugin-large_dummy",
+            plugin_widget_css_class = "plugin-dummy_2x1",
             added_plugin_widget_css_classes = ('width-2', 'height-1')
             )
 
@@ -460,7 +460,7 @@ class DashBrowserTest(LiveServerTestCase):
             position = "col-4 row-1",
             plugin_widget_name = "Memo",
             plugin_widget_name_with_dimensions = "Memo (3x3)",
-            plugin_widget_css_class = "plugin-big_memo",
+            plugin_widget_css_class = "plugin-memo_3x3",
             added_plugin_widget_css_classes = ('width-3', 'height-3'),
             form_data = {'title': "Test 3x3 memo", 'text': "Lorem ipsum dolor sit amet."}
             )
@@ -470,7 +470,7 @@ class DashBrowserTest(LiveServerTestCase):
             position = "col-1 row-2",
             plugin_widget_name = "Video",
             plugin_widget_name_with_dimensions = "Video (3x3)",
-            plugin_widget_css_class = "plugin-big_video",
+            plugin_widget_css_class = "plugin-video_3x3",
             added_plugin_widget_css_classes = ('width-3', 'height-3'),
             form_data = {'title': "Test 3x3 video", 'url': "http://www.youtube.com/watch?v=8GVIui0JK0M"}
             )
@@ -486,7 +486,7 @@ class DashBrowserTest(LiveServerTestCase):
         Test edit any single plugin.
 
         :param str plugin_widget_name: Example value "Dummy".
-        :param str plugin_widget_css_class: Example value "plugin-dummy".
+        :param str plugin_widget_css_class: Example value "plugin-dummy1x1".
         :param dict form_data: Example value {'title': "Lorem", 'text': "Lorem ipsum dolor sit amet"}.
         :param callable form_hook_func: Function to when edit form is opened (to populate the data).
 
@@ -504,7 +504,7 @@ class DashBrowserTest(LiveServerTestCase):
 
             self.__edit_plugin_widget_test(
                 plugin_widget_name = "URL",
-                plugin_widget_css_class = "plugin-url",
+                plugin_widget_css_class = "plugin-url_1x1",
                 form_data = {'title': "Test 1x1 URL", 'url': "http://delusionalinsanity.com/portfolio/"},
                 form_hook_func = choose_url_image
                 )
@@ -513,14 +513,14 @@ class DashBrowserTest(LiveServerTestCase):
 
             self.__edit_plugin_widget_test(
                 plugin_widget_name = "Dummy",
-                plugin_widget_css_class = "plugin-large_dummy"
+                plugin_widget_css_class = "plugin-dummy_2x1"
                 )
 
         Test 3x3 Memo plugin widget::
 
             self.__edit_plugin_widget_test(
                 plugin_widget_name = "Memo",
-                plugin_widget_css_class = "plugin-big_memo",
+                plugin_widget_css_class = "plugin-memo_3x3",
                 form_data = {'title': "Lorem", 'text': "Lorem ipsum dolor sit amet"}
                 )
 
@@ -528,7 +528,7 @@ class DashBrowserTest(LiveServerTestCase):
 
             self.__edit_plugin_widget_test(
                 plugin_widget_name = "Video",
-                plugin_widget_css_class = "plugin-big_video",
+                plugin_widget_css_class = "plugin-video_3x3",
                 form_data = {'title': "Test 3x3 video", 'url': "http://www.youtube.com/watch?v=8GVIui0JK0M"}
                 )
         """
@@ -601,7 +601,7 @@ class DashBrowserTest(LiveServerTestCase):
 
         self.__edit_plugin_widget_test(
             plugin_widget_name = "URL",
-            plugin_widget_css_class = "plugin-url",
+            plugin_widget_css_class = "plugin-url_1x1",
             form_data = {'title': "Edited test 1x1 URL", 'url': "http://foreverchild.info/"},
             form_hook_func = choose_url_image
             )
@@ -610,14 +610,14 @@ class DashBrowserTest(LiveServerTestCase):
 
         self.__edit_plugin_widget_test(
             plugin_widget_name = "Dummy",
-            plugin_widget_css_class = "plugin-large_dummy"
+            plugin_widget_css_class = "plugin-dummy_2x1"
             )
 
         # Test 3x3 Memo plugin widget::
 
         self.__edit_plugin_widget_test(
             plugin_widget_name = "Memo",
-            plugin_widget_css_class = "plugin-big_memo",
+            plugin_widget_css_class = "plugin-memo_3x3",
             form_data = {'title': "Edited lorem", 'text': "Edited lorem ipsum dolor sit amet"}
             )
 
@@ -625,7 +625,7 @@ class DashBrowserTest(LiveServerTestCase):
 
         self.__edit_plugin_widget_test(
             plugin_widget_name = "Video",
-            plugin_widget_css_class = "plugin-big_video",
+            plugin_widget_css_class = "plugin-video_3x3",
             form_data = {'title': "Edited test 3x3 video", 'url': "http://www.youtube.com/watch?v=veOhHqVWwP4"}
             )
 
@@ -639,32 +639,32 @@ class DashBrowserTest(LiveServerTestCase):
         """
         Test delete any single plugin.
 
-        :param str plugin_widget_css_class: Example value "plugin-dummy".
+        :param str plugin_widget_css_class: Example value "plugin-dummy1x1".
 
         :example:
 
         Test 1x1 URL plugin widget::
 
             self.__delete_plugin_widget_test(
-                plugin_widget_css_class = "plugin-url"
+                plugin_widget_css_class = "plugin-url_1x1"
                 )
 
         Test 2x1 Dummy plugin widget::
 
             self.__delete_plugin_widget_test(
-                plugin_widget_css_class = "plugin-large_dummy"
+                plugin_widget_css_class = "plugin-dummy_2x1"
                 )
 
         Test 3x3 Memo plugin widget::
 
             self.__delete_plugin_widget_test(
-                plugin_widget_css_class = "plugin-big_memo"
+                plugin_widget_css_class = "plugin-memo_3x3"
                 )
 
         Test 3x3 Video plugin widget::
 
             self.__delete_plugin_widget_test(
-                plugin_widget_css_class = "plugin-big_video"
+                plugin_widget_css_class = "plugin-video_3x3"
                 )
         """
         # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -710,25 +710,25 @@ class DashBrowserTest(LiveServerTestCase):
         # Test 1x1 URL plugin widget::
 
         self.__delete_plugin_widget_test(
-            plugin_widget_css_class = "plugin-url"
+            plugin_widget_css_class = "plugin-url_1x1"
             )
 
         # Test 2x1 Dummy plugin widget::
 
         self.__delete_plugin_widget_test(
-            plugin_widget_css_class = "plugin-large_dummy"
+            plugin_widget_css_class = "plugin-dummy_2x1"
             )
 
         # Test 3x3 Memo plugin widget::
 
         self.__delete_plugin_widget_test(
-            plugin_widget_css_class = "plugin-big_memo"
+            plugin_widget_css_class = "plugin-memo_3x3"
             )
 
         # Test 3x3 Video plugin widget::
 
         self.__delete_plugin_widget_test(
-            plugin_widget_css_class = "plugin-big_video"
+            plugin_widget_css_class = "plugin-video_3x3"
             )
 
         if wait:

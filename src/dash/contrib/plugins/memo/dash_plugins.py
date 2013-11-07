@@ -1,123 +1,121 @@
-__all__ = ('MemoPlugin', 'BigMemoPlugin', 'HugeMemoPlugin', 'TinyMCEMemoPlugin', \
-           'BigTinyMCEMemoPlugin')
+__all__ = ('Memo1x1Plugin', 'Memo2x2Plugin', 'Memo3x3Plugin', 'Memo4x5Plugin', 'TinyMCEMemo2x2Plugin',
+           'TinyMCEMemo3x3Plugin')
 
 from django.utils.translation import ugettext_lazy as _
 
 from dash.base import BaseDashboardPlugin, plugin_registry, plugin_widget_registry
 from dash.contrib.plugins.memo.forms import MemoForm, TinyMCEMemoForm
-from dash.contrib.plugins.memo.dash_widgets import MemoAndroidMainWidget, MemoAndroidShortcutWidget
-from dash.contrib.plugins.memo.dash_widgets import BigMemoAndroidMainWidget, BigMemoWindows8MainWidget
-from dash.contrib.plugins.memo.dash_widgets import HugeMemoAndroidMainWidget, TinyMCEMemoAndroidMainWidget
-from dash.contrib.plugins.memo.dash_widgets import BigTinyMCEMemoAndroidMainWidget, MemoWindows8MainWidget
-from dash.contrib.plugins.memo.dash_widgets import MemoWindows8SidebarWidget, BigMemoWindows8MainWidget
-from dash.contrib.plugins.memo.dash_widgets import BigMemoWindows8SidebarWidget
+from dash.contrib.plugins.memo.dash_widgets import Memo2x2AndroidMainWidget, Memo1x1AndroidShortcutWidget
+from dash.contrib.plugins.memo.dash_widgets import Memo3x3AndroidMainWidget, Memo3x3Windows8MainWidget
+from dash.contrib.plugins.memo.dash_widgets import Memo4x5AndroidMainWidget, TinyMCEMemo2x2AndroidMainWidget
+from dash.contrib.plugins.memo.dash_widgets import TinyMCEMemo3x3AndroidMainWidget, Memo2x2Windows8MainWidget
+from dash.contrib.plugins.memo.dash_widgets import Memo2x2Windows8SidebarWidget
 
 # **************************************************************************
 # ******************************* MemoPlugin *******************************
 # **************************************************************************
 
-class MemoPlugin(BaseDashboardPlugin):
+class Memo2x2Plugin(BaseDashboardPlugin):
     """
     Memo dashboard plugin.
     """
-    uid = 'memo'
+    uid = 'memo_2x2'
     name = _("Memo")
     group = _("Memo")
     form = MemoForm
 
 
-plugin_registry.register(MemoPlugin)
+plugin_registry.register(Memo2x2Plugin)
+
+# **************************************************************************
+# ******************************* Memo1x1 Plugin ***************************
+# **************************************************************************
+
+class Memo1x1Plugin(Memo2x2Plugin):
+    """
+    Memo1x1 dashboard plugin.
+    """
+    uid = 'memo_1x1'
+
+plugin_registry.register(Memo1x1Plugin)
 
 # **************************************************************************
 # ******************************* Big memo plugin **************************
 # **************************************************************************
 
-class BigMemoPlugin(MemoPlugin):
+class Memo3x3Plugin(Memo2x2Plugin):
     """
     Exact copy of the memo plugin, just rendered bigger.
     """
-    uid = 'big_memo'
-    name = _("Memo")
-    group = _("Memo")
+    uid = 'memo_3x3'
 
-
-plugin_registry.register(BigMemoPlugin)
+plugin_registry.register(Memo3x3Plugin)
 
 # **************************************************************************
 # ******************************* Huge memo plugin *************************
 # **************************************************************************
 
-class HugeMemoPlugin(MemoPlugin):
+class Memo4x5Plugin(Memo2x2Plugin):
     """
     Exact copy of the memo plugin, just rendered bigger.
     """
-    uid = 'huge_memo'
-    name = _("Memo")
-    group = _("Memo")
+    uid = 'memo_4x5'
 
-
-plugin_registry.register(HugeMemoPlugin)
+plugin_registry.register(Memo4x5Plugin)
 
 
 # **************************************************************************
 # ******************************* TinyMCE memo plugin **********************
 # **************************************************************************
 
-class TinyMCEMemoPlugin(BaseDashboardPlugin):
+class TinyMCEMemo2x2Plugin(BaseDashboardPlugin):
     """
     Memo dashboard plugin.
     """
-    uid = 'tinymce_memo'
+    uid = 'tinymce_memo_2x2'
     name = _("TinyMCE memo")
     group = _("Memo")
     form = TinyMCEMemoForm
     help_text = _("""TinyMCE tags are available here.""")
 
 
-plugin_registry.register(TinyMCEMemoPlugin)
+plugin_registry.register(TinyMCEMemo2x2Plugin)
 
 # **************************************************************************
 # ******************************* Big TinyMCE memo plugin ******************
 # **************************************************************************
 
-class BigTinyMCEMemoPlugin(TinyMCEMemoPlugin):
+class TinyMCEMemo3x3Plugin(TinyMCEMemo2x2Plugin):
     """
     Exact copy of the memo plugin, just rendered bigger.
     """
-    uid = 'big_tinymce_memo'
-    name = _("TinyMCE memo")
-    group = _("Memo")
+    uid = 'tinymce_memo_3x3'
 
-
-plugin_registry.register(BigTinyMCEMemoPlugin)
+plugin_registry.register(TinyMCEMemo3x3Plugin)
 
 # **************************************************************************
 # ****************** Registering the widgets *******************************
 # **************************************************************************
 
 # Registering the Android widgets for Memo plugin.
-plugin_widget_registry.register(MemoAndroidMainWidget)
-plugin_widget_registry.register(MemoAndroidShortcutWidget)
+plugin_widget_registry.register(Memo2x2AndroidMainWidget)
+plugin_widget_registry.register(Memo1x1AndroidShortcutWidget)
 
 # Registering the Android widgets for Big memo plugin.
-plugin_widget_registry.register(BigMemoAndroidMainWidget)
+plugin_widget_registry.register(Memo3x3AndroidMainWidget)
 
 # Registering the Windows8 widgets for Big memo plugin.
-plugin_widget_registry.register(BigMemoWindows8MainWidget)
+plugin_widget_registry.register(Memo3x3Windows8MainWidget)
 
 # Registering the Android widgets for Huge memo plugin.
-plugin_widget_registry.register(HugeMemoAndroidMainWidget)
+plugin_widget_registry.register(Memo4x5AndroidMainWidget)
 
 # Registering the Android widgets for TinyMCE memo plugin.
-plugin_widget_registry.register(TinyMCEMemoAndroidMainWidget)
+plugin_widget_registry.register(TinyMCEMemo2x2AndroidMainWidget)
 
 # Registering the Android widgets for Big TinyMCE memo plugin.
-plugin_widget_registry.register(BigTinyMCEMemoAndroidMainWidget)
+plugin_widget_registry.register(TinyMCEMemo3x3AndroidMainWidget)
 
 # Registering the Windows 8 widgets for Memo plugin.
-plugin_widget_registry.register(MemoWindows8MainWidget)
-plugin_widget_registry.register(MemoWindows8SidebarWidget)
-
-# Registering the Windows 8 widgets for BigMemo plugin.
-plugin_widget_registry.register(BigMemoWindows8MainWidget)
-plugin_widget_registry.register(BigMemoWindows8SidebarWidget)
+plugin_widget_registry.register(Memo2x2Windows8MainWidget)
+plugin_widget_registry.register(Memo2x2Windows8SidebarWidget)

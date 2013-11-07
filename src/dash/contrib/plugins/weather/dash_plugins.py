@@ -1,4 +1,4 @@
-__all__ = ('WeatherPlugin',)
+__all__ = ('Weather2x2Plugin', 'Weather3x3Plugin')
 
 from six.moves.urllib.request import urlopen
 import json
@@ -8,7 +8,7 @@ from django.core.cache import cache
 
 from dash.base import BaseDashboardPlugin, plugin_registry, plugin_widget_registry
 from dash.contrib.plugins.weather.forms import WeatherForm
-from dash.contrib.plugins.weather.dash_widgets import WeatherAndroidMainWidget, BigWeatherAndroidMainWidget
+from dash.contrib.plugins.weather.dash_widgets import Weather2x2AndroidMainWidget, Weather3x3AndroidMainWidget
 from dash.contrib.plugins.weather.settings import API_KEY, API_ENDPOINT_URL
 from dash.settings import DEBUG
 
@@ -16,10 +16,10 @@ import logging
 logger = logging.getLogger(__name__)
 
 # ***************************************************************************
-# ******************************* Dummy plugin ******************************
+# ******************************* Weather plugin ****************************
 # ***************************************************************************
 
-class WeatherPlugin(BaseDashboardPlugin):
+class Weather2x2Plugin(BaseDashboardPlugin):
     """
     Weather dashboard plugin.
     """
@@ -97,44 +97,29 @@ class WeatherPlugin(BaseDashboardPlugin):
                     pass
 
 
-plugin_registry.register(WeatherPlugin)
+plugin_registry.register(Weather2x2Plugin)
 
 # ********************************************************************************
-# ******************************* Large dummy plugin *****************************
+# ******************************* Big weather plugin *****************************
 # ********************************************************************************
 
-class LargeWeatherPlugin(WeatherPlugin):
-    """
-    Large weather dashboard plugin.
-    """
-    uid = 'large_weather'
-    name = _("Weather")
-    group = _("Weather")
-
-
-plugin_registry.register(LargeWeatherPlugin)
-
-# ********************************************************************************
-# ******************************* Big dummy plugin *******************************
-# ********************************************************************************
-
-class BigWeatherPlugin(WeatherPlugin):
+class Weather3x3Plugin(Weather2x2Plugin):
     """
     Big weather dashboard plugin.
     """
-    uid = 'big_weather'
+    uid = 'weather_3x3'
     name = _("Weather")
     group = _("Weather")
 
 
-plugin_registry.register(BigWeatherPlugin)
+plugin_registry.register(Weather3x3Plugin)
 
 # ********************************************************************************
 # ******************************* Registering the widgets ************************
 # ********************************************************************************
 
 # Registering the Android widgets for Weather plugin.
-plugin_widget_registry.register(WeatherAndroidMainWidget)
+plugin_widget_registry.register(Weather2x2AndroidMainWidget)
 
 # Registering the Android widgets for Big weather plugin.
-plugin_widget_registry.register(BigWeatherAndroidMainWidget)
+plugin_widget_registry.register(Weather3x3AndroidMainWidget)

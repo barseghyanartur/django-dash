@@ -12,24 +12,24 @@
         1x1. This allows us to be lazy and do not include the size
         specific classes here. Otherwise, we would have to.
 */
-.layout-android .placeholder.placeholder-main .plugin.plugin-url.iconic-url .plugin-content-wrapper,
-.layout-android .placeholder.placeholder-shortcuts .plugin.plugin-url.iconic-url .plugin-content-wrapper {
+.layout-android .placeholder.placeholder-main .plugin.plugin-url_1x1.iconic-url .plugin-content-wrapper,
+.layout-android .placeholder.placeholder-shortcuts .plugin.plugin-url_1x1.iconic-url .plugin-content-wrapper {
     padding-top: 0;
 }
-    .layout-android .placeholder .plugin.plugin-url.iconic-url .plugin-content-wrapper a {
+    .layout-android .placeholder .plugin.plugin-url_1x1.iconic-url .plugin-content-wrapper a {
         margin: auto;
         display: block;
         text-align: center;
         width: 100%;
     }
-    .layout-android .placeholder.placeholder-main .plugin.plugin-url.iconic-url .plugin-content-wrapper a {
+    .layout-android .placeholder.placeholder-main .plugin.plugin-url_1x1.iconic-url .plugin-content-wrapper a {
     }
-        .layout-android .placeholder.placeholder-main .plugin.plugin-url.iconic-url .plugin-content-wrapper a i {
+        .layout-android .placeholder.placeholder-main .plugin.plugin-url_1x1.iconic-url .plugin-content-wrapper a i {
             font-size: 108px;
         }
-    .layout-android .placeholder.placeholder-shortcuts .plugin.plugin-url.iconic-url .plugin-content-wrapper a {
+    .layout-android .placeholder.placeholder-shortcuts .plugin.plugin-url_1x1.iconic-url .plugin-content-wrapper a {
         margin-top: 5px;
     }
-        .layout-android .placeholder.placeholder-shortcuts .plugin.plugin-url.iconic-url .plugin-content-wrapper a i {
+        .layout-android .placeholder.placeholder-shortcuts .plugin.plugin-url_1x1.iconic-url .plugin-content-wrapper a i {
             font-size: 45px;
         }

@@ -1,25 +1,25 @@
-__all__ = ('DummyPlugin',)
+__all__ = ('Dummy1x1Plugin', 'Dummy1x2Plugin', 'Dummy2x1Plugin', 'Dummy3x3Plugin',)
 
 from django.utils.translation import ugettext_lazy as _
 
 from dash.base import BaseDashboardPlugin, plugin_registry, plugin_widget_registry
 from dash.contrib.plugins.dummy.forms import DummyForm, DummyShortcutsForm
 
-from dash.contrib.plugins.dummy.dash_widgets import DummyAndroidMainWidget, DummyAndroidShortcutWidget
-from dash.contrib.plugins.dummy.dash_widgets import DummyWindows8MainWidget, DummyWindows8SidebarWidget
-from dash.contrib.plugins.dummy.dash_widgets import LargeDummyAndroidMainWidget, LargeDummyPortraitAndroidMainWidget
-from dash.contrib.plugins.dummy.dash_widgets import LargeDummyPortraitAndroidShortcutWidget
-from dash.contrib.plugins.dummy.dash_widgets import BigDummyAndroidMainWidget
+from dash.contrib.plugins.dummy.dash_widgets import Dummy1x1AndroidMainWidget, Dummy1x1AndroidShortcutWidget
+from dash.contrib.plugins.dummy.dash_widgets import Dummy1x1Windows8MainWidget, Dummy1x1Windows8SidebarWidget
+from dash.contrib.plugins.dummy.dash_widgets import Dummy2x1AndroidMainWidget, Dummy1x2AndroidMainWidget
+from dash.contrib.plugins.dummy.dash_widgets import Dummy1x2AndroidShortcutWidget
+from dash.contrib.plugins.dummy.dash_widgets import Dummy3x3AndroidMainWidget
 
 # ***************************************************************************
 # ******************************* Dummy plugin ******************************
 # ***************************************************************************
 
-class DummyPlugin(BaseDashboardPlugin):
+class Dummy1x1Plugin(BaseDashboardPlugin):
     """
-    Dummy dashboard plugin.
+    Dummy1x1 dashboard plugin.
     """
-    uid = 'dummy'
+    uid = 'dummy_1x1'
     name = _("Dummy")
     form = DummyForm
     group = _("Dummy")
@@ -38,71 +38,71 @@ class DummyPlugin(BaseDashboardPlugin):
             self.data.text = 'Dummy content'
 
 
-plugin_registry.register(DummyPlugin)
+plugin_registry.register(Dummy1x1Plugin)
 
 # ********************************************************************************
 # ******************************* Large dummy plugin *****************************
 # ********************************************************************************
 
-class LargeDummyPlugin(DummyPlugin):
+class Dummy2x1Plugin(Dummy1x1Plugin):
     """
-    Large dummy dashboard plugin.
+    (Large) dummy2x1 dashboard plugin.
     """
-    uid = 'large_dummy'
+    uid = 'dummy_2x1'
     name = _("Dummy")
     group = _("Dummy")
 
 
-plugin_registry.register(LargeDummyPlugin)
+plugin_registry.register(Dummy2x1Plugin)
 
 # ****************************************************************************************
 # ******************************* Large dummy portrait plugin ****************************
 # ****************************************************************************************
 
-class LargeDummyPortraitPlugin(DummyPlugin):
+class Dummy1x2Plugin(Dummy1x1Plugin):
     """
-    Large dummy portrait dashboard plugin.
+    (Large) dummy1x2 (portrait) dashboard plugin.
     """
-    uid = 'large_dummy_portrait'
+    uid = 'dummy_1x2'
     name = _("Dummy")
     group = _("Dummy")
 
 
-plugin_registry.register(LargeDummyPortraitPlugin)
+plugin_registry.register(Dummy1x2Plugin)
 
 # ********************************************************************************
 # ******************************* Big dummy plugin *******************************
 # ********************************************************************************
 
-class BigDummyPlugin(DummyPlugin):
+class Dummy3x3Plugin(Dummy1x1Plugin):
     """
-    Big dummy dashboard plugin.
+    (Big) dummy3x3 dashboard plugin.
     """
-    uid = 'big_dummy'
+    uid = 'dummy_3x3'
     name = _("Dummy")
     group = _("Dummy")
 
 
-plugin_registry.register(BigDummyPlugin)
+plugin_registry.register(Dummy3x3Plugin)
 
 # ********************************************************************************
 # ******************************* Registering the widgets ************************
 # ********************************************************************************
 
 # Registering the Android widgets for Dummy plugin.
-plugin_widget_registry.register(DummyAndroidMainWidget)
-plugin_widget_registry.register(DummyAndroidShortcutWidget)
+plugin_widget_registry.register(Dummy1x1AndroidMainWidget)
+plugin_widget_registry.register(Dummy1x1AndroidShortcutWidget)
 
 # Registering the Windows8 widgets for Dummy plugin.
-plugin_widget_registry.register(DummyWindows8MainWidget)
-plugin_widget_registry.register(DummyWindows8SidebarWidget)
+plugin_widget_registry.register(Dummy1x1Windows8MainWidget)
+plugin_widget_registry.register(Dummy1x1Windows8SidebarWidget)
 
 # Registering the Android widgets for Large dummy plugin.
-plugin_widget_registry.register(LargeDummyAndroidMainWidget)
+plugin_widget_registry.register(Dummy2x1AndroidMainWidget)
 
 # Registering the Android widgets for LargeDummy plugin.
-plugin_widget_registry.register(LargeDummyPortraitAndroidMainWidget)
-plugin_widget_registry.register(LargeDummyPortraitAndroidShortcutWidget)
+plugin_widget_registry.register(Dummy1x2AndroidMainWidget)
+plugin_widget_registry.register(Dummy1x2AndroidShortcutWidget)
 
 # Registering the Android widgets for Big dummy plugin.
-plugin_widget_registry.register(BigDummyAndroidMainWidget)
+plugin_widget_registry.register(Dummy3x3AndroidMainWidget)

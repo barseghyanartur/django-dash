@@ -12,17 +12,17 @@
         1x1. This allows us to be lazy and do not include the size
         specific classes here. Otherwise, we would have to.
 */
-.layout-windows8 .placeholder .plugin.plugin-url.iconic-url .plugin-content-wrapper {
+.layout-windows8 .placeholder .plugin.plugin-url_1x1.iconic-url .plugin-content-wrapper {
     padding: 0;
 }
-    .layout-windows8 .placeholder .plugin.plugin-url.iconic-url .plugin-content-wrapper a {
+    .layout-windows8 .placeholder .plugin.plugin-url_1x1.iconic-url .plugin-content-wrapper a {
         margin: auto;
         display: block;
         text-align: center;
     }
-    .layout-windows8 .placeholder .plugin.plugin-url.iconic-url .plugin-content-wrapper a {
+    .layout-windows8 .placeholder .plugin.plugin-url_1x1.iconic-url .plugin-content-wrapper a {
         width: 100%;
     }
-        .layout-windows8 .placeholder .plugin.plugin-url.iconic-url .plugin-content-wrapper a i {
+        .layout-windows8 .placeholder .plugin.plugin-url_1x1.iconic-url .plugin-content-wrapper a i {
             font-size: 122px;
         }

@@ -1,5 +1,5 @@
-__all__ = ('VideoAndroidMainWidget', 'BigVideoAndroidMainWidget', 'HugeVideoAndroidMainWidget', \
-           'GiganticVideoAndroidMainWidget', 'VideoWindows8MainWidget', 'VideoWindows8SidebarWidget')
+__all__ = ('Video2x2AndroidMainWidget', 'Video3x3AndroidMainWidget', 'Video4x4AndroidMainWidget', \
+           'Video5x5AndroidMainWidget', 'Video2x2Windows8MainWidget', 'Video2x2Windows8SidebarWidget')
 
 from django.template.loader import render_to_string
 
@@ -9,13 +9,13 @@ from dash.base import BaseDashboardPluginWidget
 # ****************** Android widgets for Video plugin ******************
 # **********************************************************************
 
-class VideoAndroidMainWidget(BaseDashboardPluginWidget):
+class Video2x2AndroidMainWidget(BaseDashboardPluginWidget):
     """
     Video plugin widget for Android layout (placeholder `main`).
     """
     layout_uid = 'android'
     placeholder_uid = 'main'
-    plugin_uid = 'video'
+    plugin_uid = 'video_2x2'
     cols = 2
     rows = 2
     media_css = (
@@ -31,11 +31,11 @@ class VideoAndroidMainWidget(BaseDashboardPluginWidget):
 # ****************** Android widgets for Big video plugin **************
 # **********************************************************************
 
-class BigVideoAndroidMainWidget(VideoAndroidMainWidget):
+class Video3x3AndroidMainWidget(Video2x2AndroidMainWidget):
     """
     Big video plugin widget for Android layout (placeholder `main`).
     """
-    plugin_uid = 'big_video'
+    plugin_uid = 'video_3x3'
     cols = 3
     rows = 3
 
@@ -43,11 +43,11 @@ class BigVideoAndroidMainWidget(VideoAndroidMainWidget):
 # ****************** Android widgets for Huge video plugin *************
 # **********************************************************************
 
-class HugeVideoAndroidMainWidget(VideoAndroidMainWidget):
+class Video4x4AndroidMainWidget(Video2x2AndroidMainWidget):
     """
     Huge video plugin widget for Android layout (placeholder `main`).
     """
-    plugin_uid = 'huge_video'
+    plugin_uid = 'video_4x4'
     cols = 4
     rows = 4
 
@@ -55,11 +55,11 @@ class HugeVideoAndroidMainWidget(VideoAndroidMainWidget):
 # ****************** Android widgets for Gigantic video plugin *********
 # **********************************************************************
 
-class GiganticVideoAndroidMainWidget(VideoAndroidMainWidget):
+class Video5x5AndroidMainWidget(Video2x2AndroidMainWidget):
     """
     Gigantic video plugin widget for Android layout (placeholder `main`).
     """
-    plugin_uid = 'gigantic_video'
+    plugin_uid = 'video_5x5'
     cols = 5
     rows = 5
 
@@ -67,13 +67,13 @@ class GiganticVideoAndroidMainWidget(VideoAndroidMainWidget):
 # ****************** Windows 8 widgets for Video plugin ****************
 # **********************************************************************
 
-class VideoWindows8MainWidget(BaseDashboardPluginWidget):
+class Video2x2Windows8MainWidget(BaseDashboardPluginWidget):
     """
     Video plugin widget for Windows 8 layout (placeholder `main`).
     """
     layout_uid = 'windows8'
     placeholder_uid = 'main'
-    plugin_uid = 'video'
+    plugin_uid = 'video_2x2'
     cols = 2
     rows = 2
     media_css = (
@@ -85,7 +85,7 @@ class VideoWindows8MainWidget(BaseDashboardPluginWidget):
         return render_to_string('video/render_main.html', context)
 
 
-class VideoWindows8SidebarWidget(VideoWindows8MainWidget):
+class Video2x2Windows8SidebarWidget(Video2x2Windows8MainWidget):
     """
     Video plugin widget for Windows 8 layout (placeholder `sidebar`).
     """
