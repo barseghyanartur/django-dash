@@ -20,6 +20,7 @@ example/media/dash-image-plugin-images/
 example/media/news-images-/
 example/media/cache/
 example/static/
+example/example/foo/dash_layouts.py
 news-images/
 delusionalinsanity.images/
 example/media/delusionalinsanity.images-latest/

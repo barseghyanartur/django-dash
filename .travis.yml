@@ -3,7 +3,7 @@ language: python
 addons:
   sauce_connect:
     USERNAME: "barseghyanartur"
-    secure: "Wc0A5xAjB1QOOGUiAcDjTErJ6xcMV6VU9hZ35vuchOh2hIGvl5fxQWpBketFU7WNse/4ntElog9yR+kLt39YqUOYBeC/YtG4G/VvCi/lTIfNm0Doq4+fwx85dvJ+L2N0C7Q3fLXjcZW0BsI8nK4R51eX2yjI7+s6JckU2wZw0Zc="
+    API_KEY: "5f121084-b36e-4312-a38e-115b7f88d513"
 
 # Python versions
 python:
