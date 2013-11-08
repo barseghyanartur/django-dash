@@ -6,14 +6,14 @@ python:
   - "2.7"
   - "3.3"
 
+addons:
+  sauce_connect:
+    username: "barseghyanartur"
+    access_key:
+      secure: "KLqwKfkoCmGzLj48Kn5o2lBKURhrsClfL+0pikrhzhsoNI9u8+jsK+XoqEXyex6+EYiLvihO0cktFe456fOkxhFTE7dTd+NAstWe3RQp0A5fp5BAex1sWxnEvWzWMDdD+u5AfWBxW2Jbn5oIMmJd9fc0rD0sHwFHLGP7kOiMI/0="
+
 # Environments
 env:
-  addons:
-    sauce_connect:
-      username: "barseghyanartur"
-      access_key:
-        secure: "KLqwKfkoCmGzLj48Kn5o2lBKURhrsClfL+0pikrhzhsoNI9u8+jsK+XoqEXyex6+EYiLvihO0cktFe456fOkxhFTE7dTd+NAstWe3RQp0A5fp5BAex1sWxnEvWzWMDdD+u5AfWBxW2Jbn5oIMmJd9fc0rD0sHwFHLGP7kOiMI/0="
-
   - DJANGO15=true
   - DJANGO16=true
 
