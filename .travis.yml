@@ -1,10 +1,5 @@
 language: python
 
-addons:
-  sauce_connect:
-    USERNAME: "barseghyanartur"
-    API_KEY: "5f121084-b36e-4312-a38e-115b7f88d513"
-
 # Python versions
 python:
   - "2.6"
@@ -13,6 +8,12 @@ python:
 
 # Environments
 env:
+  addons:
+    sauce_connect:
+      username: "barseghyanartur"
+      access_key:
+        secure: "KLqwKfkoCmGzLj48Kn5o2lBKURhrsClfL+0pikrhzhsoNI9u8+jsK+XoqEXyex6+EYiLvihO0cktFe456fOkxhFTE7dTd+NAstWe3RQp0A5fp5BAex1sWxnEvWzWMDdD+u5AfWBxW2Jbn5oIMmJd9fc0rD0sHwFHLGP7kOiMI/0="
+
   - DJANGO15=true
   - DJANGO16=true
 
