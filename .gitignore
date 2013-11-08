@@ -4,6 +4,7 @@
 .hg/
 .hgtags
 .tox/
+.travis.yml~
 
 MANIFEST.in~
 tmp/

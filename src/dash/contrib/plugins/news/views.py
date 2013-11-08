@@ -7,6 +7,7 @@ from django.utils import translation
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, InvalidPage
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.translation import ugettext_lazy as _
 
 from slim.helpers import get_language_from_request
 

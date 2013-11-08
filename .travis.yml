@@ -1,0 +1,40 @@
+language: python
+
+# Python versions
+python:
+  - "2.6"
+  - "2.7"
+  - "3.3"
+
+# Environments
+env:
+  - DJANGO15=true
+  - DJANGO16=true
+
+# Command to install dependencies
+install:
+  - pip install -r example/requirements.txt
+  - python setup.py install
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.6' && $DJANGO15 == true ]]; then pip uninstall Django -y; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.6' && $DJANGO15 == true ]]; then pip install Django==1.5.5; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.6' && $DJANGO16 == true ]]; then pip uninstall Django -y; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.6' && $DJANGO16 == true ]]; then pip install Django==1.6; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' && $DJANGO15 == true ]]; then pip uninstall Django -y; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' && $DJANGO15 == true ]]; then pip install Django==1.5.5; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' && $DJANGO16 == true ]]; then pip uninstall Django -y; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' && $DJANGO16 == true ]]; then pip install Django==1.6; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]]; then pip uninstall django-localeurl -y; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]]; then pip install -r example/requirements3.txt; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.3' && $DJANGO15 == true ]]; then pip uninstall Django -y; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.3' && $DJANGO15 == true ]]; then pip install Django==1.5.5; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.3' && $DJANGO16 == true ]]; then pip uninstall Django -y; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.3' && $DJANGO16 == true ]]; then pip install Django==1.6; fi
+  - mkdir example/db
+  - mkdir example/logs
+  - mkdir example/media
+  - mkdir example/media/static
+  - python example/example/manage.py syncdb --noinput --traceback -v 3
+# Command to run tests
+script: 
+  - python example/example/manage.py test dash --traceback -v 3
+

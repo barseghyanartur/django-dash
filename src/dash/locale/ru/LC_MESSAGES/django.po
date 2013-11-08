@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.2.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-07 21:28+0100\n"
-"PO-Revision-Date: 2013-11-07 21:41+0100\n"
+"PO-Revision-Date: 2013-11-08 00:50+0100\n"
 "Last-Translator: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language-Team: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language: Russian\n"
@@ -79,7 +79,7 @@ msgstr "Заголовок"
 #: models.py:30
 #: models.py:53
 msgid "Is public?"
-msgstr "Публично доступено?"
+msgstr "Публично доступно?"
 
 #: models.py:31
 msgid "Makes your dashboard to be visible to the public. Visibility of workspaces could be adjust separately for each workspace, however setting your dashboard to be visible to public, makes your default workspace visible to public too."
