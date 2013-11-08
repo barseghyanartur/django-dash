@@ -15,6 +15,7 @@ from django.contrib.staticfiles.management.commands import collectstatic
 from django.conf import settings
 
 from selenium.webdriver.firefox.webdriver import WebDriver
+from selenium.webdriver.remote.webdriver import WebDriver as RemoveWebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 
 from dash.discover import autodiscover
@@ -229,7 +230,16 @@ class DashBrowserTest(LiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.selenium = WebDriver()
+        try:
+            username = os.environ["SAUCE_USERNAME"]
+            access_key = os.environ["SAUCE_ACCESS_KEY"]
+            capabilities["tunnel-identifier"] = os.environ["TRAVIS_JOB_NUMBER"]
+            hub_url = "%s:%s@localhost:4445" % (username, access_key)
+            cls.selenium = RemoveWebDriver(
+                desired_capabilities=capabilities, command_executor="http://%s/wd/hub" % hub_url
+                )
+        except:
+            cls.selenium = WebDriver()
         super(DashBrowserTest, cls).setUpClass()
 
         setup_dash()

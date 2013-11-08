@@ -1,5 +1,10 @@
 language: python
 
+addons:
+  sauce_connect:
+    username: "barseghyanartur"
+    secure: "FdeCfMZrGSQ8KkhYDiJLktZ3m36qmouLPIDZHEhq9Qx6e9bv8T9K8yKQw5OnYEjRMORRR3SSkCxpAWnIKpbVoKZdiiv7U+99JVkaGS8naJEbLbxBq/CeQSWUsy1pG29MFDM5lEn2+rcz/FiE1xRG2U2RmwegTZxTE2wYGvSUY9w="
+
 # Python versions
 python:
   - "2.6"
