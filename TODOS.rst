@@ -53,6 +53,8 @@ Core and contrib
   are still loaded.
 - Add workspace create/delete/edit tests.
 - Add dashboard settings (edit), including the layout change tests.
+- Make it possible to obtain the layout object by name in the template, in case if user needs some strange
+  HTML setup.
 
 Should haves
 ===============================================

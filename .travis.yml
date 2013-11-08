@@ -23,7 +23,7 @@ install:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' && $DJANGO15 == true ]]; then pip install Django==1.5.5; fi
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' && $DJANGO16 == true ]]; then pip uninstall Django -y; fi
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' && $DJANGO16 == true ]]; then pip install Django==1.6; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]]; then pip uninstall django-localeurl -y; fi
+  #- if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]]; then pip uninstall django-localeurl -y; fi
   - if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]]; then pip install -r example/requirements3.txt; fi
   - if [[ $TRAVIS_PYTHON_VERSION == '3.3' && $DJANGO15 == true ]]; then pip uninstall Django -y; fi
   - if [[ $TRAVIS_PYTHON_VERSION == '3.3' && $DJANGO15 == true ]]; then pip install Django==1.5.5; fi
