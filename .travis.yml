@@ -2,8 +2,8 @@ language: python
 
 addons:
   sauce_connect:
-    username: "barseghyanartur"
-    secure: "FdeCfMZrGSQ8KkhYDiJLktZ3m36qmouLPIDZHEhq9Qx6e9bv8T9K8yKQw5OnYEjRMORRR3SSkCxpAWnIKpbVoKZdiiv7U+99JVkaGS8naJEbLbxBq/CeQSWUsy1pG29MFDM5lEn2+rcz/FiE1xRG2U2RmwegTZxTE2wYGvSUY9w="
+    USERNAME: "barseghyanartur"
+    secure: "Wc0A5xAjB1QOOGUiAcDjTErJ6xcMV6VU9hZ35vuchOh2hIGvl5fxQWpBketFU7WNse/4ntElog9yR+kLt39YqUOYBeC/YtG4G/VvCi/lTIfNm0Doq4+fwx85dvJ+L2N0C7Q3fLXjcZW0BsI8nK4R51eX2yjI7+s6JckU2wZw0Zc="
 
 # Python versions
 python:
