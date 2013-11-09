@@ -93,12 +93,6 @@ Grab the latest `django_dash_example_app_installer.sh`:
 
     $ wget https://raw.github.com/barseghyanartur/django-dash/stable/example/django_dash_example_app_installer.sh
 
-Create a new- or switch to existing- virtual environement:
-
-    $ virtualenv dash
-
-    $ source dash/bin/activate
-
 Assign execute rights to the installer and run the `django_dash_example_app_installer.sh`:
 
     $ chmod +x django_dash_example_app_installer.sh
@@ -118,6 +112,10 @@ Django admin interface:
 - URL: http://127.0.0.1:8001/administration/
 - Admin username: test_admin
 - Admin password: test
+
+If quick installer doesn't work for you, see the manual steps on running the example project
+(https://github.com/barseghyanartur/django-dash/tree/stable/example).
+
 
 Take a look at the templates in "example/example/templates" directory for getting a better idea of how to
 transform your own- or thirdy-part- templates into Dash templates.
