@@ -18,6 +18,9 @@ Prerequisites
 - Django 1.5.+
 - Python 2.6.8+, 2.7.+, 3.3.+
 
+Core and plugins that don't rely on third-party Django apps seem to work well with Django 1.6 (Selenium
+tests pass), although Django 1.6 is not yet proclaimed to be flawlessly supported by Dash.
+
 Key concepts
 ===============================================
 - Each layout (theme) consist of placeholders. Each plugin widget has its' own specific HTML/JavaScript/CSS.
@@ -119,7 +122,13 @@ Django admin interface:
 Take a look at the templates in "example/example/templates" directory for getting a better idea of how to
 transform your own- or thirdy-part- templates into Dash templates.
 
-See the documentation for some screen shots http://pythonhosted.org/django-dash/#screenshots
+Also, the example project (https://github.com/barseghyanartur/django-dash/tree/stable/example/example/foo)
+has example layouts, plugins and widgets implemented. Take it as a good example of how to add widgets for
+existing plugins to your own customly made layout.
+
+See the documentation for some screen shots:
+- PythonHosted http://pythonhosted.org/django-dash/#screenshots
+- ReadTheDocs http://django-dash.readthedocs.org/en/latest/#screenshots
 
 Creating a new layout
 ===============================================
@@ -643,6 +652,8 @@ Artur Barseghyan <artur.barseghyan@gmail.com>
 
 Screenshots
 ===============================================
+Android layout
+-----------------------------------------------
 Several screenshots of Android layout are presented below.
 
 Dashboard workspace (view mode) on which you can see the following plugins used:
@@ -709,6 +720,28 @@ A form to edit global dashboard settings.
 A form to edit settings of current dashboard workspace.
 
 .. image:: _static/dash/dashboard_edit_workspace_1.png
+    :align: center
+    :width: 900px
+
+Example layout
+-----------------------------------------------
+Several screenshots of Example layout are presented below.
+
+Dashboard workspace (edit mode) is an empty dashboard workspace in edit mode.
+
+.. image:: _static/dash/dashboard_edit_empty_2_example_layout.png
+    :align: center
+    :width: 900px
+
+Dashboard workspace (edit mode) - previous dashboard workspace was filled with images.
+
+.. image:: _static/dash/dashboard_edit_full_3_example_layout.png
+    :align: center
+    :width: 900px
+
+Dashboard workspace (view mode) of the previows dashboard workspace
+
+.. image:: _static/dash/dashboard_view_3_example_layout.png
     :align: center
     :width: 900px
 

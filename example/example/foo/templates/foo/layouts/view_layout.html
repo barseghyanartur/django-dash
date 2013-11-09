@@ -7,6 +7,12 @@
 {% block content %}
     {# Note, that here instead of iterating through placeholders, we rather call them by their `uid` #}
 
+    {% with placeholders_dict.top_shortcuts as placeholder %}
+    <div id="{{ placeholder.html_id }}" class="placeholder {{ placeholder.html_class }}">
+        {{ placeholder.render_for_view|safe }}
+    </div>
+    {% endwith %}
+
     {% with placeholders_dict.left_shortcuts as placeholder %}
     <div id="{{ placeholder.html_id }}" class="placeholder {{ placeholder.html_class }}">
         {{ placeholder.render_for_view|safe }}
@@ -20,6 +26,12 @@
     {% endwith %}
 
     {% with placeholders_dict.main as placeholder %}
+    <div id="{{ placeholder.html_id }}" class="placeholder {{ placeholder.html_class }}">
+        {{ placeholder.render_for_view|safe }}
+    </div>
+    {% endwith %}
+
+    {% with placeholders_dict.bottom_shortcuts as placeholder %}
     <div id="{{ placeholder.html_id }}" class="placeholder {{ placeholder.html_class }}">
         {{ placeholder.render_for_view|safe }}
     </div>

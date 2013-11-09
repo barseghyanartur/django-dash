@@ -13,8 +13,8 @@ def permissions_required(perms, satisfy=DEFAULT_SATISFY, login_url=None, raise_e
     Checks for the permissions given based on the strategy chosen.
 
     :param iterable perms:
-    :param str satisfy: Allowed values are "all" and "any".
-    :param str login_url:
+    :param string satisfy: Allowed values are "all" and "any".
+    :param string login_url:
     :param bool raise_exception: If set to True, the ``PermissionDenied`` exception is raised on failures.
     :return bool:
 

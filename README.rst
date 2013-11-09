@@ -18,6 +18,9 @@ Prerequisites
 - Django 1.5.+
 - Python 2.6.8+, 2.7.+, 3.3.+
 
+Core and plugins that don't rely on third-party Django apps seem to work well with Django 1.6 (Selenium
+tests pass), although Django 1.6 is not yet proclaimed to be flawlessly supported by Dash.
+
 Key concepts
 ===============================================
 - Each layout (theme) consist of placeholders. Each plugin widget has its' own specific HTML/JavaScript/CSS.
@@ -119,11 +122,17 @@ Django admin interface:
 Take a look at the templates in "example/example/templates" directory for getting a better idea of how to
 transform your own- or thirdy-part- templates into Dash templates.
 
-See the documentation for some screen shots http://pythonhosted.org/django-dash/#screenshots
+Also, the example project (https://github.com/barseghyanartur/django-dash/tree/stable/example/example/foo)
+has example layouts, plugins and widgets implemented. Take it as a good example of how to add widgets for
+existing plugins to your own customly made layout.
+
+See the documentation for some screen shots:
+- PythonHosted http://pythonhosted.org/django-dash/#screenshots
+- ReadTheDocs http://django-dash.readthedocs.org/en/latest/#screenshots
 
 Creating a new layout
 ===============================================
-Dash comes with several bundled layouts. Do check their source code as example.
+Dash comes with several bundled layouts. Do check their source code as example. 
 
 Let's say, our imaginary layout has two placeholders. One large placeholder for all kinds of widgets
 (called `main`) and a tiny one for shortcuts (called `shortcuts`).

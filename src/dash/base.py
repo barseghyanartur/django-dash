@@ -87,15 +87,15 @@ class BaseDashboardLayout(object):
     Layouts consist of placeholders.
 
     :Properties:
-        - `uid` (str): Layout unique identifier (globally).
-        - `name` (str): Layout name.
-        - `description` (str): Layout description.
+        - `uid` (string): Layout unique identifier (globally).
+        - `name` (string): Layout name.
+        - `description` (string): Layout description.
         - `placeholders` (iterable): Iterable (list, tuple or set) of `dash.base.BaseDashboardPlaceholder`
            subclasses.
-        - `view_template_name` (str): Temlate name used to render the layout (view).
-        - `edit_template_name` (str): Template named used to render the layout (edit).
-        - `html_classes` (str): Extra HTML class that layout should get.
-        - `cell_units` (str):
+        - `view_template_name` (string): Temlate name used to render the layout (view).
+        - `edit_template_name` (string): Template named used to render the layout (edit).
+        - `html_classes` (string): Extra HTML class that layout should get.
+        - `cell_units` (string):
         - `media_css` (list): List all specific stylesheets.
         - `media_js` (list): List all specific javascripts.
     """
@@ -273,7 +273,7 @@ class BaseDashboardLayout(object):
         """
         Class used in the HTML.
 
-        :return str:
+        :return string:
         """
         return '{0} {1}'.format(self.primary_html_class, ' '.join(self.html_classes))
 
@@ -282,7 +282,7 @@ class BaseDashboardLayout(object):
         Gets placeholder specific css.
 
         :param iterable placeholders: Iterable of `dash.base.BaseDashboardPlaceholder` subclassed instances.
-        :return str:
+        :return string:
         """
         css = []
         for placeholder in placeholders:
@@ -296,9 +296,9 @@ class BaseDashboardLayout(object):
         NOTE: This is not used at the moment. You most likely want the `dash.views.dashboard` view.
 
         :param iterable dashboard_entries:
-        :param str workspace: Current workspace.
+        :param string workspace: Current workspace.
         :param django.http.HttpRequest request:
-        :return str:
+        :return string:
         """
         placeholders = self.get_placeholder_instances(dashboard_entries, workspace, request)
         context = {
@@ -316,9 +316,9 @@ class BaseDashboardLayout(object):
         NOTE: This is not used at the moment. You most likely want the `dash.views.edit_dashboard` view.
 
         :param iterable dashboard_entries:
-        :param str workspace: Current workspace.
+        :param string workspace: Current workspace.
         :param django.http.HttpRequest request:
-        :return str:
+        :return string:
         """
         placeholders = self.get_placeholder_instances(dashboard_entries, workspace, request)
         context = {
@@ -335,7 +335,7 @@ class BaseDashboardPlaceholder(object):
     Base placeholder.
 
     :Properties:
-        - `uid` (str): Unique identifier (shouldn't repeat within a single layout).
+        - `uid` (string): Unique identifier (shouldn't repeat within a single layout).
     """
     uid = None
     cols = None #1
@@ -366,7 +366,7 @@ class BaseDashboardPlaceholder(object):
         """
         ID used in the HTML. Unique.
 
-        :return str:
+        :return string:
         """
         return 'id_{0}'.format(self.uid)
 
@@ -379,7 +379,7 @@ class BaseDashboardPlaceholder(object):
         """
         Class used in the HTML.
 
-        :return str:
+        :return string:
         """
         return '{0} {1}'.format(self.primary_html_class, ' '.join(self.html_classes))
 
@@ -401,7 +401,7 @@ class BaseDashboardPlaceholder(object):
         """
         Renders the placeholder for view mode.
 
-        :return str:
+        :return string:
         """
         context = {
             'placeholder': self,
@@ -416,7 +416,7 @@ class BaseDashboardPlaceholder(object):
         Generates widget cells. Returns a list of tuples, where the first element represents the cell class
         and the second element represents the cell position.
 
-        :param str workspace: Current workspace slug.
+        :param string workspace: Current workspace slug.
         :param django.http.HttpRequest request:
         :return list:
         """
@@ -432,9 +432,9 @@ class BaseDashboardPlaceholder(object):
         """
         Renders the placeholder for edit mode.
 
-        :param str workspace: Current workspace slug.
+        :param string workspace: Current workspace slug.
         :param django.http.HttpRequest request:
-        :return str:
+        :return string:
         """
         context = {
             'placeholder': self,
@@ -463,13 +463,13 @@ class BaseDashboardPlaceholder(object):
                 padding: 5px;
             }
 
-        :return str:
+        :return string:
         """
         def placeholder_width():
             """
             Placeholder width.
 
-            :return str:
+            :return string:
             """
             return '{0}{1}'.format(self.cols * self.cell_width, self.cell_units)
 
@@ -477,7 +477,7 @@ class BaseDashboardPlaceholder(object):
             """
             Placeholder height.
 
-            :return str:
+            :return string:
             """
             return '{0}{1}'.format(self.rows * self.cell_height, self.cell_units)
 
@@ -485,7 +485,7 @@ class BaseDashboardPlaceholder(object):
             """
             Default width of a plugin widget (1 cell).
 
-            :return str:
+            :return string:
             """
             return '{0}{1}'.format(self.cell_width, self.cell_units)
 
@@ -493,7 +493,7 @@ class BaseDashboardPlaceholder(object):
             """
             Default height of a plugin widget (1 cell).
 
-            :return str:
+            :return string:
             """
             return '{0}{1}'.format(self.cell_height, self.cell_units)
 
@@ -506,7 +506,7 @@ class BaseDashboardPlaceholder(object):
                 - `row-1`, `row-2`, etc.
                 - `col-1`, `col-2`, etc.
 
-            :return str:
+            :return string:
             """
             positions = []
             for row_num in range(0, self.rows):
@@ -545,7 +545,7 @@ class BaseDashboardPlaceholder(object):
                 - `width-1`, `width-2`, etc.
                 - `height-1`, `height-2`, etc.
 
-            :return str:
+            :return string:
             """
             sizes = []
             for row_num in range(0, self.rows):
@@ -633,20 +633,20 @@ class BaseDashboardPlugin(object):
     Base dashboard plugin from which every plugin should inherit.
 
     :Properties:
-        - `uid` (str): Plugin uid (obligatory). Example value: 'dummy', 'wysiwyg', 'news'.
-        - `name` (str): Plugin name (obligatory). Example value: 'Dummy plugin',
+        - `uid` (string): Plugin uid (obligatory). Example value: 'dummy', 'wysiwyg', 'news'.
+        - `name` (string): Plugin name (obligatory). Example value: 'Dummy plugin',
           'WYSIWYG', 'Latest news'.
-        - `description` (str): Plugin decription (optional). Example value: 'Dummy plugin used just for testing'.
-        - `help_text` (str): Plugin help text (optional). This text would be shown in
+        - `description` (string): Plugin decription (optional). Example value: 'Dummy plugin used just for testing'.
+        - `help_text` (string): Plugin help text (optional). This text would be shown in
             ``dash.views.add_dashboard_entry`` and ``dash.views.edit_dashboard_entry`` views.
         - `form`: Plugin form (optional). A subclass of ``django.forms.Form``. Should be given
           in case plugin is configurable.
         - `add_form_template` (str) (optional): Add form template (optional). If given, overrides the
           `dash.views.add_dashboard_entry` default template.
-        - `edit_form_template` (str): Edit form template (optional). If given, overrides the
+        - `edit_form_template` (string): Edit form template (optional). If given, overrides the
           `dash.views.edit_dashboard_entry` default template.
         - `html_classes` (list): List of extra HTML classes for the plugin.
-        - `group` (str): Plugin are grouped under the specified group. Override in your plugin if necessary.
+        - `group` (string): Plugin are grouped under the specified group. Override in your plugin if necessary.
     """
     uid = None
     name = None
@@ -660,7 +660,7 @@ class BaseDashboardPlugin(object):
 
     def __init__(self, layout_uid, placeholder_uid, workspace=None, user=None, position=None):
         """
-        :param str placeholder_uid: Unique identifier of plugin placeholder (layout.placeholder).
+        :param string placeholder_uid: Unique identifier of plugin placeholder (layout.placeholder).
         :param dash.models.DashboardWorkspace workspace: Plugin workspace.
         :param django.contrib.auth.models.User user: Plugin owner.
         """
@@ -778,7 +778,7 @@ class BaseDashboardPlugin(object):
         Loads the plugin data saved in ``dash.models.DashboardEntry``. Plugin data is saved in JSON
         string.
 
-        :param str plugin_data: JSON string with plugin data.
+        :param string plugin_data: JSON string with plugin data.
         """
         self.plugin_data = plugin_data
 
@@ -934,7 +934,7 @@ class BaseDashboardPlugin(object):
         Renders the plugin HTML (for dashboard workspace).
 
         :param django.http.HttpRequest request:
-        :return str:
+        :return string:
         """
         widget_cls = self.get_widget()
 
@@ -998,7 +998,7 @@ class MetaBaseDashboardPluginWidget(type):
         """
         HTML class of the ``dash.base.BaseDashboardPluginWidget``.
 
-        :return str:
+        :return string:
         """
         return ' '.join(cls.html_classes)
 
@@ -1062,7 +1062,7 @@ class BaseDashboardPluginWidget(object):
         """
         HTML class of the ``dash.base.BaseDashboardPluginWidget``.
 
-        :return str:
+        :return string:
         """
         return ' '.join(cls.html_classes)
 
@@ -1148,7 +1148,7 @@ class BaseRegistry(object):
         """
         Gets the given entry from the registry.
 
-        :param str uid:
+        :param string uid:
         :return mixed.
         """
         item = self._registry.get(uid, default)
@@ -1232,7 +1232,7 @@ class PluginWidgetRegistry(object):
         """
         Gets the given entry from the registry.
 
-        :param str uid:
+        :param string uid:
         :return mixed.
         """
         item = self._registry.get(uid, default)
@@ -1295,8 +1295,8 @@ def validate_placeholder_uid(layout, placeholder_uid):
     """
     Validates the placeholder.
 
-    :param str layout_uid:
-    :param str placeholder_uid:
+    :param string layout_uid:
+    :param string placeholder_uid:
     :return bool:
     """
     return placeholder_uid in layout.placeholder_uids
@@ -1305,7 +1305,7 @@ def validate_plugin_uid(plugin_uid):
     """
     Validates the plugin uid.
 
-    :param str plugin_uid:
+    :param string plugin_uid:
     :return bool:
     """
     return plugin_uid in get_registered_plugin_uids()

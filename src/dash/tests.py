@@ -259,10 +259,10 @@ class DashBrowserTest(LiveServerTestCase):
         """
         Test add any single plugin.
 
-        :param str position: Example value "col-1 row-1"
-        :param str plugin_widget_name: Example value "Dummy".
-        :param str plugin_widget_name_with_dimensions: Example value "Dummy (1x1)".
-        :param str plugin_widget_css_class: Example value "plugin-dummy1x1".
+        :param string position: Example value "col-1 row-1"
+        :param string plugin_widget_name: Example value "Dummy".
+        :param string plugin_widget_name_with_dimensions: Example value "Dummy (1x1)".
+        :param string plugin_widget_css_class: Example value "plugin-dummy1x1".
         :param list added_plugin_widget_css_classes: Example value ['width-1', 'height-1'].
         :param dict form_data: Example value {'title': "Lorem", 'text': "Lorem ipsum dolor sit amet"}.
         :param callable form_hook_func: Function to when add form is opened (to populate the data).
@@ -495,8 +495,8 @@ class DashBrowserTest(LiveServerTestCase):
         """
         Test edit any single plugin.
 
-        :param str plugin_widget_name: Example value "Dummy".
-        :param str plugin_widget_css_class: Example value "plugin-dummy1x1".
+        :param string plugin_widget_name: Example value "Dummy".
+        :param string plugin_widget_css_class: Example value "plugin-dummy1x1".
         :param dict form_data: Example value {'title': "Lorem", 'text': "Lorem ipsum dolor sit amet"}.
         :param callable form_hook_func: Function to when edit form is opened (to populate the data).
 
@@ -649,7 +649,7 @@ class DashBrowserTest(LiveServerTestCase):
         """
         Test delete any single plugin.
 
-        :param str plugin_widget_css_class: Example value "plugin-dummy1x1".
+        :param string plugin_widget_css_class: Example value "plugin-dummy1x1".
 
         :example:
 

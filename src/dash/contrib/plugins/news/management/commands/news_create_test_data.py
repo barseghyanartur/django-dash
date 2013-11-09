@@ -118,8 +118,8 @@ def fix_image(image):
     """
     Fixes the image path.
 
-    :param str image: Image path.
-    :return str: Fixed image path.
+    :param string image: Image path.
+    :return string: Fixed image path.
     """
     image = os.path.join(NEWS_IMAGES_STORAGE_PATH, image.replace(settings.MEDIA_ROOT, ''))
     if image.startswith('/'):

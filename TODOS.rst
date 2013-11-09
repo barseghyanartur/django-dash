@@ -53,7 +53,7 @@ Core and contrib
   are still loaded.
 - Add workspace create/delete/edit tests.
 - Add dashboard settings (edit), including the layout change tests.
-- Make it possible to obtain the layout object by name in the template, in case if user needs some strange
++ Make it possible to obtain the layout object by name in the template, in case if user needs some strange
   HTML setup.
 
 Should haves
@@ -94,7 +94,7 @@ Core and contrib
 
 Example app
 -----------------------------------------------
-- Basic example app with a layout and couple of plugins defined.
++ Basic example app with a layout and couple of plugins defined.
 - Implemented triggers for resetting the dashboard.
 
 Would haves

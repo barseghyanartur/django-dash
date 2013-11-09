@@ -24,7 +24,7 @@ def browse(request, template_name='news/browse.html', template_name_ajax='news/b
     In the template, we show all available NewsItems for current language.
 
     :param django.http.HttpRequest request:
-    :param str template_name:
+    :param string template_name:
     :return django.http.HttpResponse:
     """
     # Getting dashboard settings for the user. Then get users' layout.
@@ -104,8 +104,8 @@ def detail(request, slug, template_name='news/detail.html', template_name_ajax='
     available translations.
 
     :param django.http.HttpRequest request:
-    :param str slug: Foo item slug.
-    :param str template_name:
+    :param string slug: Foo item slug.
+    :param string template_name:
     :return django.http.HttpResponse:
     """
     layout = get_layout(as_instance=True)

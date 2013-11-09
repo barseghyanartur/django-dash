@@ -78,7 +78,7 @@ class DashboardWorkspace(models.Model):
         """
         Absolute URL, which goes to the dashboard workspace page.
 
-        :return str:
+        :return string:
         """
         return reverse('dash.dashboard', kwargs={'workspace': self.slug})
 
@@ -92,8 +92,8 @@ class DashboardEntryManager(models.Manager):
         Gets all dashboard entries for user given.
 
         :param django.contrib.auth.models.User user:
-        :param str layout_uid:
-        :param str workspace: Workspace slug (``dash.models.DashboardWorkspace``).
+        :param string layout_uid:
+        :param string workspace: Workspace slug (``dash.models.DashboardWorkspace``).
         :return iterable:
         """
         #layout
@@ -218,7 +218,7 @@ class DashboardPlugin(models.Model):
         """
         Flat list (comma separated string) of groups allowed to use the dashboard plugin. Used in Django admin.
 
-        :return str:
+        :return string:
         """
         return ', '.join([g.name for g in self.groups.all()])
     groups_list.allow_tags = True
@@ -228,7 +228,7 @@ class DashboardPlugin(models.Model):
         """
         Flat list (comma separated string) of users allowed to use the dashboard plugin. Used in Django admin.
 
-        :return str:
+        :return string:
         """
         return ', '.join([u.username for u in self.users.all()])
     users_list.allow_tags = True

@@ -53,7 +53,7 @@ class NewsItem(models.Model, Slim):
         """
         Absolute URL, which goes to the foo item detail page.
 
-        :return str:
+        :return string:
         """
         kwargs = {'slug': self.slug}
         return reverse('news.detail', kwargs=kwargs)
@@ -62,7 +62,7 @@ class NewsItem(models.Model, Slim):
         """
         Preview of the ``image``. For admin use mainly.
 
-        :return str:
+        :return string:
         """
         if self.image:
             return render_to_string('news/_image_preview.html', {'alt': self.title, 'image_file': self.image})

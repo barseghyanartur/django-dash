@@ -91,9 +91,9 @@ def get_widgets(layout, placeholder, user=None, workspace=None, position=None, o
     Placeholders are validated already. We don't need to have validation here.
 
     :param dash.base.BaseDashLayout layout: Layout object.
-    :param str placeholder_uid: Placeholder uid.
+    :param string placeholder_uid: Placeholder uid.
     :param django.contrib.auth.models.User user:
-    :param str workspace: Workspace slug.
+    :param string workspace: Workspace slug.
     :param int position: Plugin position.
     :param list occupied_cells: List of already occupied cells.
     :return list:
@@ -212,7 +212,7 @@ def get_workspaces(user, layout_uid=None, workspace=None, public=False):
     """
     Gets previous, current, next and and a queryset of all workspaces.
 
-    :param str workspace:
+    :param string workspace:
     :param django.contrib.auth.models.User:
     :return dict:
     """
@@ -295,7 +295,7 @@ def get_occupied_cells(layout, placeholder, plugin_uid, position, check_boundari
         ``dash.base.BaseDashboardLayout`` object.
     :param dash.base.BaseDashboardPlaceholder placeholder: Instance of subclassed
         ``dash.base.BaseDashboardPlaceholder`` object.
-    :param str plugin_uid: UID of the plugin to check against.
+    :param string plugin_uid: UID of the plugin to check against.
     :param int position: Position of the plugin to check against.
     :param bool check_boundaries: If set to True, boundaries of the placeholders are also considered.
     :param bool fail_silently: If set to True, no exceptions are raised.
@@ -363,8 +363,8 @@ def build_cells_matrix(user, layout, placeholder, workspace=None):
     Builds the cells matrix.
 
     :param django.contrib.auth.models.User user:
-    :param str placeholder_uid:
-    :param str workspace: Workspace slug.
+    :param string placeholder_uid:
+    :param string workspace: Workspace slug.
     :return list: List of cells occupied.
     """
     assert isinstance(layout, BaseDashboardLayout)
@@ -414,7 +414,7 @@ def get_dashboard_settings(username):
     """
     Gets dashboard settings for the user given. If no settings found, creates default settings.
 
-    :param str username:
+    :param string username:
     :return dash.models.DashboardSettings: Returns ``dash.models.DashboardSettings`` instance.
     """
     # Check if user trying to edit the dashboard workspace actually owns it.
@@ -429,7 +429,7 @@ def get_public_dashboard_url(dashboard_settings):
     urls module of the project).
 
     :param dash.models.DashboardSettings: Instance of `dash.models.DashboardSettings`.
-    :return str:
+    :return string:
     """
     if dashboard_settings.is_public:
         try:

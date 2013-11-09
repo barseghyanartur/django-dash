@@ -23,7 +23,7 @@ def dashboard(request, workspace=None):
     Dashboard.
 
     :param django.http.HttpRequest request:
-    :param str workspace: Workspace slug. If given, the workspace loaded. Otherwise we deal with no workspace.
+    :param string workspace: Workspace slug. If given, the workspace loaded. Otherwise we deal with no workspace.
     :return django.http.HttpResponse:
     """
     # Getting the list of plugins that user is allowed to use.
@@ -79,7 +79,7 @@ def edit_dashboard(request, workspace=None):
     Edit dashboard.
 
     :param django.http.HttpRequest request:
-    :param str workspace: Workspace slug. If given, the workspace loaded. Otherwise we deal with no workspace.
+    :param string workspace: Workspace slug. If given, the workspace loaded. Otherwise we deal with no workspace.
     :return django.http.HttpResponse:
     """
     # Getting the list of plugins that user is allowed to use.
@@ -138,12 +138,12 @@ def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None, po
     Add dashboard entry.
 
     :param django.http.HttpRequest request:
-    :param str placeholder_uid: Placeholder UID.
-    :param str plugin_uid: Plugin UID.
-    :param str workspace: Workspace slug.
+    :param string placeholder_uid: Placeholder UID.
+    :param string plugin_uid: Plugin UID.
+    :param string workspace: Workspace slug.
     :param int position: If given, provided as position for the plugin (conflict resolution should take place).
-    :param str template_name:
-    :param str template_name_ajax: Template used for AJAX requests.
+    :param string template_name:
+    :param string template_name_ajax: Template used for AJAX requests.
     :return django.http.HttpResponse:
     """
     # Getting dashboard settings for the user. Then get users' layout.
@@ -251,8 +251,8 @@ def edit_dashboard_entry(request, id, template_name='dash/edit_dashboard_entry.h
 
     :param django.http.HttpRequest request:
     :param int id: ID of the dashboard entry to edit.
-    :param str template_name:
-    :param str template_name_ajax: Tempalte used for AJAX requests.
+    :param string template_name:
+    :param string template_name_ajax: Tempalte used for AJAX requests.
     :return django.http.HttpResponse:
     """
     # Getting dashboard settings for the user. Then get users' layout.
@@ -355,10 +355,10 @@ def plugin_widgets(request, placeholder_uid, workspace=None, position=None, \
     Plugin widgets view. Lists all the widgets for the placeholder and workspace given.
 
     :param django.http.HttpRequest request:
-    :param str placeholder_uid: Placeholder UID.
+    :param string placeholder_uid: Placeholder UID.
     :param int position: Position on the dashboard to which the widget is to be added.
-    :param str template_name:
-    :param str template_name_ajax: Tempalte used for AJAX requests.
+    :param string template_name:
+    :param string template_name_ajax: Tempalte used for AJAX requests.
     :return django.http.HttpResponse:
     """
     # Getting dashboard settings for the user. Then get users' layout.
@@ -397,8 +397,8 @@ def create_dashboard_workspace(request, template_name='dash/create_dashboard_wor
     Create dashboard workspace.
 
     :param django.http.HttpRequest request:
-    :param str template_name:
-    :param str template_name_ajax: Template used for AJAX calls.
+    :param string template_name:
+    :param string template_name_ajax: Template used for AJAX calls.
     :return django.http.HttpResponse:
     """
     # Getting dashboard settings for the user. Then get users' layout.
@@ -439,8 +439,8 @@ def edit_dashboard_workspace(request, id, template_name='dash/edit_dashboard_wor
 
     :param django.http.HttpRequest request:
     :param int id: DashboardWorkspace ID.
-    :param str template_name:
-    :param str template_name_ajax: Template used for AJAX calls.
+    :param string template_name:
+    :param string template_name_ajax: Template used for AJAX calls.
     :return django.http.HttpResponse:
     """
     # Getting dashboard settings for the user. Then get users' layout.
@@ -487,8 +487,8 @@ def delete_dashboard_workspace(request, id, template_name='dash/delete_dashboard
 
     :param django.http.HttpRequest request:
     :param int id: DashboardWorkspace id.
-    :param str template_name:
-    :param str template_name_ajax: Template used for AJAX calls.
+    :param string template_name:
+    :param string template_name_ajax: Template used for AJAX calls.
     :return django.http.HttpResponse:
     """
     # Getting dashboard settings for the user. Then get users' layout.
@@ -533,9 +533,9 @@ def dashboard_workspaces(request, workspace=None, template_name='dash/dashboard_
     Workspaces list.
 
     :param django.http.HttpRequest request:
-    :param str workspace: Workspace slug.
-    :param str template_name:
-    :param str template_name_ajax: Tempalte used for AJAX requests.
+    :param string workspace: Workspace slug.
+    :param string template_name:
+    :param string template_name_ajax: Tempalte used for AJAX requests.
     :return django.http.HttpResponse:
     """
     # Getting dashboard settings for the user. Then get users' layout.
@@ -560,8 +560,8 @@ def edit_dashboard_settings(request, template_name='dash/edit_dashboard_settings
     Edit dashboard settings.
 
     :param django.http.HttpRequest request:
-    :param str template_name:
-    :param str template_name_ajax: Template used for AJAX calls.
+    :param string template_name:
+    :param string template_name_ajax: Template used for AJAX calls.
     :return django.http.HttpResponse:
     """
     # Getting dashboard settings for the user. Then get users' layout.

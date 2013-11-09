@@ -17,9 +17,9 @@ def public_dashboard(request, username, workspace=None, template_name='public_da
     Public dashboard.
 
     :param django.http.HttpRequest:
-    :param str username:
-    :param str workspace: Workspace slug.
-    :param str template_name:
+    :param string username:
+    :param string workspace: Workspace slug.
+    :param string template_name:
     :return django.http.HttpResponse:
     """
     # Getting dashboard settings for the user. Then get users' layout.

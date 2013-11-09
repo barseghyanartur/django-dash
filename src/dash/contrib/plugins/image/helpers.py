@@ -18,7 +18,7 @@ IMAGES_UPLOAD_DIR_ABSOLUTE_PATH = os.path.join(settings.MEDIA_ROOT, IMAGES_UPLOA
 def handle_uploaded_file(image_file):
     """
     :param django.core.files.uploadedfile.InMemoryUploadedFile image_file:
-    :return str: Path to the image (relative).
+    :return string: Path to the image (relative).
     """
     if isinstance(image_file, File):
         with open(os.path.join(IMAGES_UPLOAD_DIR_ABSOLUTE_PATH, image_file.name), 'wb+') as destination:
