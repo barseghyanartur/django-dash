@@ -1,4 +1,4 @@
-__all__ = ('Dummy1x1Plugin', 'Dummy1x2Plugin', 'Dummy2x1Plugin', 'Dummy3x3Plugin',)
+__all__ = ('Dummy1x1Plugin', 'Dummy1x2Plugin', 'Dummy2x1Plugin', 'Dummy2x2Plugin', 'Dummy3x3Plugin',)
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -69,6 +69,21 @@ class Dummy1x2Plugin(Dummy1x1Plugin):
 
 
 plugin_registry.register(Dummy1x2Plugin)
+
+# ********************************************************************************
+# ******************************* Big dummy plugin *******************************
+# ********************************************************************************
+
+class Dummy2x2Plugin(Dummy1x1Plugin):
+    """
+    Dummy2x2 dashboard plugin.
+    """
+    uid = 'dummy_2x2'
+    name = _("Dummy")
+    group = _("Dummy")
+
+
+plugin_registry.register(Dummy2x2Plugin)
 
 # ********************************************************************************
 # ******************************* Big dummy plugin *******************************

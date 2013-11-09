@@ -1,0 +1,39 @@
+{% extends "dash/layouts/base_layout.html" %}
+
+{% load i18n %}
+
+{% block page-title %}{% if current_workspace %}{{ current_workspace.name }} - {% endif %}{% trans 'Edit dashboard' %}{% endblock %}
+
+{% block content %}
+    {# Note, that here instead of iterating through placeholders, we rather call them by their `uid` #}
+
+    {% with placeholders_dict.top_shortcuts as placeholder %}
+    <div id="{{ placeholder.html_id }}" class="placeholder {{ placeholder.html_class }}">
+        {{ placeholder.render_for_edit|safe }}
+    </div>
+    {% endwith %}
+
+    {% with placeholders_dict.left_shortcuts as placeholder %}
+    <div id="{{ placeholder.html_id }}" class="placeholder {{ placeholder.html_class }}">
+        {{ placeholder.render_for_edit|safe }}
+    </div>
+    {% endwith %}
+
+    {% with placeholders_dict.right_shortcuts as placeholder %}
+    <div id="{{ placeholder.html_id }}" class="placeholder {{ placeholder.html_class }}">
+        {{ placeholder.render_for_edit|safe }}
+    </div>
+    {% endwith %}
+
+    {% with placeholders_dict.main as placeholder %}
+    <div id="{{ placeholder.html_id }}" class="placeholder {{ placeholder.html_class }}">
+        {{ placeholder.render_for_edit|safe }}
+    </div>
+    {% endwith %}
+
+    {% with placeholders_dict.bottom_shortcuts as placeholder %}
+    <div id="{{ placeholder.html_id }}" class="placeholder {{ placeholder.html_class }}">
+        {{ placeholder.render_for_edit|safe }}
+    </div>
+    {% endwith %}
+{% endblock content %}

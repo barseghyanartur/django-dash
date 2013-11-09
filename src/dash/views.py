@@ -12,7 +12,7 @@ from dash.base import validate_plugin_uid
 from dash.base import get_layout, plugin_registry, validate_placeholder_uid
 from dash.models import DashboardEntry, DashboardWorkspace
 from dash.decorators import edit_dashboard_permission_required
-from dash.helpers import slugify_workspace
+from dash.helpers import slugify_workspace, iterable_to_dict
 from dash.utils import get_widgets, get_user_plugins, get_workspaces, build_cells_matrix
 from dash.utils import get_or_create_dashboard_settings, get_public_dashboard_url
 from dash.forms import DashboardWorkspaceForm, DashboardSettingsForm
@@ -47,6 +47,7 @@ def dashboard(request, workspace=None):
 
     context = {
         'placeholders': placeholders,
+        'placeholders_dict': iterable_to_dict(placeholders, key_attr_name='uid'),
         'css': layout.get_css(placeholders),
         'layout': layout,
         'dashboard_settings': dashboard_settings
@@ -102,6 +103,7 @@ def edit_dashboard(request, workspace=None):
 
     context = {
         'placeholders': placeholders,
+        'placeholders_dict': iterable_to_dict(placeholders, key_attr_name='uid'),
         'css': layout.get_css(placeholders),
         'layout': layout,
         'edit_mode': True,

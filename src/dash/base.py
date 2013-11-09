@@ -25,6 +25,7 @@ from dash.exceptions import LayoutDoesNotExist
 from dash.settings import ACTIVE_LAYOUT, LAYOUT_CELL_UNITS, DEBUG
 from dash.settings import DEFAULT_PLACEHOLDER_VIEW_TEMPLATE_NAME, DEFAULT_PLACEHOLDER_EDIT_TEMPLATE_NAME
 from dash.exceptions import InvalidRegistryItemType
+from dash.helpers import iterable_to_dict
 
 import logging
 logger = logging.getLogger(__name__)
@@ -188,7 +189,7 @@ class BaseDashboardLayout(object):
         :return list:
         """
         widget_media = collect_widget_media(dashboard_entries)
-        #logger.debug(widget_media)
+
         if widget_media:
             self.widget_media_js, self.widget_media_css = widget_media['js'], widget_media['css']
 
@@ -204,8 +205,6 @@ class BaseDashboardLayout(object):
 
         media_css = list(set(media_css))
 
-        #logger.debug(media_css)
-
         return media_css
 
     def get_media_js(self):
@@ -219,8 +218,6 @@ class BaseDashboardLayout(object):
             media_js += self.widget_media_js
 
         media_js = list(set(media_js))
-
-        #logger.debug(media_js)
 
         return media_js
 
@@ -296,6 +293,8 @@ class BaseDashboardLayout(object):
         """
         Renders the layout.
 
+        NOTE: This is not used at the moment. You most likely want the `dash.views.dashboard` view.
+
         :param iterable dashboard_entries:
         :param str workspace: Current workspace.
         :param django.http.HttpRequest request:
@@ -304,6 +303,7 @@ class BaseDashboardLayout(object):
         placeholders = self.get_placeholder_instances(dashboard_entries, workspace, request)
         context = {
             'placeholders': placeholders,
+            'placeholders_dict': iterable_to_dict(placeholders, key_attr_name='uid'),
             'request': request,
             'css': self.get_css(placeholders)
         }
@@ -313,13 +313,20 @@ class BaseDashboardLayout(object):
         """
         Renders the layout.
 
+        NOTE: This is not used at the moment. You most likely want the `dash.views.edit_dashboard` view.
+
         :param iterable dashboard_entries:
         :param str workspace: Current workspace.
         :param django.http.HttpRequest request:
         :return str:
         """
         placeholders = self.get_placeholder_instances(dashboard_entries, workspace, request)
-        context = {'placeholders': placeholders, 'request': request, 'css':  self.get_css(placeholders)}
+        context = {
+            'placeholders': placeholders,
+            'placeholders_dict': iterable_to_dict(placeholders, key_attr_name='uid'),
+            'request': request,
+            'css':  self.get_css(placeholders)
+        }
         return render_to_string(self.get_edit_template_name(request), context)
 
 

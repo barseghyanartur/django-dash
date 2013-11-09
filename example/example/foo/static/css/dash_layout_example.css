@@ -1,0 +1,115 @@
+/*
+    Document   : dash_layout_example.css
+    Created on : Nov 8, 2013, 23:39:01 PM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        Example layout/theme for django-dash.
+*/
+
+root {
+    display: block;
+}
+
+/* Layout specific styles, centering the layout */
+.layout-example .wrapper {
+    max-width: 1020px;
+    min-width: 930px;
+    max-height: 612px;
+    min-height: 612px;
+    width: 930px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+    .layout-example .placeholder {
+    }
+    .layout-example .placeholder.placeholder-main {
+        margin: 20px auto;
+    }
+    .layout-example .placeholder.placeholder-top_shortcuts,
+    .layout-example .placeholder.placeholder-bottom_shortcuts {
+        margin: auto;
+    }
+        .layout-example .placeholder.placeholder-main .plugin .plugin-content-wrapper {
+            padding: 20px;
+        }
+
+    .layout-example .placeholder.placeholder-right_shortcuts {
+        float: right;
+    }
+    .layout-example .placeholder.placeholder-left_shortcuts {
+        float: left;
+    }
+        .layout-example .placeholder.placeholder-right_shortcuts .plugin .plugin-content-wrapper,
+        .layout-example .placeholder.placeholder-left_shortcuts .plugin .plugin-content-wrapper,
+        .layout-example .placeholder.placeholder-top_shortcuts .plugin .plugin-content-wrapper,
+        .layout-example .placeholder.placeholder-bottom_shortcuts .plugin .plugin-content-wrapper {
+            padding: 2px;
+        }
+
+        /* No crazy things with widgets. */
+        .layout-example .placeholder.placeholder-right_shortcuts .plugin h1,
+        .layout-example .placeholder.placeholder-left_shortcuts .plugin h1,
+        .layout-example .placeholder.placeholder-top_shortcuts .plugin h1,
+        .layout-example .placeholder.placeholder-bottom_shortcuts .plugin h1,
+        .layout-example .placeholder.placeholder-right_shortcuts .plugin h2,
+        .layout-example .placeholder.placeholder-left_shortcuts .plugin h2,
+        .layout-example .placeholder.placeholder-top_shortcuts .plugin h2,
+        .layout-example .placeholder.placeholder-bottom_shortcuts .plugin h2,
+        .layout-example .placeholder.placeholder-right_shortcuts .plugin h3,
+        .layout-example .placeholder.placeholder-left_shortcuts .plugin h3,
+        .layout-example .placeholder.placeholder-top_shortcuts .plugin h3,
+        .layout-example .placeholder.placeholder-bottom_shortcuts .plugin h3,
+        .layout-example .placeholder.placeholder-right_shortcuts .plugin h4,
+        .layout-example .placeholder.placeholder-left_shortcuts .plugin h4,
+        .layout-example .placeholder.placeholder-top_shortcuts .plugin h4,
+        .layout-example .placeholder.placeholder-bottom_shortcuts .plugin h4,
+        .layout-example .placeholder.placeholder-right_shortcuts .plugin h5,
+        .layout-example .placeholder.placeholder-left_shortcuts .plugin h5,
+        .layout-example .placeholder.placeholder-top_shortcuts .plugin h5,
+        .layout-example .placeholder.placeholder-bottom_shortcuts .plugin h5 {
+            font-size: 12px;
+        }
+
+/* Colours */
+
+.layout-example a:hover,
+.layout-example a:hover:before,
+.layout-example .menu-wrapper .nav .menu-item a:hover:before,
+.layout-example .menu-wrapper .workspaces .menu-item span:hover:before,
+.layout-example .placeholder .empty-widget-cell .add-plugin:hover,
+.layout-example .placeholder .plugin .edit-plugin:hover,
+.layout-example .placeholder .plugin .remove-plugin:hover {
+
+}
+
+/* General color for all icons */
+.layout-example a,
+.layout-example a:before,
+.layout-example span,
+.layout-example span:before,
+.layout-example .icon-2x:before {
+
+}
+
+.layout-example .icon-2x:hover:before {
+
+}
+
+/* General styles */
+.layout-example .iconic:before {
+    color: #777;
+}
+.layout-example .iconic:hover:before {
+    color: #428bca;
+}
+
+.layout-example a .textonic {
+    color: #555;
+}
+.layout-example a:hover .textonic {
+    color: #000;
+}

@@ -1,0 +1,6 @@
+from dash.base import plugin_widget_registry
+
+from foo.dash_widgets import Dummy1x1ExampleMainWidget, Dummy2x2ExampleMainWidget
+
+plugin_widget_registry.register(Dummy1x1ExampleMainWidget)
+plugin_widget_registry.register(Dummy2x2ExampleMainWidget)
