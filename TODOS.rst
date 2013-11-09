@@ -55,6 +55,9 @@ Core and contrib
 - Add dashboard settings (edit), including the layout change tests.
 + Make it possible to obtain the layout object by name in the template, in case if user needs some strange
   HTML setup.
++ Get rid of the lines in the layout. Replace them with dots, like on Android or Ubuntu.
++ At the moment, removing of a workspace does trigger removal of its' all dashboard entries, however, it
+  doesn't clean-up the plugin data (files or database records), while it should!
 
 Should haves
 ===============================================

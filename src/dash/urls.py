@@ -12,10 +12,10 @@ urlpatterns = patterns('dash.views',
         name='dash.add_dashboard_entry'),
 
     # Edit dashboard entry.
-    url(r'^entry/edit/(?P<id>\d+)/$', view='edit_dashboard_entry', name='dash.edit_dashboard_entry'),
+    url(r'^entry/edit/(?P<entry_id>\d+)/$', view='edit_dashboard_entry', name='dash.edit_dashboard_entry'),
 
     # Delete dashboard entry.
-    url(r'^entry/delete/(?P<id>\d+)/$', view='delete_dashboard_entry', name='dash.delete_dashboard_entry'),
+    url(r'^entry/delete/(?P<entry_id>\d+)/$', view='delete_dashboard_entry', name='dash.delete_dashboard_entry'),
 
     # ********************** Edit dashboard
     # Edit dashboard.
@@ -41,10 +41,12 @@ urlpatterns = patterns('dash.views',
     url(r'^workspace/create/$', view='create_dashboard_workspace', name='dash.create_dashboard_workspace'),
 
     # Edit dashboard workspace.
-    url(r'^workspace/edit/(?P<id>\d+)/$', view='edit_dashboard_workspace', name='dash.edit_dashboard_workspace'),
+    url(r'^workspace/edit/(?P<workspace_id>\d+)/$', view='edit_dashboard_workspace',
+        name='dash.edit_dashboard_workspace'),
 
     # Delete dashboard workspace.
-    url(r'^workspace/delete/(?P<id>\d+)/$', view='delete_dashboard_workspace', name='dash.delete_dashboard_workspace'),
+    url(r'^workspace/delete/(?P<workspace_id>\d+)/$', view='delete_dashboard_workspace',
+        name='dash.delete_dashboard_workspace'),
 
     # View dashboard workspace.
     url(r'^workspace/(?P<workspace>[\w_\-]+)/$', view='dashboard', name='dash.dashboard'),

@@ -439,3 +439,22 @@ def get_public_dashboard_url(dashboard_settings):
             # Most likely, the public dashboard is not present
             pass
     return ''
+
+def clean_plugin_data(dashboard_entries, request=None):
+    """
+    Cleans up the plugin data (database, files) for the dashboard_entries given.
+
+    :param iterable dashboard_entries:
+    :param django.http.HttpRequest request:
+    :return bool: Boolean True if no errors occured and False otherwise.
+    """
+    errors = False
+    for dashboard_entry in dashboard_entries:
+        plugin = dashboard_entry.get_plugin(request=request)
+        try:
+            plugin.delete_plugin_data()
+        except Exception as e:
+            errors = True
+            logger.debug(str(e))
+
+    return not errors

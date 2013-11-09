@@ -1,5 +1,23 @@
 Release history
 =====================================
+0.2.4
+-------------------------------------
+2013-11-09
+
+- Now when workspace is deleted, the plugin `delete_plugin_data` method is fired for all dashboard entries
+  so that all the related plugin data is wiped as well.
+- Move layout borders into separate stylesheet, making it easy to switch between those.
+
+0.2.3
+-------------------------------------
+2013-11-08
+
+- Making it possible to refer to a placeholder by it's uid in templates.
+- Nice example project with example layouts, plugins and widgets.
+- Added notes about Django 1.6 support (seems to work, although not yet proclaimed to be flawlessly supported).
+- Some core improvements.
+- Updated demo installer.
+
 0.2.2
 -------------------------------------
 2013-11-07

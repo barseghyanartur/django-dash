@@ -14,7 +14,7 @@ from dash.models import DashboardEntry, DashboardWorkspace
 from dash.decorators import edit_dashboard_permission_required
 from dash.helpers import slugify_workspace, iterable_to_dict
 from dash.utils import get_widgets, get_user_plugins, get_workspaces, build_cells_matrix
-from dash.utils import get_or_create_dashboard_settings, get_public_dashboard_url
+from dash.utils import get_or_create_dashboard_settings, get_public_dashboard_url, clean_plugin_data
 from dash.forms import DashboardWorkspaceForm, DashboardSettingsForm
 
 @login_required
@@ -244,13 +244,13 @@ def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None, po
 
 @login_required
 @permission_required('dash.change_dashboardentry')
-def edit_dashboard_entry(request, id, template_name='dash/edit_dashboard_entry.html', \
+def edit_dashboard_entry(request, entry_id, template_name='dash/edit_dashboard_entry.html', \
                          template_name_ajax='dash/edit_dashboard_entry_ajax.html'):
     """
     Edit dashboard entry.
 
     :param django.http.HttpRequest request:
-    :param int id: ID of the dashboard entry to edit.
+    :param int entry_id: ID of the dashboard entry to edit.
     :param string template_name:
     :param string template_name_ajax: Tempalte used for AJAX requests.
     :return django.http.HttpResponse:
@@ -260,7 +260,7 @@ def edit_dashboard_entry(request, id, template_name='dash/edit_dashboard_entry.h
     layout = get_layout(layout_uid=dashboard_settings.layout_uid, as_instance=True)
 
     try:
-        obj = DashboardEntry._default_manager.select_related('workspace').get(pk=id, user=request.user)
+        obj = DashboardEntry._default_manager.select_related('workspace').get(pk=entry_id, user=request.user)
     except ObjectDoesNotExist as e:
         raise Http404(e)
 
@@ -315,16 +315,16 @@ def edit_dashboard_entry(request, id, template_name='dash/edit_dashboard_entry.h
 
 @login_required
 @permission_required('dash.delete_dashboardentry')
-def delete_dashboard_entry(request, id):
+def delete_dashboard_entry(request, entry_id):
     """
     Remove dashboard entry.
 
     :param django.http.HttpRequest request:
-    :param int id: ID of the dashboard entry to delete.
+    :param int entry_id: ID of the dashboard entry to delete.
     :return django.http.HttpResponse:
     """
     try:
-        obj = DashboardEntry._default_manager.select_related('workspace').get(pk=id, user=request.user)
+        obj = DashboardEntry._default_manager.select_related('workspace').get(pk=entry_id, user=request.user)
         plugin = obj.get_plugin()
         plugin.request = request
         plugin.delete_plugin_data()
@@ -432,13 +432,13 @@ def create_dashboard_workspace(request, template_name='dash/create_dashboard_wor
 
 @login_required
 @permission_required('dash.edit_dashboardworkspace')
-def edit_dashboard_workspace(request, id, template_name='dash/edit_dashboard_workspace.html', \
+def edit_dashboard_workspace(request, workspace_id, template_name='dash/edit_dashboard_workspace.html', \
                              template_name_ajax='dash/edit_dashboard_workspace_ajax.html'):
     """
     Edit dashboard workspace.
 
     :param django.http.HttpRequest request:
-    :param int id: DashboardWorkspace ID.
+    :param int workspace_id: DashboardWorkspace ID.
     :param string template_name:
     :param string template_name_ajax: Template used for AJAX calls.
     :return django.http.HttpResponse:
@@ -449,7 +449,7 @@ def edit_dashboard_workspace(request, id, template_name='dash/edit_dashboard_wor
 
     # Check if user trying to edit the dashboard workspace actually owns it.
     try:
-        obj = DashboardWorkspace._default_manager.get(pk=id, user=request.user)
+        obj = DashboardWorkspace._default_manager.get(pk=workspace_id, user=request.user)
     except ObjectDoesNotExist as e:
         raise Http404(e)
 
@@ -472,7 +472,7 @@ def edit_dashboard_workspace(request, id, template_name='dash/edit_dashboard_wor
     context = {
         'layout': layout,
         'form': form,
-        'workspace_id': id,
+        'workspace_id': workspace_id,
         'dashboard_settings': dashboard_settings
     }
 
@@ -480,13 +480,13 @@ def edit_dashboard_workspace(request, id, template_name='dash/edit_dashboard_wor
 
 @login_required
 @permission_required('dash.delete_dashboardworkspace')
-def delete_dashboard_workspace(request, id, template_name='dash/delete_dashboard_workspace.html', \
+def delete_dashboard_workspace(request, workspace_id, template_name='dash/delete_dashboard_workspace.html', \
                                template_name_ajax='dash/delete_dashboard_workspace_ajax.html'):
     """
     Delete dashboard workspace.
 
     :param django.http.HttpRequest request:
-    :param int id: DashboardWorkspace id.
+    :param int workspace_id: DashboardWorkspace id.
     :param string template_name:
     :param string template_name_ajax: Template used for AJAX calls.
     :return django.http.HttpResponse:
@@ -500,7 +500,7 @@ def delete_dashboard_workspace(request, id, template_name='dash/delete_dashboard
         return redirect(request.POST.get('next'))
 
     try:
-        obj = DashboardWorkspace._default_manager.get(pk=id, user=request.user)
+        obj = DashboardWorkspace._default_manager.get(pk=workspace_id, user=request.user)
 
     except ObjectDoesNotExist as e:
         raise Http404(e)
@@ -508,7 +508,19 @@ def delete_dashboard_workspace(request, id, template_name='dash/delete_dashboard
     if 'POST' == request.method:
         if 'delete' in request.POST:
             workspace_name = obj.name
+
+            # Getting the (frozen) queryset.
+            dashboard_entries = DashboardEntry._default_manager \
+                                    .filter(user=request.user, layout_uid=layout.uid, workspace__id=workspace_id) \
+                                    .select_related('workspace', 'user') \
+                                    .order_by('placeholder_uid', 'position')[:]
+
+            # Cleaning the plugin data for the deleted entries.
+            clean_plugin_data(dashboard_entries, request=request)
+
+            # Delete the workspace.
             obj.delete()
+
             messages.info(request, _('The dashboard workspace "{0}" was deleted successfully.').format(workspace_name))
             return redirect('dash.edit_dashboard')
 

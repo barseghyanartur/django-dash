@@ -1,0 +1,15 @@
+/*
+    Document   : dash_dotted_borders.css
+    Created on : Nov 09, 2013, 13:23:26PM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        `django-dash` dotted borders.
+*/
+
+.placeholder .empty-widget-cell,
+.placeholder .plugin {
+    border-left: #ddd 1px dotted;
+    border-right: #ddd 1px dotted;
+    border-top: #ddd 1px dotted;
+    border-bottom: #ddd 1px dotted;
+}

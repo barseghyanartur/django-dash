@@ -1,0 +1,27 @@
+/*
+    Document   : dash_fancy_dotted_borders.css
+    Created on : Nov 09, 2013, 13:23:26PM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        `django-dash` fancy dotted borders.
+*/
+
+.placeholder .empty-widget-cell,
+.placeholder .plugin {
+    border: none;
+}
+
+.placeholder .empty-widget-cell:before,
+.placeholder .plugin:before {
+    color: #000000;
+    content: "·";
+    font-size: 14pt;
+    margin: -50% 0 0 0;
+    padding: 0;
+    position: absolute;
+}
+
+.placeholder .empty-widget-cell:after,
+.placeholder .plugin:after {
+
+}

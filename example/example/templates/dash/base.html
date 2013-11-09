@@ -2,4 +2,12 @@
 
 {% load i18n %}
 
+{% comment %}
+{% load static %}
+{% block extra-stylesheets %}
+<link href="{% static 'css/dash_fancy_dotted_borders.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/dash_dotted_borders.css' %}" rel="stylesheet" type="text/css">
+{% endblock extra-stylesheets %}
+{% endcomment %}
+
 {% block site-title %}{% trans "Example site" %}{% endblock site-title %}

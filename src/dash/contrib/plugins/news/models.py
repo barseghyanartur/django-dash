@@ -24,11 +24,11 @@ class NewsItem(models.Model, Slim):
     """
     News item.
 
-    ``title`` Title of the news item.
-    ``body`` Teaser of the news item. WYSIWYG.
-    ``image`` Headline image of the news item.
-    ``date_published`` Date item is published. On creating defaults to ``datetime.datetime.now``.
-    ``language`` Language.
+    - `title`: Title of the news item.
+    - `body`: Teaser of the news item. WYSIWYG.
+    - `image`: Headline image of the news item.
+    - `date_published`: Date item is published. On creating defaults to ``datetime.datetime.now``.
+    - `language`: Language.
     """
     title = models.CharField(_("Title"), max_length=100)
     body = HTMLField(_("Body"))

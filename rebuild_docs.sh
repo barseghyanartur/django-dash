@@ -1,0 +1,1 @@
+sphinx-apidoc src/dash --full -o docs -H 'django-dash' -A 'Artur Barseghyan <artur.barseghyan@gmail.com>' -V '0.2.4' -f -d 20

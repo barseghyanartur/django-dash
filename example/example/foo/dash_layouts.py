@@ -62,7 +62,10 @@ class ExampleLayout(BaseDashboardLayout):
         ExampleMainPlaceholder, ExampleBottomShortcutsPlaceholder
         ]
     cell_units = 'px'
-    media_css = ('css/dash_layout_example.css',)
+    media_css = (
+        'css/dash_dashed_borders.css',
+        'css/dash_layout_example.css',
+    )
     #media_js = ('js/dash_layout_android.js',)
 
 

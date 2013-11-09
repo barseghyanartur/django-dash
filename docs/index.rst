@@ -127,6 +127,7 @@ has example layouts, plugins and widgets implemented. Take it as a good example 
 existing plugins to your own customly made layout.
 
 See the documentation for some screen shots:
+
 - PythonHosted http://pythonhosted.org/django-dash/#screenshots
 - ReadTheDocs http://django-dash.readthedocs.org/en/latest/#screenshots
 

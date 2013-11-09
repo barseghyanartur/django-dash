@@ -3,7 +3,7 @@
     Created on : Aug 18, 2013, 1:24:11 PM
     Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
     Description:
-        Django-dash main styles.
+        `django-dash` main styles.
 */
 
 root { 
@@ -41,10 +41,10 @@ a {
     .placeholder .plugin {
         position: absolute;
         overflow: hidden;
-        border-left: #ddd 1px solid;
+        /*border-left: #ddd 1px solid;
         border-right: #ddd 1px solid;
         border-top: #ddd 1px solid;
-        border-bottom: #ddd 1px solid;
+        border-bottom: #ddd 1px solid;*/
         margin: 0;
         padding: 0;
         z-index: 1;

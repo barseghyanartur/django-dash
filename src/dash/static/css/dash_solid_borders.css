@@ -1,0 +1,15 @@
+/*
+    Document   : dash_solid_borders.css
+    Created on : Nov 09, 2013, 13:23:26PM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        `django-dash` solid borders.
+*/
+
+.placeholder .empty-widget-cell,
+.placeholder .plugin {
+    border-left: #ddd 1px solid;
+    border-right: #ddd 1px solid;
+    border-top: #ddd 1px solid;
+    border-bottom: #ddd 1px solid;
+}
