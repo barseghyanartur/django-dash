@@ -1,0 +1,12 @@
+{% load dash_tags %}
+
+{% for entry in dashboard_entries %}
+    {% get_dash_plugin entry as plugin %}
+
+        <div id="{{ plugin.html_id }}" class="plugin {{ plugin.html_class }}">
+            <div class="plugin-content-wrapper">
+                {{ plugin.render }}
+            </div>
+        </div>
+
+{% endfor %}

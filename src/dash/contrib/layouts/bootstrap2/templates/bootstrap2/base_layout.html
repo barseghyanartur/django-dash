@@ -1,0 +1,167 @@
+{% extends "dash/base.html" %}
+
+{% load static i18n dash_tags %}
+
+{% block site-title %}{{ dashboard_settings.title }}{% endblock site-title %}
+
+{% block stylesheets %}
+<link href="{% static 'jquery-ui/css/smoothness/jquery-ui-1.10.3.custom.min.css' %}" rel="stylesheet" media="all" />
+<link href="{% static 'colorbox/colorbox.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/dash_core.css' %}" rel="stylesheet" media="all" />
+{% if css %}
+<style type="text/css">
+    {{ css|safe }}
+</style>
+{% endif %}
+{% endblock stylesheets %}
+
+{% block layout-stylesheets %}
+{% for css_file in layout.get_media_css %}
+<link href="{% static css_file %}" rel="stylesheet" media="all" />
+{% endfor %}
+{% endblock layout-stylesheets %}
+
+{% block layout-javascripts %}
+{% for js_file in layout.get_media_js %}
+<script src="{% static js_file %}"></script>
+{% endfor %}
+{% endblock layout-javascripts %}
+
+{% block content-before %}
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="brand">{{ dashboard_settings.title }}</a>
+      <div class="nav-collapse collapse">
+        <p class="navbar-text pull-right">
+          {% blocktrans with request.user.get_full_name|default:request.user.username as user_full_name %}
+          Logged in as <a class="navbar-link" href="#">{{ user_full_name }}</a>
+          {% endblocktrans %}
+        </p>
+
+        <ul class="nav">
+            <li class="menu-item">
+                <a href="/" class="menu-dashboard-home" title="{% trans 'Home' %}">
+                    <span>{% trans 'Home' %}</span>
+                </a>
+            </li>
+            <li class="menu-item{% if not edit_mode %} active{% endif %}">
+                <a href="{% if current_workspace %}{% url 'dash.dashboard' current_workspace.slug %}{% else %}{% url 'dash.dashboard' %}{% endif %}" class="menu-dashboard-home" title="{% trans 'View Dashboard' %}">
+                    <span>{% trans 'View dashboard' %}</span>
+                </a>
+            </li>
+            {% has_edit_dashboard_permissions as has_edit_dashboard_permissions %}
+            {% if has_edit_dashboard_permissions %}
+            <li class="menu-item{% if edit_mode %} active{% endif %}">
+                <a href="{% if current_workspace %}{% url 'dash.edit_dashboard' current_workspace.slug %}{% else %}{% url 'dash.edit_dashboard' %}{% endif %}" class="menu-dashboard-edit" title="{% trans 'Edit dashboard' %}">
+                    <span>{% trans 'Edit dashboard' %}</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+{% endblock content-before %}
+
+{% block workspaces-wrapper %}
+{% endblock workspaces-wrapper %}
+
+{% block top-nav-menu-wrapper %}
+{% endblock top-nav-menu-wrapper %}
+
+{% block content %}
+    {% block bootstrap2_sidebar_wrapper %}
+<div class="span3">
+    <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+            {% block bootstrap2_workspaces_wrapper %}
+            {% if workspaces %}
+            <li class="nav-header">{% trans "Workspaces" %}</li>
+            <li class="{% if not current_workspace %} active{% endif %}">
+                <a href="{% if edit_mode %}{% url 'dash.edit_dashboard' %}{% else %}{% url 'dash.dashboard' %}{% endif %}" title="{% trans 'Default' %}">
+                    {% trans 'Default' %}
+                </a>
+            </li>
+            {% for ws in workspaces %}
+            <li class="{% if ws == current_workspace %} active{% endif %}">
+                <a href="{% if edit_mode %}{% url 'dash.edit_dashboard' ws.slug %}{% else %}{% url 'dash.dashboard' ws.slug %}{% endif %}" title="{{ ws.name }}">
+                    {{ ws.name }}
+                </a>
+            </li>
+            {% endfor %}
+            {% endif %}
+            {% endblock bootstrap2_workspaces_wrapper %}
+
+            {% block bootstrap2_settings_wrapper %}
+            <li class="nav-header">{% trans "Settings" %}</li>
+            {% if 'dash.add_dashboardworkspace' in perms %}
+            <li class="sub-menu-item">
+                <a href="{% url 'dash.create_dashboard_workspace' %}" class="menu-dashboard-create-workspace" title="{% trans 'Create a workspace' %}">
+                    <span class="iconic icon-plus-sign-alt"></span>
+                    <span class="textonic">{% trans "Create a workspace" %}</span>
+                </a>
+            </li>
+            {% endif %}
+
+            {% if 'dash.change_dashboardsettings' in perms %}
+            <li class="sub-menu-item">
+                <a href="{% url 'dash.edit_dashboard_settings' %}" class="menu-dashboard-edit-settings" title="{% trans 'Dashboard settings' %}">
+                    <span class="iconic icon-gears"></span>
+                    <span class="textonic">{% trans "Dashboard settings" %}</span>
+                </a>
+            </li>
+            {% endif %}
+
+            {% if current_workspace %}
+                {% if 'dash.change_dashboardworkspace' in perms %}
+            <li class="sub-menu-item">
+                <a href="{% url 'dash.edit_dashboard_workspace' current_workspace.pk %}" class="menu-dashboard-edit-workspace" title="{% trans 'Edit current workspace' %}">
+                    <span class="iconic icon-edit"></span>
+                    <span class="textonic">{% trans "Edit current workspace" %}</span>
+                </a>
+            </li>
+                {% endif %}
+                {% if 'dash.delete_dashboardworkspace' in perms %}
+            <li class="sub-menu-item">
+                <a href="{% url 'dash.delete_dashboard_workspace' current_workspace.pk %}" class="menu-dashboard-delete-workspace" title="{% trans 'Delete current workspace' %}">
+                    <span class="iconic icon-trash"></span>
+                    <span class="textonic">{% trans "Delete current workspace" %}</span>
+                </a>
+            </li>
+                {% endif %}
+            {% endif %}
+
+            {% block bootstrap2_public_dashboard_url_wrapper %}
+            {% if public_dashboard_url %}
+            <li class="sub-menu-item">
+                <a href="{{ public_dashboard_url }}" class="menu-public-dashboard">
+                    <span class="iconic icon-male"></span>
+                    <span class="textonic">{% trans "Public dashboard" %}</span>
+                </a>
+            </li>
+            {% endif %}
+            {% endblock bootstrap2_public_dashboard_url_wrapper %}
+
+            {% block bootstrap2_auth_url_wrapper %}
+            {% render_auth_link %}
+            {% endblock bootstrap2_auth_url_wrapper %}
+
+            {% endblock bootstrap2_settings_wrapper %}
+        </ul>
+    </div>
+</div>
+    {% endblock bootstrap2_sidebar_wrapper %}
+{% endblock content %}
+
+{% block content-after %}
+</div>
+{% endblock content-after %}

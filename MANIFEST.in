@@ -11,6 +11,9 @@ recursive-include src/dash/static *
 recursive-include src/dash/contrib/layouts/android/templates *
 recursive-include src/dash/contrib/layouts/android/static *
 
+recursive-include src/dash/contrib/layouts/bootstrap2/templates *
+recursive-include src/dash/contrib/layouts/bootstrap2/static *
+
 recursive-include src/dash/contrib/layouts/windows8/templates *
 recursive-include src/dash/contrib/layouts/windows8/static *
 

@@ -431,7 +431,7 @@ def create_dashboard_workspace(request, template_name='dash/create_dashboard_wor
     return render_to_response(template_name, context, context_instance=RequestContext(request))
 
 @login_required
-@permission_required('dash.edit_dashboardworkspace')
+@permission_required('dash.change_dashboardworkspace')
 def edit_dashboard_workspace(request, workspace_id, template_name='dash/edit_dashboard_workspace.html', \
                              template_name_ajax='dash/edit_dashboard_workspace_ajax.html'):
     """

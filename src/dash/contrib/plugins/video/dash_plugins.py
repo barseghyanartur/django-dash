@@ -22,15 +22,7 @@ class Video2x2Plugin(BaseDashboardPlugin):
     name = _("Video")
     group = _("Internet")
     form = VideoForm
-
-    @property
-    def html_class(self):
-        """
-        If plugin has an image, we add a class `iconic` to it.
-        """
-        html_class = super(Video2x2Plugin, self).html_class
-        html_class += ' video'
-        return html_class
+    html_classes = ['video']
 
     def post_processor(self):
         self.data.embed_code = render_video(self.data.url)

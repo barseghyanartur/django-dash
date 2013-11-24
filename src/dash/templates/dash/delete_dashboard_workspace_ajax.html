@@ -1,20 +1,22 @@
 {% load i18n %}
 <div class="generic-content-wrapper">
     <div class="wrapper-bg"></div>
-    <h2 class="content-title">{% trans "Delete dashboard workspace" %}</h2>
+    <div class="hero-unit-small">
+        <h2 class="content-title">{% trans "Delete dashboard workspace" %}</h2>
+    </div>
 
     <div class="content-body">
-        <form method="post" action="{% url 'dash.delete_dashboard_workspace' workspace.pk %}" enctype="multipart/form-data">
+        <form method="post" action="{% url 'dash.delete_dashboard_workspace' workspace.pk %}" enctype="multipart/form-data" class="form-horizontal">
             {% csrf_token %}
             <ul class="content-listing generic-form">
                 <li>
-                    <h3>{% blocktrans with workspace.name as workspace_name %}Are you sure you want to delete the dashboard workspace {{ workspace_name }}?{% endblocktrans%}</h3>
+                    <p class="alert alert-error">{% blocktrans with workspace.name as workspace_name %}Are you sure you want to delete the dashboard workspace {{ workspace_name }}?{% endblocktrans%}</p>
                 </li>
-                <li class="buttons">
-                    <div>
-                        <button type="submit" name="delete">{% trans "Delete" %}</button>
+                <li class="buttons control-group">
+                    <div class="controls">
+                        <button type="submit" name="delete" class="btn btn-warning">{% trans "Delete" %}</button>
                         <input type="hidden" name="next" value="{% url 'dash.edit_dashboard' workspace.slug %}" />
-                        <button type="submit">{% trans "Cancel" %}</button>
+                        <button type="submit" class="btn">{% trans "Cancel" %}</button>
                     </div>
                 </li>
             </ul>

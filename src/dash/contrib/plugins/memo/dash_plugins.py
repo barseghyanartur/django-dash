@@ -52,7 +52,7 @@ class Memo3x3Plugin(Memo2x2Plugin):
 plugin_registry.register(Memo3x3Plugin)
 
 # **************************************************************************
-# ******************************* Huge memo plugin *************************
+# ******************************* 4x5 memo plugin *************************
 # **************************************************************************
 
 class Memo4x5Plugin(Memo2x2Plugin):
@@ -65,7 +65,31 @@ plugin_registry.register(Memo4x5Plugin)
 
 
 # **************************************************************************
-# ******************************* TinyMCE memo plugin **********************
+# ******************************* Memo 5x5 plugin **************************
+# **************************************************************************
+
+class Memo5x5Plugin(Memo2x2Plugin):
+    """
+    Exact copy of the memo plugin, just rendered bigger.
+    """
+    uid = 'memo_5x5'
+
+plugin_registry.register(Memo5x5Plugin)
+
+# **************************************************************************
+# ******************************* Memo 6x6 plugin **************************
+# **************************************************************************
+
+class Memo6x6Plugin(Memo2x2Plugin):
+    """
+    Exact copy of the memo plugin, just rendered bigger.
+    """
+    uid = 'memo_6x6'
+
+plugin_registry.register(Memo6x6Plugin)
+
+# **************************************************************************
+# ******************************* TinyMCE memo 2x2 plugin ******************
 # **************************************************************************
 
 class TinyMCEMemo2x2Plugin(BaseDashboardPlugin):
@@ -82,7 +106,7 @@ class TinyMCEMemo2x2Plugin(BaseDashboardPlugin):
 plugin_registry.register(TinyMCEMemo2x2Plugin)
 
 # **************************************************************************
-# ******************************* Big TinyMCE memo plugin ******************
+# ******************************* TinyMCE memo 3x3 plugin ******************
 # **************************************************************************
 
 class TinyMCEMemo3x3Plugin(TinyMCEMemo2x2Plugin):
@@ -92,6 +116,30 @@ class TinyMCEMemo3x3Plugin(TinyMCEMemo2x2Plugin):
     uid = 'tinymce_memo_3x3'
 
 plugin_registry.register(TinyMCEMemo3x3Plugin)
+
+# **************************************************************************
+# ******************************* TinyMCE memo 4x4 plugin ******************
+# **************************************************************************
+
+class TinyMCEMemo4x4Plugin(TinyMCEMemo2x2Plugin):
+    """
+    Exact copy of the memo plugin, just rendered bigger.
+    """
+    uid = 'tinymce_memo_4x4'
+
+plugin_registry.register(TinyMCEMemo4x4Plugin)
+
+# **************************************************************************
+# ******************************* TinyMCE memo 5x5 plugin ******************
+# **************************************************************************
+
+class TinyMCEMemo5x5Plugin(TinyMCEMemo2x2Plugin):
+    """
+    Exact copy of the memo plugin, just rendered bigger.
+    """
+    uid = 'tinymce_memo_5x5'
+
+plugin_registry.register(TinyMCEMemo5x5Plugin)
 
 # **************************************************************************
 # ****************** Registering the widgets *******************************

@@ -23,15 +23,7 @@ class Image1x1Plugin(BaseDashboardPlugin):
     name = _("Image")
     group = _("Image")
     form = ImageForm
-
-    @property
-    def html_class(self):
-        """
-        If plugin has an image, we add a class `pictonic` to it.
-        """
-        html_class = super(Image1x1Plugin, self).html_class
-        html_class += ' pictonic'
-        return html_class
+    html_classes = ['pictonic']
 
     def delete_plugin_data(self):
         """
@@ -55,16 +47,16 @@ class Image2x2Plugin(Image1x1Plugin):
 plugin_registry.register(Image2x2Plugin)
 
 # *************************************************************************
-# ***************************** Image3x3 plugin ***************************
+# ***************************** Image2x3 plugin ***************************
 # *************************************************************************
 
-class Image3x3Plugin(Image1x1Plugin):
+class Image2x3Plugin(Image1x1Plugin):
     """
-    Image3x3 dashboard plugin.
+    Image2x3 dashboard plugin.
     """
-    uid = 'image_3x3'
+    uid = 'image_2x3'
 
-plugin_registry.register(Image3x3Plugin)
+plugin_registry.register(Image2x3Plugin)
 
 # *************************************************************************
 # ***************************** Image3x2 plugin ***************************
@@ -79,16 +71,90 @@ class Image3x2Plugin(Image1x1Plugin):
 plugin_registry.register(Image3x2Plugin)
 
 # *************************************************************************
-# ***************************** Image2x3 plugin ***************************
+# ***************************** Image3x3 plugin ***************************
 # *************************************************************************
 
-class Image2x3Plugin(Image1x1Plugin):
+class Image3x3Plugin(Image1x1Plugin):
     """
-    Image2x3 dashboard plugin.
+    Image3x3 dashboard plugin.
     """
-    uid = 'image_2x3'
+    uid = 'image_3x3'
 
-plugin_registry.register(Image2x3Plugin)
+plugin_registry.register(Image3x3Plugin)
+
+# *************************************************************************
+# ***************************** Image3x4 plugin ***************************
+# *************************************************************************
+
+class Image3x4Plugin(Image1x1Plugin):
+    """
+    Image3x4 dashboard plugin.
+    """
+    uid = 'image_3x4'
+
+plugin_registry.register(Image3x4Plugin)
+
+# *************************************************************************
+# ***************************** Image4x3 plugin ***************************
+# *************************************************************************
+
+class Image4x3Plugin(Image1x1Plugin):
+    """
+    Image4x3 dashboard plugin.
+    """
+    uid = 'image_4x3'
+
+plugin_registry.register(Image4x3Plugin)
+
+
+# *************************************************************************
+# ***************************** Image4x4 plugin ***************************
+# *************************************************************************
+
+class Image4x4Plugin(Image1x1Plugin):
+    """
+    Image4x4 dashboard plugin.
+    """
+    uid = 'image_4x4'
+
+plugin_registry.register(Image4x4Plugin)
+
+# *************************************************************************
+# ***************************** Image4x5 plugin ***************************
+# *************************************************************************
+
+class Image4x5Plugin(Image1x1Plugin):
+    """
+    Image4x5 dashboard plugin.
+    """
+    uid = 'image_4x5'
+
+plugin_registry.register(Image4x5Plugin)
+
+
+# *************************************************************************
+# ***************************** Image5x4 plugin ***************************
+# *************************************************************************
+
+class Image5x4Plugin(Image1x1Plugin):
+    """
+    Image5x4 dashboard plugin.
+    """
+    uid = 'image_5x4'
+
+plugin_registry.register(Image5x4Plugin)
+
+# *************************************************************************
+# ***************************** Image5x5 plugin ***************************
+# *************************************************************************
+
+class Image5x5Plugin(Image1x1Plugin):
+    """
+    Image5x5 dashboard plugin.
+    """
+    uid = 'image_5x5'
+
+plugin_registry.register(Image5x5Plugin)
 
 # *************************************************************************
 # **************** Registering the widgets for Image1x1 plugin ************

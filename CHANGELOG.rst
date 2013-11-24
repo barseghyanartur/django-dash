@@ -1,5 +1,19 @@
 Release history
 =====================================
+0.3
+-------------------------------------
+2013-11-23
+
+- Bootstrap 2 Fluid layout added.
+- Fixed issue with permission for non-admins editing current workspace.
+- Fixed image plugin unique filenames issue.
+- Fixed bug when sometimes a custom template not properly selected when rendering the placeholder.
+- Placeholder cell margins definable for each placeholder.
+- Customisable form snippets for layouts.
+- The very essential core CSS moved to a separate file (dash_core.css).
+- Plugin and widget documentation brought in accordance with new naming conventions.
+- Overal cleanup and improvements.
+
 0.2.4
 -------------------------------------
 2013-11-09

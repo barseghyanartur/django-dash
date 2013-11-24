@@ -1,0 +1,17 @@
+{% extends "bootstrap2/base_layout.html" %}
+
+{% load i18n static %}
+
+{% block page-title %}{% if current_workspace %}{{ current_workspace.name }} - {% endif %}{% trans 'Dashboard' %}{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+
+    <div class="span11">
+        {% for placeholder in placeholders %}
+        <div id="{{ placeholder.html_id }}" class="placeholder {{ placeholder.html_class }}">
+            {{ placeholder.render_for_view|safe }}
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

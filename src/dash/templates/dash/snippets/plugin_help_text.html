@@ -1,0 +1,8 @@
+
+                {% if plugin.help_text %}
+                <li class="help-text control-group">
+                    <div class="controls">
+                        <div class="help-block">{{ plugin.help_text|safe }}</div>
+                    </div>
+                </li>
+                {% endif %}

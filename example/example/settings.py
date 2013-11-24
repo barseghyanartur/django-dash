@@ -168,6 +168,7 @@ INSTALLED_APPS = (
     # Dash core, contrib layouts and apps
     'dash', # Dash core
     'dash.contrib.layouts.android', # Android layout for Dash
+    'dash.contrib.layouts.bootstrap2', # Bootstrap 2 layouts for Dash
     'dash.contrib.layouts.windows8', # Windows 8 layout for Dash
     'dash.contrib.plugins.dummy', # Dummy (testing) plugin for Dash
     'dash.contrib.plugins.memo', # Memo plugin for Dash

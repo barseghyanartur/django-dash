@@ -1,0 +1,87 @@
+/*
+    Document   : dash_layout_bootstap2_fluid.css
+    Created on : Nov 23, 2013, 4:19:43 PM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        Bootstrap 2 Fluid layout/theme for django-dash.
+*/
+
+/* Missing icons. */
+.icon-reorder {
+    background-position: -336px -48px;
+}
+.icon-plus-sign-alt {
+    background-position: 0 -96px;
+}
+.icon-gears {
+    background-position: -360px -144px;
+}
+.icon-male {
+    background-position: -168px 0;
+}
+.icon-signout {
+    background-position: -384px 0;
+}
+
+/* Override add plugin links. */
+.layout-bootstrap2_fluid .container-fluid .add-plugin {
+    display: block;
+    height: 14px;
+    left: 50%;
+    margin: -7px 0 0 -7px;
+    position: absolute;
+    top: 50%;
+    width: 14px;
+}
+    .layout-bootstrap2_fluid .container-fluid .add-plugin .iconic {
+        margin: 0;
+    }
+
+/* Hacks */
+ul.workspaces {
+    display: none;
+}
+
+.wrapper {
+    margin-top: 60px;
+}
+
+/* Forms */
+.generic-content-wrapper form ul,
+.generic-content-wrapper form ul li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.content-listing.generic-form h3 {
+    font-size: 14px;
+    line-height: 14px;
+}
+
+/* Non-AJAX pages. */
+.standalone .generic-content-wrapper {
+    left: 0;
+    margin: 0 auto;
+    right: 0;
+    top: 40px;
+    width: 532px;
+}
+
+/* General styles */
+.hero-unit-small {
+    background-color: #EEEEEE;
+    border-radius: 6px;
+    color: inherit;
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.messagelist {
+    list-style: none;
+    margin: 0 20px 0 20px;
+    padding: 0;
+}

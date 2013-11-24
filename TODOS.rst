@@ -11,8 +11,10 @@ Must haves
 Core and contrib
 -----------------------------------------------
 + Layouts:
-    + Android layout (styled).
-    + Windows 8 layout (styled).
+    + Android layout.
+    + Windows 8 layout.
+    + Twitter bootstrap 2.
+    - Twitter bootstrap 3.
 + Documentation.
 + Group widgets.
 + Plugins:
@@ -51,13 +53,26 @@ Core and contrib
   on the first page load, all plugins are loaded correctly, but when user goes to some other page where
   other plugins are used and then goes back to the previous page, the plugin scripts from the initial page
   are still loaded.
-- Add workspace create/delete/edit tests.
-- Add dashboard settings (edit), including the layout change tests.
 + Make it possible to obtain the layout object by name in the template, in case if user needs some strange
   HTML setup.
 + Get rid of the lines in the layout. Replace them with dots, like on Android or Ubuntu.
 + At the moment, removing of a workspace does trigger removal of its' all dashboard entries, however, it
   doesn't clean-up the plugin data (files or database records), while it should!
++ Ensure, that all files saved have unique filenames!
++ Placeholder cell margins.
++ Add public dashboard hoocks.
++ Make the rest of the menus and dialogues to be shown in the same style as Bootstrap 2 layout (when
+  Bootstrap 2 layout is loaded).
++ Limit the number of icons for URL plugin when in Bootstrap layout.
++ Make sure all selenium tests still work after HTML changes.
++ Fix issue with "edit" icon not shown on the widge in edit mode (only "delete" is shown).
+- Widgets dialogue in bootstrap style for Bootstrap layout (find a proper theme!).
+- Fix bug with public dashboard app not showing entries for `example` layouts. This is actually caused by
+  probably not well tested placeholder usage by name in templates.
+- Fix Google Chrome bug, when dash widget controls (edit/delete) being hidden under Youtube video.
+- Strange problems with hover in IE (all versions).
+- Add workspace create/delete/edit tests.
+- Add dashboard settings (edit), including the layout change tests.
 
 Should haves
 ===============================================
@@ -74,16 +89,17 @@ Core and contrib
 + Add translations for Dutch.
 + Add translations for Russian.
 - Add translations for Armenian.
+- Plugin and widget factory, for creating plugins and widgets easier (since it's mostly just extending
+  some plugin or widget, just changing the name and rows/cols).
 - File plugin.
 - Add navigation (at right and left) to navigate through the workspaces (like in Android).
-- Strange problems with hover in IE (all versions).
-- Fix Google Chrome bug, when dash widget controls (edit/delete) being hidden under Youtube video.
 - Copy/paste widgets between workspaces.
 
 Could haves
 ===============================================
 Core and contrib
 -----------------------------------------------
+- Base auto-updated plugins and widgets (using AJAX pull or socket.io).
 - Contact form plugin.
 - Dragging of widgets (within the Placeholder).
 - Reset dashboards triggers/hoocks.

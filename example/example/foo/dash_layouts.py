@@ -1,4 +1,4 @@
-__all__ = ('AndroidLayout')
+__all__ = ('ExampleLayout',)
 
 from dash.base import BaseDashboardLayout, BaseDashboardPlaceholder, layout_registry
 
@@ -51,7 +51,7 @@ class ExampleBottomShortcutsPlaceholder(ExampleTopShortcutsPlaceholder):
 
 class ExampleLayout(BaseDashboardLayout):
     """
-    Android layout.
+    Example layout.
     """
     uid = 'example'
     name = 'Example'

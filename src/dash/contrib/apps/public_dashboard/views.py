@@ -1,5 +1,8 @@
 __all__ = ('public_dashboard',)
 
+import logging
+logger = logging.getLogger(__name__)
+
 from django.http import Http404
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
@@ -34,6 +37,8 @@ def public_dashboard(request, username, workspace=None, template_name='public_da
     registered_plugins = get_user_plugins(user)
     user_plugin_uids = [uid for uid, repr in registered_plugins]
 
+    logger.debug(user_plugin_uids)
+
     # A complex query required. All entries shall be taken from default dashboard (no workspace) and
     # joined with all entries of workspaces set to be public. Getting the (frozen) queryset.
     if workspace:
@@ -52,6 +57,8 @@ def public_dashboard(request, username, workspace=None, template_name='public_da
                                       .select_related('workspace', 'user') \
                                       .order_by('placeholder_uid', 'position')[:]
 
+    #logger.debug(dashboard_entries)
+
     placeholders = layout.get_placeholder_instances(dashboard_entries, request=request)
 
     layout.collect_widget_media(dashboard_entries)
@@ -61,7 +68,7 @@ def public_dashboard(request, username, workspace=None, template_name='public_da
         'css': layout.get_css(placeholders),
         'layout': layout,
         'user': user,
-        'master_template': layout.get_view_template_name(request),
+        'master_template': layout.get_view_template_name(request, origin='dash.public_dashboard'),
         'dashboard_settings': dashboard_settings
     }
 

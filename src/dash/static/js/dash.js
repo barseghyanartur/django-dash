@@ -78,7 +78,7 @@ $(document).ready(function() {
     // Delete dashboard workspace.
     $('a.menu-dashboard-delete-workspace').colorbox({
         'width': '576px',
-        'height': '270px',
+        'height': '300px',
         'opacity': '0.5',
         'onComplete': onLightboxOpen
     });

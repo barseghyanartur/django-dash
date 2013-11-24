@@ -10,10 +10,10 @@ MANIFEST.in~
 tmp/
 .zip
 release/
+deploy/
 example/db/example.db
 example/tmp/
-example/logs/django.log
-example/logs/dash.log
+example/logs/
 example/media/news-images/
 example/example/images/images/
 example/media/dash-image-plugin-images/

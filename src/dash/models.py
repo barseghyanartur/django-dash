@@ -96,7 +96,6 @@ class DashboardEntryManager(models.Manager):
         :param string workspace: Workspace slug (``dash.models.DashboardWorkspace``).
         :return iterable:
         """
-        #layout
         return self.filter(user=user, layout_uid=layout_uid, workspace__slug=workspace)
 
 

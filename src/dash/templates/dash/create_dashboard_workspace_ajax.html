@@ -1,17 +1,18 @@
 {% load i18n %}
 <div class="generic-content-wrapper">
     <div class="wrapper-bg"></div>
-
-    <h2 class="content-title">{% trans "Add dashboard workspace" %}</h2>
+    <div class="hero-unit-small">
+        <h2 class="content-title">{% trans "Add dashboard workspace" %}</h2>
+    </div>
 
     <div class="content-body">
-        <form method="post" action="{% url 'dash.create_dashboard_workspace' %}" enctype="multipart/form-data">
+        <form method="post" action="{% url 'dash.create_dashboard_workspace' %}" enctype="multipart/form-data" class="form-horizontal">
             {% csrf_token %}
             <ul class="content-listing generic-form">
-                {% include "dash/snippets/generic_form_snippet.html" %}
-                <li class="buttons">
-                    <div>
-                        <button type="submit">{% trans "Add" %}</button>
+                {% include layout.form_snippet_template_name %}
+                <li class="buttons control-group">
+                    <div class="controls">
+                        <button type="submit" class="btn btn-primary">{% trans "Add" %}</button>
                     </div>
                 </li>
             </ul>

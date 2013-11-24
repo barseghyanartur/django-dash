@@ -10,6 +10,7 @@ except:
 template_dirs = [
     "src/dash/templates/dash", # Core templates
     "src/dash/contrib/layouts/android/templates/android", # Android layout
+    "src/dash/contrib/layouts/bootstrap2/templates/bootstrap2", # Bootstrap 2 layouts
     "src/dash/contrib/layouts/windows8/templates/windows8", # Windows 8 layout
     "src/dash/contrib/plugins/dummy/templates/dummy", # Dummy plugin
     "src/dash/contrib/plugins/image/templates/image", # Image plugin
@@ -23,6 +24,7 @@ template_dirs = [
 static_dirs = [
     "src/dash/static", # Core static
     "src/dash/contrib/layouts/android/static", # Android layout
+    "src/dash/contrib/layouts/bootstrap2/static", # Bootstrap 2 layouts
     "src/dash/contrib/layouts/windows8/static", # Windows 8 layout
     "src/dash/contrib/plugins/image/static", # Image plugin
     "src/dash/contrib/plugins/news/static", # News plugin
@@ -54,7 +56,7 @@ for locale_dir in locale_dirs:
 #print(static_files)
 #raise Exception()
 
-version = '0.2.4'
+version = '0.3'
 
 install_requires = [
     'Pillow==2.1.0',

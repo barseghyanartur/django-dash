@@ -1,4 +1,4 @@
-__all__ = ('Windows8Layout')
+__all__ = ('Windows8Layout',)
 
 from dash.base import BaseDashboardLayout, BaseDashboardPlaceholder, layout_registry
 

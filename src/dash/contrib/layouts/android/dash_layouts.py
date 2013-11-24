@@ -1,4 +1,4 @@
-__all__ = ('AndroidLayout')
+__all__ = ('AndroidLayout',)
 
 from dash.base import BaseDashboardLayout, BaseDashboardPlaceholder, layout_registry
 

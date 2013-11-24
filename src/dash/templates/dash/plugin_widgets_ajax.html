@@ -2,13 +2,16 @@
 
 <div class="generic-content-wrapper">
     <div class="wrapper-bg"></div>
-    <h2 class="content-title">{% trans "Widgets" %}</h2>
+    <div class="hero-unit-small">
+        <h2 class="content-title">{% trans "Widgets" %}</h2>
+    </div>
+
     <div class="content-body">
         <div id="accordion">
             {% for group,widgets in grouped_widgets.items %}
             <h3>{{ group }}</h3>
             <div>
-                <ul class="content-listing widgets">
+                <ul class="content-listing widgets unstyled">
                 {% for uid, name, url in widgets %}
                     <li>
                         <a href="{{ url }}" class="widget widget-{{ uid }}">{{ name }}</a>

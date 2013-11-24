@@ -5,10 +5,10 @@
   <meta charset="utf-8">
   <title>{% block page-title %}{% endblock page-title %} | {% block site-title %}{% endblock site-title %}</title>
   {% block stylesheets %}
-    {#<link href="{% static 'css/fonts.css' %}" rel="stylesheet" type="text/css">#}
     <link href="{% static 'jquery-ui/css/smoothness/jquery-ui-1.10.3.custom.min.css' %}" rel="stylesheet" media="all" />
     <link href="{% static 'colorbox/colorbox.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/dash_core.css' %}" rel="stylesheet" media="all" />
     <link href="{% static 'css/dash.css' %}" rel="stylesheet" media="all" />
     {% if css %}
     <style type="text/css">
@@ -53,7 +53,7 @@
 
                 {% if edit_mode %}
                 <li class="menu-item">
-                    <a href="{% if current_workspace %}{% url 'dash.dashboard' current_workspace.slug %}{% else %}{% url 'dash.dashboard' %}{% endif %}" class="menu-dashboard-home" title="{% trans 'Dashboard' %}">
+                    <a href="{% if current_workspace %}{% url 'dash.dashboard' current_workspace.slug %}{% else %}{% url 'dash.dashboard' %}{% endif %}" class="menu-dashboard-home" title="{% trans 'View dashboard' %}">
                         <span class="iconic icon-eye-open icon-2x"></span>
                     </a>
                 </li>
@@ -91,7 +91,7 @@
                         {% endif %}
 
                         {% if current_workspace %}
-                            {% if 'dash.edit_dashboardworkspace' in perms %}
+                            {% if 'dash.change_dashboardworkspace' in perms %}
                         <li class="sub-menu-item">
                             <a href="{% url 'dash.edit_dashboard_workspace' current_workspace.pk %}" class="menu-dashboard-edit-workspace" title="{% trans 'Edit current workspace' %}">
                                 <span class="iconic icon-edit"></span>
@@ -133,6 +133,17 @@
             </ul>
             {% endblock top-nav-menu-wrapper %}
             {% block workspaces-wrapper %}
+
+            {% comment %}
+            {% if not workspaces %}
+                {% if layout %}
+                    {% get_dash_workspaces layout.uid %}
+                {% else %}
+                    {% get_dash_workspaces layout.uid %}
+                {% endif %}
+            {% endif %}
+            {% endcomment %}
+
             {% if workspaces %}
             <ul class="workspaces">
                 <li class="menu-item{% if not current_workspace %} active{% endif %}">
@@ -140,13 +151,6 @@
                         <span class="iconic {% if not current_workspace %}icon-circle{% else %}icon-circle-blank{% endif %}"></span>
                     </a>
                 </li>
-                {% if not workspaces %}
-                    {% if layout %}
-                        {% get_dash_workspaces layout.uid %}
-                    {% else %}
-                        {% get_dash_workspaces layout.uid %}
-                    {% endif %}
-                {% endif %}
                 {% for ws in workspaces %}
                 <li class="menu-item{% if ws == current_workspace %} active{% endif %}">
                     <a href="{% if edit_mode %}{% url 'dash.edit_dashboard' ws.slug %}{% else %}{% url 'dash.dashboard' ws.slug %}{% endif %}" title="{{ ws.name }}">
@@ -159,9 +163,16 @@
             {% endblock workspaces-wrapper %}
         </div>
     {% endblock top-menu %}
+
+    {% block content-before %}
+    {% endblock content-before %}
+
     {% block content %}
 
     {% endblock content %}
+
+    {% block content-after %}
+    {% endblock content-after %}
     </div>
     {% endblock content-wrapper %}
 

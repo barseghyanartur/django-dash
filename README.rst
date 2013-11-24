@@ -69,6 +69,7 @@ Installation
 >>>     # ...
 >>>     'dash',
 >>>     'dash.contrib.layouts.android',
+>>>     'dash.contrib.layouts.bootstrap2',
 >>>     'dash.contrib.layouts.windows8',
 >>>     'dash.contrib.plugins.dummy',
 >>>     'dash.contrib.plugins.image',
@@ -389,17 +390,27 @@ Required imports.
 >>> from dash.base import BaseDashboardPlugin, plugin_registry
 >>> from path.to.plugin.sample_memo.forms import SampleMemoForm
 
-Defining the Sample Memo plugin.
+Defining the Sample Memo plugin (2x2) (to be used in the `main` placeholder).
 
->>> class SampleMemoPlugin(BaseDashboardPlugin):
->>>     uid = 'sample_memo' # Plugin UID
+>>> class SampleMemo2x2Plugin(BaseDashboardPlugin):
+>>>     uid = 'sample_memo_2x2' # Plugin UID
 >>>     name = _("Memo") # Plugin name
 >>>     group = _("Memo") # Group to which the plugin belongs to
 >>>     form = SampleMemoForm # Plugin forms are explained later
+>>>     html_classes = ['sample-memo'] # This is optional. Adds extra HTML classes.
 
 Registering the Sample Memo plugin.
 
->>> plugin_registry.register(SampleMemoPlugin)
+>>> plugin_registry.register(SampleMemo2x2Plugin)
+
+Defining the Sample Memo plugin (1x1) (to be used in the `shortcuts` placeholder).
+
+>>> class SampleMemo1x1Plugin(SampleMemo2x2Plugin):
+>>>     uid = 'sample_memo_1x1' # Plugin UID
+
+Registering the Sample Memo plugin.
+
+>>> plugin_registry.register(SampleMemo1x1Plugin)
 
 Register plugin widgets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -410,13 +421,16 @@ Required imports.
 
 >>> from dash.base import plugin_widget_registry
 >>> from path.to.plugin.sample_memo.dash_widgets import (
->>>     SampleMemoExampleMainWidget, SampleMemoExampleShortcutWidget
->>>     )
+>>>     SampleMemo1x1ExampleMainWidget, SampleMemo2x2ExampleMainWidget
+>>> )
 
-Registering the Sample Memo plugin widgets for Layout `example`.
+Registering the Sample Memo plugin widget for placeholder `main` of layout `example`.
 
->>> plugin_widget_registry.register(SampleMemoExampleMainWidget)
->>> plugin_widget_registry.register(SampleMemoExampleShortcutWidget)
+>>> plugin_widget_registry.register(SampleMemo2x2ExampleMainWidget)
+
+Registering the Sample Memo plugin widget for placeholder `shortcuts` of layout `example`.
+
+>>> plugin_widget_registry.register(SampleMemo1x1ExampleMainWidget)
 
 path/to/plugin/sample_memo/dash_widgets.py
 -----------------------------------------------
@@ -432,13 +446,13 @@ Required imports.
 >>> from django.template.loader import render_to_string
 >>> from dash.base import BaseDashboardPluginWidget
 
-Memo plugin widget for Example layout (Placeholder `main`).
+Memo plugin widget for Example layout (placeholder `main`).
 
->>> class SampleExampleMemoExampleMainWidget(BaseDashboardPluginWidget):
+>>> class SampleMemo2x2ExampleMainWidget(BaseDashboardPluginWidget):
 >>>     layout_uid = 'example' # Layout for which the widget is written
 >>>     placeholder_uid = 'main' # Placeholder within the layout for which
 >>>                              # the widget is written
->>>     plugin_uid = 'sample_memo' # Plugin for which the widget is written
+>>>     plugin_uid = 'sample_memo_2x2' # Plugin for which the widget is written
 >>>     cols = 2 # Number of widget columns
 >>>     rows = 2 # Number of widget rows
 >>>
@@ -446,12 +460,13 @@ Memo plugin widget for Example layout (Placeholder `main`).
 >>>         context = {'plugin': self.plugin}
 >>>         return render_to_string('sample_memo/render_main.html', context)
 
-Memo plugin widget for Example layout (Placeholder `shortcuts`).
+Memo plugin widget for Example layout (placeholder `shortcuts`).
 
->>> class SampleMemoExampleShortcutWidget(SampleMemoExampleMainWidget):
->>>     placeholder_uid = 'shortcuts'
->>>     cols = 1
->>>     rows = 1
+>>> class SampleMemo1x1ExampleShortcutWidget(SampleMemo2x2ExampleMainWidget):
+>>>     placeholder_uid = 'shortcuts' # Placeholder within the layout for which
+>>>                                   # the widget is written
+>>>     cols = 1 # Number of widget columns
+>>>     rows = 1 # Number of widget rows
 >>>
 >>>     def render(self, request=None):
 >>>         context = {'plugin': self.plugin}
@@ -603,6 +618,8 @@ Below a short overview of the layouts. See the README.rst file in directory of e
 - Android (like) layout. Has two placeholders: main (6 cols x 5 rows, each block sized 150x110 px) and
   shortcuts (1 col x 10 rows, each block sized 60x55 px).
   https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/android
+- Bootstrap 2 fluid (like) layout. Has one placeholder: main (11 cols x 9 rows, each block sized 70x40 px).
+  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/bootstrap2
 - Windows 8 (like) layout. Has two placeholders: main (6 cols x 4 rows, each block sized 140x135 px) and
   sidebar (2 cols x 4 rows, each block sized 140x135 px).
   https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/windows8

@@ -1,7 +1,10 @@
 """
 All `uids` are supposed to be pythonic function names (see PEP http://www.python.org/dev/peps/pep-0008/#function-names).
 """
-
+__title__ = 'dash.base'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('BaseDashboardLayout', 'BaseDashboardPlaceholder', 'BaseDashboardPlugin', \
            'BaseDashboardPluginWidget', 'layout_registry', 'plugin_widget_registry', \
            'get_registered_plugins', 'get_registered_plugin_uids', 'validate_plugin_uid', \
@@ -92,8 +95,9 @@ class BaseDashboardLayout(object):
         - `description` (string): Layout description.
         - `placeholders` (iterable): Iterable (list, tuple or set) of `dash.base.BaseDashboardPlaceholder`
            subclasses.
-        - `view_template_name` (string): Temlate name used to render the layout (view).
-        - `edit_template_name` (string): Template named used to render the layout (edit).
+        - `view_template_name` (string): Temlate used to render the layout (view).
+        - `edit_template_name` (string): Template used to render the layout (edit).
+        - `form_snippet_template_name` (string): Template used to render the forms.
         - `html_classes` (string): Extra HTML class that layout should get.
         - `cell_units` (string):
         - `media_css` (list): List all specific stylesheets.
@@ -107,6 +111,7 @@ class BaseDashboardLayout(object):
     view_template_name_ajax = None
     edit_template_name = None
     edit_template_name_ajax = None
+    form_snippet_template_name = 'dash/snippets/generic_form_snippet.html'
     html_classes = []
     cell_units = None # Most likely, it makes sense to define this on a layout level. Think of it.
     media_css = []
@@ -141,7 +146,14 @@ class BaseDashboardLayout(object):
         self.widget_media_js = []
         self.widget_media_css = []
 
-    def get_view_template_name(self, request=None):
+    def get_view_template_name(self, request=None, origin=None):
+        """
+        Gets the view template name.
+
+        :param django.http.HttpRequest request:
+        :param string origin: Origin of the request. Hook to provide custom templates for apps.
+            Example value: 'public_dashboard'. Take the `public_dashboard` app as example.
+        """
         if not self.view_template_name_ajax:
             return self.view_template_name
         elif request and request.is_ajax():
@@ -336,12 +348,27 @@ class BaseDashboardPlaceholder(object):
 
     :Properties:
         - `uid` (string): Unique identifier (shouldn't repeat within a single layout).
+        - `cols` (int): Number of cols in the placeholder.
+        - `rows` (int): Number of rows in the placeholder.
+        - `cell_width` (int): Single cell (1x1) width.
+        - `cell_height` (int): Single cell (1x1) height.
+        - `cell_margin_top` (int): Top margin of a single cell.
+        - `cell_margin_right` (int): Right margin of a single cell.
+        - `cell_margin_bottom` (int): Bottom margin of a single cell.
+        - `cell_margin_left` (int): Left margin of a single cell.
+        - `view_template_name` (string): Template to be used for rendering the placeholder in view mode.
+        - `edit_template_name` (string): Template to be used for rendering the placeholder in edit mode.
+        - `html_classes` (string): Extra HTML class that layout should get.
     """
     uid = None
     cols = None #1
     rows = None #8
     cell_width = None #100
     cell_height = None #100
+    cell_margin_top = 0
+    cell_margin_right = 0
+    cell_margin_bottom = 0
+    cell_margin_left = 0
     view_template_name = ''
     edit_template_name = ''
     html_classes = []
@@ -387,7 +414,7 @@ class BaseDashboardPlaceholder(object):
         return self.view_template_name if self.view_template_name else DEFAULT_PLACEHOLDER_VIEW_TEMPLATE_NAME
 
     def get_edit_template_name(self):
-        return self.edit_template_name if self.view_template_name else DEFAULT_PLACEHOLDER_EDIT_TEMPLATE_NAME
+        return self.edit_template_name if self.edit_template_name else DEFAULT_PLACEHOLDER_EDIT_TEMPLATE_NAME
 
     def load_dashboard_entries(self, dashboard_entries=None):
         """
@@ -445,6 +472,36 @@ class BaseDashboardPlaceholder(object):
         }
         return render_to_string(self.get_edit_template_name(), context)
 
+    def get_cell_width(self):
+        """
+        Gets a single cell width, with respect to margins.
+
+        :return int:
+        """
+        return self.cell_margin_left + self.cell_margin_right + self.cell_width
+
+    def get_cell_height(self):
+        """
+        Gets a single cell height, with respect to margins.
+
+        :return int:
+        """
+        return self.cell_margin_top + self.cell_margin_bottom + self.cell_height
+
+    def widget_inner_width(self, cols):
+        """
+        The inner width of the widget to be rendered.
+        """
+        return (self.get_cell_width() * cols) - self.cell_margin_left - self.cell_margin_right
+
+    def widget_inner_height(self, rows):
+        """
+        The inner height of the widget to be rendered.
+
+        :return int:
+        """
+        return (self.get_cell_height() * rows) - self.cell_margin_top - self.cell_margin_bottom
+
     @property
     def css(self):
         """
@@ -471,7 +528,7 @@ class BaseDashboardPlaceholder(object):
 
             :return string:
             """
-            return '{0}{1}'.format(self.cols * self.cell_width, self.cell_units)
+            return '{0}{1}'.format(self.cols * self.get_cell_width(), self.cell_units)
 
         def placeholder_height():
             """
@@ -479,7 +536,7 @@ class BaseDashboardPlaceholder(object):
 
             :return string:
             """
-            return '{0}{1}'.format(self.rows * self.cell_height, self.cell_units)
+            return '{0}{1}'.format(self.rows * self.get_cell_height(), self.cell_units)
 
         def plugin_width():
             """
@@ -518,7 +575,7 @@ class BaseDashboardPlaceholder(object):
                     """.format(
                     placeholder_class = self.primary_html_class,
                     row_num = (row_num + 1),
-                    top = '{0}{1}'.format(self.cell_height * row_num, self.cell_units)
+                    top = '{0}{1}'.format(self.get_cell_height() * row_num, self.cell_units)
                 )
                 positions.append(s)
 
@@ -531,7 +588,7 @@ class BaseDashboardPlaceholder(object):
                     """.format(
                     placeholder_class = self.primary_html_class,
                     col_num = (col_num + 1),
-                    left = '{0}{1}'.format(self.cell_width * col_num, self.cell_units)
+                    left = '{0}{1}'.format(self.get_cell_width() * col_num, self.cell_units)
                 )
                 positions.append(s)
 
@@ -556,7 +613,11 @@ class BaseDashboardPlaceholder(object):
                     """.format(
                     placeholder_class = self.primary_html_class,
                     row_num = (row_num + 1),
-                    height = '{0}{1}'.format(self.cell_height * (row_num + 1), self.cell_units)
+                    height = '{0}{1}'.format(
+                        #(self.get_cell_height() * (row_num + 1)) - self.cell_margin_top - self.cell_margin_bottom,
+                        self.widget_inner_height(row_num + 1),
+                        self.cell_units
+                        )
                 )
                 sizes.append(s)
 
@@ -568,12 +629,15 @@ class BaseDashboardPlaceholder(object):
                     """.format(
                         placeholder_class = self.primary_html_class,
                         col_num = (col_num + 1),
-                        width = '{0}{1}'.format(self.cell_width * (col_num + 1), self.cell_units)
+                        width = '{0}{1}'.format(
+                            #(self.get_cell_width() * (col_num + 1)) - self.cell_margin_left - self.cell_margin_right,
+                            self.widget_inner_width(col_num + 1),
+                            self.cell_units
+                            )
                     )
                 sizes.append(s)
 
             return '\n'.join(sizes)
-
 
         def empty_cell_size():
             """
@@ -1072,7 +1136,7 @@ class BaseDashboardPluginWidget(object):
 
         :return int:
         """
-        return self.cols * self.plugin.placeholder.cell_width
+        return self.plugin.placeholder.get_widget_inner_width(self.cols)
 
     def get_height(self):
         """
@@ -1080,7 +1144,7 @@ class BaseDashboardPluginWidget(object):
 
         :return int:
         """
-        return self.rows * self.plugin.placeholder.cell_height
+        return self.plugin.placeholder.get_widget_inner_height(self.rows)
 
     def get_size(self, delta_width=0, delta_height=0):
         """
@@ -1091,9 +1155,10 @@ class BaseDashboardPluginWidget(object):
         :return tuple:
         """
         return (
-            (self.cols * self.plugin.placeholder.cell_width) + delta_width,
-            (self.rows * self.plugin.placeholder.cell_height) + delta_height
+            (self.cols * self.plugin.placeholder.get_cell_width()) + delta_width,
+            (self.rows * self.plugin.placeholder.get_cell_height()) + delta_height
         )
+
 
 class BaseRegistry(object):
     """
