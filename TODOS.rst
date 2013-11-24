@@ -73,6 +73,8 @@ Core and contrib
 - Strange problems with hover in IE (all versions).
 - Add workspace create/delete/edit tests.
 - Add dashboard settings (edit), including the layout change tests.
+- Fix issue when a gray block is shown in place of the workspaces when just default workspace is 
+  available.
 
 Should haves
 ===============================================
