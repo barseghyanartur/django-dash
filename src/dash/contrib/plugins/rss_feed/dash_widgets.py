@@ -1,3 +1,6 @@
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('ReadRSSFeed2x3AndroidMainWidget', 'ReadRSSFeed2x3Windows8MainWidget', 'ReadRSSFeed3x3AndroidMainWidget')
 
 from django.core.context_processors import csrf

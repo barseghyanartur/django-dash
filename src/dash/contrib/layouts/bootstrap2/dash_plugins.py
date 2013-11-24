@@ -1,3 +1,7 @@
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+
 from dash.base import plugin_registry, plugin_widget_registry
 
 from dash.contrib.plugins.url.dash_plugins import URL1x1Plugin

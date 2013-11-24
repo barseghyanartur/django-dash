@@ -1,3 +1,6 @@
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('FIT_METHOD_CROP_SMART', 'FIT_METHOD_CROP_CENTER', 'FIT_METHOD_CROP_SCALE',
            'FIT_METHOD_FIT_WIDTH', 'FIT_METHOD_FIT_HEIGHT', 'DEFAULT_FIT_METHOD', 'FIT_METHODS_CHOICES',
            'FIT_METHODS_CHOICES_WITH_EMPTY_OPTION', 'IMAGES_UPLOAD_DIR')

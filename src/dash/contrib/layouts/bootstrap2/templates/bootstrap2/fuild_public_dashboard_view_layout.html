@@ -40,14 +40,15 @@
 <div class="container-fluid">
 {% endblock content-before %}
 
-{% block bootstrap2_workspaces_wrapper %}
-    {% if workspaces %}
-        <li class="nav-header">{% trans "Workspaces" %}</li>
-        <li class="{% if not current_workspace %} active{% endif %}">
-            <a href="{% url 'dash.public_dashboard' user.username %}" title="{% trans 'Default' %}">
-                {% trans 'Default' %}
-            </a>
-        </li>
+{% block bootstrap2_workspaces %}
+    <li class="nav-header">{% trans "Workspaces" %}</li>
+    <li class="{% if not current_workspace %} active{% endif %}">
+        <a href="{% url 'dash.public_dashboard' user.username %}" title="{% trans 'Default' %}">
+            {% trans 'Default' %}
+        </a>
+    </li>
+
+    {% if workspaces %}    
         {% for ws in workspaces %}
         <li class="{% if ws == current_workspace %} active{% endif %}">
             <a href="{% url 'dash.public_dashboard' user.username ws.slug %}" title="{{ ws.name }}">
@@ -55,15 +56,14 @@
             </a>
         </li>
         {% endfor %}
-        {% endif %}
+    {% endif %}
+{% endblock bootstrap2_workspaces %}
 
-{% endblock bootstrap2_workspaces_wrapper %}
+{% block bootstrap2_settings %}
+{% endblock bootstrap2_settings %}
 
-{% block bootstrap2_settings_wrapper %}
-{% endblock bootstrap2_settings_wrapper %}
+{% block bootstrap2_public_dashboard_url %}
+{% endblock bootstrap2_public_dashboard_url %}
 
-{% block bootstrap2_public_dashboard_url_wrapper %}
-{% endblock bootstrap2_public_dashboard_url_wrapper %}
-
-{% block bootstrap2_auth_url_wrapper %}
-{% endblock bootstrap2_auth_url_wrapper %}
+{% block bootstrap2_auth_url %}
+{% endblock bootstrap2_auth_url %}

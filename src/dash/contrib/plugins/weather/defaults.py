@@ -1,3 +1,6 @@
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('API_KEY', 'API_ENDPOINT_URL', 'DEFAULT_SHOW_TITLE', 'DEFAULT_CACHE_FOR')
 
 # http://developer.worldweatheronline.com API key.

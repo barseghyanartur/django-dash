@@ -67,14 +67,14 @@ Core and contrib
 + Make sure all selenium tests still work after HTML changes.
 + Fix issue with "edit" icon not shown on the widge in edit mode (only "delete" is shown).
 - Widgets dialogue in bootstrap style for Bootstrap layout (find a proper theme!).
++ Fix issue when a gray block is shown in place of the workspaces when just default workspace is
+  available.
 - Fix bug with public dashboard app not showing entries for `example` layouts. This is actually caused by
   probably not well tested placeholder usage by name in templates.
 - Fix Google Chrome bug, when dash widget controls (edit/delete) being hidden under Youtube video.
 - Strange problems with hover in IE (all versions).
 - Add workspace create/delete/edit tests.
 - Add dashboard settings (edit), including the layout change tests.
-- Fix issue when a gray block is shown in place of the workspaces when just default workspace is 
-  available.
 
 Should haves
 ===============================================

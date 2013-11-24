@@ -1,3 +1,6 @@
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('Dummy1x1Plugin', 'Dummy1x2Plugin', 'Dummy2x1Plugin', 'Dummy2x2Plugin', 'Dummy3x3Plugin',)
 
 from django.utils.translation import ugettext_lazy as _

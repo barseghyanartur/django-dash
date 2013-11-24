@@ -82,8 +82,9 @@
     {% block bootstrap2_sidebar_wrapper %}
 <div class="span3">
     <div class="well sidebar-nav">
+        {% block bootstrap2_sidebar_nav_wrapper %}
         <ul class="nav nav-list">
-            {% block bootstrap2_workspaces_wrapper %}
+            {% block bootstrap2_workspaces %}
             {% if workspaces %}
             <li class="nav-header">{% trans "Workspaces" %}</li>
             <li class="{% if not current_workspace %} active{% endif %}">
@@ -99,9 +100,9 @@
             </li>
             {% endfor %}
             {% endif %}
-            {% endblock bootstrap2_workspaces_wrapper %}
+            {% endblock bootstrap2_workspaces %}
 
-            {% block bootstrap2_settings_wrapper %}
+            {% block bootstrap2_settings %}
             <li class="nav-header">{% trans "Settings" %}</li>
             {% if 'dash.add_dashboardworkspace' in perms %}
             <li class="sub-menu-item">
@@ -140,7 +141,7 @@
                 {% endif %}
             {% endif %}
 
-            {% block bootstrap2_public_dashboard_url_wrapper %}
+            {% block bootstrap2_public_dashboard_url %}
             {% if public_dashboard_url %}
             <li class="sub-menu-item">
                 <a href="{{ public_dashboard_url }}" class="menu-public-dashboard">
@@ -149,14 +150,15 @@
                 </a>
             </li>
             {% endif %}
-            {% endblock bootstrap2_public_dashboard_url_wrapper %}
+            {% endblock bootstrap2_public_dashboard_url %}
 
-            {% block bootstrap2_auth_url_wrapper %}
+            {% block bootstrap2_auth_url %}
             {% render_auth_link %}
-            {% endblock bootstrap2_auth_url_wrapper %}
+            {% endblock bootstrap2_auth_url %}
 
-            {% endblock bootstrap2_settings_wrapper %}
+            {% endblock bootstrap2_settings %}
         </ul>
+        {% endblock bootstrap2_sidebar_nav_wrapper %}
     </div>
 </div>
     {% endblock bootstrap2_sidebar_wrapper %}

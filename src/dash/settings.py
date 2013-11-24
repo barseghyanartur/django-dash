@@ -13,7 +13,9 @@
   menu.
 - `DEBUG`
 """
-
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('RESTRICT_PLUGIN_ACCESS', 'PLUGINS_MODULE_NAME', 'ACTIVE_LAYOUT', 'LAYOUTS_MODULE_NAME', 
            'DEFAULT_WORKSPACE_NAME', 'DEFAULT_PLACEHOLDER_VIEW_TEMPLATE_NAME', \
            'DEFAULT_PLACEHOLDER_EDIT_TEMPLATE_NAME', 'LAYOUT_CELL_UNITS', 'DISPLAY_AUTH_LINK', \

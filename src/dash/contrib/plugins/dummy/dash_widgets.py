@@ -1,3 +1,6 @@
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('Dummy1x1AndroidMainWidget', 'Dummy1x1AndroidShortcutWidget', 'Dummy1x1Windows8MainWidget',
            'Dummy1x1Windows8SidebarWidget', 'Dummy1x2AndroidMainWidget', 'Dummy1x2AndroidShortcutWidget',
            'Dummy2x1AndroidMainWidget', 'Dummy3x3AndroidMainWidget')

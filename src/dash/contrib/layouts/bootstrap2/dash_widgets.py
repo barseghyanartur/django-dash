@@ -1,3 +1,7 @@
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+
 from dash.contrib.plugins.dummy.dash_widgets import Dummy1x1AndroidMainWidget
 from dash.contrib.plugins.image.dash_widgets import Image1x1AndroidMainWidget
 from dash.contrib.plugins.memo.dash_widgets import Memo2x2AndroidMainWidget, TinyMCEMemo2x2AndroidMainWidget

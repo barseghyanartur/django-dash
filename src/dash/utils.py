@@ -1,3 +1,6 @@
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('get_allowed_plugin_uids', 'get_user_plugins', 'get_user_plugin_uids', 'get_widgets', \
            'update_plugin_data', 'sync_plugins', 'get_workspaces', 'build_cells_matrix', \
            'get_or_create_dashboard_settings', 'get_dashboard_settings', 'get_public_dashboard_url')

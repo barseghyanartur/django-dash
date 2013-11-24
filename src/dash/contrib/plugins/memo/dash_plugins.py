@@ -1,3 +1,6 @@
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('Memo1x1Plugin', 'Memo2x2Plugin', 'Memo3x3Plugin', 'Memo4x5Plugin', 'TinyMCEMemo2x2Plugin',
            'TinyMCEMemo3x3Plugin')
 
