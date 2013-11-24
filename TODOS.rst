@@ -69,6 +69,7 @@ Core and contrib
 - Widgets dialogue in bootstrap style for Bootstrap layout (find a proper theme!).
 + Fix issue when a gray block is shown in place of the workspaces when just default workspace is
   available.
++ Fix image plugin bug with "Fit width" and "Fit height" resize methods.
 - Fix bug with public dashboard app not showing entries for `example` layouts. This is actually caused by
   probably not well tested placeholder usage by name in templates.
 - Fix Google Chrome bug, when dash widget controls (edit/delete) being hidden under Youtube video.

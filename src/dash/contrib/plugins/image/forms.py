@@ -15,11 +15,6 @@ class ImageForm(forms.Form, DashboardPluginFormBase):
     """
     Image form for `ImagePlugin` plugin.
     """
-    #class Media:
-    #    css = {
-    #        'all': ('css/dash_plugin_url_form.css',)
-    #    }
-    #    js = ('js/dash_plugin_url_form.js',)
 
     plugin_data_fields = [
         ("title", ""),

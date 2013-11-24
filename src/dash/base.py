@@ -1136,7 +1136,7 @@ class BaseDashboardPluginWidget(object):
 
         :return int:
         """
-        return self.plugin.placeholder.get_widget_inner_width(self.cols)
+        return self.plugin.placeholder.widget_inner_width(self.cols)
 
     def get_height(self):
         """
@@ -1144,7 +1144,7 @@ class BaseDashboardPluginWidget(object):
 
         :return int:
         """
-        return self.plugin.placeholder.get_widget_inner_height(self.rows)
+        return self.plugin.placeholder.widget_inner_height(self.rows)
 
     def get_size(self, delta_width=0, delta_height=0):
         """

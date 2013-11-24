@@ -4,6 +4,12 @@ Release history
 -------------------------------------
 2013-11-24
 
+- Fix image plugin bug with "Fit width" and "Fit height" resize methods.
+
+0.3.1
+-------------------------------------
+2013-11-24
+
 - Fixed issue when a gray block is shown in place of the workspaces when just default workspace is
   available.
 
