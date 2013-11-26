@@ -4,13 +4,13 @@ Release history
 -------------------------------------
 2013-11-24
 
-- Fix image plugin bug with "Fit width" and "Fit height" resize methods.
+- Fix image plugin bug occuring with "Fit width" and "Fit height" resize methods.
 
 0.3.1
 -------------------------------------
 2013-11-24
 
-- Fixed issue when a gray block is shown in place of the workspaces when just default workspace is
+- Fixed issue when the left gray menu (workspaces) is empty in cases when only default workspace is
   available.
 
 0.3
@@ -18,9 +18,9 @@ Release history
 2013-11-24
 
 - Bootstrap 2 Fluid layout added.
-- Fixed issue with permission for non-admins editing current workspace.
+- Fixed permission issue (non-admins not able to edit current workspace).
 - Fixed image plugin unique filenames issue.
-- Fixed bug when sometimes a custom template not properly selected when rendering the placeholder.
+- Fixed bug with placeholder rendering (wrong template chosen).
 - Placeholder cell margins definable for each placeholder.
 - Customisable form snippets for layouts.
 - The very essential core CSS moved to a separate file (dash_core.css).

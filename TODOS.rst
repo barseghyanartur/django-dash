@@ -66,16 +66,16 @@ Core and contrib
 + Limit the number of icons for URL plugin when in Bootstrap layout.
 + Make sure all selenium tests still work after HTML changes.
 + Fix issue with "edit" icon not shown on the widge in edit mode (only "delete" is shown).
-- Widgets dialogue in bootstrap style for Bootstrap layout (find a proper theme!).
-+ Fix issue when a gray block is shown in place of the workspaces when just default workspace is
++ Fixed issue when the left gray menu (workspaces) is empty in cases when only default workspace is
   available.
 + Fix image plugin bug with "Fit width" and "Fit height" resize methods.
+- In each plugin, create base widgets. Further, move all layout specific widgets to the layout modules.
+- Widgets dialogue in bootstrap style for Bootstrap layout (find a proper theme!).
 - Fix bug with public dashboard app not showing entries for `example` layouts. This is actually caused by
   probably not well tested placeholder usage by name in templates.
 - Fix Google Chrome bug, when dash widget controls (edit/delete) being hidden under Youtube video.
 - Strange problems with hover in IE (all versions).
 - Add workspace create/delete/edit tests.
-- Add dashboard settings (edit), including the layout change tests.
 
 Should haves
 ===============================================
@@ -94,6 +94,7 @@ Core and contrib
 - Add translations for Armenian.
 - Plugin and widget factory, for creating plugins and widgets easier (since it's mostly just extending
   some plugin or widget, just changing the name and rows/cols).
+- Add dashboard settings (edit) tests and tests after the changed layout (for the bootstrap2 theme).
 - File plugin.
 - Add navigation (at right and left) to navigate through the workspaces (like in Android).
 - Copy/paste widgets between workspaces.
