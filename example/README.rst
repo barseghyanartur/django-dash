@@ -32,13 +32,7 @@ but may work on other Linux distributions as well.
 
 - Create some directories.
 
-    $ mkdir example/media/
-    
-    $ mkdir example/media/static/
-
-    $ mkdir example/static/
-
-    $ mkdir example/db/
+    $ mkdir -p example/media/static/ example/static/ example/db/ example/logs
 
 - Copy local_settings.example
 
