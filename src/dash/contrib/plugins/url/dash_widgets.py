@@ -1,72 +1,39 @@
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('URL1x1AndroidMainWidget', 'URL1x1AndroidShortcutWidget', 'URL1x1Windows8MainWidget',
-           'URL1x1Windows8SidebarWidget')
+__all__ = ('BaseURLWidget', 'URL1x1Widget', 'URL2x2Widget')
 
 from django.template.loader import render_to_string
 
 from dash.base import BaseDashboardPluginWidget
 
 # **********************************************************************
-# ****************** Android widgets for URL plugin ********************
+# ************************* Base URL widget plugin *********************
 # **********************************************************************
 
-class URL1x1AndroidMainWidget(BaseDashboardPluginWidget):
+class BaseURLWidget(BaseDashboardPluginWidget):
     """
-    URL plugin widget for Android layout (placeholder `main`).
+    URL plugin widget.
     """
-    layout_uid = 'android'
-    placeholder_uid = 'main'
+    def render(self, request=None):
+        context = {'plugin': self.plugin}
+        return render_to_string('url/render.html', context)
+
+# **********************************************************************
+# ************************** Specific widgets **************************
+# **********************************************************************
+
+class URL1x1Widget(BaseURLWidget):
+    """
+    URL plugin 1x1 widget.
+    """
     plugin_uid = 'url_1x1'
-    cols = 1
-    rows = 1
-    media_css = (
-        'css/dash_plugin_url_android.css',
-    )
-
-    def render(self, request=None):
-        context = {'plugin': self.plugin}
-        return render_to_string('url/render_main.html', context)
 
 
-class URL1x1AndroidShortcutWidget(URL1x1AndroidMainWidget):
+class URL2x2Widget(BaseURLWidget):
     """
-    URL plugin widget for Android layout (placeholder `shortcuts`).
+    URL plugin 2x2 widget.
     """
-    placeholder_uid = 'shortcuts'
-    cols = 1
-    rows = 1
-
-    def render(self, request=None):
-        context = {'plugin': self.plugin}
-        return render_to_string('url/render_shortcuts.html', context)
-
-
-# **********************************************************************
-# ****************** Windows 8 widgets for URL plugin ******************
-# **********************************************************************
-
-class URL1x1Windows8MainWidget(BaseDashboardPluginWidget):
-    """
-    URL plugin widget for Windows 8 layout (placeholder `main`).
-    """
-    layout_uid = 'windows8'
-    placeholder_uid = 'main'
-    plugin_uid = 'url_1x1'
-    cols = 1
-    rows = 1
-    media_css = (
-        'css/dash_plugin_url_windows8.css',
-    )
-
-    def render(self, request=None):
-        context = {'plugin': self.plugin}
-        return render_to_string('url/render_main.html', context)
-
-
-class URL1x1Windows8SidebarWidget(URL1x1Windows8MainWidget):
-    """
-    URL plugin widget for Windows 8 layout (placeholder `sidebar`).
-    """
-    placeholder_uid = 'sidebar'
+    plugin_uid = 'url_2x2'
+    cols = 2
+    rows = 2

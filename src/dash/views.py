@@ -12,13 +12,14 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 
-from dash.base import validate_plugin_uid
-from dash.base import get_layout, plugin_registry, validate_placeholder_uid
+from dash.base import validate_plugin_uid, get_layout, plugin_registry, validate_placeholder_uid
 from dash.models import DashboardEntry, DashboardWorkspace
-from dash.decorators import edit_dashboard_permission_required
-from dash.helpers import slugify_workspace, iterable_to_dict
-from dash.utils import get_widgets, get_user_plugins, get_workspaces, build_cells_matrix
-from dash.utils import get_or_create_dashboard_settings, get_public_dashboard_url, clean_plugin_data
+from dash.decorators import edit_dashboard_permission_required, permissions_required, SATISFY_ALL
+from dash.helpers import slugify_workspace, iterable_to_dict, clean_plugin_data
+from dash.utils import (
+    get_widgets, get_user_plugins, get_workspaces, build_cells_matrix,
+    get_or_create_dashboard_settings, get_public_dashboard_url, clone_workspace
+    )
 from dash.forms import DashboardWorkspaceForm, DashboardSettingsForm
 
 @login_required
@@ -331,7 +332,7 @@ def delete_dashboard_entry(request, entry_id):
         obj = DashboardEntry._default_manager.select_related('workspace').get(pk=entry_id, user=request.user)
         plugin = obj.get_plugin()
         plugin.request = request
-        plugin.delete_plugin_data()
+        plugin._delete_plugin_data()
         workspace = getattr(obj.workspace, 'slug', None)
         obj.delete()
 
@@ -606,3 +607,60 @@ def edit_dashboard_settings(request, template_name='dash/edit_dashboard_settings
     }
 
     return render_to_response(template_name, context, context_instance=RequestContext(request))
+
+@login_required
+@permissions_required(satisfy=SATISFY_ALL, perms=['dash.add_dashboardentry', 'dash.add_dashboardworkspace'])
+def clone_dashboard_workspace(request, workspace_id):
+    """
+    Clones dashboard workspace.
+    """
+    redirect_to = request.GET.get('next', None)
+
+    try:
+        workspace = DashboardWorkspace._default_manager.get(pk=workspace_id)
+    except:
+        messages.info(request, _("Invalid dashboard workspace."))
+        if redirect_to:
+            return redirect(redirect_to)
+        else:
+            return redirect('dash.edit_dashboard')
+
+    if not (workspace.is_clonable or request.user.pk == workspace.user.pk):
+        messages.info(request, _("You are not allowed to clone the given workspace."))
+        if redirect_to:
+            return redirect(redirect_to)
+        else:
+            return redirect('dash.edit_dashboard')
+
+    cloned_workspace = clone_workspace(workspace, request.user)
+
+    # Getting dashboard settings for the user. Then get users' layout.
+    dashboard_settings = get_or_create_dashboard_settings(request.user)
+    cloned_workspace_layout = get_layout(layout_uid=workspace.layout_uid, as_instance=True)
+    layout = get_layout(layout_uid=dashboard_settings.layout_uid, as_instance=True)
+
+    if workspace.layout_uid == layout.uid:
+
+        messages.info(
+            request,
+            _("Dashboard workspace `{0}` was successfully cloned into "
+              "`{1}`.".format(workspace.name, cloned_workspace.name))
+            )
+        return redirect('dash.edit_dashboard', workspace=cloned_workspace.slug)
+
+    else:
+
+        messages.info(
+            request,
+            _("Dashboard workspace `{0}` was successfully cloned into `{1}` (layout `{2}`), however your "
+              "active layout is `{3}`. You should switch to layout `{4}` (in your dashboard settings) in "
+              "order to see the cloned "
+              "workspace.".format(
+                workspace.name,
+                cloned_workspace.name,
+                cloned_workspace_layout.name,
+                layout.name,
+                cloned_workspace_layout.name
+                ))
+            )
+        return redirect('dash.edit_dashboard')

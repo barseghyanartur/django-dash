@@ -69,13 +69,23 @@ Core and contrib
 + Fixed issue when the left gray menu (workspaces) is empty in cases when only default workspace is
   available.
 + Fix image plugin bug with "Fit width" and "Fit height" resize methods.
-- In each plugin, create base widgets. Further, move all layout specific widgets to the layout modules.
++ For each plugin, create base widgets. Further, move all layout specific widgets to the layout modules.
 - Widgets dialogue in bootstrap style for Bootstrap layout (find a proper theme!).
-- Fix bug with public dashboard app not showing entries for `example` layouts. This is actually caused by
++ Fix bug with public dashboard app not showing entries for `example` layouts. This is actually caused by
   probably not well tested placeholder usage by name in templates.
 - Fix Google Chrome bug, when dash widget controls (edit/delete) being hidden under Youtube video.
 - Strange problems with hover in IE (all versions).
 - Add workspace create/delete/edit tests.
++ Allow users to make their workspaces clonable. Then, some other user could clone someone elses
+  workspace to his own.
++ Make plugins cloneable.
++ Refactor plugin widgets. The very base one (size related) should be in plugin specific directory.
+  All layout related things shall be in layout itself. Make sure to move layout specific media
+  files (JS/CSS) into layout static directory.
++ Add bulk update to Django's admin interface of dash.models.DashboardPlugin, in order to be able to
+  assign rights to certain plugins for users and groups at once.
+- Use factory in example layout.
+- Check docs and apply factory.
 
 Should haves
 ===============================================
@@ -98,6 +108,7 @@ Core and contrib
 - File plugin.
 - Add navigation (at right and left) to navigate through the workspaces (like in Android).
 - Copy/paste widgets between workspaces.
+- Allow users to share their workspaces with other users. They would need to know someone elses' username.
 
 Could haves
 ===============================================
@@ -114,6 +125,7 @@ Core and contrib
 - Mac layout.
 - In-line editing.
 - Choose custom image for dashboard workspace background.
+- Registry decorators.
 
 Example app
 -----------------------------------------------

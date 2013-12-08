@@ -7,6 +7,25 @@
 {% block site-title %}{{ dashboard_settings.title }}{% endblock site-title %}
 
 {% block top-nav-menu-wrapper %}
+    {% if current_workspace.is_clonable %}
+                {% if 'dash.add_dashboardworkspace' in perms and 'dash.add_dashboardentry' in perms %}
+            <ul class="menu nav">
+                <li class="menu-item">
+                    <a href="javascript:;" class="menu-dashboard-settings" title="{% trans 'Menu' %}">
+                        <span class="iconic icon-reorder icon-2x"></span>
+                    </a>
+                    <ul class="submenu">
+                        <li class="sub-menu-item">
+                            <a href="{% url 'dash.clone_dashboard_workspace' current_workspace.pk %}" class="menu-dashboard-clone-workspace" title="{% trans 'Clone this workspace' %}">
+                                <span class="iconic icon-copy" title="{% trans 'Clone this workspace' %}"></span>
+                                <span class="textonic">{% trans 'Clone this workspace' %}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+                {% endif %}
+    {% endif %}
 {% endblock top-nav-menu-wrapper %}
 
 {% block workspaces-wrapper %}

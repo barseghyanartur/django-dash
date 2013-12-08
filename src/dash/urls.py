@@ -48,6 +48,10 @@ urlpatterns = patterns('dash.views',
     url(r'^workspace/delete/(?P<workspace_id>\d+)/$', view='delete_dashboard_workspace',
         name='dash.delete_dashboard_workspace'),
 
+    # Clone dashboard workspace.
+    url(r'^workspace/clone/(?P<workspace_id>\d+)/$', view='clone_dashboard_workspace',
+        name='dash.clone_dashboard_workspace'),
+
     # View dashboard workspace.
     url(r'^workspace/(?P<workspace>[\w_\-]+)/$', view='dashboard', name='dash.dashboard'),
 

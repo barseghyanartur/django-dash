@@ -1,0 +1,40 @@
+/*
+    Document   : dash_plugin_url_example.css
+    Created on : Dec 7, 2013, 15:30:11 PM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        URL plugin styles for django-dash (Example layout). Take this
+        as an example of how to write layout specific plugin CSS.
+
+        Tweaks to stretch the chosen URL icon to full content width
+        for all placeholders. Note, that we know, that URL plugin 
+        widgets are never greater in size than 1x1. This allows us to
+        be lazy and do not include the size specific classes here.
+        Otherwise, we would have to.
+*/
+.layout-example .placeholder.placeholder-main .plugin.iconic-url .plugin-content-wrapper,
+.layout-example .placeholder.placeholder-left_shortcuts .plugin.iconic-url .plugin-content-wrapper,
+.layout-example .placeholder.placeholder-right_shortcuts .plugin.iconic-url .plugin-content-wrapper {
+    padding-top: 0;
+}
+    .layout-example .placeholder .plugin.iconic-url .plugin-content-wrapper a {
+        margin: auto;
+        display: block;
+        text-align: center;
+        width: 100%;
+    }
+    .layout-example .placeholder.placeholder-main .plugin.iconic-url .plugin-content-wrapper a {
+    }
+        .layout-example .placeholder.placeholder-main .plugin.plugin-url_2x2.iconic-url .plugin-content-wrapper a i {
+            font-size: 170px;
+        }
+    .layout-example .placeholder.placeholder-main .plugin.plugin-url_1x1.iconic-url .plugin-content-wrapper a,
+    .layout-example .placeholder.placeholder-left_shortcuts .plugin.iconic-url .plugin-content-wrapper a,
+    .layout-example .placeholder.placeholder-right_shortcuts .plugin.iconic-url .plugin-content-wrapper a {
+        margin-top: 5px;
+    }
+        .layout-example .placeholder.placeholder-main .plugin.plugin-url_1x1.iconic-url .plugin-content-wrapper a i,
+        .layout-example .placeholder.placeholder-left_shortcuts .plugin.iconic-url .plugin-content-wrapper a i,
+        .layout-example .placeholder.placeholder-right_shortcuts .plugin.iconic-url .plugin-content-wrapper a i {
+            font-size: 85px;
+        }

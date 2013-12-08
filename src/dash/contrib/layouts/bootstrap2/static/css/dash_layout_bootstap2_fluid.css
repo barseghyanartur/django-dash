@@ -22,6 +22,9 @@
 .icon-signout {
     background-position: -384px 0;
 }
+.icon-copy {
+  background-position: -216px -120px;
+}
 
 /* Override add plugin links. */
 .layout-bootstrap2_fluid .container-fluid .add-plugin {

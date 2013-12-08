@@ -1,17 +1,21 @@
 """
-All `uids` are supposed to be pythonic function names (see PEP http://www.python.org/dev/peps/pep-0008/#function-names).
+All `uids` are supposed to be pythonic function names (see
+PEP http://www.python.org/dev/peps/pep-0008/#function-names).
 """
 __title__ = 'dash.base'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('BaseDashboardLayout', 'BaseDashboardPlaceholder', 'BaseDashboardPlugin', \
-           'BaseDashboardPluginWidget', 'layout_registry', 'plugin_widget_registry', \
-           'get_registered_plugins', 'get_registered_plugin_uids', 'validate_plugin_uid', \
-           'get_registered_layouts', 'get_registered_layout_uids', 'get_layout', \
-           'validate_placeholder_uid', 'plugin_registry', 'ensure_autodiscover', \
-           'DashboardPluginFormBase', 'collect_widget_media')
+__all__ = (
+    'BaseDashboardLayout', 'BaseDashboardPlaceholder', 'BaseDashboardPlugin',
+    'BaseDashboardPluginWidget', 'layout_registry', 'plugin_widget_registry',
+    'get_registered_plugins', 'get_registered_plugin_uids', 'validate_plugin_uid',
+    'get_registered_layouts', 'get_registered_layout_uids', 'get_layout',
+    'validate_placeholder_uid', 'plugin_registry', 'ensure_autodiscover',
+    'DashboardPluginFormBase', 'collect_widget_media'
+    )
 
+import copy
 import uuid
 import json
 
@@ -25,8 +29,10 @@ from django.utils.encoding import force_text
 
 from dash.discover import autodiscover
 from dash.exceptions import LayoutDoesNotExist
-from dash.settings import ACTIVE_LAYOUT, LAYOUT_CELL_UNITS, DEBUG
-from dash.settings import DEFAULT_PLACEHOLDER_VIEW_TEMPLATE_NAME, DEFAULT_PLACEHOLDER_EDIT_TEMPLATE_NAME
+from dash.settings import (
+    ACTIVE_LAYOUT, LAYOUT_CELL_UNITS, DEBUG, DEFAULT_PLACEHOLDER_VIEW_TEMPLATE_NAME,
+    DEFAULT_PLACEHOLDER_EDIT_TEMPLATE_NAME
+    )
 from dash.exceptions import InvalidRegistryItemType
 from dash.helpers import iterable_to_dict
 
@@ -1010,6 +1016,15 @@ class BaseDashboardPlugin(object):
         elif DEBUG:
             logger.debug("No widget defined for {0}.{1}.{2}".format(self.layout.uid, self.placeholder.uid, self.uid))
 
+    def _update_plugin_data(self, dashboard_entry):
+        """
+        For private use. Do not override this method. Override `update_plugin_data` instead.
+        """
+        try:
+            self.update_plugin_data(dashboard_entry)
+        except Exception as e:
+            logging.debug(str(e))
+
     def update_plugin_data(self, dashboard_entry):
         """
         Used in ``dash.management.commands.dash_update_plugin_data``.
@@ -1024,7 +1039,15 @@ class BaseDashboardPlugin(object):
 
         :param dash.models.DashboardEntry: Instance of ``dash.models.DashboardEntry``.
         """
-        pass
+
+    def _delete_plugin_data(self):
+        """
+        For private use. Do not override this method. Override `delete_plugin_data` instead.
+        """
+        try:
+            self.delete_plugin_data()
+        except Exception as e:
+            logging.debug(str(e))
 
     def delete_plugin_data(self):
         """
@@ -1032,6 +1055,40 @@ class BaseDashboardPlugin(object):
         object is about to be deleted. Make use of it if your plugin creates database records or files that are
         not monitored externally but by dash only.
         """
+
+    def _clone_plugin_data(self, dashboard_entry):
+        """
+        For private use. Do not override this method. Override `clone_plugin_data` instead.
+        """
+        try:
+            return self.clone_plugin_data(dashboard_entry)
+        except Exception as e:
+            logging.debug(str(e))
+
+    def clone_plugin_data(self, dashboard_entry):
+        """
+        Used when copying entries. If any objects or files are created by plugin, they should be
+        cloned.
+
+        :param dash.models.DashboardEntry: Instance of ``dash.models.DashboardEntry``.
+        :return string: JSON dumped string of the cloned plugin data. The returned value
+            would be inserted as is into the `dash.models.DashboardEntry.plugin_data`
+            field.
+        """
+
+    def get_cloned_plugin_data(self, update={}):
+        form = self.get_form()
+
+        cloned_data = copy.copy(self.data)
+        data = {}
+
+        for field, default_value in form.plugin_data_fields:
+            data.update({field: getattr(cloned_data, field, '')})
+
+        for prop, value in update.items():
+            data.update({prop: value})
+
+        return json.dumps(data)
 
     def pre_processor(self):
         """

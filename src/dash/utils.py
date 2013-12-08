@@ -1,9 +1,14 @@
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('get_allowed_plugin_uids', 'get_user_plugins', 'get_user_plugin_uids', 'get_widgets', \
-           'update_plugin_data', 'sync_plugins', 'get_workspaces', 'build_cells_matrix', \
-           'get_or_create_dashboard_settings', 'get_dashboard_settings', 'get_public_dashboard_url')
+__all__ = (
+    'get_allowed_plugin_uids', 'get_user_plugins', 'get_user_plugin_uids', 'get_widgets',
+    'update_plugin_data', 'sync_plugins', 'get_workspaces', 'build_cells_matrix',
+    'get_or_create_dashboard_settings', 'get_dashboard_settings', 'get_public_dashboard_url'
+)
+
+import copy
+import datetime
 
 from six import PY3
 
@@ -11,11 +16,13 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.encoding import force_text
 
-from dash.base import plugin_registry, get_registered_plugin_uids, ensure_autodiscover, get_registered_plugins
-from dash.base import plugin_widget_registry, PluginWidgetRegistry, get_layout
-from dash.base import BaseDashboardLayout, BaseDashboardPlaceholder
+from dash.base import (
+    plugin_registry, get_registered_plugin_uids, ensure_autodiscover, get_registered_plugins,
+    plugin_widget_registry, PluginWidgetRegistry, get_layout,
+    BaseDashboardLayout, BaseDashboardPlaceholder
+    )
 from dash.models import DashboardEntry, DashboardPlugin, DashboardWorkspace, DashboardSettings
-from dash.helpers import slugify_workspace, lists_overlap
+from dash.helpers import slugify_workspace, lists_overlap, clone_plugin_data
 from dash.exceptions import PluginWidgetOutOfPlaceholderBoundaries
 from dash.settings import RESTRICT_PLUGIN_ACCESS, DEBUG
 
@@ -184,7 +191,10 @@ def update_plugin_data():
     dashboard_entries = DashboardEntry._default_manager.all()
 
     for entry in dashboard_entries:
-        entry.get_plugin().update_plugin_data(entry)
+        plugin = entry.get_plugin()
+
+        if plugin:
+            plugin._update_plugin_data(entry)
 
 def sync_plugins():
     """
@@ -443,21 +453,43 @@ def get_public_dashboard_url(dashboard_settings):
             pass
     return ''
 
-def clean_plugin_data(dashboard_entries, request=None):
+def clone_workspace(workspace, for_user, request=None):
     """
-    Cleans up the plugin data (database, files) for the dashboard_entries given.
+    Clones entire workspace.
 
-    :param iterable dashboard_entries:
-    :param django.http.HttpRequest request:
-    :return bool: Boolean True if no errors occured and False otherwise.
+    :param dash.models.DashboardWorkspace:
+    :param django.contrib.auth.models.User:
+    :return dash.models.DashboardWorkspace: Cloned workspace instance.
     """
-    errors = False
+    # Cloning workspace object.
+    cloned_workspace = copy.copy(workspace)
+    cloned_workspace.pk = None
+    cloned_workspace.user = for_user
+    cloned_workspace.is_public = False
+    cloned_workspace.is_clonable = False
+    cloned_workspace.name = "{0} cloned on {1}".format(cloned_workspace.name, datetime.datetime.now())
+
+    cloned_workspace.save()
+
+    # Cloning workspace entries.
+    dashboard_entries = DashboardEntry._default_manager.filter(workspace=workspace)
+
+    buf = []
+
     for dashboard_entry in dashboard_entries:
-        plugin = dashboard_entry.get_plugin(request=request)
-        try:
-            plugin.delete_plugin_data()
-        except Exception as e:
-            errors = True
-            logger.debug(str(e))
+        cloned_plugin_data = clone_plugin_data(dashboard_entry, request=request)
+        cloned_dashboard_entry = DashboardEntry(
+            user = for_user,
+            workspace = cloned_workspace,
+            layout_uid = dashboard_entry.layout_uid,
+            placeholder_uid = dashboard_entry.placeholder_uid,
+            plugin_uid = dashboard_entry.plugin_uid,
+            plugin_data = cloned_plugin_data,
+            position = dashboard_entry.position,
+        )
 
-    return not errors
+        buf.append(cloned_dashboard_entry)
+
+    DashboardEntry._default_manager.bulk_create(buf)
+
+    return cloned_workspace

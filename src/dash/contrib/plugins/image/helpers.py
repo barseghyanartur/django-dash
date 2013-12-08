@@ -1,12 +1,13 @@
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('handle_uploaded_file', 'get_crop_filter', 'delete_file', 'ensure_unique_filename')
+__all__ = ('handle_uploaded_file', 'get_crop_filter', 'delete_file', 'ensure_unique_filename', 'clone_file')
 
 import os
 import glob
 import logging
 import uuid
+import shutil
 
 from django.conf import settings
 from django.core.files.base import File
@@ -73,3 +74,24 @@ def delete_file(image_file):
     except Exception as e:
         logger.debug(str(e))
         return False
+
+def clone_file(source_filename, relative_path=True):
+    """
+    Clones the file.
+
+    :param string source_filename: Source filename.
+    :return string: Filename of the cloned file.
+    """
+    if source_filename.startswith(IMAGES_UPLOAD_DIR):
+        source_filename = os.path.join(settings.MEDIA_ROOT, source_filename)
+
+    destination_filename = ensure_unique_filename(source_filename)
+    try:
+        shutil.copyfile(source_filename, destination_filename)
+        if relative_path:
+            destination_filename = destination_filename.replace(settings.MEDIA_ROOT, '')
+            if destination_filename.startswith('/'):
+                destination_filename = destination_filename[1:]
+        return destination_filename
+    except Exception as e:
+        logger.debug(str(e))

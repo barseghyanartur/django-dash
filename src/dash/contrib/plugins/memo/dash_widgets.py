@@ -1,141 +1,132 @@
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('Memo1x1AndroidShortcutWidget', 'Memo2x2AndroidMainWidget', 'Memo2x2Windows8MainWidget',
-           'Memo2x2Windows8SidebarWidget', 'Memo3x3AndroidMainWidget', 'Memo3x3Windows8MainWidget',
-           'Memo3x3Windows8MainWidget', 'Memo4x5AndroidMainWidget', 'TinyMCEMemo2x2AndroidMainWidget',
-           'TinyMCEMemo3x3AndroidMainWidget')
+__all__ = (
+    'BaseMemoWidget', 'Memo1x1Widget', 'Memo2x2Widget', 'Memo3x3Widget',
+    'Memo4x5Widget', 'Memo5x5Widget', 'Memo6x6Widget', 'TinyMCEMemo2x2Widget',
+    'TinyMCEMemo3x3Widget', 'TinyMCEMemo4x4Widget', 'TinyMCEMemo5x5Widget'
+)
 
 from django.template.loader import render_to_string
 
 from dash.base import BaseDashboardPluginWidget
 
 # ***********************************************************************
-# ****************** Android widgets for Memo plugin ********************
+# ********************** Base widget for Memo plugin ********************
 # ***********************************************************************
 
-class Memo2x2AndroidMainWidget(BaseDashboardPluginWidget):
+class BaseMemoWidget(BaseDashboardPluginWidget):
     """
-    Memo2x2 plugin widget for Android layout (placeholder `main`).
+    Base memo plugin widget.
     """
-    layout_uid = 'android'
-    placeholder_uid = 'main'
-    plugin_uid = 'memo_2x2'
-    cols = 2
-    rows = 2
-
     def render(self, request=None):
         context = {'plugin': self.plugin}
-        return render_to_string('memo/render_main.html', context)
+        return render_to_string('memo/render.html', context)
 
+# ***********************************************************************
+# ********************** Specific widgets for Memo plugin ***************
+# ***********************************************************************
 
-class Memo1x1AndroidShortcutWidget(Memo2x2AndroidMainWidget):
+class Memo1x1Widget(BaseMemoWidget):
     """
-    Memo1x1 plugin widget for Android layout (placeholder `shortcuts`).
+    Memo 1x1 plugin widget.
     """
-    placeholder_uid = 'shortcuts'
     plugin_uid = 'memo_1x1'
     cols = 1
     rows = 1
 
-    def render(self, request=None):
-        context = {'plugin': self.plugin}
-        return render_to_string('memo/render_shortcuts.html', context)
 
-# ***************************************************************************
-# ****************** Android widgets for Big memo plugin ********************
-# ***************************************************************************
-
-class Memo3x3AndroidMainWidget(Memo2x2AndroidMainWidget):
+class Memo2x2Widget(BaseMemoWidget):
     """
-    Memo3x3 plugin widget for Android layout (placeholder `main`).
+    Memo 2x2 plugin widget.
+    """
+    plugin_uid = 'memo_2x2'
+    cols = 2
+    rows = 2
+
+
+class Memo3x3Widget(BaseMemoWidget):
+    """
+    Memo 3x3 plugin widget.
     """
     plugin_uid = 'memo_3x3'
     cols = 3
     rows = 3
 
-# ***************************************************************************
-# ****************** Android widgets for Huge memo plugin *******************
-# ***************************************************************************
 
-class Memo4x5AndroidMainWidget(Memo2x2AndroidMainWidget):
+class Memo4x5Widget(BaseMemoWidget):
     """
-    Huge memo plugin widget for Android layout (placeholder `main`).
+    Memo 4x5 plugin widget.
     """
     plugin_uid = 'memo_4x5'
     cols = 4
     rows = 5
 
 
+class Memo5x5Widget(BaseMemoWidget):
+    """
+    Memo 5x5 plugin widget.
+    """
+    plugin_uid = 'memo_5x5'
+    cols = 5
+    rows = 5
+
+
+class Memo6x6Widget(BaseMemoWidget):
+    """
+    Memo 6x6 plugin widget.
+    """
+    plugin_uid = 'memo_6x6'
+    cols = 6
+    rows = 6
+
 # ***********************************************************************
-# ****************** Android widgets for TinyMCEMemo plugin *************
+# ********************** Base widget for Memo plugin ********************
 # ***********************************************************************
 
-class TinyMCEMemo2x2AndroidMainWidget(BaseDashboardPluginWidget):
+class BaseTinyMCEMemoWidget(BaseDashboardPluginWidget):
     """
-    TinyMCE memo plugin widget for Android layout (placeholder `main`).
+    Base TinyMCE memo plugin widget.
     """
-    layout_uid = 'android'
-    placeholder_uid = 'main'
+    def render(self, request=None):
+        context = {'plugin': self.plugin}
+        return render_to_string('tinymce/render.html', context)
+
+# ***********************************************************************
+# ****************** Specific widgets for TinyMCEMemo plugin ************
+# ***********************************************************************
+
+class TinyMCEMemo2x2Widget(BaseTinyMCEMemoWidget):
+    """
+    TinyMCE memo 2x2 plugin widget.
+    """
     plugin_uid = 'tinymce_memo_2x2'
     cols = 2
     rows = 2
 
-    def render(self, request=None):
-        context = {'plugin': self.plugin}
-        return render_to_string('tinymce/render_main.html', context)
 
-# ***************************************************************************
-# ****************** Android widgets for Big TinyMCE memo plugin ************
-# ***************************************************************************
-
-class TinyMCEMemo3x3AndroidMainWidget(TinyMCEMemo2x2AndroidMainWidget):
+class TinyMCEMemo3x3Widget(BaseTinyMCEMemoWidget):
     """
-    Memo3x3 plugin widget for Android layout (placeholder `main`).
+    TinyMCE memo 3x3 plugin widget.
     """
     plugin_uid = 'tinymce_memo_3x3'
     cols = 3
     rows = 3
 
 
-# ***********************************************************************
-# ****************** Windows8 widgets for Memo plugin *******************
-# ***********************************************************************
-
-class Memo2x2Windows8MainWidget(BaseDashboardPluginWidget):
+class TinyMCEMemo4x4Widget(BaseTinyMCEMemoWidget):
     """
-    Memo2x2 plugin widget for Windows 8 layout (placeholder `main`).
+    TinyMCE memo 4x4 plugin widget.
     """
-    layout_uid = 'windows8'
-    placeholder_uid = 'main'
-    plugin_uid = 'memo_2x2'
-    cols = 2
-    rows = 2
-
-    def render(self, request=None):
-        context = {'plugin': self.plugin}
-        return render_to_string('memo/render_main.html', context)
+    plugin_uid = 'tinymce_memo_4x4'
+    cols = 4
+    rows = 4
 
 
-class Memo2x2Windows8SidebarWidget(Memo2x2Windows8MainWidget):
+class TinyMCEMemo5x5Widget(BaseTinyMCEMemoWidget):
     """
-    Memo2x2 plugin widget for Windows8 layout (placeholder `sidebar`).
+    TinyMCE memo 5x5 plugin widget.
     """
-    placeholder_uid = 'sidebar'
-    cols = 1
-    rows = 1
-
-    def render(self, request=None):
-        context = {'plugin': self.plugin}
-        return render_to_string('memo/render_shortcuts.html', context)
-
-
-# ***************************************************************************
-# ****************** Windows 8 widgets for Memo3x3 plugin ******************
-# ***************************************************************************
-
-class Memo3x3Windows8MainWidget(Memo3x3AndroidMainWidget):
-    """
-    Memo3x3 plugin widget for Windows8 layout (placeholder `main`).
-    """
-    layout_uid = 'windows8'
+    plugin_uid = 'tinymce_memo_5x5'
+    cols = 5
+    rows = 5

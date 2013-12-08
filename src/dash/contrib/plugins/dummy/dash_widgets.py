@@ -1,25 +1,23 @@
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('Dummy1x1AndroidMainWidget', 'Dummy1x1AndroidShortcutWidget', 'Dummy1x1Windows8MainWidget',
-           'Dummy1x1Windows8SidebarWidget', 'Dummy1x2AndroidMainWidget', 'Dummy1x2AndroidShortcutWidget',
-           'Dummy2x1AndroidMainWidget', 'Dummy3x3AndroidMainWidget')
+__all__ = (
+    'BaseDummyWidget', 'Dummy1x1Widget', 'Dummy1x2Widget', 'Dummy2x1Widget',
+    'Dummy2x2Widget', 'Dummy3x3Widget'
+)
 
 from django.template.loader import render_to_string
 
 from dash.base import BaseDashboardPluginWidget
 
 # ************************************************************************
-# ****************** Android widgets for Dummy plugin ********************
+# ************************* Base widget for Dummy plugin *****************
 # ************************************************************************
 
-class Dummy1x1AndroidMainWidget(BaseDashboardPluginWidget):
+class BaseDummyWidget(BaseDashboardPluginWidget):
     """
-    Dummy plugin widget for Android layout (placeholder `main`).
+    Base dummy plugin widget.
     """
-    layout_uid = 'android'
-    placeholder_uid = 'main'
-    plugin_uid = 'dummy_1x1'
     media_js = [
         #'js/dash_plugin_dummy.js',
     ]
@@ -29,76 +27,49 @@ class Dummy1x1AndroidMainWidget(BaseDashboardPluginWidget):
 
     def render(self, request=None):
         context = {'plugin': self.plugin}
-        return render_to_string('dummy/render_main.html', context)
-
-
-class Dummy1x1AndroidShortcutWidget(Dummy1x1AndroidMainWidget):
-    """
-    Dummy plugin widget for Android layout (placeholder `shortcuts`).
-    """
-    placeholder_uid = 'shortcuts'
-
-    def render(self, request=None):
-        context = {'plugin': self.plugin}
-        return render_to_string('dummy/render_shortcuts.html', context)
+        return render_to_string('dummy/render.html', context)
 
 # ************************************************************************
-# ****************** Windows8 widgets for Dummy plugin *******************
+# ************************* Specific widgets for Dummy plugin ************
 # ************************************************************************
 
-class Dummy1x1Windows8MainWidget(Dummy1x1AndroidMainWidget):
+class Dummy1x1Widget(BaseDummyWidget):
     """
-    Dummy plugin widget for Windows8 (placeholder `main`).
+    1x1 dummy plugin widget.
     """
-    layout_uid = 'windows8'
+    plugin_uid = 'dummy_1x1'
 
 
-class Dummy1x1Windows8SidebarWidget(Dummy1x1Windows8MainWidget):
+class Dummy1x2Widget(BaseDummyWidget):
     """
-    Dummy plugin widget for Windows8 (placeholder `sidebar`).
+    1x2 dummy plugin widget.
     """
-    placeholder_uid = 'sidebar'
+    plugin_uid = 'dummy_1x2'
+    cols = 1
+    rows = 2
 
-# ************************************************************************
-# ****************** Android widgets for Large dummy plugin **************
-# ************************************************************************
 
-class Dummy2x1AndroidMainWidget(Dummy1x1AndroidMainWidget):
+class Dummy2x1Widget(BaseDummyWidget):
     """
-    Large dummy plugin widget for Android (placeholder `main`).
+    2x1 dummy plugin widget.
     """
     plugin_uid = 'dummy_2x1'
     cols = 2
     rows = 1
 
-# ************************************************************************
-# ************** Android widgets for Large dummy portrait plugin *********
-# ************************************************************************
 
-class Dummy1x2AndroidMainWidget(Dummy1x1AndroidMainWidget):
+class Dummy2x2Widget(BaseDummyWidget):
     """
-    Large dummy portrait plugin widget for Android (placeholder `main`).
+    2x2 dummy plugin widget.
     """
-    plugin_uid = 'dummy_1x2'
-    cols = 1
+    plugin_uid = 'dummy_2x2'
+    cols = 2
     rows = 2
 
 
-class Dummy1x2AndroidShortcutWidget(Dummy1x1AndroidShortcutWidget):
+class Dummy3x3Widget(BaseDummyWidget):
     """
-    Large dummy portrait plugin widget for Android (placeholder `shortcuts`).
-    """
-    plugin_uid = 'dummy_1x2'
-    cols = 1
-    rows = 2
-
-# ************************************************************************
-# ****************** Android widgets for Big dummy plugin ****************
-# ************************************************************************
-
-class Dummy3x3AndroidMainWidget(Dummy1x1AndroidMainWidget):
-    """
-    Big dummy portrait plugin widget for Android (placeholder `main`).
+    3x3 dummy plugin widget.
     """
     plugin_uid = 'dummy_3x3'
     cols = 3

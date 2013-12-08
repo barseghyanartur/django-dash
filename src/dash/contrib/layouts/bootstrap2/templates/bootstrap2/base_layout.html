@@ -50,11 +50,6 @@
                     <span>{% trans 'Home' %}</span>
                 </a>
             </li>
-            <li class="menu-item{% if not edit_mode %} active{% endif %}">
-                <a href="{% if current_workspace %}{% url 'dash.dashboard' current_workspace.slug %}{% else %}{% url 'dash.dashboard' %}{% endif %}" class="menu-dashboard-home" title="{% trans 'View Dashboard' %}">
-                    <span>{% trans 'View dashboard' %}</span>
-                </a>
-            </li>
             {% has_edit_dashboard_permissions as has_edit_dashboard_permissions %}
             {% if has_edit_dashboard_permissions %}
             <li class="menu-item{% if edit_mode %} active{% endif %}">
@@ -63,6 +58,11 @@
                 </a>
             </li>
             {% endif %}
+            <li class="menu-item{% if not edit_mode %} active{% endif %}">
+                <a href="{% if current_workspace %}{% url 'dash.dashboard' current_workspace.slug %}{% else %}{% url 'dash.dashboard' %}{% endif %}" class="menu-dashboard-home" title="{% trans 'View Dashboard' %}">
+                    <span>{% trans 'View dashboard' %}</span>
+                </a>
+            </li>
         </ul>
       </div>
     </div>
@@ -131,6 +131,16 @@
                 </a>
             </li>
                 {% endif %}
+
+                {% if 'dash.add_dashboardworkspace' in perms and 'dash.add_dashboardentry' in perms %}
+            <li class="sub-menu-item">
+                <a href="{% url 'dash.clone_dashboard_workspace' current_workspace.pk %}" class="menu-dashboard-clone-workspace" title="{% trans 'Clone current workspace' %}">
+                    <span class="iconic icon-copy"></span>
+                    <span class="textonic">{% trans "Clone current workspace" %}</span>
+                </a>
+            </li>
+                {% endif %}
+
                 {% if 'dash.delete_dashboardworkspace' in perms %}
             <li class="sub-menu-item">
                 <a href="{% url 'dash.delete_dashboard_workspace' current_workspace.pk %}" class="menu-dashboard-delete-workspace" title="{% trans 'Delete current workspace' %}">

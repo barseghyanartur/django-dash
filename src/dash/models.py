@@ -36,6 +36,9 @@ class DashboardSettings(models.Model):
                                                 "however setting your dashboard to be visible to public, makes "
                                                 "your default workspace visible to public too."))
 
+    def __unicode__(self):
+        return self.title
+
 
 class DashboardWorkspace(models.Model):
     """
@@ -47,6 +50,10 @@ class DashboardWorkspace(models.Model):
         - `name` (str): Dashboard name.
         - `slug` (str): Dashboard slug.
         - `position` (int): Dashboard position.
+        - `is_public` (int): If set to True, is visible to public.
+        - `is_clonable` (bool): If set to True, is clonable.
+        - `shared_with` (django.db.models.ManyToManyField): Users the workspace shared with. If workspace
+            is shared with specific user, then the user it's shared with can also clone the workspace.
     """
     user = models.ForeignKey(User, verbose_name=_("User"))
     layout_uid = models.CharField(_("Layout"), max_length=25, choices=get_registered_layouts())
@@ -55,6 +62,8 @@ class DashboardWorkspace(models.Model):
     position = OrderField(_("Position"), null=True, blank=True)
     is_public = models.BooleanField(_("Is public?"), default=False, \
                                     help_text=_("Makes your workspace to be visible to the public."))
+    is_clonable = models.BooleanField(_("Is clonable?"), default=False, \
+                                    help_text=_("Makes your workspace to be clonable by other users."))
 
     class Meta:
         verbose_name = _("Dashboard workspace")
@@ -148,6 +157,10 @@ class DashboardEntry(models.Model):
         # Getting plugin from registry.
         cls = plugin_registry.get(self.plugin_uid)
 
+        if not cls:
+            # No need to log here, since already logged in registry.
+            return None
+
         # Creating plugin instance.
         plugin = cls(
             self.layout_uid,
@@ -170,6 +183,7 @@ class DashboardEntry(models.Model):
         return self.plugin_uid
     plugin_uid_code.allow_tags = True
     plugin_uid_code.short_description = _('UID')
+
 
 class DashboardPluginManager(models.Manager):
     """
@@ -198,11 +212,13 @@ class DashboardPlugin(models.Model):
         verbose_name = _("Dashboard plugin")
         verbose_name_plural = _("Dashboard plugins")
 
+    def __unicode__(self):
+        return "{0} ({1})".format(dict(get_registered_plugins()).get(self.plugin_uid, ''), self.plugin_uid)
+
     def plugin_uid_code(self):
         """
         Mainly used in admin.
         """
-        # TODO - shall be showing the dimensions.
         return self.plugin_uid
     plugin_uid_code.allow_tags = True
     plugin_uid_code.short_description = _('UID')
@@ -211,8 +227,7 @@ class DashboardPlugin(models.Model):
         """
         Mainly used in admin.
         """
-        # TODO - shall be showing the dimensions.
-        return "{0} ({1})".format(dict(get_registered_plugins()).get(self.plugin_uid, ''), self.plugin_uid)
+        return self.__unicode__()
     plugin_uid_admin.allow_tags = True
     plugin_uid_admin.short_description = _('Plugin')
 

@@ -60,6 +60,17 @@
 {% endblock bootstrap2_workspaces %}
 
 {% block bootstrap2_settings %}
+    {% if current_workspace.is_clonable %}
+                {% if 'dash.add_dashboardworkspace' in perms and 'dash.add_dashboardentry' in perms %}
+            <li class="nav-header">{% trans "Options" %}</li>
+            <li class="sub-menu-item">
+                <a href="{% url 'dash.clone_dashboard_workspace' current_workspace.pk %}" class="menu-dashboard-clone-workspace" title="{% trans 'Clone this workspace' %}">
+                    <span class="iconic icon-copy"></span>
+                    <span class="textonic">{% trans "Clone this workspace" %}</span>
+                </a>
+            </li>
+                {% endif %}
+    {% endif %}
 {% endblock bootstrap2_settings %}
 
 {% block bootstrap2_public_dashboard_url %}

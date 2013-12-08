@@ -1,7 +1,7 @@
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('Weather2x2Plugin', 'Weather3x3Plugin')
+__all__ = ('BaseWeatherPlugin',)
 
 from six.moves.urllib.request import urlopen
 import json
@@ -9,9 +9,9 @@ import json
 from django.utils.translation import ugettext_lazy as _
 from django.core.cache import cache
 
-from dash.base import BaseDashboardPlugin, plugin_registry, plugin_widget_registry
+from dash.base import BaseDashboardPlugin
+from dash.factory import plugin_factory
 from dash.contrib.plugins.weather.forms import WeatherForm
-from dash.contrib.plugins.weather.dash_widgets import Weather2x2AndroidMainWidget, Weather3x3AndroidMainWidget
 from dash.contrib.plugins.weather.settings import API_KEY, API_ENDPOINT_URL
 from dash.settings import DEBUG
 
@@ -19,14 +19,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 # ***************************************************************************
-# ******************************* Weather plugin ****************************
+# ************************** Base Weather plugin ****************************
 # ***************************************************************************
 
-class Weather2x2Plugin(BaseDashboardPlugin):
+class BaseWeatherPlugin(BaseDashboardPlugin):
     """
-    Weather dashboard plugin.
+    Base Weather plugin.
     """
-    uid = 'weather'
     name = _("Weather")
     form = WeatherForm
     group = _("Weather")
@@ -100,29 +99,13 @@ class Weather2x2Plugin(BaseDashboardPlugin):
                     pass
 
 
-plugin_registry.register(Weather2x2Plugin)
-
 # ********************************************************************************
-# ******************************* Big weather plugin *****************************
+# ********** Generating and registering the plugins using factory ****************
 # ********************************************************************************
 
-class Weather3x3Plugin(Weather2x2Plugin):
-    """
-    Big weather dashboard plugin.
-    """
-    uid = 'weather_3x3'
-    name = _("Weather")
-    group = _("Weather")
+sizes = (
+    (2, 2),
+    (3, 3),
+)
 
-
-plugin_registry.register(Weather3x3Plugin)
-
-# ********************************************************************************
-# ******************************* Registering the widgets ************************
-# ********************************************************************************
-
-# Registering the Android widgets for Weather plugin.
-plugin_widget_registry.register(Weather2x2AndroidMainWidget)
-
-# Registering the Android widgets for Big weather plugin.
-plugin_widget_registry.register(Weather3x3AndroidMainWidget)
+plugin_factory(BaseWeatherPlugin, 'weather', sizes)

@@ -15,8 +15,8 @@ from django.contrib import messages
 
 from dash.base import get_layout
 from dash.models import DashboardEntry
-from dash.utils import get_user_plugins, get_workspaces
-from dash.utils import get_dashboard_settings
+from dash.utils import get_user_plugins, get_workspaces, get_dashboard_settings
+from dash.helpers import iterable_to_dict
 
 def public_dashboard(request, username, workspace=None, template_name='public_dashboard/public_dashboard.html'):
     """
@@ -68,6 +68,7 @@ def public_dashboard(request, username, workspace=None, template_name='public_da
 
     context = {
         'placeholders': placeholders,
+        'placeholders_dict': iterable_to_dict(placeholders, key_attr_name='uid'),
         'css': layout.get_css(placeholders),
         'layout': layout,
         'user': user,

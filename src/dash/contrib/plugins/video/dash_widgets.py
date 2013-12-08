@@ -1,95 +1,73 @@
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('Video2x2AndroidMainWidget', 'Video3x3AndroidMainWidget', 'Video4x4AndroidMainWidget', \
-           'Video5x5AndroidMainWidget', 'Video2x2Windows8MainWidget', 'Video2x2Windows8SidebarWidget')
+__all__ = (
+    'BaseVideoWidget', 'Video1x1Widget', 'Video2x2Widget', 'Video3x3Widget',
+    'Video4x4Widget', 'Video5x5Widget'
+)
 
 from django.template.loader import render_to_string
 
 from dash.base import BaseDashboardPluginWidget
 
 # **********************************************************************
-# ****************** Android widgets for Video plugin ******************
+# *********************** Base Video widget plugin *********************
 # **********************************************************************
 
-class Video2x2AndroidMainWidget(BaseDashboardPluginWidget):
+class BaseVideoWidget(BaseDashboardPluginWidget):
     """
-    Video plugin widget for Android layout (placeholder `main`).
+    Base video plugin widget.
     """
-    layout_uid = 'android'
-    placeholder_uid = 'main'
-    plugin_uid = 'video_2x2'
-    cols = 2
-    rows = 2
     media_css = (
         'css/dash_plugin_video.css',
     )
 
     def render(self, request=None):
         context = {'plugin': self.plugin}
-        return render_to_string('video/render_main.html', context)
-
+        return render_to_string('video/render.html', context)
 
 # **********************************************************************
-# ****************** Android widgets for Big video plugin **************
+# ************************** Specific widgets **************************
 # **********************************************************************
 
-class Video3x3AndroidMainWidget(Video2x2AndroidMainWidget):
+class Video1x1Widget(BaseVideoWidget):
     """
-    Big video plugin widget for Android layout (placeholder `main`).
+    Video plugin 1x1 widget.
+    """
+    plugin_uid = 'video_1x1'
+
+
+class Video2x2Widget(BaseVideoWidget):
+    """
+    Video plugin 2x2 widget.
+    """
+    plugin_uid = 'video_2x2'
+    cols = 2
+    rows = 2
+
+
+class Video3x3Widget(BaseVideoWidget):
+    """
+    Video plugin 3x3 widget.
     """
     plugin_uid = 'video_3x3'
     cols = 3
     rows = 3
 
-# **********************************************************************
-# ****************** Android widgets for Huge video plugin *************
-# **********************************************************************
 
-class Video4x4AndroidMainWidget(Video2x2AndroidMainWidget):
+class Video4x4Widget(BaseVideoWidget):
     """
-    Huge video plugin widget for Android layout (placeholder `main`).
+    Video plugin 4x4 widget.
     """
     plugin_uid = 'video_4x4'
     cols = 4
     rows = 4
 
-# **********************************************************************
-# ****************** Android widgets for Gigantic video plugin *********
-# **********************************************************************
 
-class Video5x5AndroidMainWidget(Video2x2AndroidMainWidget):
+class Video5x5Widget(BaseVideoWidget):
     """
-    Gigantic video plugin widget for Android layout (placeholder `main`).
+    Video plugin 5x5 widget.
     """
     plugin_uid = 'video_5x5'
     cols = 5
     rows = 5
-
-# **********************************************************************
-# ****************** Windows 8 widgets for Video plugin ****************
-# **********************************************************************
-
-class Video2x2Windows8MainWidget(BaseDashboardPluginWidget):
-    """
-    Video plugin widget for Windows 8 layout (placeholder `main`).
-    """
-    layout_uid = 'windows8'
-    placeholder_uid = 'main'
-    plugin_uid = 'video_2x2'
-    cols = 2
-    rows = 2
-    media_css = (
-        'css/dash_plugin_video.css',
-    )
-
-    def render(self, request=None):
-        context = {'plugin': self.plugin}
-        return render_to_string('video/render_main.html', context)
-
-
-class Video2x2Windows8SidebarWidget(Video2x2Windows8MainWidget):
-    """
-    Video plugin widget for Windows 8 layout (placeholder `sidebar`).
-    """
-    placeholder_uid = 'sidebar'

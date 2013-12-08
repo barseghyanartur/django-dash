@@ -1,5 +1,30 @@
 Release history
 =====================================
+0.4
+-------------------------------------
+2013-12-07
+
+While core stayed almost intact, there have been major changes made to plugins and widgets. If you
+have written your own plugins and widgets, having inherited existing ones, review your code before
+updating to this version. It would be very simple to migrate, though. All layout specific widgets
+have been moved to layout modules, having the plugins only implemented base widgets, which are
+used (subclassed) by plugins and widgets specified in layouts. Moreover, a factory feature for
+plugins and widgets has been introduced. Take `android` layout as example.
+
+- Plugin and widget factory added, which increases the amount of plugin and widget code by 90%.
+- Dashboard workspace cloning feature added. There are two options. Either clone your own workspace or
+  if someone has marked his workspace as public and clonable, an extra option appears on the public
+  dashboard, which allows you to clone given workspace.
+- Clone dashboard entry feature added (at the moment, API level only).
+- In bootstrap 2 fluid layout, the menu items "Edit dashboard" and "View dashboard" swapped positions.
+- Default widgets added for all plugins. All existing widgets relocated. If you have inherited from
+  any layout specific widget, you will need to update your code.
+- Bulk change users and groups in dashboard plugins Django admin interface.
+- Weather 1x1 widget which formerly had uid "weather" got changed to "weather_1x1". If you used that widget,
+  you may want to update your database.
+- Fixed bug in public dashboard app, when requesting placeholders by their name in the template scope didn't
+  work (while iteration through the placeholders did work).
+
 0.3.2
 -------------------------------------
 2013-11-24

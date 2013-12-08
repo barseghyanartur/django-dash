@@ -54,7 +54,7 @@ $(document).ready(function() {
     // Create dashboard workspace.
     $('a.menu-dashboard-create-workspace').colorbox({
         'width': '576px',
-        'height': '400px',
+        'height': '420px',
         'opacity': '0.5',
         'onComplete': onLightboxOpen
     });
@@ -62,7 +62,7 @@ $(document).ready(function() {
     // Edit dashboard workspace.
     $('a.menu-dashboard-edit-workspace').colorbox({
         'width': '576px',
-        'height': '400px',
+        'height': '420px',
         'opacity': '0.5',
         'onComplete': onLightboxOpen
     });

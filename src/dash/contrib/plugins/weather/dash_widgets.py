@@ -1,26 +1,20 @@
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('Weather2x2AndroidMainWidget', 'Weather3x3AndroidMainWidget')
+__all__ = ('BaseWeatherWidget', 'Weather2x2Widget', 'Weather3x3Widget')
 
 from django.template.loader import render_to_string
 
 from dash.base import BaseDashboardPluginWidget
 
-# ***********************************************************************
-# ****************** Android widgets for Memo plugin ********************
-# ***********************************************************************
+# **********************************************************************
+# *********************** Base weather widget plugin *******************
+# **********************************************************************
 
-class Weather2x2AndroidMainWidget(BaseDashboardPluginWidget):
+class BaseWeatherWidget(BaseDashboardPluginWidget):
     """
-    Weather plugin widget for Android layout (placeholder `main`).
+    Base weather plugin widget.
     """
-    layout_uid = 'android'
-    placeholder_uid = 'main'
-    plugin_uid = 'weather_2x2'
-    cols = 2
-    rows = 2
-
     #media_js = [
     #    'js/dash_plugin_weather.js',
     #]
@@ -30,16 +24,24 @@ class Weather2x2AndroidMainWidget(BaseDashboardPluginWidget):
 
     def render(self, request=None):
         context = {'plugin': self.plugin}
-        return render_to_string('weather/render_main.html', context)
+        return render_to_string('weather/render.html', context)
 
+# **********************************************************************
+# ************************** Specific widgets **************************
+# **********************************************************************
 
-# ***************************************************************************
-# ****************** Android widgets for Big weather plugin *****************
-# ***************************************************************************
-
-class Weather3x3AndroidMainWidget(Weather2x2AndroidMainWidget):
+class Weather2x2Widget(BaseWeatherWidget):
     """
-    Big weather plugin widget for Android layout (placeholder `main`).
+    Weather plugin 2x2 widget.
+    """
+    plugin_uid = 'weather_2x2'
+    cols = 2
+    rows = 2
+
+
+class Weather3x3Widget(BaseWeatherWidget):
+    """
+    Weather plugin 3x3 widget.
     """
     plugin_uid = 'weather_3x3'
     cols = 3

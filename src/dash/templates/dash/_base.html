@@ -99,6 +99,16 @@
                             </a>
                         </li>
                             {% endif %}
+
+                            {% if 'dash.add_dashboardworkspace' in perms and 'dash.add_dashboardentry' in perms %}
+                        <li class="sub-menu-item">
+                            <a href="{% url 'dash.clone_dashboard_workspace' current_workspace.pk %}" class="menu-dashboard-clone-workspace" title="{% trans 'Clone current workspace' %}">
+                                <span class="iconic icon-copy"></span>
+                                <span class="textonic">{% trans "Clone current workspace" %}</span>
+                            </a>
+                        </li>
+                            {% endif %}
+
                             {% if 'dash.delete_dashboardworkspace' in perms %}
                         <li class="sub-menu-item">
                             <a href="{% url 'dash.delete_dashboard_workspace' current_workspace.pk %}" class="menu-dashboard-delete-workspace" title="{% trans 'Delete current workspace' %}">

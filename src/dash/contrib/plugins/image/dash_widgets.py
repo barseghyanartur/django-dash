@@ -1,9 +1,12 @@
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('Image1x1AndroidMainWidget', 'Image2x2AndroidMainWidget', 'Image3x3AndroidMainWidget',
-           'Image3x2AndroidMainWidget', 'Image2x3AndroidMainWidget',
-           'Image1x1Windows8MainWidget', 'Image1x1Windows8SidebarWidget')
+__all__ = (
+    'BaseImageWidget', 'Image1x1Widget', 'Image1x2Widget', 'Image2x1Widget',
+    'Image2x2Widget', 'Image2x3Widget', 'Image3x2Widget', 'Image3x3Widget',
+    'Image3x4Widget', 'Image4x3Widget', 'Image4x4Widget', 'Image4x5Widget',
+    'Image5x4Widget', 'Image5x5Widget',
+)
 
 from django.template.loader import render_to_string
 from django.conf import settings
@@ -13,18 +16,13 @@ from dash.contrib.plugins.image.helpers import get_crop_filter
 from dash.contrib.plugins.image.settings import FIT_METHOD_FIT_WIDTH, FIT_METHOD_FIT_HEIGHT
 
 # **********************************************************************
-# ****************** Android widgets for Image plugin ******************
+# ************************ Base Image widget plugin ********************
 # **********************************************************************
 
-class Image1x1AndroidMainWidget(BaseDashboardPluginWidget):
+class BaseImageWidget(BaseDashboardPluginWidget):
     """
-    Image1x1 plugin widget for Android layout (placeholder `main`).
+    Base image plugin widget.
     """
-    layout_uid = 'android'
-    placeholder_uid = 'main'
-    plugin_uid = 'image_1x1'
-    cols = 1
-    rows = 1
     media_js = (
         'js/dash_plugin_image.js',
     )
@@ -48,73 +46,113 @@ class Image1x1AndroidMainWidget(BaseDashboardPluginWidget):
             'crop': crop,
             'thumb_size': thumb_size
         }
-        return render_to_string('image/render_main.html', context)
+        return render_to_string('image/render.html', context)
 
-# ***************************************************************************
-# ****************** Android widgets for Image2x2 plugin *******************
-# ***************************************************************************
+# **********************************************************************
+# ************************** Specific widgets **************************
+# **********************************************************************
 
-class Image2x2AndroidMainWidget(Image1x1AndroidMainWidget):
+class Image1x1Widget(BaseImageWidget):
     """
-    Image2x2 plugin widget for Android layout (placeholder `main`).
+    Image1x1 plugin widget.
+    """
+    plugin_uid = 'image_1x1'
+
+
+class Image1x2Widget(BaseImageWidget):
+    """
+    Image1x2 plugin widget.
+    """
+    cols = 1
+    rows = 2
+    plugin_uid = 'image_1x2'
+
+
+class Image2x1Widget(BaseImageWidget):
+    """
+    Image2x1 plugin widget.
+    """
+    cols = 2
+    rows = 1
+    plugin_uid = 'image_2x1'
+
+
+class Image2x2Widget(BaseImageWidget):
+    """
+    Image2x2 plugin widget.
     """
     cols = 2
     rows = 2
     plugin_uid = 'image_2x2'
 
-# ***************************************************************************
-# ****************** Android widgets for Image3x3 plugin *******************
-# ***************************************************************************
 
-class Image3x3AndroidMainWidget(Image1x1AndroidMainWidget):
+class Image2x3Widget(BaseImageWidget):
     """
-    Image3x3 plugin widget for Android layout (placeholder `main`).
-    """
-    cols = 3
-    rows = 3
-    plugin_uid = 'image_3x3'
-
-# ***************************************************************************
-# ****************** Android widgets for Image3x2 plugin *******************
-# ***************************************************************************
-
-class Image3x2AndroidMainWidget(Image1x1AndroidMainWidget):
-    """
-    Image3x2 plugin widget for Android layout (placeholder `main`).
-    """
-    cols = 3
-    rows = 2
-    plugin_uid = 'image_3x2'
-
-# ***************************************************************************
-# ****************** Android widgets for Image2x3 plugin *******************
-# ***************************************************************************
-
-class Image2x3AndroidMainWidget(Image1x1AndroidMainWidget):
-    """
-    Image2x3 plugin widget for Android layout (placeholder `main`).
+    Image2x3 plugin widget.
     """
     cols = 2
     rows = 3
     plugin_uid = 'image_2x3'
 
-# **********************************************************************
-# ****************** Windows 8 widgets for Image plugin ****************
-# **********************************************************************
 
-class Image1x1Windows8MainWidget(Image1x1AndroidMainWidget):
+class Image3x2Widget(BaseImageWidget):
     """
-    Image1x1 plugin widget for Windows 8 layout (placeholder `main`).
+    Image3x2 plugin widget.
     """
-    layout_uid = 'windows8'
-    placeholder_uid = 'main'
-    plugin_uid = 'image_1x1'
-    cols = 1
-    rows = 1
+    cols = 3
+    rows = 2
+    plugin_uid = 'image_3x2'
 
 
-class Image1x1Windows8SidebarWidget(Image1x1Windows8MainWidget):
+class Image3x3Widget(BaseImageWidget):
     """
-    Image plugin widget for Windows 8 layout (placeholder `sidebar`).
+    Image3x3 plugin widget.
     """
-    placeholder_uid = 'sidebar'
+    cols = 3
+    rows = 3
+    plugin_uid = 'image_3x3'
+
+
+class Image3x4Widget(BaseImageWidget):
+    """
+    Image3x4 plugin widget.
+    """
+    cols = 3
+    rows = 4
+    plugin_uid = 'image_3x4'
+
+
+class Image4x4Widget(BaseImageWidget):
+    """
+    Image4x4 plugin widget.
+    """
+    cols = 4
+    rows = 4
+    plugin_uid = 'image_4x4'
+
+
+class Image4x5Widget(BaseImageWidget):
+    """
+    Image4x5 plugin widget.
+    """
+    cols = 4
+    rows = 5
+    plugin_uid = 'image_4x5'
+
+
+class Image5x4Widget(BaseImageWidget):
+    """
+    Image5x4 plugin widget.
+    """
+    cols = 5
+    rows = 4
+    plugin_uid = 'image_5x4'
+
+
+class Image5x5Widget(BaseImageWidget):
+    """
+    Image5x5 plugin widget.
+    """
+    cols = 5
+    rows = 5
+    plugin_uid = 'image_5x5'

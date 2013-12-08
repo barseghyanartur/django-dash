@@ -1,51 +1,32 @@
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('ReadRSSFeed2x3Plugin', 'ReadRSSFeed3x3Plugin')
+__all__ = ('BaseReadRSSFeedPlugin',)
 
 from django.utils.translation import ugettext_lazy as _
 
-from dash.base import BaseDashboardPlugin, plugin_registry, plugin_widget_registry
+from dash.base import BaseDashboardPlugin
+from dash.factory import plugin_factory
 from dash.contrib.plugins.rss_feed.forms import ReadRSSFeedForm
-from dash.contrib.plugins.rss_feed.dash_widgets import (
-    ReadRSSFeed2x3AndroidMainWidget, ReadRSSFeed2x3Windows8MainWidget, ReadRSSFeed3x3AndroidMainWidget
-    )
 
-# ***************************************************************************
-# ******************************* Read RSS feed plugin **********************
-# ***************************************************************************
+# ********************************************************************************
+# ********************************* Base Read RSS feed plugin ********************
+# ********************************************************************************
 
-class ReadRSSFeed2x3Plugin(BaseDashboardPlugin):
+class BaseReadRSSFeedPlugin(BaseDashboardPlugin):
     """
-    Read RSS feed into HTML plugin.
+    Base Read RSS feed into HTML plugin.
     """
-    uid = 'read_rss_feed_2x3'
     name = _("Read RSS feed")
     form = ReadRSSFeedForm
     group = _("Internet")
 
-plugin_registry.register(ReadRSSFeed2x3Plugin)
+# ********************************************************************************
+# ********** Generating and registering the plugins using factory ****************
+# ********************************************************************************
+sizes = (
+    (2, 3),
+    (3, 3),
+)
 
-# ***************************************************************************
-# ******************************* Read RSS feed plugin **********************
-# ***************************************************************************
-
-class ReadRSSFeed3x3Plugin(ReadRSSFeed2x3Plugin):
-    """
-    Big read RSS feed into HTML plugin.
-    """
-    uid = 'read_rss_feed_3x3'
-    name = _("Read RSS feed")
-
-plugin_registry.register(ReadRSSFeed3x3Plugin)
-
-# *************************************************************************
-# ****************** Registering the widgets ******************************
-# *************************************************************************
-
-# Registering the Android widgets for Read RSS feed plugin plugin.
-plugin_widget_registry.register(ReadRSSFeed2x3AndroidMainWidget)
-plugin_widget_registry.register(ReadRSSFeed3x3AndroidMainWidget)
-
-# Registering the Windows8 widgets for Read RSS feed plugin.
-plugin_widget_registry.register(ReadRSSFeed2x3Windows8MainWidget)
+plugin_factory(BaseReadRSSFeedPlugin, 'read_rss_feed', sizes)

@@ -1,7 +1,7 @@
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('slugify_workspace', 'lists_overlap', 'iterable_to_dict')
+__all__ = ('slugify_workspace', 'lists_overlap', 'iterable_to_dict', 'clean_plugin_data', 'clone_plugin_data')
 
 from autoslug.settings import slugify
 
@@ -25,3 +25,35 @@ def iterable_to_dict(items, key_attr_name):
     for item in items:
         items_dict.update({getattr(item, key_attr_name): item})
     return items_dict
+
+def clean_plugin_data(dashboard_entries, request=None):
+    """
+    Cleans up the plugin data (database, files) for the dashboard_entries given.
+
+    :param iterable dashboard_entries:
+    :param django.http.HttpRequest request:
+    :return bool: Boolean True if no errors occured and False otherwise.
+    """
+    errors = False
+    for dashboard_entry in dashboard_entries:
+        plugin = dashboard_entry.get_plugin(request=request)
+
+        if plugin:
+            plugin._delete_plugin_data()
+
+    return not errors
+
+def clone_plugin_data(dashboard_entry, request=None):
+    """
+    Clone plugin data of a dashboard entry.
+    """
+    if dashboard_entry:
+        plugin = dashboard_entry.get_plugin(request=request)
+
+        if plugin:
+            plugin_data = plugin._clone_plugin_data(dashboard_entry)
+
+            if plugin_data is None:
+                plugin_data = dashboard_entry.plugin_data
+
+            return plugin_data

@@ -47,6 +47,7 @@ Main features
 - Multiple workspaces.
 - Tunable access permissions to plugins.
 - Public dashboards (as a contrib app).
+- Clonable workspaces.
 
 Installation
 ===============================================
@@ -521,6 +522,47 @@ Note, that you have to be logged in, in order to use the dashboard. If your new 
 appear, set the ``DASH_DEBUG`` to True in your Django's local settings module, re-run your code
 and check console for error notifications.
 
+Plugin and widget factory
+===============================================
+In general, when making a new plugin, base widgets are made for then too. By creating base
+widgets you avoid duplication of the code. See the example below.
+
+>>> from dash.base import BaseDashboardPlugin
+>>> class BaseMemoPlugin(BaseDashboardPlugin):
+>>>    name = _("Memo")
+>>>    group = _("Memo")
+>>>    form = MemoForm
+
+Now that we have the base plugin, we can use plugin factory to generate and register
+plugin classes of the required dimensions.
+
+>>> from dash.factory import plugin_factory
+>>> plugin_factory(BaseMemoPlugin, 'memo', ((5, 6), (6, 5), (6, 6)))
+
+The code above will generate "memo_5x6", "memo_6x5" and "memo_6x6" plugin classes which
+subclass the ``BaseMemoPlugin`` and register them in the plugin registry.
+
+Same goes for the widgets.
+
+>>> from dash.base import BaseDashboardPluginWidget
+>>> class BaseMemoWidget(BaseDashboardPluginWidget):
+>>>     def render(self, request=None):
+>>>         context = {'plugin': self.plugin}
+>>>         return render_to_string('memo/render.html', context)
+
+Now that we have the base widget, we can use plugin widget factory to generate and register
+plugin widget classes of the required dimensions.
+
+>>> from dash.factory import plugin_widget_factory
+>>> plugin_widget_factory(BaseMemoWidget, 'bootstrap2_fluid', 'main', 'memo', ((5, 6), (6, 5), (6, 6)))
+
+The code above will generate "memo_5x6", "memo_6x5" and "memo_6x6" plugin widget classes which
+subclass the ``BaseMemoWidget`` and register them in the plugin widget registry.
+
+Of course, there would be cases when you can't use factory, since each plugin or widget is unique,
+but if you notice yourself subclassing the base widget or plugin many times without any change to
+the code, then it's perhaps a right time to start using the factory.
+
 Permissions
 ===============================================
 Plugin system allows administrators to specify the access rights to every plugin. Dash permissions
@@ -648,6 +690,13 @@ that you are recommended to follow.
 - Example6x1Plugin: 6x1 example plugin
     - Example6x1YourLayoutSidebarWidget: 6x1 widget for 6x1 example plugin (layout Your Layout,
       placeholder 'main')
+
+Debugging
+===============================================
+Most of the errors are logged (DEBUG). If you have written a plugin and it somehow doesn't appear
+in the list of available plugins, do run the ./manage.py dash_sync_plugins management command
+since it not only syncs your plugins into the database, but also is a great way of checking for
+possible errors.
 
 Available translations
 ===============================================

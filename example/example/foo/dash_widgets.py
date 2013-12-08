@@ -2,118 +2,122 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 
-from dash.contrib.plugins.dummy.dash_widgets import Dummy1x1AndroidMainWidget
-from dash.contrib.plugins.image.dash_widgets import Image1x1AndroidMainWidget
-from dash.contrib.plugins.memo.dash_widgets import Memo2x2AndroidMainWidget, TinyMCEMemo2x2AndroidMainWidget
-from dash.contrib.plugins.url.dash_widgets import URL1x1AndroidMainWidget
-from dash.contrib.plugins.video.dash_widgets import Video2x2AndroidMainWidget
+from dash.contrib.plugins.dummy.dash_widgets import Dummy1x1Widget, Dummy2x2Widget
+from dash.contrib.plugins.image.dash_widgets import (
+    BaseImageWidget, Image1x1Widget, Image2x2Widget, Image3x2Widget, Image3x3Widget
+    )
+from dash.contrib.plugins.memo.dash_widgets import (
+    Memo2x2Widget, Memo3x3Widget, TinyMCEMemo2x2Widget, TinyMCEMemo3x3Widget
+    )
+from dash.contrib.plugins.url.dash_widgets import URL1x1Widget, URL2x2Widget
+from dash.contrib.plugins.video.dash_widgets import Video2x2Widget, Video3x3Widget
 
 # *************************************************************
 # ***************** Dummy widgets *****************************
 # *************************************************************
 
-class Dummy1x1ExampleMainWidget(Dummy1x1AndroidMainWidget):
+class Dummy1x1ExampleMainWidget(Dummy1x1Widget):
     """
     Dummy1x1 plugin widget for Example layout (placeholder `main`).
     """
     layout_uid = 'example'
     placeholder_uid = 'main'
-    plugin_uid = 'dummy_1x1'
 
 
-class Dummy2x2ExampleMainWidget(Dummy1x1ExampleMainWidget):
+class Dummy2x2ExampleMainWidget(Dummy2x2Widget):
     """
     Dummy2x2 plugin widget for Example layout (placeholder `main`).
     """
-    plugin_uid = 'dummy_2x2'
-    cols = 2
-    rows = 2
+    layout_uid = 'example'
+    placeholder_uid = 'main'
 
-
-class Dummy1x1ExampleTopShortcutsWidget(Dummy1x1ExampleMainWidget):
+class Dummy1x1ExampleTopShortcutsWidget(Dummy1x1Widget):
     """
     Dummy1x1 plugin widget for Example layout (placeholder `top_shortcuts`).
     """
+    layout_uid = 'example'
     placeholder_uid = 'top_shortcuts'
 
 
-class Dummy1x1ExampleRightShortcutsWidget(Dummy1x1ExampleMainWidget):
+class Dummy1x1ExampleRightShortcutsWidget(Dummy1x1Widget):
     """
     Dummy1x1 plugin widget for Example layout (placeholder `right_shortcuts`).
     """
+    layout_uid = 'example'
     placeholder_uid = 'right_shortcuts'
 
 
-class Dummy2x2ExampleRightShortcutsWidget(Dummy2x2ExampleMainWidget):
+class Dummy2x2ExampleRightShortcutsWidget(Dummy2x2Widget):
     """
     Dummy2x2 plugin widget for Example layout (placeholder `right_shortcuts`).
     """
+    layout_uid = 'example'
     placeholder_uid = 'right_shortcuts'
 
 
-class Dummy1x1ExampleBottomShortcutsWidget(Dummy1x1ExampleMainWidget):
+class Dummy1x1ExampleBottomShortcutsWidget(Dummy1x1Widget):
     """
     Dummy1x1 plugin widget for Example layout (placeholder `bottom_shortcuts`).
     """
+    layout_uid = 'example'
     placeholder_uid = 'bottom_shortcuts'
 
 
-class Dummy1x1ExampleLeftShortcutsWidget(Dummy1x1ExampleMainWidget):
+class Dummy1x1ExampleLeftShortcutsWidget(Dummy1x1Widget):
     """
     Dummy1x1 plugin widget for Example layout (placeholder `left_shortcuts`).
     """
+    layout_uid = 'example'
     placeholder_uid = 'left_shortcuts'
 
-class Dummy2x2ExampleLeftShortcutsWidget(Dummy2x2ExampleMainWidget):
+class Dummy2x2ExampleLeftShortcutsWidget(Dummy2x2Widget):
     """
     Dummy2x2 plugin widget for Example layout (placeholder `left_shortcuts`).
     """
+    layout_uid = 'example'
     placeholder_uid = 'left_shortcuts'
 
 # *************************************************************
 # ***************** Image widgets *****************************
 # *************************************************************
 
-class Image1x1ExampleMainWidget(Image1x1AndroidMainWidget):
+class Image1x1ExampleMainWidget(Image1x1Widget):
     """
     Image1x1 plugin widget for Example layout (placeholder `main`).
     """
     layout_uid = 'example'
     placeholder_uid = 'main'
-    plugin_uid = 'image_1x1'
 
 
-class Image2x2ExampleMainWidget(Image1x1ExampleMainWidget):
+class Image2x2ExampleMainWidget(Image2x2Widget):
     """
     Image2x2 plugin widget for Example layout (placeholder `main`).
     """
-    plugin_uid = 'image_2x2'
-    cols = 2
-    rows = 2
+    layout_uid = 'example'
+    placeholder_uid = 'main'
 
 
-class Image3x2ExampleMainWidget(Image1x1ExampleMainWidget):
+class Image3x2ExampleMainWidget(Image3x2Widget):
     """
     Image3x2 plugin widget for Example layout (placeholder `main`).
     """
-    plugin_uid = 'image_3x2'
-    cols = 3
-    rows = 2
+    layout_uid = 'example'
+    placeholder_uid = 'main'
 
 
-class Image3x3ExampleMainWidget(Image1x1ExampleMainWidget):
+class Image3x3ExampleMainWidget(Image3x3Widget):
     """
     Image3x3 plugin widget for Example layout (placeholder `main`).
     """
-    plugin_uid = 'image_3x3'
-    cols = 3
-    rows = 3
+    layout_uid = 'example'
+    placeholder_uid = 'main'
 
 
-class Image3x8ExampleLeftShortcutsWidget(Image1x1ExampleMainWidget):
+class Image3x8ExampleLeftShortcutsWidget(BaseImageWidget):
     """
     Image3x8 plugin widget for Example layout (placeholder `main`).
     """
+    layout_uid = 'example'
     placeholder_uid = 'left_shortcuts'
     plugin_uid = 'image_3x8'
     cols = 3
@@ -127,10 +131,11 @@ class Image3x8ExampleRightShortcutsWidget(Image3x8ExampleLeftShortcutsWidget):
     placeholder_uid = 'right_shortcuts'
 
 
-class Image8x1ExampleTopShortcutsWidget(Image1x1ExampleMainWidget):
+class Image8x1ExampleTopShortcutsWidget(BaseImageWidget):
     """
     Image8x1 plugin widget for Example layout (placeholder `main`).
     """
+    layout_uid = 'example'
     placeholder_uid = 'top_shortcuts'
     plugin_uid = 'image_8x1'
     cols = 8
@@ -147,81 +152,98 @@ class Image8x1ExampleBottomShortcutsWidget(Image8x1ExampleTopShortcutsWidget):
 # ***************** Memo widgets *****************************
 # *************************************************************
 
-class Memo2x2ExampleMainWidget(Memo2x2AndroidMainWidget):
+class Memo2x2ExampleMainWidget(Memo2x2Widget):
     """
     Memo2x2 plugin widget for Example layout (placeholder `main`).
     """
     layout_uid = 'example'
     placeholder_uid = 'main'
-    plugin_uid = 'memo_2x2'
 
 
-class Memo3x3ExampleMainWidget(Memo2x2ExampleMainWidget):
+class Memo3x3ExampleMainWidget(Memo3x3Widget):
     """
     Memo3x3 plugin widget for Example layout (placeholder `main`).
     """
-    plugin_uid = 'memo_3x3'
-    cols = 3
-    rows = 3
+    layout_uid = 'example'
+    placeholder_uid = 'main'
 
 
-class TinyMCE2x2ExampleMainWidget(TinyMCEMemo2x2AndroidMainWidget):
+class TinyMCE2x2ExampleMainWidget(TinyMCEMemo2x2Widget):
     """
     Dummy2x2 plugin widget for Example layout (placeholder `main`).
     """
     layout_uid = 'example'
-    plugin_uid = 'tinymce_memo_2x2'
     placeholder_uid = 'main'
-    cols = 2
-    rows = 2
 
 
-class TinyMCE3x3ExampleMainWidget(TinyMCE2x2ExampleMainWidget):
+class TinyMCE3x3ExampleMainWidget(TinyMCEMemo3x3Widget):
     """
     Dummy2x2 plugin widget for Example layout (placeholder `main`).
     """
-    plugin_uid = 'tinymce_memo_3x3'
-    cols = 3
-    rows = 3
+    layout_uid = 'example'
+    placeholder_uid = 'main'
 
 # *************************************************************
 # ******************* URL widgets *****************************
 # *************************************************************
 
-class URL1x1ExampleMainWidget(URL1x1AndroidMainWidget):
+class URL1x1ExampleMainWidget(URL1x1Widget):
     """
     URL1x1 plugin widget for Example layout (placeholder `main`).
     """
     layout_uid = 'example'
     placeholder_uid = 'main'
-    plugin_uid = 'url_1x1'
+
+    media_css = (
+        'css/dash_plugin_url_example.css',
+    )
 
 
-class URL2x2ExampleMainWidget(URL1x1ExampleMainWidget):
+class URL2x2ExampleLeftShortcutsWidget(URL2x2Widget):
+    """
+    URL2x2 plugin widget for Example layout (placeholder `left_shortcuts`).
+    """
+    layout_uid = 'example'
+    placeholder_uid = 'left_shortcuts'
+
+    media_css = (
+        'css/dash_plugin_url_example.css',
+    )
+
+
+class URL2x2ExampleRightShortcutsWidget(URL2x2ExampleLeftShortcutsWidget):
+    """
+    URL2x2 plugin widget for Example layout (placeholder `right_shortcuts`).
+    """
+    placeholder_uid = 'right_shortcuts'
+
+
+class URL2x2ExampleMainWidget(URL2x2Widget):
     """
     URL2x2 plugin widget for Example layout (placeholder `main`).
     """
-    plugin_uid = 'url_2x2'
-    cols = 2
-    rows = 2
+    layout_uid = 'example'
+    placeholder_uid = 'main'
+
+    media_css = (
+        'css/dash_plugin_url_example.css',
+    )
 
 # *************************************************************
 # ******************* Video widgets ***************************
 # *************************************************************
 
-class Video2x2ExampleMainWidget(Video2x2AndroidMainWidget):
+class Video2x2ExampleMainWidget(Video2x2Widget):
     """
     Video1x1 plugin widget for Example layout (placeholder `main`).
     """
     layout_uid = 'example'
     placeholder_uid = 'main'
-    plugin_uid = 'video_2x2'
 
 
-class Video3x3ExampleMainWidget(Video2x2ExampleMainWidget):
+class Video3x3ExampleMainWidget(Video3x3Widget):
     """
     Video2x2 plugin widget for Example layout (placeholder `main`).
     """
-    plugin_uid = 'video_3x3'
-    cols = 3
-    rows = 3
+    layout_uid = 'example'
+    placeholder_uid = 'main'

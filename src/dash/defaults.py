@@ -6,6 +6,8 @@ __all__ = ('RESTRICT_PLUGIN_ACCESS', 'PLUGINS_MODULE_NAME', 'LAYOUTS_MODULE_NAME
            'DEFAULT_PLACEHOLDER_EDIT_TEMPLATE_NAME', 'DISPLAY_AUTH_LINK', 'WAIT_BETWEEN_TEST_STEPS', \
            'WAIT_AT_TEST_END', 'DEBUG')
 
+from django.utils.translation import ugettext
+
 gettext = lambda s: s
 
 # If set to True, plugins would be only accessible by the white-listed user(s) or group(s). If set to False, all

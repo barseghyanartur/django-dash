@@ -1,0 +1,111 @@
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('plugin_factory', 'plugin_widget_factory')
+
+import logging
+logger = logging.getLogger(__name__)
+
+from six import with_metaclass
+
+from dash.base import plugin_registry, plugin_widget_registry
+
+def plugin_factory(base_class, plugin_uid_prefix, sizes=[]):
+    """
+    :param dash.base.BaseDashboardWidget base_class: Subclass of.
+    :param string layout_uid:
+    :param string placeholder_uid:
+    :param string plugin_uid_prefix:
+    :param iterable sizes: Iterable of tuples.
+
+    :example:
+    >>> from dash.contrib.plugins.image.dash_plugins import BaseImagePlugin
+    >>> plugin_factory(BaseImagePlugin, 'image', zip(range(6, 10), range(6, 10)))
+
+    The example above will update the plugin registry with the following dictionary:
+    >>> {
+    >>>     'image_6x6': dash.factory.Plugin,
+    >>>     'image_7x7': dash.factory.Plugin,
+    >>>     'image_8x8': dash.factory.Plugin,
+    >>>     'image_9x9': dash.factory.Plugin,
+    >>> }
+    """
+    for cols, rows in sizes:
+
+        plugin_uid = "{plugin_uid_prefix}_{cols}x{rows}".format(
+            plugin_uid_prefix = plugin_uid_prefix,
+            cols = cols,
+            rows = rows
+            )
+
+        class PluginMeta(type):
+            """
+            Dynamically created plugin plugin meta class.
+            """
+            def __new__(cls, name, bases, props):
+                props['uid'] = plugin_uid
+                props['cols'] = cols
+                props['rows'] = rows
+                return type.__new__(cls, name, bases, props)
+
+        class Plugin(with_metaclass(PluginMeta, base_class)):
+            """
+            Dynamically created plugin class.
+            """
+
+        plugin_registry.register(Plugin)
+
+def plugin_widget_factory(base_class, layout_uid, placeholder_uid, plugin_uid_prefix, sizes=[]):
+    """
+    :param dash.base.BaseDashboardWidget base_class: Subclass of.
+    :param string layout_uid:
+    :param string placeholder_uid:
+    :param string plugin_uid_prefix:
+    :param iterable sizes: Iterable of tuples.
+
+    :example:
+    >>> from dash.contrib.plugins.image.dash_widgets import BaseImageWidget
+    >>> plugin_widget_factory(BaseImageWidget, 'android', 'main', 'image', zip(range(6, 10), range(6, 10)))
+
+    The example above will update the plugin widget registry with the following dictionary:
+
+    >>> {
+    >>>     'android.main.image_6x6': dash.factory.Widget,
+    >>>     'android.main.image_7x7': dash.factory.Widget,
+    >>>     'android.main.image_8x8': dash.factory.Widget,
+    >>>     'android.main.image_9x9': dash.factory.Widget,
+    >>> }
+    """
+    for cols, rows in sizes:
+        plugin_uid = "{plugin_uid_prefix}_{cols}x{rows}".format(
+            plugin_uid_prefix = plugin_uid_prefix,
+            cols = cols,
+            rows = rows
+            )
+
+        #class_name = "{plugin_uid_prefix}{cols}x{rows}{layout_uid}{placeholder_uid}Widget".format(
+        #    plugin_uid_prefix = plugin_uid_prefix.title(),
+        #    cols = cols,
+        #    rows = rows,
+        #    layout_uid = layout_uid.title(),
+        #    placeholder_uid = placeholder_uid.title()
+        #    )
+
+        class WidgetMeta(type):
+            """
+            Dynamically created plugin widget meta class.
+            """
+            def __new__(cls, name, bases, props):
+                props['layout_uid'] = layout_uid
+                props['placeholder_uid'] = placeholder_uid
+                props['plugin_uid'] = plugin_uid
+                props['cols'] = cols
+                props['rows'] = rows
+                return type.__new__(cls, name, bases, props)
+
+        class Widget(with_metaclass(WidgetMeta, base_class)):
+            """
+            Dynamically created widget class.
+            """
+
+        plugin_widget_registry.register(Widget)
