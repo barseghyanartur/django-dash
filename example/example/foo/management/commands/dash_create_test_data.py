@@ -11,12 +11,6 @@ from dash.tests import create_dashboard_user, DASH_TEST_USER_USERNAME, DASH_TEST
 from dash.contrib.layouts.android.dash_layouts import (
     AndroidLayout, AndroidMainPlaceholder, AndroidShortcutsPlaceholder
     )
-from dash.contrib.plugins.dummy.dash_plugins import Dummy1x1Plugin, Dummy2x1Plugin, Dummy1x2Plugin
-from dash.contrib.plugins.memo.dash_plugins import Memo2x2Plugin, Memo3x3Plugin, TinyMCEMemo3x3Plugin
-from dash.contrib.plugins.news.dash_plugins import News4x5Plugin
-from dash.contrib.plugins.rss_feed.dash_plugins import ReadRSSFeed2x3Plugin
-from dash.contrib.plugins.url.dash_plugins import URL1x1Plugin
-from dash.contrib.plugins.video.dash_plugins import Video2x2Plugin, Video3x3Plugin
 
 clean_extra_spaces = lambda s: ' '.join(s.split())
 
@@ -41,7 +35,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidMainPlaceholder.uid,
-        plugin_uid = URL1x1Plugin.uid,
+        plugin_uid = 'url_1x1',
         plugin_data = clean_extra_spaces("""{"url": "http://delusionalinsanity.com/portfolio/", "image": "icon-picture",
             "external": true, "title": "Photography"}"""),
         position = 2 if mixed_order else 1
@@ -54,7 +48,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidMainPlaceholder.uid,
-        plugin_uid = URL1x1Plugin.uid,
+        plugin_uid = 'url_1x1',
         plugin_data = clean_extra_spaces("""{"url": "http://f0reverchild.livejournal.com/", "image": "icon-book",
             "external": true, "title": "Livejournal"}"""),
         position = 1 if mixed_order else 2
@@ -67,7 +61,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidMainPlaceholder.uid,
-        plugin_uid = URL1x1Plugin.uid,
+        plugin_uid = 'url_1x1',
         plugin_data = clean_extra_spaces("""{"url": "http://www.modelmayhem.com/95855", "image": "icon-camera",
             "external": true, "title": "Model Mayhem"}"""),
         position = 30 if mixed_order else 3
@@ -80,7 +74,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidMainPlaceholder.uid,
-        plugin_uid = TinyMCEMemo3x3Plugin.uid,
+        plugin_uid = 'tinymce_memo_3x3',
         plugin_data = clean_extra_spaces(
             '{\"text\": \"<p>Python is my personal (and primary) programming language of choice and also happens to '
             'be the primary programming language at my beloved company, Goldmund, Wyldebeast &amp; Wunderliebe. So, '
@@ -103,7 +97,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidMainPlaceholder.uid,
-        plugin_uid = Video3x3Plugin.uid,
+        plugin_uid = 'video_3x3',
         plugin_data = clean_extra_spaces("""{"url": "http://www.youtube.com/watch?v=8GVIui0JK0M",
             "title": "Test 3x3 video"}"""),
         position = 4 if mixed_order else 7
@@ -116,7 +110,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidMainPlaceholder.uid,
-        plugin_uid = Memo2x2Plugin.uid,
+        plugin_uid = 'memo_2x2',
         plugin_data = clean_extra_spaces("""{"text": "(1) Dragging of widgets (within the Placeholder),
             (2) Reset dashboards triggers/hoocks, (3) Pre-defined template system for workspaces (with
             plugins in), (4) Copy/paste widgets between workspaces.", "title": "django-dash TODOs"}"""),
@@ -130,7 +124,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidMainPlaceholder.uid,
-        plugin_uid = URL1x1Plugin.uid,
+        plugin_uid = 'url_1x1',
         plugin_data = clean_extra_spaces("""{"url": "https://github.com/barseghyanartur",
             "image": "icon-github", "external": true, "title": "GitHub"}"""),
         position = 27 if mixed_order else 24
@@ -143,7 +137,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidMainPlaceholder.uid,
-        plugin_uid = Dummy2x1Plugin.uid,
+        plugin_uid = 'dummy_2x1',
         plugin_data = clean_extra_spaces("""{"text": "\u0531\u0578\u0582\u0581\u057f\u0585\u0580.
             \u0531\u0576\u057f\u0565 \u056b\u0561\u0581\u0578\u0582\u056c\u056b\u057d. \u0555\u0564\u056b\u0585
             \u0581\u0578\u0582\u0580\u0561\u0565. \u0554\u0578\u0582\u0561\u0574
@@ -163,7 +157,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidMainPlaceholder.uid,
-        plugin_uid = URL1x1Plugin.uid,
+        plugin_uid = 'url_1x1',
         plugin_data = clean_extra_spaces("""{"url": "https://barseghyanartur.blogspot.com/", "image": "icon-info-sign",
             "external": true, "title": "Blogspot"}"""),
         position = 24 if mixed_order else 27
@@ -176,7 +170,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidMainPlaceholder.uid,
-        plugin_uid = URL1x1Plugin.uid,
+        plugin_uid = 'url_1x1',
         plugin_data = clean_extra_spaces("""{"url": "https://bitbucket.org/barseghyanartur", "image": "icon-bitbucket",
             "external": true, "title": "BitBucket"}"""),
         position = 3 if mixed_order else 30
@@ -195,7 +189,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidShortcutsPlaceholder.uid,
-        plugin_uid = URL1x1Plugin.uid,
+        plugin_uid = 'url_1x1',
         plugin_data = clean_extra_spaces("""{"url": "http://www.goldmund-wyldebeast-wunderliebe.com/",
             "image": "icon-thumbs-up", "external": true, "title": "Goldmund, Wyldebeast & Wunderliebe"}"""),
         position = 2 if mixed_order else 1
@@ -208,7 +202,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidShortcutsPlaceholder.uid,
-        plugin_uid = URL1x1Plugin.uid,
+        plugin_uid = 'url_1x1',
         plugin_data = clean_extra_spaces("""{"url": "http://foreverchild.info/", "image": "icon-star",
             "external": true, "title": "Forever Child"}"""),
         position = 1 if mixed_order else 2
@@ -221,7 +215,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidShortcutsPlaceholder.uid,
-        plugin_uid = URL1x1Plugin.uid,
+        plugin_uid = 'url_1x1',
         plugin_data = clean_extra_spaces("""
             {"url": "http://www.youtube.com/watch?v=gDyujx0BZSg&list=PLsn9xS2-yuBvKTsko_TPM16ebCiA1pHfZ",
             "image": "icon-youtube", "external": true, "title": "Cocteau Twins - Treasure"}"""),
@@ -235,7 +229,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidShortcutsPlaceholder.uid,
-        plugin_uid = Dummy1x1Plugin.uid,
+        plugin_uid = 'dummy_1x1',
         plugin_data = clean_extra_spaces("""{"text": "", "lipsum_language": "en", "show_title": false,
             "generate_lipsum": false}"""),
         position = 4
@@ -248,7 +242,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidShortcutsPlaceholder.uid,
-        plugin_uid = URL1x1Plugin.uid,
+        plugin_uid = 'url_1x1',
         plugin_data = clean_extra_spaces("""{"url": "http://www.youtube.com/watch?v=tiYr-464-Nc",
             "image": "icon-youtube", "external": true, "title": "Portishead - Third"}"""),
         position = 5
@@ -261,7 +255,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidShortcutsPlaceholder.uid,
-        plugin_uid = Dummy1x1Plugin.uid,
+        plugin_uid = 'dummy_1x1',
         plugin_data = clean_extra_spaces("""{"text": "", "lipsum_language": "en", "show_title": false,
             "generate_lipsum": false}"""),
         position = 6
@@ -274,7 +268,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidShortcutsPlaceholder.uid,
-        plugin_uid = URL1x1Plugin.uid,
+        plugin_uid = 'url_1x1',
         plugin_data = clean_extra_spaces("""{"url": "http://www.youtube.com/watch?v=7SFf2sQb4H4",
             "image": "icon-youtube", "external": true, "title": "Lais - Kanneke (tiens bien)"}"""),
         position = 7
@@ -287,7 +281,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidShortcutsPlaceholder.uid,
-        plugin_uid = Dummy1x2Plugin.uid,
+        plugin_uid = 'dummy_1x2',
         plugin_data = clean_extra_spaces("""{"text": "", "lipsum_language": "en", "show_title": false,
             "generate_lipsum": false}"""),
         position = 8
@@ -300,7 +294,7 @@ def create_dashboard_entries(user, workspace=None, mixed_order=False):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidShortcutsPlaceholder.uid,
-        plugin_uid = URL1x1Plugin.uid,
+        plugin_uid = 'url_1x1',
         plugin_data = clean_extra_spaces("""	{"url": "http://www.youtube.com/watch?v=67JH3e7d1r4",
             "image": "icon-youtube", "external": true, "title": "Paradise Lost - Draconian Times"}"""),
         position = 10
@@ -332,7 +326,7 @@ def create_news_and_rss_dashboard_entries(user, workspace):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidShortcutsPlaceholder.uid,
-        plugin_uid = URL1x1Plugin.uid,
+        plugin_uid = 'url_1x1',
         plugin_data = clean_extra_spaces("""{"url": "http://delusionalinsanity.com/portfolio/",
             "image": "icon-picture", "external": true, "title": "Delusional Insanity"}"""),
         position = 1
@@ -345,7 +339,7 @@ def create_news_and_rss_dashboard_entries(user, workspace):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidShortcutsPlaceholder.uid,
-        plugin_uid = Dummy1x2Plugin.uid,
+        plugin_uid = 'dummy_1x2',
         plugin_data = clean_extra_spaces("""{"text": "", "lipsum_language": "en", "show_title": false,
             "generate_lipsum": false}"""),
         position = 2
@@ -358,7 +352,7 @@ def create_news_and_rss_dashboard_entries(user, workspace):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidShortcutsPlaceholder.uid,
-        plugin_uid = Dummy1x2Plugin.uid,
+        plugin_uid = 'dummy_1x2',
         plugin_data = clean_extra_spaces("""{"text": "", "lipsum_language": "en", "show_title": false,
             "generate_lipsum": false}"""),
         position = 4
@@ -371,7 +365,7 @@ def create_news_and_rss_dashboard_entries(user, workspace):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidShortcutsPlaceholder.uid,
-        plugin_uid = Dummy1x2Plugin.uid,
+        plugin_uid = 'dummy_1x2',
         plugin_data = clean_extra_spaces("""{"text": "", "lipsum_language": "en", "show_title": false,
             "generate_lipsum": false}"""),
         position = 6
@@ -384,7 +378,7 @@ def create_news_and_rss_dashboard_entries(user, workspace):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidShortcutsPlaceholder.uid,
-        plugin_uid = Dummy1x2Plugin.uid,
+        plugin_uid = 'dummy_1x2',
         plugin_data = clean_extra_spaces("""{"text": "", "lipsum_language": "en", "show_title": false,
             "generate_lipsum": false}"""),
         position = 8
@@ -403,7 +397,7 @@ def create_news_and_rss_dashboard_entries(user, workspace):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidMainPlaceholder.uid,
-        plugin_uid = News4x5Plugin.uid,
+        plugin_uid = 'news_4x5',
         plugin_data = clean_extra_spaces("""{"truncate_after": 35, "max_items": 5, "show_title": true,
             "cache_for": 3600}"""),
         position = 1
@@ -416,7 +410,7 @@ def create_news_and_rss_dashboard_entries(user, workspace):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidMainPlaceholder.uid,
-        plugin_uid = ReadRSSFeed2x3Plugin.uid,
+        plugin_uid = 'read_rss_feed_2x3',
         plugin_data = clean_extra_spaces("""{"custom_feed_title": "News feed", "truncate_after": 35,
             "feed_url": "http://foreverchild.info/rss/", "cache_for": 3600, "show_feed_title": true,
             "max_items": 6}"""),
@@ -430,7 +424,7 @@ def create_news_and_rss_dashboard_entries(user, workspace):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidMainPlaceholder.uid,
-        plugin_uid = Dummy2x1Plugin.uid,
+        plugin_uid = 'dummy_2x1',
         plugin_data = clean_extra_spaces("""{"text": "\u03a3\u03bfc\u03b9\u03b9\u03c3 \u03b5\u03b3\u03b5\u03c4
             \u03c4\u03b9\u03bdc\u03b9\u03b4\u03b8\u03bd\u03c4 \u03b1c,
             \u03c6\u03c1\u03b9\u03bd\u03b3\u03b9\u03bb\u03bb\u03b1 \u03b1c. V\u03b5 \u03b1\u03b8c\u03c4\u03bf\u03c1
@@ -453,7 +447,7 @@ def create_news_and_rss_dashboard_entries(user, workspace):
         workspace = workspace,
         layout_uid = AndroidLayout.uid,
         placeholder_uid = AndroidMainPlaceholder.uid,
-        plugin_uid = Dummy2x1Plugin.uid,
+        plugin_uid = 'dummy_2x1',
         plugin_data = clean_extra_spaces("""{"text": "Quis inceptos. Urna libero tortor nonummy pretium. Lectus.
             Platea eu, ligula lacinia dis, parturient consequat. Nunc tempor pretium natoque cubilia nunc. Ligula
             at, nulla. Congue at. Mauris. Luctus...", "lipsum_max_chars": 200, "lipsum_language": "en",

@@ -215,7 +215,9 @@ structure.
 >>> │       ├── edit_layout.html # Master edit layout
 >>> │       └── view_layout.html # Master view layout
 >>> ├── __init__.py
->>> └── dash_layouts.py # Where Layouts and Placeholders are defined and registered
+>>> ├── dash_layouts.py # Where layouts and placeholders are defined and registered
+>>> ├── dash_plugins.py # Where layout specific plugins and plugin widgets are defined and registered
+>>> └── dash_widgets.py # Where layout specific plugin widgets are defined
 
 Layout and placeholder classes should be placed in the `dash_layouts.py` file.
 
@@ -540,7 +542,8 @@ plugin classes of the required dimensions.
 >>> plugin_factory(BaseMemoPlugin, 'memo', ((5, 6), (6, 5), (6, 6)))
 
 The code above will generate "memo_5x6", "memo_6x5" and "memo_6x6" plugin classes which
-subclass the ``BaseMemoPlugin`` and register them in the plugin registry.
+subclass the ``BaseMemoPlugin`` and register them in the plugin registry. The ``uid`` property
+would be automatically generated.
 
 Same goes for the widgets.
 
@@ -557,11 +560,27 @@ plugin widget classes of the required dimensions.
 >>> plugin_widget_factory(BaseMemoWidget, 'bootstrap2_fluid', 'main', 'memo', ((5, 6), (6, 5), (6, 6)))
 
 The code above will generate "memo_5x6", "memo_6x5" and "memo_6x6" plugin widget classes which
-subclass the ``BaseMemoWidget`` and register them in the plugin widget registry.
+subclass the ``BaseMemoWidget`` and register them in the plugin widget registry. The ``layout_uid``,
+``placeholder_uid``, ``plugin_uid``, ``cols`` and ``rows`` properties would be automatically generated.
 
 Of course, there would be cases when you can't use factory, since each plugin or widget is unique,
 but if you notice yourself subclassing the base widget or plugin many times without any change to
 the code, then it's perhaps a right time to start using the factory.
+
+Layout, plugin and widget summary
+===============================================
+When making your own layouts, plugins and plugin widgets you are free to use the API as you wish.
+While developing the Dash, I found the follow practices useful:
+
+- When making a new plugin, always make a base plugin class, from which all size specific ones
+  would derrive.
+- Do create base plugin widgets (with HTML templates) in the plugin, but do not register them there.
+  Use factory (``dash.factory``) to generate and register layout specific plugin widgets - preferrably
+  in the layout module.
+- If you're adding custom plugin to existing bundled layout (those that reside in ``dash.contrib.layouts``),
+  create a new module named ``dash_custom`` (or any other name that you preffer) and factory generate/
+  register your layout specific plugin widgets in a module named `dash_plugins.py` (do not forget to add
+  the module to ``INSTALLED_APPS``, so that it autodiscovered).
 
 Permissions
 ===============================================

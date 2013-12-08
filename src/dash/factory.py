@@ -12,6 +12,8 @@ from dash.base import plugin_registry, plugin_widget_registry
 
 def plugin_factory(base_class, plugin_uid_prefix, sizes=[]):
     """
+    Plugin factory.
+
     :param dash.base.BaseDashboardWidget base_class: Subclass of.
     :param string layout_uid:
     :param string placeholder_uid:
@@ -29,6 +31,13 @@ def plugin_factory(base_class, plugin_uid_prefix, sizes=[]):
     >>>     'image_8x8': dash.factory.Plugin,
     >>>     'image_9x9': dash.factory.Plugin,
     >>> }
+
+    The generated class (one of them), would look as follows:
+
+    >>> class Plugin(BaseImagePlugin):
+    >>>     uid = 'image_6x6'
+
+    The ``uid`` property is generated automatically.
     """
     for cols, rows in sizes:
 
@@ -44,8 +53,6 @@ def plugin_factory(base_class, plugin_uid_prefix, sizes=[]):
             """
             def __new__(cls, name, bases, props):
                 props['uid'] = plugin_uid
-                props['cols'] = cols
-                props['rows'] = rows
                 return type.__new__(cls, name, bases, props)
 
         class Plugin(with_metaclass(PluginMeta, base_class)):
@@ -57,10 +64,12 @@ def plugin_factory(base_class, plugin_uid_prefix, sizes=[]):
 
 def plugin_widget_factory(base_class, layout_uid, placeholder_uid, plugin_uid_prefix, sizes=[]):
     """
+    Plugin widget factory.
+
     :param dash.base.BaseDashboardWidget base_class: Subclass of.
-    :param string layout_uid:
-    :param string placeholder_uid:
-    :param string plugin_uid_prefix:
+    :param string layout_uid: Layout UID, for which widgets are generated.
+    :param string placeholder_uid: Placeholder UID, for which widets are generated.
+    :param string plugin_uid_prefix: Prefix of the plugin UID.
     :param iterable sizes: Iterable of tuples.
 
     :example:
@@ -75,6 +84,18 @@ def plugin_widget_factory(base_class, layout_uid, placeholder_uid, plugin_uid_pr
     >>>     'android.main.image_8x8': dash.factory.Widget,
     >>>     'android.main.image_9x9': dash.factory.Widget,
     >>> }
+
+    The generated class (one of them), would look as follows:
+
+    >>> class Widget(BaseImageWidget):
+    >>>     layout_uid = 'android'
+    >>>     placeholder_uid = 'main'
+    >>>     plugin_uid = 'image_6x6'
+    >>>     cols = 6
+    >>>     rows = 6
+
+    The ``layout_uid``, ``placeholder_uid``, ``plugin_uid``, ``cols`` and ``rows`` properties are 
+    generated automatically.
     """
     for cols, rows in sizes:
         plugin_uid = "{plugin_uid_prefix}_{cols}x{rows}".format(
