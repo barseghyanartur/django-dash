@@ -86,6 +86,7 @@ Core and contrib
   assign rights to certain plugins for users and groups at once.
 - Use factory in example layout.
 - Check docs and apply factory.
+- Fix the issue with missing top background image in Django admin.
 
 Should haves
 ===============================================

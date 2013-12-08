@@ -563,9 +563,10 @@ The code above will generate "memo_5x6", "memo_6x5" and "memo_6x6" plugin widget
 subclass the ``BaseMemoWidget`` and register them in the plugin widget registry. The ``layout_uid``,
 ``placeholder_uid``, ``plugin_uid``, ``cols`` and ``rows`` properties would be automatically generated.
 
-Of course, there would be cases when you can't use factory, since each plugin or widget is unique,
-but if you notice yourself subclassing the base widget or plugin many times without any change to
-the code, then it's perhaps a right time to start using the factory.
+Of course, there would be cases when you can't use factory, for example because each of your plugins or
+widgets differs from others by tiny important bits, but if you notice yourself subclassing the base widget
+or plugin many times without any change to the code, then it's perhaps a right time to start using the
+factory.
 
 Layout, plugin and widget summary
 ===============================================
