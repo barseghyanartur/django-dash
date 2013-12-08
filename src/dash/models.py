@@ -62,8 +62,8 @@ class DashboardWorkspace(models.Model):
     position = OrderField(_("Position"), null=True, blank=True)
     is_public = models.BooleanField(_("Is public?"), default=False, \
                                     help_text=_("Makes your workspace to be visible to the public."))
-    is_clonable = models.BooleanField(_("Is clonable?"), default=False, \
-                                    help_text=_("Makes your workspace to be clonable by other users."))
+    is_clonable = models.BooleanField(_("Is cloneable?"), default=False, \
+                                    help_text=_("Makes your workspace to be cloneable by other users."))
 
     class Meta:
         verbose_name = _("Dashboard workspace")

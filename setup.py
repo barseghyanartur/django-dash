@@ -56,7 +56,7 @@ for locale_dir in locale_dirs:
 #print(static_files)
 #raise Exception()
 
-version = '0.4'
+version = '0.4.1'
 
 install_requires = [
     'Pillow==2.1.0',

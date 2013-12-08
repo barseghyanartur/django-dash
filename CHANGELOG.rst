@@ -1,8 +1,14 @@
 Release history
 =====================================
+0.4.1
+-------------------------------------
+2013-12-08
+
+- Added Dutch and Russian translations for the missing parts.
+
 0.4
 -------------------------------------
-2013-12-07
+2013-12-08
 
 While core stayed almost intact, there have been major changes made to plugins and widgets. If you
 have written your own plugins and widgets, having inherited existing ones, review your code before

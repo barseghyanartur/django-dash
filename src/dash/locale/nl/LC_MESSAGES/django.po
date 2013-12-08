@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.2.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-24 02:55+0100\n"
-"PO-Revision-Date: 2013-11-24 03:03+0100\n"
+"POT-Creation-Date: 2013-12-08 11:14+0100\n"
+"PO-Revision-Date: 2013-12-08 11:22+0100\n"
 "Last-Translator: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language-Team: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language: Dutch\n"
@@ -17,344 +17,414 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:18
-#: admin.py:46
-#: models.py:27
-#: models.py:48
-#: models.py:118
-#: models.py:189
+#: admin.py:71
+#: admin.py:101
+#: models.py:30
+#: models.py:58
+#: models.py:130
+#: models.py:206
 msgid "User"
 msgstr "Gebruiker"
 
-#: admin.py:21
-#: contrib/plugins/news/admin.py:32
+#: admin.py:74
+#: contrib/plugins/news/admin.py:36
 msgid "Additional"
 msgstr "Aanvullend"
 
-#: admin.py:28
-#: models.py:57
+#: admin.py:81
+#: models.py:69
 msgid "Dashboard workspace"
 msgstr "Dashboard werkruimte"
 
-#: admin.py:52
-#: models.py:129
+#: admin.py:107
+#: models.py:141
 msgid "Dashboard entry"
 msgstr "Dashboard item"
 
-#: admin.py:76
-#: models.py:195
+#: admin.py:134
+#: models.py:212
 msgid "Dashboard plugin"
 msgstr "Dashboard plugin"
 
-#: admin.py:99
-#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:117
-#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:119
+#: admin.py:179
+msgid "{0} Dashboard plugins were changed successfully."
+msgstr "{0} dashboard plugins zijn succesvol bijgewerkt."
+
+#: admin.py:182
+msgid "POST required when changing in bulk!"
+msgstr "POST vereist bij het veranderen van meerdere objecten!"
+
+#: admin.py:211
+#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:118
+#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:120
 #: templates/dash/_base.html:86
 #: templates/dash/_base.html.py:88
 msgid "Dashboard settings"
 msgstr "Dashboard instellingen"
 
-#: base.py:723
+#: base.py:729
 msgid "General"
 msgstr "Algemeen"
 
-#: base.py:1416
+#: base.py:1473
 msgid "Layout `{0}` does not exist!"
 msgstr "Layout `{0}` bestaat niet!"
 
-#: models.py:28
-#: models.py:49
-#: models.py:120
+#: constants.py:11
+msgid "Append"
+msgstr "Toevoegen"
+
+#: constants.py:12
+msgid "Replace"
+msgstr "Vervangen"
+
+#: forms.py:47
+msgid "Selected dashboard plugins"
+msgstr "Geselecteerde dashboard plugins"
+
+#: forms.py:51
+msgid "Users action"
+msgstr "Gebruikers actie"
+
+#: forms.py:53
+#: forms.py:59
+msgid "If set to ``replace``, the groups are replaced; otherwise - appended."
+msgstr "Indien ingesteld op ``vervangen``, worden de groepen vervangen, anders - toegevoegd."
+
+#: forms.py:57
+msgid "Groups action"
+msgstr "Groepen actie"
+
+#: models.py:31
+#: models.py:59
+#: models.py:132
 msgid "Layout"
 msgstr "Layout"
 
-#: models.py:29
-#: contrib/plugins/image/forms.py:28
-#: contrib/plugins/memo/forms.py:19
-#: contrib/plugins/memo/forms.py:42
-#: contrib/plugins/news/models.py:33
-#: contrib/plugins/url/forms.py:27
-#: contrib/plugins/video/forms.py:18
+#: models.py:32
+#: contrib/plugins/image/forms.py:26
+#: contrib/plugins/memo/forms.py:22
+#: contrib/plugins/memo/forms.py:45
+#: contrib/plugins/news/models.py:37
+#: contrib/plugins/url/forms.py:30
+#: contrib/plugins/video/forms.py:21
 msgid "Title"
 msgstr "Titel"
 
-#: models.py:30
-#: models.py:53
+#: models.py:33
+#: models.py:63
 msgid "Is public?"
 msgstr "Is publiek?"
 
-#: models.py:31
+#: models.py:34
 msgid "Makes your dashboard to be visible to the public. Visibility of workspaces could be adjust separately for each workspace, however setting your dashboard to be visible to public, makes your default workspace visible to public too."
 msgstr "Maakt uw dashboard zichtbaar voor de publiek. Zichtbaarheid van werkruimte's is instelbaar voor elke werkruimte, maar als uw dashboard zichbaar voor de publiek is gemaakt, dan is uw standaard werkruimte ook voor de publiek zichtbaar."
 
-#: models.py:50
+#: models.py:60
 msgid "Name"
 msgstr "Naam"
 
-#: models.py:51
-#: contrib/plugins/news/models.py:37
+#: models.py:61
+#: contrib/plugins/news/models.py:41
 msgid "Slug"
 msgstr "Slug"
 
-#: models.py:52
-#: models.py:124
+#: models.py:62
+#: models.py:136
 msgid "Position"
 msgstr "Positie"
 
-#: models.py:54
+#: models.py:64
 msgid "Makes your workspace to be visible to the public."
 msgstr "Maakt uw werkruimte zichtbaar voor de publiek."
 
-#: models.py:58
+#: models.py:65
+msgid "Is cloneable?"
+msgstr "Is cloneable?"
+
+#: models.py:66
+msgid "Makes your workspace to be cloneable by other users."
+msgstr "Maakt uw werkruimte klonabel bij andere gebruikers."
+
+#: models.py:70
 #: templates/dash/dashboard_workspaces.html:6
 #: templates/dash/dashboard_workspaces_ajax.html:5
 msgid "Dashboard workspaces"
 msgstr "Dashboard werkruimte's"
 
-#: models.py:119
+#: models.py:131
 msgid "Workspace"
 msgstr "Werkruimte"
 
-#: models.py:121
+#: models.py:133
 msgid "Placeholder"
 msgstr "Placeholder"
 
-#: models.py:122
+#: models.py:134
 msgid "Plugin name"
 msgstr "Plugin naam"
 
-#: models.py:123
+#: models.py:135
 msgid "Plugin data"
 msgstr "Plugin data"
 
-#: models.py:130
+#: models.py:142
 msgid "Dashboard entries"
 msgstr "Dashboard items"
 
-#: models.py:169
-#: models.py:205
+#: models.py:185
+#: models.py:224
 msgid "UID"
 msgstr "UID"
 
-#: models.py:187
+#: models.py:204
 msgid "Plugin UID"
 msgstr "Plugin UID"
 
-#: models.py:190
+#: models.py:207
 msgid "Group"
 msgstr "Groep"
 
-#: models.py:196
+#: models.py:213
 msgid "Dashboard plugins"
 msgstr "Dashboard plugins"
 
-#: models.py:214
+#: models.py:232
 msgid "Plugin"
 msgstr "Plugin"
 
-#: models.py:224
+#: models.py:242
 msgid "Groups"
 msgstr "Groepen"
 
-#: models.py:234
+#: models.py:252
 msgid "Users"
 msgstr "Gebruikers"
 
-#: views.py:63
-#: views.py:120
-#: views.py:201
+#: views.py:68
+#: views.py:125
+#: views.py:206
 msgid "The workspace with slug \"{0}\" does not belong to layout \"{1}\"."
 msgstr "De werkruimte met slug \"{0}\" behoort niet tot layout \"{1}\"."
 
-#: views.py:154
-#: views.py:371
+#: views.py:159
+#: views.py:376
 msgid "Invalid placeholder: {0}"
 msgstr "Ongeldige placeholder: {0}"
 
-#: views.py:157
+#: views.py:162
 msgid "Invalid plugin name: {0}"
 msgstr "Ongeldige plugin naam: {0}"
 
-#: views.py:220
+#: views.py:225
 msgid "The dashboard widget \"{0}\" was added successfully."
 msgstr "Het dashboard widget \"{0}\" is succesvol aangemaakt."
 
-#: views.py:297
+#: views.py:302
 msgid "The dashboard widget \"{0}\" was edited successfully."
 msgstr "Het dashboard widget \"{0}\" is succesvol bijgewerkt."
 
-#: views.py:335
+#: views.py:340
 msgid "The dashboard widget \"{0}\" was deleted successfully."
 msgstr "Het dashboard widget \"{0}\" is succesvol verwijderd."
 
-#: views.py:416
+#: views.py:421
 msgid "The dashboard workspace \"{0}\" was created successfully."
 msgstr "Het dashboard werkruimte \"{0}\" is succesvol aangemaakt."
 
-#: views.py:463
+#: views.py:468
 msgid "The dashboard workspace \"{0}\" was edited successfully."
 msgstr "Het dashboard werkruimte \"{0}\" is succesvol bijgewerkt."
 
-#: views.py:524
+#: views.py:529
 msgid "The dashboard workspace \"{0}\" was deleted successfully."
 msgstr "Het dashboard werkruimte \"{0}\" is succesvol verwijderd."
 
-#: views.py:589
+#: views.py:594
 msgid "Dashboard settings were edited successfully."
 msgstr "Het dashboard instellingen zijn succesvol bijgewerkt."
 
-#: widgets.py:7
+#: views.py:622
+msgid "Invalid dashboard workspace."
+msgstr "Ongeldige dashboard werkruimte."
+
+#: views.py:629
+msgid "You are not allowed to clone the given workspace."
+msgstr "U bent niet toegestaan ​​om de opgegeven werkruimte te klonen."
+
+#: views.py:646
+msgid "Dashboard workspace `{0}` was successfully cloned into `{1}`."
+msgstr "Dashboard werkruimte `{0}` werd met succes gekloond naar `{1}`."
+
+#: views.py:655
+msgid "Dashboard workspace `{0}` was successfully cloned into `{1}` (layout `{2}`), however your active layout is `{3}`. You should switch to layout `{4}` (in your dashboard settings) in order to see the cloned workspace."
+msgstr "Dashboard werkruimte `{0}` werd met succes gekloond in `{1}` (layout `{2}`), maar uw actieve lay-out is `{3}`. Je mag nu overschakelen naar de layout `{4}` (in uw dashboard instellingen) om de gekloonde werkruimte te zien."
+
+#: widgets.py:10
 msgid "Yes"
 msgstr "Ja"
 
-#: widgets.py:8
+#: widgets.py:11
 msgid "No"
 msgstr "Nee"
 
-#: contrib/apps/public_dashboard/views.py:82
+#: contrib/apps/public_dashboard/views.py:86
 msgid "The workspace with slug \"{0}\" does not exist."
 msgstr "De werkruimte met slug \"{0}\" bestaat niet."
 
 #: contrib/apps/public_dashboard/templates/public_dashboard/public_dashboard.html:5
-#: contrib/apps/public_dashboard/templates/public_dashboard/public_dashboard.html:16
-#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:90
+#: contrib/apps/public_dashboard/templates/public_dashboard/public_dashboard.html:35
 #: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:91
+#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:92
+#: contrib/layouts/bootstrap2/templates/bootstrap2/fuild_public_dashboard_view_layout.html:47
 #: contrib/layouts/bootstrap2/templates/bootstrap2/fuild_public_dashboard_view_layout.html:48
-#: contrib/layouts/bootstrap2/templates/bootstrap2/fuild_public_dashboard_view_layout.html:49
-#: templates/dash/_base.html:152
+#: templates/dash/_base.html:162
 #: templates/dash/dashboard_workspaces_ajax.html:11
 #: templates/dash/dashboard_workspaces_ajax.html:13
 msgid "Default"
 msgstr "Standaard"
 
 #: contrib/apps/public_dashboard/templates/public_dashboard/public_dashboard.html:5
-#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:148
-#: templates/dash/_base.html:126
+#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:159
+#: templates/dash/_base.html:136
 msgid "Public dashboard"
 msgstr "Publiek dashboard"
 
-#: contrib/layouts/bootstrap2/defaults.py:7
-#: contrib/plugins/url/defaults.py:6
-msgid "Film"
-msgstr "Film"
+#: contrib/apps/public_dashboard/templates/public_dashboard/public_dashboard.html:14
+#: templates/dash/_base.html:71
+msgid "Menu"
+msgstr "Menu"
 
-#: contrib/layouts/bootstrap2/defaults.py:9
-#: contrib/plugins/url/defaults.py:8
-msgid "Calendar"
-msgstr "Kalender"
+#: contrib/apps/public_dashboard/templates/public_dashboard/public_dashboard.html:19
+#: contrib/apps/public_dashboard/templates/public_dashboard/public_dashboard.html:20
+#: contrib/apps/public_dashboard/templates/public_dashboard/public_dashboard.html:21
+#: contrib/layouts/bootstrap2/templates/bootstrap2/fuild_public_dashboard_view_layout.html:68
+#: contrib/layouts/bootstrap2/templates/bootstrap2/fuild_public_dashboard_view_layout.html:70
+msgid "Clone this workspace"
+msgstr "Kloon deze werkruimte"
 
 #: contrib/layouts/bootstrap2/defaults.py:10
 #: contrib/plugins/url/defaults.py:9
-msgid "Book"
-msgstr "Boek"
-
-#: contrib/layouts/bootstrap2/defaults.py:11
-#: contrib/plugins/url/defaults.py:10
-msgid "Music"
-msgstr "Muziek"
+msgid "Film"
+msgstr "Film"
 
 #: contrib/layouts/bootstrap2/defaults.py:12
 #: contrib/plugins/url/defaults.py:11
-msgid "Picture"
-msgstr "Afbeelding"
+msgid "Calendar"
+msgstr "Kalender"
+
+#: contrib/layouts/bootstrap2/defaults.py:13
+#: contrib/plugins/url/defaults.py:12
+msgid "Book"
+msgstr "Boek"
 
 #: contrib/layouts/bootstrap2/defaults.py:14
 #: contrib/plugins/url/defaults.py:13
-msgid "Star"
-msgstr "Ster"
+msgid "Music"
+msgstr "Muziek"
 
 #: contrib/layouts/bootstrap2/defaults.py:15
 #: contrib/plugins/url/defaults.py:14
-msgid "Thumbs-up"
-msgstr "Thumbs-up"
+msgid "Picture"
+msgstr "Afbeelding"
+
+#: contrib/layouts/bootstrap2/defaults.py:17
+#: contrib/plugins/url/defaults.py:16
+msgid "Star"
+msgstr "Ster"
 
 #: contrib/layouts/bootstrap2/defaults.py:18
 #: contrib/plugins/url/defaults.py:17
-msgid "Plane"
-msgstr "Vliegtuig"
-
-#: contrib/layouts/bootstrap2/defaults.py:19
-#: contrib/plugins/url/defaults.py:18
-msgid "Road"
-msgstr "Weg"
-
-#: contrib/layouts/bootstrap2/defaults.py:20
-#: contrib/plugins/url/defaults.py:19
-msgid "Camera"
-msgstr "Camera"
+msgid "Thumbs-up"
+msgstr "Thumbs-up"
 
 #: contrib/layouts/bootstrap2/defaults.py:21
 #: contrib/plugins/url/defaults.py:20
-msgid "Download"
-msgstr "Download"
+msgid "Plane"
+msgstr "Vliegtuig"
+
+#: contrib/layouts/bootstrap2/defaults.py:22
+#: contrib/plugins/url/defaults.py:21
+msgid "Road"
+msgstr "Weg"
 
 #: contrib/layouts/bootstrap2/defaults.py:23
 #: contrib/plugins/url/defaults.py:22
-msgid "Info"
-msgstr "Info"
+msgid "Camera"
+msgstr "Camera"
 
 #: contrib/layouts/bootstrap2/defaults.py:24
 #: contrib/plugins/url/defaults.py:23
-msgid "Shopping cart"
-msgstr "Winkelwagen"
+msgid "Download"
+msgstr "Download"
 
 #: contrib/layouts/bootstrap2/defaults.py:26
 #: contrib/plugins/url/defaults.py:25
+msgid "Info"
+msgstr "Info"
+
+#: contrib/layouts/bootstrap2/defaults.py:27
+#: contrib/plugins/url/defaults.py:26
+msgid "Shopping cart"
+msgstr "Winkelwagen"
+
+#: contrib/layouts/bootstrap2/defaults.py:29
+#: contrib/plugins/url/defaults.py:28
 msgid "Wrench"
 msgstr "Moersleutel"
 
-#: contrib/layouts/bootstrap2/defaults.py:43
-#: contrib/plugins/url/defaults.py:42
+#: contrib/layouts/bootstrap2/defaults.py:46
+#: contrib/plugins/url/defaults.py:45
 msgid "Lock"
 msgstr "Slot"
 
-#: contrib/layouts/bootstrap2/defaults.py:44
-#: contrib/plugins/url/defaults.py:43
+#: contrib/layouts/bootstrap2/defaults.py:47
+#: contrib/plugins/url/defaults.py:46
 msgid "Heart"
 msgstr "Slot"
 
-#: contrib/layouts/bootstrap2/defaults.py:45
-#: contrib/plugins/url/defaults.py:44
+#: contrib/layouts/bootstrap2/defaults.py:48
+#: contrib/plugins/url/defaults.py:47
 msgid "Question"
 msgstr "Vraag"
 
-#: contrib/layouts/bootstrap2/defaults.py:46
-#: contrib/plugins/url/defaults.py:45
+#: contrib/layouts/bootstrap2/defaults.py:49
+#: contrib/plugins/url/defaults.py:48
 msgid "Headphones"
 msgstr "Koptelefoon"
 
-#: contrib/layouts/bootstrap2/defaults.py:47
-#: contrib/plugins/url/defaults.py:46
+#: contrib/layouts/bootstrap2/defaults.py:50
+#: contrib/plugins/url/defaults.py:49
 msgid "Gift"
 msgstr "Cadeau"
 
-#: contrib/layouts/bootstrap2/defaults.py:51
-#: contrib/plugins/url/defaults.py:50
+#: contrib/layouts/bootstrap2/defaults.py:54
+#: contrib/plugins/url/defaults.py:53
 msgid "Comment"
 msgstr "Commentaar"
 
-#: contrib/layouts/bootstrap2/defaults.py:53
-#: contrib/plugins/url/defaults.py:52
+#: contrib/layouts/bootstrap2/defaults.py:56
+#: contrib/plugins/url/defaults.py:55
 msgid "Bell"
 msgstr "Bel"
 
-#: contrib/layouts/bootstrap2/defaults.py:56
+#: contrib/layouts/bootstrap2/defaults.py:59
 msgid "Search"
 msgstr "Zoeken"
 
-#: contrib/layouts/bootstrap2/defaults.py:57
+#: contrib/layouts/bootstrap2/defaults.py:60
 msgid "Map marker"
 msgstr "Markeerpunt op de kaart"
 
-#: contrib/layouts/bootstrap2/defaults.py:58
+#: contrib/layouts/bootstrap2/defaults.py:61
 msgid "Globe"
 msgstr "Wereldbol"
 
-#: contrib/layouts/bootstrap2/defaults.py:59
+#: contrib/layouts/bootstrap2/defaults.py:62
 msgid "Pensil"
 msgstr "Potlood"
 
-#: contrib/layouts/bootstrap2/defaults.py:60
+#: contrib/layouts/bootstrap2/defaults.py:63
 msgid "Tasks"
 msgstr "Taken"
 
@@ -371,53 +441,61 @@ msgstr ""
 
 #: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:49
 #: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:50
+#: templates/dash/admin/bulk_change_dashboard_plugins.html:27
 msgid "Home"
 msgstr "Hoofdpagina"
 
-#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:54
-msgid "View Dashboard"
-msgstr "Dashboard bekijken"
-
-#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:55
-#: templates/dash/_base.html:56
-msgid "View dashboard"
-msgstr "Dashboard bekijken"
-
-#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:61
-#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:62
+#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:56
+#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:57
 #: contrib/layouts/bootstrap2/templates/bootstrap2/fluid_edit_layout.html:10
 #: templates/dash/_base.html:64
 #: templates/dash/layouts/base_edit_layout.html:5
 msgid "Edit dashboard"
 msgstr "Dashboard beheren"
 
-#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:88
-#: contrib/layouts/bootstrap2/templates/bootstrap2/fuild_public_dashboard_view_layout.html:46
+#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:62
+msgid "View Dashboard"
+msgstr "Dashboard bekijken"
+
+#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:63
+#: templates/dash/_base.html:56
+msgid "View dashboard"
+msgstr "Dashboard bekijken"
+
+#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:89
+#: contrib/layouts/bootstrap2/templates/bootstrap2/fuild_public_dashboard_view_layout.html:45
 msgid "Workspaces"
 msgstr "Werkruimtes"
 
-#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:105
+#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:106
 msgid "Settings"
 msgstr "Instellingen"
 
-#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:108
-#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:110
+#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:109
+#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:111
 #: templates/dash/_base.html:77
 #: templates/dash/_base.html.py:79
 msgid "Create a workspace"
 msgstr "Werkruimte aanmaken"
 
-#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:127
-#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:129
+#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:128
+#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:130
 #: templates/dash/_base.html:96
 #: templates/dash/_base.html.py:98
 msgid "Edit current workspace"
 msgstr "Huidige werkruimte beheren"
 
-#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:135
 #: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:137
-#: templates/dash/_base.html:104
-#: templates/dash/_base.html.py:106
+#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:139
+#: templates/dash/_base.html:105
+#: templates/dash/_base.html.py:107
+msgid "Clone current workspace"
+msgstr "Kloon huidige werkruimte"
+
+#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:146
+#: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:148
+#: templates/dash/_base.html:114
+#: templates/dash/_base.html.py:116
 msgid "Delete current workspace"
 msgstr "Huidige werkruimte verwijderen"
 
@@ -443,182 +521,171 @@ msgid "Dashboard"
 msgstr "Dashboard"
 
 #: contrib/layouts/bootstrap2/templates/bootstrap2/fuild_public_dashboard_view_layout.html:30
-#: templatetags/dash_tags.py:161
+#: templatetags/dash_tags.py:164
 msgid "Log out"
 msgstr "Uitloggen"
 
 #: contrib/layouts/bootstrap2/templates/bootstrap2/fuild_public_dashboard_view_layout.html:32
-#: templatetags/dash_tags.py:170
+#: templatetags/dash_tags.py:173
 msgid "Log in"
 msgstr "Inloggen"
+
+#: contrib/layouts/bootstrap2/templates/bootstrap2/fuild_public_dashboard_view_layout.html:66
+msgid "Options"
+msgstr "Opties"
 
 #: contrib/layouts/bootstrap2/templates/bootstrap2/snippets/generic_form_snippet.html:5
 #: templates/dash/snippets/generic_form_snippet.html:3
 msgid "Fields marked with <span class=\"required-symbol\">*</span> are required"
 msgstr "Velden gemakeerd met <span class=\"required-symbol\">*</span> zijn verplicht"
 
-#: contrib/plugins/dummy/dash_plugins.py:23
-#: contrib/plugins/dummy/dash_plugins.py:25
-#: contrib/plugins/dummy/dash_plugins.py:52
-#: contrib/plugins/dummy/dash_plugins.py:53
-#: contrib/plugins/dummy/dash_plugins.py:67
-#: contrib/plugins/dummy/dash_plugins.py:68
-#: contrib/plugins/dummy/dash_plugins.py:82
-#: contrib/plugins/dummy/dash_plugins.py:83
-#: contrib/plugins/dummy/dash_plugins.py:97
-#: contrib/plugins/dummy/dash_plugins.py:98
-#: contrib/plugins/dummy/dash_plugins.py:113
-#: contrib/plugins/dummy/dash_plugins.py:114
-#: contrib/plugins/dummy/dash_plugins.py:128
-#: contrib/plugins/dummy/dash_plugins.py:129
+#: contrib/plugins/dummy/dash_plugins.py:19
+#: contrib/plugins/dummy/dash_plugins.py:21
 msgid "Dummy"
 msgstr "Dummy"
 
-#: contrib/plugins/dummy/forms.py:34
-#: contrib/plugins/news/forms.py:21
-#: contrib/plugins/weather/forms.py:28
+#: contrib/plugins/dummy/forms.py:37
+#: contrib/plugins/news/forms.py:24
+#: contrib/plugins/weather/forms.py:31
 msgid "Show title?"
 msgstr "Title tonen?"
 
-#: contrib/plugins/dummy/forms.py:36
+#: contrib/plugins/dummy/forms.py:39
 msgid "Generate lorem ipsum?"
 msgstr "Lorem ipsum genereren?"
 
-#: contrib/plugins/dummy/forms.py:38
+#: contrib/plugins/dummy/forms.py:41
 msgid "Language"
 msgstr "Taal"
 
-#: contrib/plugins/dummy/forms.py:39
+#: contrib/plugins/dummy/forms.py:42
 msgid "Max number of chars for generated text"
 msgstr "Maximum aantal tekens voor de gegenereerde tekst"
 
-#: contrib/plugins/dummy/forms.py:41
+#: contrib/plugins/dummy/forms.py:44
 msgid "Generated lorem ipsum text"
 msgstr "Gegenereerd lorem ipsum tekst"
 
-#: contrib/plugins/image/dash_plugins.py:23
-#: contrib/plugins/image/dash_plugins.py:24
-#: contrib/plugins/image/forms.py:29
-#: contrib/plugins/news/models.py:72
-#: contrib/plugins/url/forms.py:30
+#: contrib/plugins/image/dash_plugins.py:20
+#: contrib/plugins/image/dash_plugins.py:21
+#: contrib/plugins/image/forms.py:27
+#: contrib/plugins/news/models.py:76
+#: contrib/plugins/url/forms.py:33
 msgid "Image"
 msgstr "Afbeelding"
 
-#: contrib/plugins/image/defaults.py:16
+#: contrib/plugins/image/defaults.py:19
 msgid "Smart crop"
 msgstr "Slim afknippen"
 
-#: contrib/plugins/image/defaults.py:17
+#: contrib/plugins/image/defaults.py:20
 msgid "Crop center"
 msgstr "Centraal afknippen"
 
-#: contrib/plugins/image/defaults.py:18
+#: contrib/plugins/image/defaults.py:21
 msgid "Crop scale"
 msgstr "Schalen"
 
-#: contrib/plugins/image/defaults.py:19
+#: contrib/plugins/image/defaults.py:22
 msgid "Fit width"
 msgstr "Volledige breedte"
 
-#: contrib/plugins/image/defaults.py:20
+#: contrib/plugins/image/defaults.py:23
 msgid "Fit height"
 msgstr "Volledige hoogte"
 
-#: contrib/plugins/image/forms.py:30
+#: contrib/plugins/image/forms.py:28
 msgid "Fit method"
 msgstr "Formaat aanpassen"
 
-#: contrib/plugins/image/forms.py:32
+#: contrib/plugins/image/forms.py:30
 msgid "Show link?"
 msgstr "Link tonen?"
 
-#: contrib/plugins/image/templates/image/render_main.html:14
-#: contrib/plugins/image/templates/image/render_shortcuts.html:14
+#: contrib/plugins/image/templates/image/render.html:14
 msgid "No image provided!"
 msgstr "Geen afbeelding geleverd!"
 
-#: contrib/plugins/memo/dash_plugins.py:23
-#: contrib/plugins/memo/dash_plugins.py:24
-#: contrib/plugins/memo/dash_plugins.py:101
+#: contrib/plugins/memo/dash_plugins.py:20
+#: contrib/plugins/memo/dash_plugins.py:21
+#: contrib/plugins/memo/dash_plugins.py:49
 msgid "Memo"
 msgstr "Memo"
 
-#: contrib/plugins/memo/dash_plugins.py:100
+#: contrib/plugins/memo/dash_plugins.py:48
 msgid "TinyMCE memo"
 msgstr "TinyMCE memo"
 
-#: contrib/plugins/memo/dash_plugins.py:103
+#: contrib/plugins/memo/dash_plugins.py:51
 msgid "TinyMCE tags are available here."
 msgstr "TinyMCE tags zijn hier bruikbaar."
 
-#: contrib/plugins/memo/forms.py:20
+#: contrib/plugins/memo/forms.py:23
 msgid "Text"
 msgstr "Tekst"
 
-#: contrib/plugins/memo/forms.py:43
+#: contrib/plugins/memo/forms.py:46
 msgid "HTML"
 msgstr "HTML"
 
-#: contrib/plugins/news/admin.py:28
+#: contrib/plugins/news/admin.py:32
 msgid "Publication date"
 msgstr "Publicatiedatum"
 
-#: contrib/plugins/news/admin.py:39
-#: contrib/plugins/news/models.py:45
+#: contrib/plugins/news/admin.py:43
+#: contrib/plugins/news/models.py:49
 msgid "News item"
 msgstr "Nieuwsbericht"
 
-#: contrib/plugins/news/dash_plugins.py:21
 #: contrib/plugins/news/dash_plugins.py:23
-#: contrib/plugins/news/dash_plugins.py:50
-#: contrib/plugins/news/dash_plugins.py:52
+#: contrib/plugins/news/dash_plugins.py:25
 #: contrib/plugins/news/templates/news/browse_ajax.html:3
-#: contrib/plugins/news/templates/news/render_2x5_main.html:3
+#: contrib/plugins/news/templates/news/render.html:3
 msgid "News"
 msgstr "Nieuws"
 
-#: contrib/plugins/news/forms.py:23
-#: contrib/plugins/rss_feed/forms.py:27
+#: contrib/plugins/news/forms.py:26
+#: contrib/plugins/rss_feed/forms.py:30
 msgid "Max feed items to show"
 msgstr "Maximum aantal items te laten zien"
 
-#: contrib/plugins/news/forms.py:24
-#: contrib/plugins/rss_feed/forms.py:28
+#: contrib/plugins/news/forms.py:27
+#: contrib/plugins/rss_feed/forms.py:31
 msgid "Truncate after"
 msgstr "Afkappen na"
 
-#: contrib/plugins/news/forms.py:25
-#: contrib/plugins/rss_feed/forms.py:29
-#: contrib/plugins/weather/forms.py:30
+#: contrib/plugins/news/forms.py:28
+#: contrib/plugins/rss_feed/forms.py:32
+#: contrib/plugins/weather/forms.py:33
 msgid "Cache for"
 msgstr "Cachen voor"
 
-#: contrib/plugins/news/models.py:34
+#: contrib/plugins/news/models.py:38
 msgid "Body"
 msgstr "Body"
 
-#: contrib/plugins/news/models.py:35
+#: contrib/plugins/news/models.py:39
 msgid "Headline image"
 msgstr "Headline afbeelding"
 
-#: contrib/plugins/news/models.py:36
+#: contrib/plugins/news/models.py:40
 msgid "Date published"
 msgstr "Publicatiedatum"
 
-#: contrib/plugins/news/models.py:41
+#: contrib/plugins/news/models.py:45
 msgid "Date created"
 msgstr "Aanmaakdatum"
 
-#: contrib/plugins/news/models.py:42
+#: contrib/plugins/news/models.py:46
 msgid "Date updated"
 msgstr "Datum geupdate"
 
-#: contrib/plugins/news/models.py:46
+#: contrib/plugins/news/models.py:50
 msgid "News items"
 msgstr "Nieuwsberichten"
 
-#: contrib/plugins/news/views.py:64
-#: contrib/plugins/news/views.py:69
+#: contrib/plugins/news/views.py:67
+#: contrib/plugins/news/views.py:72
 msgid "Invalid page!"
 msgstr "Ongeldige pagina!"
 
@@ -652,7 +719,6 @@ msgid "Back to foo home"
 msgstr "Terug naar foo hoofdpagina"
 
 #: contrib/plugins/rss_feed/dash_plugins.py:20
-#: contrib/plugins/rss_feed/dash_plugins.py:35
 msgid "Read RSS feed"
 msgstr "Lees RSS feed"
 
@@ -661,180 +727,175 @@ msgstr "Lees RSS feed"
 msgid "Internet"
 msgstr "Internet"
 
-#: contrib/plugins/rss_feed/forms.py:23
+#: contrib/plugins/rss_feed/forms.py:26
 msgid "Feed URL"
 msgstr "Feed URL"
 
-#: contrib/plugins/rss_feed/forms.py:24
+#: contrib/plugins/rss_feed/forms.py:27
 msgid "Custom feed title"
 msgstr "Custom feed titel"
 
-#: contrib/plugins/rss_feed/forms.py:25
+#: contrib/plugins/rss_feed/forms.py:28
 msgid "Show feed title?"
 msgstr "Feed title tonen?"
 
-#: contrib/plugins/url/dash_plugins.py:19
-#: contrib/plugins/url/forms.py:28
-#: contrib/plugins/video/forms.py:19
+#: contrib/plugins/url/dash_plugins.py:20
+#: contrib/plugins/url/forms.py:31
+#: contrib/plugins/video/forms.py:22
 msgid "URL"
 msgstr "URL"
 
-#: contrib/plugins/url/dash_plugins.py:20
+#: contrib/plugins/url/dash_plugins.py:21
 msgid "URLs"
 msgstr "URLs"
 
-#: contrib/plugins/url/defaults.py:7
+#: contrib/plugins/url/defaults.py:10
 msgid "Coffee"
 msgstr "Koffie"
 
-#: contrib/plugins/url/defaults.py:12
+#: contrib/plugins/url/defaults.py:15
 msgid "RSS"
 msgstr "RSS"
 
-#: contrib/plugins/url/defaults.py:15
+#: contrib/plugins/url/defaults.py:18
 msgid "Smile"
 msgstr "Glimlach"
 
-#: contrib/plugins/url/defaults.py:16
+#: contrib/plugins/url/defaults.py:19
 msgid "Gamepad"
 msgstr "Gamepad"
 
-#: contrib/plugins/url/defaults.py:21
+#: contrib/plugins/url/defaults.py:24
 msgid "Food"
 msgstr "Eten"
 
-#: contrib/plugins/url/defaults.py:24
+#: contrib/plugins/url/defaults.py:27
 msgid "Truck"
 msgstr "Vrachtwagen"
 
-#: contrib/plugins/url/defaults.py:26
+#: contrib/plugins/url/defaults.py:29
 msgid "Facebook"
 msgstr "Facebook"
 
-#: contrib/plugins/url/defaults.py:27
+#: contrib/plugins/url/defaults.py:30
 msgid "Github"
 msgstr "Github"
 
-#: contrib/plugins/url/defaults.py:28
+#: contrib/plugins/url/defaults.py:31
 msgid "Google plus"
 msgstr "Google plus"
 
-#: contrib/plugins/url/defaults.py:29
+#: contrib/plugins/url/defaults.py:32
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: contrib/plugins/url/defaults.py:30
+#: contrib/plugins/url/defaults.py:33
 msgid "Pinterest"
 msgstr "Pinterest"
 
-#: contrib/plugins/url/defaults.py:31
+#: contrib/plugins/url/defaults.py:34
 msgid "Twitter"
 msgstr "Twitter"
 
-#: contrib/plugins/url/defaults.py:32
+#: contrib/plugins/url/defaults.py:35
 msgid "Youtube"
 msgstr "Youtube"
 
-#: contrib/plugins/url/defaults.py:33
+#: contrib/plugins/url/defaults.py:36
 msgid "Bitbucket"
 msgstr "Bitbucket"
 
-#: contrib/plugins/url/defaults.py:34
+#: contrib/plugins/url/defaults.py:37
 msgid "Android"
 msgstr "Android"
 
-#: contrib/plugins/url/defaults.py:35
+#: contrib/plugins/url/defaults.py:38
 msgid "Apple"
 msgstr "Apple"
 
-#: contrib/plugins/url/defaults.py:36
+#: contrib/plugins/url/defaults.py:39
 msgid "Windows"
 msgstr "Windows"
 
-#: contrib/plugins/url/defaults.py:37
+#: contrib/plugins/url/defaults.py:40
 msgid "Tumblr"
 msgstr "Tumblr"
 
-#: contrib/plugins/url/defaults.py:38
+#: contrib/plugins/url/defaults.py:41
 msgid "Instagram"
 msgstr "Instagram"
 
-#: contrib/plugins/url/defaults.py:39
+#: contrib/plugins/url/defaults.py:42
 msgid "Dropbox"
 msgstr "Dropbox"
 
-#: contrib/plugins/url/defaults.py:40
+#: contrib/plugins/url/defaults.py:43
 msgid "Trophy"
 msgstr "Trofee"
 
-#: contrib/plugins/url/defaults.py:41
+#: contrib/plugins/url/defaults.py:44
 msgid "Legal"
 msgstr "Legaal"
 
-#: contrib/plugins/url/defaults.py:47
+#: contrib/plugins/url/defaults.py:50
 msgid "Key"
 msgstr "Sleutel"
 
-#: contrib/plugins/url/defaults.py:48
+#: contrib/plugins/url/defaults.py:51
 msgid "Female"
 msgstr "Vrouw"
 
-#: contrib/plugins/url/defaults.py:49
+#: contrib/plugins/url/defaults.py:52
 msgid "Male"
 msgstr "Man"
 
-#: contrib/plugins/url/defaults.py:51
+#: contrib/plugins/url/defaults.py:54
 msgid "Bug"
 msgstr "Bug"
 
-#: contrib/plugins/url/forms.py:29
+#: contrib/plugins/url/forms.py:32
 msgid "External?"
 msgstr "Extern?"
 
 #: contrib/plugins/video/dash_plugins.py:22
-#: contrib/plugins/video/dash_plugins.py:43
-#: contrib/plugins/video/dash_plugins.py:57
-#: contrib/plugins/video/dash_plugins.py:72
 msgid "Video"
 msgstr "Video"
 
-#: contrib/plugins/weather/dash_plugins.py:27
 #: contrib/plugins/weather/dash_plugins.py:29
-#: contrib/plugins/weather/dash_plugins.py:111
-#: contrib/plugins/weather/dash_plugins.py:112
-#: contrib/plugins/weather/templates/weather/render_main.html:3
+#: contrib/plugins/weather/dash_plugins.py:31
+#: contrib/plugins/weather/templates/weather/render.html:3
 msgid "Weather"
 msgstr "Weer"
 
-#: contrib/plugins/weather/forms.py:27
+#: contrib/plugins/weather/forms.py:30
 msgid "Custom title"
 msgstr "Custom titel"
 
-#: contrib/plugins/weather/forms.py:31
+#: contrib/plugins/weather/forms.py:34
 msgid "Public IP"
 msgstr "Publiek IP"
 
-#: contrib/plugins/weather/forms.py:32
+#: contrib/plugins/weather/forms.py:35
 msgid "Weather data JSON"
 msgstr "Weer data JSON"
 
-#: contrib/plugins/weather/templates/weather/render_main.html:18
+#: contrib/plugins/weather/templates/weather/render.html:18
 msgid "Min"
 msgstr "Min"
 
-#: contrib/plugins/weather/templates/weather/render_main.html:18
+#: contrib/plugins/weather/templates/weather/render.html:18
 msgid "Max"
 msgstr "Max"
 
-#: contrib/plugins/weather/templates/weather/render_main.html:22
+#: contrib/plugins/weather/templates/weather/render.html:22
 msgid "Humidity"
 msgstr "Vochtigheid"
 
-#: contrib/plugins/weather/templates/weather/render_main.html:25
+#: contrib/plugins/weather/templates/weather/render.html:25
 msgid "Visibility"
 msgstr "Zichtbaarheid"
 
-#: contrib/plugins/weather/templates/weather/render_main.html:27
+#: contrib/plugins/weather/templates/weather/render.html:27
 #, python-format
 msgid ""
 "\n"
@@ -845,11 +906,11 @@ msgstr ""
 "                                %(current_visibility)s km\n"
 "                            "
 
-#: contrib/plugins/weather/templates/weather/render_main.html:32
+#: contrib/plugins/weather/templates/weather/render.html:32
 msgid "Wind"
 msgstr "Wind"
 
-#: contrib/plugins/weather/templates/weather/render_main.html:34
+#: contrib/plugins/weather/templates/weather/render.html:34
 #, python-format
 msgid ""
 "\n"
@@ -859,10 +920,6 @@ msgstr ""
 "\n"
 "                                %(windspeed_kmph)s kmph van de %(wind_dir_16_point)s\n"
 "                            "
-
-#: templates/dash/_base.html:71
-msgid "Menu"
-msgstr "Menu"
 
 #: templates/dash/add_dashboard_entry.html:6
 msgid "Add dashboard entry"
@@ -940,4 +997,18 @@ msgstr "Plugin widgets"
 #: templates/dash/plugin_widgets_ajax.html:6
 msgid "Widgets"
 msgstr "Widgets"
+
+#: templates/dash/admin/bulk_change_dashboard_plugins.html:5
+#: templates/dash/admin/bulk_change_dashboard_plugins.html:30
+#: templates/dash/admin/bulk_change_dashboard_plugins.html:35
+msgid "Edit multiple objects"
+msgstr "Meerdere objecten bewerken"
+
+#: templates/dash/admin/bulk_change_dashboard_plugins.html:5
+msgid "Django site admin"
+msgstr ""
+
+#: templates/dash/admin/bulk_change_dashboard_plugins.html:74
+msgid "Submit changes"
+msgstr "Wijzigen"
 
