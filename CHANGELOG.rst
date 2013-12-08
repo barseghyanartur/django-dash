@@ -1,5 +1,11 @@
 Release history
 =====================================
+0.4.2
+-------------------------------------
+2013-12-08
+
+- Fix extra (duplicate) menu appearing on the public dashboard of the "Bootstrap2 Fluid" layout.
+
 0.4.1
 -------------------------------------
 2013-12-08

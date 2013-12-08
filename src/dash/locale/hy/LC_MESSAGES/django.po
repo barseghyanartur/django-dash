@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.2.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-08 11:14+0100\n"
-"PO-Revision-Date: 2013-11-07 22:09+0100\n"
+"PO-Revision-Date: 2013-12-08 13:11+0100\n"
 "Last-Translator: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language-Team: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language: Armenian\n"
@@ -16,24 +16,32 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:71 admin.py:101 models.py:30 models.py:58 models.py:130
+#: admin.py:71
+#: admin.py:101
+#: models.py:30
+#: models.py:58
+#: models.py:130
 #: models.py:206
 msgid "User"
 msgstr "Օգտագործող"
 
-#: admin.py:74 contrib/plugins/news/admin.py:36
+#: admin.py:74
+#: contrib/plugins/news/admin.py:36
 msgid "Additional"
 msgstr "Լրացուցիչ"
 
-#: admin.py:81 models.py:69
+#: admin.py:81
+#: models.py:69
 msgid "Dashboard workspace"
 msgstr "Սարքատախտակի աշխատատեղ"
 
-#: admin.py:107 models.py:141
+#: admin.py:107
+#: models.py:141
 msgid "Dashboard entry"
 msgstr "Սարքատախտակի գրառում"
 
-#: admin.py:134 models.py:212
+#: admin.py:134
+#: models.py:212
 msgid "Dashboard plugin"
 msgstr "Սարքատախտակի պլագին"
 
@@ -48,7 +56,8 @@ msgstr ""
 #: admin.py:211
 #: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:118
 #: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:120
-#: templates/dash/_base.html:86 templates/dash/_base.html.py:88
+#: templates/dash/_base.html:86
+#: templates/dash/_base.html.py:88
 msgid "Dashboard settings"
 msgstr "Սարքատախտակի սարքինացում"
 
@@ -77,7 +86,8 @@ msgstr "Սարքատախտակի պլագին"
 msgid "Users action"
 msgstr ""
 
-#: forms.py:53 forms.py:59
+#: forms.py:53
+#: forms.py:59
 msgid "If set to ``replace``, the groups are replaced; otherwise - appended."
 msgstr ""
 
@@ -85,38 +95,42 @@ msgstr ""
 msgid "Groups action"
 msgstr ""
 
-#: models.py:31 models.py:59 models.py:132
+#: models.py:31
+#: models.py:59
+#: models.py:132
 msgid "Layout"
 msgstr "Շաբլոն"
 
-#: models.py:32 contrib/plugins/image/forms.py:26
-#: contrib/plugins/memo/forms.py:22 contrib/plugins/memo/forms.py:45
-#: contrib/plugins/news/models.py:37 contrib/plugins/url/forms.py:30
+#: models.py:32
+#: contrib/plugins/image/forms.py:26
+#: contrib/plugins/memo/forms.py:22
+#: contrib/plugins/memo/forms.py:45
+#: contrib/plugins/news/models.py:37
+#: contrib/plugins/url/forms.py:30
 #: contrib/plugins/video/forms.py:21
 msgid "Title"
 msgstr "Վերնագիր"
 
-#: models.py:33 models.py:63
+#: models.py:33
+#: models.py:63
 msgid "Is public?"
 msgstr ""
 
 #: models.py:34
-msgid ""
-"Makes your dashboard to be visible to the public. Visibility of workspaces "
-"could be adjust separately for each workspace, however setting your "
-"dashboard to be visible to public, makes your default workspace visible to "
-"public too."
+msgid "Makes your dashboard to be visible to the public. Visibility of workspaces could be adjust separately for each workspace, however setting your dashboard to be visible to public, makes your default workspace visible to public too."
 msgstr ""
 
 #: models.py:60
 msgid "Name"
 msgstr "Անվանում"
 
-#: models.py:61 contrib/plugins/news/models.py:41
+#: models.py:61
+#: contrib/plugins/news/models.py:41
 msgid "Slug"
 msgstr ""
 
-#: models.py:62 models.py:136
+#: models.py:62
+#: models.py:136
 msgid "Position"
 msgstr "Դիրք"
 
@@ -132,7 +146,8 @@ msgstr ""
 msgid "Makes your workspace to be cloneable by other users."
 msgstr ""
 
-#: models.py:70 templates/dash/dashboard_workspaces.html:6
+#: models.py:70
+#: templates/dash/dashboard_workspaces.html:6
 #: templates/dash/dashboard_workspaces_ajax.html:5
 msgid "Dashboard workspaces"
 msgstr ""
@@ -157,7 +172,8 @@ msgstr "Պլագինի տվյալներ"
 msgid "Dashboard entries"
 msgstr ""
 
-#: models.py:185 models.py:224
+#: models.py:185
+#: models.py:224
 msgid "UID"
 msgstr ""
 
@@ -185,11 +201,14 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: views.py:68 views.py:125 views.py:206
+#: views.py:68
+#: views.py:125
+#: views.py:206
 msgid "The workspace with slug \"{0}\" does not belong to layout \"{1}\"."
 msgstr ""
 
-#: views.py:159 views.py:376
+#: views.py:159
+#: views.py:376
 msgid "Invalid placeholder: {0}"
 msgstr ""
 
@@ -239,10 +258,7 @@ msgid "Dashboard workspace `{0}` was successfully cloned into `{1}`."
 msgstr ""
 
 #: views.py:655
-msgid ""
-"Dashboard workspace `{0}` was successfully cloned into `{1}` (layout `{2}`), "
-"however your active layout is `{3}`. You should switch to layout `{4}` (in "
-"your dashboard settings) in order to see the cloned workspace."
+msgid "Dashboard workspace `{0}` was successfully cloned into `{1}` (layout `{2}`), however your active layout is `{3}`. You should switch to layout `{4}` (in your dashboard settings) in order to see the cloned workspace."
 msgstr ""
 
 #: widgets.py:10
@@ -278,7 +294,7 @@ msgstr ""
 #: contrib/apps/public_dashboard/templates/public_dashboard/public_dashboard.html:14
 #: templates/dash/_base.html:71
 msgid "Menu"
-msgstr ""
+msgstr "Մենյու"
 
 #: contrib/apps/public_dashboard/templates/public_dashboard/public_dashboard.html:19
 #: contrib/apps/public_dashboard/templates/public_dashboard/public_dashboard.html:20
@@ -288,7 +304,8 @@ msgstr ""
 msgid "Clone this workspace"
 msgstr ""
 
-#: contrib/layouts/bootstrap2/defaults.py:10 contrib/plugins/url/defaults.py:9
+#: contrib/layouts/bootstrap2/defaults.py:10
+#: contrib/plugins/url/defaults.py:9
 msgid "Film"
 msgstr ""
 
@@ -416,8 +433,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"          Logged in as <a class=\"navbar-link\" href=\"#\">"
-"%(user_full_name)s</a>\n"
+"          Logged in as <a class=\"navbar-link\" href=\"#\">%(user_full_name)s</a>\n"
 "          "
 msgstr ""
 
@@ -430,9 +446,10 @@ msgstr ""
 #: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:56
 #: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:57
 #: contrib/layouts/bootstrap2/templates/bootstrap2/fluid_edit_layout.html:10
-#: templates/dash/_base.html:64 templates/dash/layouts/base_edit_layout.html:5
+#: templates/dash/_base.html:64
+#: templates/dash/layouts/base_edit_layout.html:5
 msgid "Edit dashboard"
-msgstr ""
+msgstr "Խմբագրել սարքատախտակի աշխատատեղը"
 
 #: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:62
 #, fuzzy
@@ -452,29 +469,33 @@ msgstr "Աշխատատեղ"
 
 #: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:106
 msgid "Settings"
-msgstr ""
+msgstr "Կառավարում"
 
 #: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:109
 #: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:111
-#: templates/dash/_base.html:77 templates/dash/_base.html.py:79
+#: templates/dash/_base.html:77
+#: templates/dash/_base.html.py:79
 msgid "Create a workspace"
-msgstr ""
+msgstr "Ստեղծել սարքատախտակի աշխատատեղ"
 
 #: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:128
 #: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:130
-#: templates/dash/_base.html:96 templates/dash/_base.html.py:98
+#: templates/dash/_base.html:96
+#: templates/dash/_base.html.py:98
 msgid "Edit current workspace"
 msgstr ""
 
 #: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:137
 #: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:139
-#: templates/dash/_base.html:105 templates/dash/_base.html.py:107
+#: templates/dash/_base.html:105
+#: templates/dash/_base.html.py:107
 msgid "Clone current workspace"
 msgstr ""
 
 #: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:146
 #: contrib/layouts/bootstrap2/templates/bootstrap2/base_layout.html:148
-#: templates/dash/_base.html:114 templates/dash/_base.html.py:116
+#: templates/dash/_base.html:114
+#: templates/dash/_base.html.py:116
 msgid "Delete current workspace"
 msgstr ""
 
@@ -494,7 +515,8 @@ msgid "Edit widget"
 msgstr ""
 
 #: contrib/layouts/bootstrap2/templates/bootstrap2/fluid_view_layout.html:5
-#: templates/dash/_base.html:49 templates/dash/layouts/base_view_layout.html:5
+#: templates/dash/_base.html:49
+#: templates/dash/layouts/base_view_layout.html:5
 msgid "Dashboard"
 msgstr ""
 
@@ -514,8 +536,7 @@ msgstr ""
 
 #: contrib/layouts/bootstrap2/templates/bootstrap2/snippets/generic_form_snippet.html:5
 #: templates/dash/snippets/generic_form_snippet.html:3
-msgid ""
-"Fields marked with <span class=\"required-symbol\">*</span> are required"
+msgid "Fields marked with <span class=\"required-symbol\">*</span> are required"
 msgstr ""
 
 #: contrib/plugins/dummy/dash_plugins.py:19
@@ -523,7 +544,8 @@ msgstr ""
 msgid "Dummy"
 msgstr ""
 
-#: contrib/plugins/dummy/forms.py:37 contrib/plugins/news/forms.py:24
+#: contrib/plugins/dummy/forms.py:37
+#: contrib/plugins/news/forms.py:24
 #: contrib/plugins/weather/forms.py:31
 msgid "Show title?"
 msgstr ""
@@ -545,8 +567,10 @@ msgid "Generated lorem ipsum text"
 msgstr ""
 
 #: contrib/plugins/image/dash_plugins.py:20
-#: contrib/plugins/image/dash_plugins.py:21 contrib/plugins/image/forms.py:27
-#: contrib/plugins/news/models.py:76 contrib/plugins/url/forms.py:33
+#: contrib/plugins/image/dash_plugins.py:21
+#: contrib/plugins/image/forms.py:27
+#: contrib/plugins/news/models.py:76
+#: contrib/plugins/url/forms.py:33
 msgid "Image"
 msgstr ""
 
@@ -608,7 +632,8 @@ msgstr ""
 msgid "Publication date"
 msgstr ""
 
-#: contrib/plugins/news/admin.py:43 contrib/plugins/news/models.py:49
+#: contrib/plugins/news/admin.py:43
+#: contrib/plugins/news/models.py:49
 msgid "News item"
 msgstr ""
 
@@ -619,15 +644,18 @@ msgstr ""
 msgid "News"
 msgstr ""
 
-#: contrib/plugins/news/forms.py:26 contrib/plugins/rss_feed/forms.py:30
+#: contrib/plugins/news/forms.py:26
+#: contrib/plugins/rss_feed/forms.py:30
 msgid "Max feed items to show"
 msgstr ""
 
-#: contrib/plugins/news/forms.py:27 contrib/plugins/rss_feed/forms.py:31
+#: contrib/plugins/news/forms.py:27
+#: contrib/plugins/rss_feed/forms.py:31
 msgid "Truncate after"
 msgstr ""
 
-#: contrib/plugins/news/forms.py:28 contrib/plugins/rss_feed/forms.py:32
+#: contrib/plugins/news/forms.py:28
+#: contrib/plugins/rss_feed/forms.py:32
 #: contrib/plugins/weather/forms.py:33
 msgid "Cache for"
 msgstr ""
@@ -656,7 +684,8 @@ msgstr ""
 msgid "News items"
 msgstr ""
 
-#: contrib/plugins/news/views.py:67 contrib/plugins/news/views.py:72
+#: contrib/plugins/news/views.py:67
+#: contrib/plugins/news/views.py:72
 msgid "Invalid page!"
 msgstr ""
 
@@ -710,7 +739,8 @@ msgstr ""
 msgid "Show feed title?"
 msgstr ""
 
-#: contrib/plugins/url/dash_plugins.py:20 contrib/plugins/url/forms.py:31
+#: contrib/plugins/url/dash_plugins.py:20
+#: contrib/plugins/url/forms.py:31
 #: contrib/plugins/video/forms.py:22
 msgid "URL"
 msgstr ""
@@ -881,8 +911,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                                %(windspeed_kmph)s kmph from the "
-"%(wind_dir_16_point)s\n"
+"                                %(windspeed_kmph)s kmph from the %(wind_dir_16_point)s\n"
 "                            "
 msgstr ""
 
@@ -916,8 +945,7 @@ msgstr ""
 
 #: templates/dash/delete_dashboard_workspace_ajax.html:13
 #, python-format
-msgid ""
-"Are you sure you want to delete the dashboard workspace %(workspace_name)s?"
+msgid "Are you sure you want to delete the dashboard workspace %(workspace_name)s?"
 msgstr ""
 
 #: templates/dash/delete_dashboard_workspace_ajax.html:17
@@ -977,3 +1005,4 @@ msgstr ""
 #: templates/dash/admin/bulk_change_dashboard_plugins.html:74
 msgid "Submit changes"
 msgstr ""
+

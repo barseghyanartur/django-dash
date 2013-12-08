@@ -49,6 +49,10 @@ ul.workspaces {
     margin-top: 60px;
 }
 
+.layout-bootstrap2_fluid .menu-wrapper .menu.nav {
+    display: none;
+}
+
 /* Forms */
 .generic-content-wrapper form ul,
 .generic-content-wrapper form ul li {

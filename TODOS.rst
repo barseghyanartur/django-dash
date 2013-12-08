@@ -110,6 +110,7 @@ Core and contrib
 - Add navigation (at right and left) to navigate through the workspaces (like in Android).
 - Copy/paste widgets between workspaces.
 - Allow users to share their workspaces with other users. They would need to know someone elses' username.
+- In bulk change dashboard plugins, make use of fancy widget for the users too.
 
 Could haves
 ===============================================
