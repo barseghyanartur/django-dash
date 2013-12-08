@@ -8,7 +8,7 @@ Release history
 
 0.4
 -------------------------------------
-2013-12-08
+2013-12-07
 
 While core stayed almost intact, there have been major changes made to plugins and widgets. If you
 have written your own plugins and widgets, having inherited existing ones, review your code before
@@ -17,7 +17,7 @@ have been moved to layout modules, having the plugins only implemented base widg
 used (subclassed) by plugins and widgets specified in layouts. Moreover, a factory feature for
 plugins and widgets has been introduced. Take `android` layout as example.
 
-- Plugin and widget factory added, which increases the amount of plugin and widget code by 90%.
+- Plugin and widget factory added, which decreases the amount of plugin and widget code by 90%.
 - Dashboard workspace cloning feature added. There are two options. Either clone your own workspace or
   if someone has marked his workspace as public and clonable, an extra option appears on the public
   dashboard, which allows you to clone given workspace.
