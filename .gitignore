@@ -13,6 +13,7 @@ release/
 deploy/
 example/db/example.db
 example/tmp/
+docs/dash.migrations.rst
 example/logs/
 example/media/news-images/
 example/example/images/images/

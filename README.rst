@@ -87,6 +87,11 @@ Installation
 
 Demo
 ===============================================
+See the documentation for some screen shots:
+
+- PythonHosted http://pythonhosted.org/django-dash/#screenshots
+- ReadTheDocs http://django-dash.readthedocs.org/en/latest/#screenshots
+
 In order to be able to quickly evaluate the `django-dash`, a demo app (with a quick installer) has been created
 (works on Ubuntu/Debian, may work on other Linux systems as well, although not guaranteed). Follow the instructions
 below for having the demo running within a minute.
@@ -126,11 +131,6 @@ Also, the example project (https://github.com/barseghyanartur/django-dash/tree/s
 has example layouts, plugins and widgets implemented. Take it as a good example of how to add widgets for
 existing plugins to your own customly made layout. Make sure to see how same is done for the bundled
 layouts (https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/).
-
-See the documentation for some screen shots:
-
-- PythonHosted http://pythonhosted.org/django-dash/#screenshots
-- ReadTheDocs http://django-dash.readthedocs.org/en/latest/#screenshots
 
 Creating a new layout
 ===============================================
