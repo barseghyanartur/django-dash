@@ -12,6 +12,22 @@ dash.contrib.layouts.windows8.dash_layouts module
     :undoc-members:
     :show-inheritance:
 
+dash.contrib.layouts.windows8.dash_plugins module
+-------------------------------------------------
+
+.. automodule:: dash.contrib.layouts.windows8.dash_plugins
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dash.contrib.layouts.windows8.dash_widgets module
+-------------------------------------------------
+
+.. automodule:: dash.contrib.layouts.windows8.dash_widgets
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

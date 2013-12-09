@@ -8,6 +8,7 @@ Subpackages
 
     dash.contrib
     dash.management
+    dash.migrations
     dash.templatetags
 
 Submodules
@@ -33,6 +34,14 @@ dash.conf module
 ----------------
 
 .. automodule:: dash.conf
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dash.constants module
+---------------------
+
+.. automodule:: dash.constants
     :members:
     :undoc-members:
     :show-inheritance:
@@ -65,6 +74,14 @@ dash.exceptions module
 ----------------------
 
 .. automodule:: dash.exceptions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dash.factory module
+-------------------
+
+.. automodule:: dash.factory
     :members:
     :undoc-members:
     :show-inheritance:

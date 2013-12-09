@@ -124,7 +124,8 @@ transform your own- or thirdy-part- templates into Dash templates.
 
 Also, the example project (https://github.com/barseghyanartur/django-dash/tree/stable/example/example/foo)
 has example layouts, plugins and widgets implemented. Take it as a good example of how to add widgets for
-existing plugins to your own customly made layout.
+existing plugins to your own customly made layout. Make sure to see how same is done for the bundled
+layouts (https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/).
 
 See the documentation for some screen shots:
 
@@ -388,6 +389,12 @@ listed in ``INSTALLED_APPS`` of your Django projects' settings module.
 
 Define and register the plugin
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+As already stated, a single plugin widget is registered for a triple (layout, placeholder, plugin).
+That means, that if you need two widgets, one sized 1x1 and another sized 2x2, you need two plugins for
+it. You can either manually define all plugins and widgets for the sizes desired, or define a single
+base plugin or a widget class and have it factory registered for a number of given sizes. Below, both
+approaches would be explained.
+
 Required imports.
 
 >>> from dash.base import BaseDashboardPlugin, plugin_registry
@@ -414,6 +421,43 @@ Defining the Sample Memo plugin (1x1) (to be used in the `shortcuts` placeholder
 Registering the Sample Memo plugin.
 
 >>> plugin_registry.register(SampleMemo1x1Plugin)
+
+Repeat the steps below for each plugin size (or read about factory registering the plugins
+and widgets below).
+
+Factory register plugins
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Alternatively, you can define just a single plugin base class and have it factory registered
+for the given sizes. The code below would produce and register classes for in sizes 1x1 and
+2x2. When you need to register a plgin for 10 sizes, this approach clearly wins. Besides,
+it's very easy to get a clear overview of all plugins sizes registered.
+
+Required imports.
+
+>>> from dash.base import BaseDashboardPlugin
+>>> from dash.factory import plugin_factory
+>>> from path.to.plugin.sample_memo.forms import SampleMemoForm
+
+Defining the base plugin class.
+
+>>> class BaseSampleMemoPlugin(BaseDashboardPlugin):
+>>>     name = _("Memo") # Plugin name
+>>>     group = _("Memo") # Group to which the plugin belongs to
+>>>     form = SampleMemoForm # Plugin forms are explained later
+>>>     html_classes = ['sample-memo'] # This is optional. Adds extra HTML classes.
+
+Note, that we don't provide ``uid`` property in the base class.
+
+Now, that we have the base plugin defined, factory register it for the sizes given.
+
+>>> sizes = (
+>>>     (1, 1),
+>>>     (2, 2),
+>>> )
+>>> plugin_factory(BaseSampleMemoPlugin, 'sample_memo', sizes)
+
+In the example above, "sample_memo" is the base name of the plugin. Size information would
+be appended to it ("sample_memo_1x1", "sample_memo_2x2").
 
 Register plugin widgets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -444,6 +488,8 @@ to keep it separate.
 Take into consideration, that `dash_widgets.py` is not an autodiscovered file pattern. All your
 plugin widgets should be registered in modules named `dash_plugins.py`.
 
+Define and register the plugin widget
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Required imports.
 
 >>> from django.template.loader import render_to_string
@@ -474,6 +520,40 @@ Memo plugin widget for Example layout (placeholder `shortcuts`).
 >>>     def render(self, request=None):
 >>>         context = {'plugin': self.plugin}
 >>>         return render_to_string('sample_memo/render_shortcuts.html', context)
+
+Factory register plugin widgets
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Alternatively, you can define just a single plugin widget base class and have it factory
+registered for the given sizes. The code below would produce and register classes for in
+sizes 1x1 and 2x2.
+
+Required imports.
+
+>>> from django.template.loader import render_to_string
+>>> from dash.factory import plugin_widget_factory
+>>> from dash.base import BaseDashboardPluginWidget
+
+Defining the base plugin widget class.
+
+>>> class BaseSampleMemoWidget(BaseDashboardPluginWidget):
+>>>     def render(self, request=None):
+>>>         context = {'plugin': self.plugin}
+>>>         return render_to_string('sample_memo/render.html', context)
+
+Now, that we have the base plugin defined, factory register it for the sizes given.
+
+>>> sizes = (
+>>>     (1, 1),
+>>>     (2, 2),
+>>> )
+>>> plugin_widget_factory(BaseSampleMemoWidget, 'example', 'main', 'sample_memo', sizes)
+
+In the example above:
+
+- "sample_memo" is the base name of the plugin and it should match the name
+  given to plugin factory exactly.
+- "example" is the uid of the layout, for which the widget is being registered.
+- "main" is the uid of the placeholder, for which the widget it being registered.
 
 path/to/plugin/sample_memo/forms.py
 -----------------------------------------------
