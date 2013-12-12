@@ -86,14 +86,13 @@ Core and contrib
   assign rights to certain plugins for users and groups at once.
 - Use factory in example layout.
 - Check docs and apply factory.
-- Fix the issue with missing top background image in Django admin.
++ Fix the issue with missing top background image in Django admin.
 - In Russian not all the text fits nicely into the overlays. For "Bootstrap2" layout, all overlays
   are scrollable and too much text is not a problem. For "Android", "Windows8" and "Example" layouts
   it's an issue. Optimise the CSS in such a way, that the overlays are scrollable and heading
   backgrounds grow with text.
 - Check all translation messages, as some of them are not properly shown in Russian locale.
 - When using unicode characters in workspace slug, `django-slug` raises an exception.
-- 
 
 Should haves
 ===============================================

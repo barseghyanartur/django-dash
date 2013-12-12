@@ -4,6 +4,8 @@
 
 {% block title %}{% trans "Edit multiple objects" %} | {% trans 'Django site admin' %}{% endblock %}
 
+{% block bodyclass %}dash-dashboardplugin change-form{% endblock bodyclass %}
+
 {% block extrahead %}
     {{ form.media }}
     <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
@@ -34,7 +36,7 @@
 {% block content %}
     <h2>{% blocktrans %}Edit multiple objects{% endblocktrans %}</h2>
 
-    <form action="{% url 'admin:bulk_change_dashboard_plugins' %}" method="post">
+    <form action="{% url 'admin:bulk_change_dashboard_plugins' %}" method="post" id="dashboardplugin_form">
         {% csrf_token %}
         <div>
             <fieldset class="module aligned">

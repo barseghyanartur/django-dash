@@ -63,6 +63,11 @@ class BulkChangeDashboardPluginsForm(forms.ModelForm):
         model = DashboardPlugin
         fields = ['groups', 'groups_action', 'users', 'users_action',]
 
+    class Media:
+        css = {
+            'all': ('css/admin_custom.css',)
+        }
+
     def __init__(self, *args, **kwargs):
         super(BulkChangeDashboardPluginsForm, self).__init__(*args, **kwargs)
         self.fields['users'].required = False
