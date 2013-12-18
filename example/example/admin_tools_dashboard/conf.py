@@ -8,6 +8,10 @@ news_apps = [
     'dash.contrib.plugins.news.models.*',
 ]
 
+bookmark_apps = [
+    'dash.contrib.plugins.url.models.*',
+]
+
 # Dash apps
 dash_apps = [
     'dash.models.*',
@@ -19,4 +23,4 @@ registration_apps = [
 ]
 
 apps_to_exclude = ['django.contrib.*',]
-apps_to_exclude += foo_apps + news_apps + dash_apps + registration_apps
+apps_to_exclude += foo_apps + news_apps + bookmark_apps + dash_apps + registration_apps

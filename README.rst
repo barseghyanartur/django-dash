@@ -748,6 +748,9 @@ Below a short overview of the plugins. See the README.rst file in directory of e
   https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/rss_feed
 - URL plugin. Allows users to put links to their dashboard.
   https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/url
+- Bookmark plugin. Allows users to put bookmarks to their dashboard. Bookmarks are added by
+  the administrator.
+  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/url
 - Video plugin. Allows users to put YouTube or Vimeo videos to their dashboard.
   https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/video
 - Weather plugin. Allows to put a weather widget into dashboard.

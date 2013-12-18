@@ -36,6 +36,10 @@ class DashboardSettings(models.Model):
                                                 "however setting your dashboard to be visible to public, makes "
                                                 "your default workspace visible to public too."))
 
+    class Meta:
+        verbose_name = _("Dashboard settings")
+        verbose_name_plural = _("Dashboard settings")
+
     def __unicode__(self):
         return self.title
 
@@ -53,7 +57,7 @@ class DashboardWorkspace(models.Model):
         - `is_public` (int): If set to True, is visible to public.
         - `is_clonable` (bool): If set to True, is clonable.
         - `shared_with` (django.db.models.ManyToManyField): Users the workspace shared with. If workspace
-            is shared with specific user, then the user it's shared with can also clone the workspace.
+          is shared with specific user, then the user it's shared with can also clone the workspace.
     """
     user = models.ForeignKey(User, verbose_name=_("User"))
     layout_uid = models.CharField(_("Layout"), max_length=25, choices=get_registered_layouts())

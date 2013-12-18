@@ -183,12 +183,16 @@ def get_widgets(layout, placeholder, user=None, workspace=None, position=None, o
 
     return registered_widgets
 
-def update_plugin_data():
+def update_plugin_data(dashboard_entries=None):
     """
     Updates the plugin data for all dashboard entries of all users. Rules for update are specified in the
     plugin itself.
+
+    :param iterable dashboard_entries: If given, is used to iterate through and update the plugin data.
+        If left empty, all dashboard entries will be updated.
     """
-    dashboard_entries = DashboardEntry._default_manager.all()
+    if dashboard_entries is None:
+        dashboard_entries = DashboardEntry._default_manager.all()
 
     for entry in dashboard_entries:
         plugin = entry.get_plugin()

@@ -1,7 +1,7 @@
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('BaseURLWidget', 'URL1x1Widget', 'URL2x2Widget')
+__all__ = ('BaseURLWidget', 'BaseBookmarkWidget', 'URL1x1Widget', 'URL2x2Widget')
 
 from django.template.loader import render_to_string
 
@@ -14,6 +14,18 @@ from dash.base import BaseDashboardPluginWidget
 class BaseURLWidget(BaseDashboardPluginWidget):
     """
     URL plugin widget.
+    """
+    def render(self, request=None):
+        context = {'plugin': self.plugin}
+        return render_to_string('url/render.html', context)
+
+# **********************************************************************
+# ************************* Base Bookmark widget plugin ****************
+# **********************************************************************
+
+class BaseBookmarkWidget(BaseDashboardPluginWidget):
+    """
+    Bookmark plugin widget.
     """
     def render(self, request=None):
         context = {'plugin': self.plugin}

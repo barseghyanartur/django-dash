@@ -84,6 +84,8 @@ Core and contrib
   files (JS/CSS) into layout static directory.
 + Add bulk update to Django's admin interface of dash.models.DashboardPlugin, in order to be able to
   assign rights to certain plugins for users and groups at once.
++ Plugin and widget factory, for creating plugins and widgets easier (since it's mostly just extending
+  some plugin or widget, just changing the name and rows/cols).
 - Use factory in example layout.
 - Check docs and apply factory.
 + Fix the issue with missing top background image in Django admin.
@@ -93,6 +95,9 @@ Core and contrib
   backgrounds grow with text.
 - Check all translation messages, as some of them are not properly shown in Russian locale.
 - When using unicode characters in workspace slug, `django-slug` raises an exception.
+- Bookmark plugin (finish).
+- Simplify the plugin data update mechanism (when plugin data for certain ``DashboardEntry`` objects
+  shall be updated using ``dash.utils.update_plugin_data``).
 
 Should haves
 ===============================================
@@ -109,8 +114,6 @@ Core and contrib
 + Add translations for Dutch.
 + Add translations for Russian.
 - Add translations for Armenian.
-- Plugin and widget factory, for creating plugins and widgets easier (since it's mostly just extending
-  some plugin or widget, just changing the name and rows/cols).
 - Add dashboard settings (edit) tests and tests after the changed layout (for the bootstrap2 theme).
 - File plugin.
 - Add navigation (at right and left) to navigate through the workspaces (like in Android).

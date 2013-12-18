@@ -33,6 +33,11 @@ class CustomMenu(Menu):
             models=conf.news_apps
         ))
 
+        # Bookmark
+        self.children.append(items.ModelList(_('Bookmark'),
+            models=conf.bookmark_apps
+        ))
+
         # Dash
         self.children.append(items.ModelList(_('Dash'),
             models=conf.dash_apps

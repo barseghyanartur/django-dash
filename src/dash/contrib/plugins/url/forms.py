@@ -1,7 +1,7 @@
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('URLForm',)
+__all__ = ('URLForm', 'BookmarkForm')
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
@@ -9,10 +9,11 @@ from django.utils.translation import ugettext_lazy as _
 from dash.base import DashboardPluginFormBase
 from dash.widgets import BooleanRadioSelect
 from dash.contrib.plugins.url.settings import IMAGE_CHOICES_WITH_EMPTY_OPTION
+from dash.contrib.plugins.url.models import Bookmark
 
 class URLForm(forms.Form, DashboardPluginFormBase):
     """
-    URL form for `URL1x1Plugin` plugin.
+    URL form for `BaseURLPlugin` plugin.
     """
     class Media:
         css = {
@@ -40,4 +41,40 @@ class URLForm(forms.Form, DashboardPluginFormBase):
         else:
             self.fields['image'].widget.attrs['class'] = 'image-picker'
 
-        
+class BookmarkForm(forms.Form, DashboardPluginFormBase):
+    """
+    Bookmark form for `BaseBookmarkPlugin` plugin.
+    """
+    class Media:
+        css = {
+            'all': ('css/dash_plugin_url_form.css',)
+        }
+        js = ('js/dash_plugin_url_form.js',)
+
+    plugin_data_fields = [
+        ("bookmark", ""),
+
+        # Handled in `save_plugin_data`.
+        ("title", ""),
+        ("url", ""),
+        ("external", False),
+        ("image", "")
+    ]
+
+    bookmark = forms.ModelChoiceField(label=_("Bookmark"), queryset=Bookmark._default_manager.all(), \
+                                      empty_label=_('---------'), required=True)
+
+    def save_plugin_data(self, request=None):
+        """
+        Saving the plugin data and moving the file.
+        """
+        bookmark = self.cleaned_data.get('bookmark', None)
+        if bookmark:
+            # Since it's a `ModelChoiceField`, we can safely given an ID.
+            self.cleaned_data['bookmark'] = bookmark.pk
+
+            # Saving the rest of the fields.
+            self.cleaned_data['title'] = bookmark.title
+            self.cleaned_data['url'] = bookmark.url
+            self.cleaned_data['external'] = bookmark.external
+            self.cleaned_data['image'] = bookmark.image

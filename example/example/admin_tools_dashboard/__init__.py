@@ -38,6 +38,13 @@ class CustomIndexDashboard(Dashboard):
             deletable=False
         ))
 
+        # Bookmarks
+        self.children.append(modules.ModelList(_('Bookmarks'),
+            models=conf.bookmark_apps,
+            collapsible=False,
+            deletable=False
+        ))
+
         # Dash
         self.children.append(modules.ModelList(_('Dash'),
             models=conf.dash_apps,

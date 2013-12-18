@@ -8,7 +8,9 @@ from dash.contrib.plugins.rss_feed.dash_widgets import BaseReadRSSFeedWidget
 from dash.contrib.plugins.video.dash_widgets import BaseVideoWidget
 from dash.contrib.plugins.weather.dash_widgets import BaseWeatherWidget
 
-from dash.contrib.layouts.android.dash_widgets import URL1x1AndroidMainWidget, URL1x1AndroidShortcutWidget
+from dash.contrib.layouts.android.dash_widgets import (
+    URL1x1AndroidMainWidget, URL1x1AndroidShortcutWidget, BaseBookmarkAndroidWidget
+    )
 
 # **************************************************************************
 # **************************************************************************
@@ -118,3 +120,18 @@ main_sizes = (
     (3, 3),
 )
 plugin_widget_factory(BaseWeatherWidget, 'android', 'main', 'weather', main_sizes)
+
+# **************************************************************************
+# *************** Registering the widgets for Bookmark plugin ***************
+# **************************************************************************
+
+main_sizes = (
+    (1, 1),
+    (2, 2),
+)
+shortcut_sizes = (
+    (1, 1),
+    (2, 2),
+)
+plugin_widget_factory(BaseBookmarkAndroidWidget, 'android', 'main', 'bookmark', main_sizes)
+plugin_widget_factory(BaseBookmarkAndroidWidget, 'android', 'shortcut', 'bookmark', shortcut_sizes)
