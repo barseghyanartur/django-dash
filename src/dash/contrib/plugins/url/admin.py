@@ -18,7 +18,6 @@ class BookmarkAdmin(admin.ModelAdmin):
     """
     Bookmark admin.
     """
-    # If you don't inherit the SlimAdmin, append 'language' and 'available_translations_admin' to ``list_display``.
     list_display = ('title', 'url', 'external', 'image')
 
     fieldsets = (

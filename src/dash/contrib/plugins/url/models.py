@@ -12,15 +12,15 @@ class Bookmark(models.Model):
     """
     Bookmark.
 
-    - `title` (string): Title of the news item.
-    - `url` (string): Teaser of the news item. WYSIWYG.
-    - `external` (bool): Teaser of the news item. WYSIWYG.
-    - `image` (string): Headline image of the news item.
+    - `title` (string): Bookmark title.
+    - `url` (string): Bookmark URL.
+    - `external` (bool): External/internal link.
+    - `image` (string): Bookmark image icon.
     """
     title = models.CharField(_("Title"), max_length=100)
     url = models.URLField(_("URL"), max_length=255)
     external = models.BooleanField(_("External"), default=False)
-    image = models.CharField(_("Headline image"), max_length=255, blank=True, null=True, \
+    image = models.CharField(_("Image"), max_length=255, blank=True, null=True, \
                              choices=IMAGE_CHOICES_WITH_EMPTY_OPTION)
 
     class Meta:
