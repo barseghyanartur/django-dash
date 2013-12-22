@@ -71,7 +71,7 @@ def get_user_plugins(user):
 
     return registered_plugins
 
-def get_user_plugin_uids():
+def get_user_plugin_uids(user):
     """
     Gets a list of user plugin uids as a list . If not yet autodiscovered, autodiscovers them.
 
