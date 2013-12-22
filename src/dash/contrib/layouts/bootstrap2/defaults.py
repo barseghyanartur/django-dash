@@ -54,8 +54,6 @@ IMAGE_CHOICES = (
     ('icon-comment', _("Comment")),
     #('icon-bug', _("Bug")),
     ('icon-bell', _("Bell")),
-
-    # Additional icons
     ('icon-search', _("Search")),
     ('icon-map-marker', _("Map marker")),
     ('icon-globe', _("Globe")),

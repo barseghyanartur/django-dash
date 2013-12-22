@@ -3,7 +3,7 @@ __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'get_allowed_plugin_uids', 'get_user_plugins', 'get_user_plugin_uids', 'get_widgets',
-    'update_plugin_data', 'sync_plugins', 'get_workspaces', 'build_cells_matrix',
+    'update_plugin_data_for_entries', 'sync_plugins', 'get_workspaces', 'build_cells_matrix',
     'get_or_create_dashboard_settings', 'get_dashboard_settings', 'get_public_dashboard_url'
 )
 
@@ -22,7 +22,7 @@ from dash.base import (
     BaseDashboardLayout, BaseDashboardPlaceholder
     )
 from dash.models import DashboardEntry, DashboardPlugin, DashboardWorkspace, DashboardSettings
-from dash.helpers import slugify_workspace, lists_overlap, clone_plugin_data
+from dash.helpers import slugify_workspace, lists_overlap, clone_plugin_data, update_plugin_data
 from dash.exceptions import PluginWidgetOutOfPlaceholderBoundaries
 from dash.settings import RESTRICT_PLUGIN_ACCESS, DEBUG
 
@@ -183,7 +183,7 @@ def get_widgets(layout, placeholder, user=None, workspace=None, position=None, o
 
     return registered_widgets
 
-def update_plugin_data(dashboard_entries=None):
+def update_plugin_data_for_entries(dashboard_entries=None, request=None):
     """
     Updates the plugin data for all dashboard entries of all users. Rules for update are specified in the
     plugin itself.
@@ -194,11 +194,8 @@ def update_plugin_data(dashboard_entries=None):
     if dashboard_entries is None:
         dashboard_entries = DashboardEntry._default_manager.all()
 
-    for entry in dashboard_entries:
-        plugin = entry.get_plugin()
-
-        if plugin:
-            plugin._update_plugin_data(entry)
+    for dashboard_entry in dashboard_entries:
+        update_plugin_data(dashboard_entry, request=request)
 
 def sync_plugins():
     """

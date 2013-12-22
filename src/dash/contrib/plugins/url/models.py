@@ -6,7 +6,7 @@ __all__ = ('Bookmark',)
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from dash.contrib.plugins.url.settings import IMAGE_CHOICES_WITH_EMPTY_OPTION
+from dash.contrib.plugins.url.settings import BOOKMARK_IMAGE_CHOICES_WITH_EMPTY_OPTION
 
 class Bookmark(models.Model):
     """
@@ -21,7 +21,7 @@ class Bookmark(models.Model):
     url = models.URLField(_("URL"), max_length=255)
     external = models.BooleanField(_("External"), default=False)
     image = models.CharField(_("Image"), max_length=255, blank=True, null=True, \
-                             choices=IMAGE_CHOICES_WITH_EMPTY_OPTION)
+                             choices=BOOKMARK_IMAGE_CHOICES_WITH_EMPTY_OPTION)
 
     class Meta:
         verbose_name = _("Bookmark")

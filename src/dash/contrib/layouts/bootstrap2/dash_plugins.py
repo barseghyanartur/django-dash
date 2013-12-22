@@ -16,6 +16,7 @@ from dash.contrib.plugins.video.dash_widgets import BaseVideoWidget
 from dash.contrib.plugins.url.dash_plugins import BaseURLPlugin
 from dash.contrib.layouts.bootstrap2.dash_widgets import (
     URLBootstrapTwo1x1Bootstrap2FluidMainWidget, URLBootstrapTwo2x2Bootstrap2FluidMainWidget,
+    BaseBookmarkBootstrapTwoWidget
     )
 from dash.contrib.layouts.bootstrap2.forms import URLBootstrapTwoForm
 
@@ -123,3 +124,13 @@ main_sizes = (
     (5, 5),
 )
 plugin_widget_factory(BaseVideoWidget, 'bootstrap2_fluid', 'main', 'video', main_sizes)
+
+# **************************************************************************
+# *************** Registering the widgets for Bookmark plugin ***************
+# **************************************************************************
+
+main_sizes = (
+    (1, 1),
+    #(2, 2),
+)
+plugin_widget_factory(BaseBookmarkBootstrapTwoWidget, 'bootstrap2_fluid', 'main', 'bookmark', main_sizes)

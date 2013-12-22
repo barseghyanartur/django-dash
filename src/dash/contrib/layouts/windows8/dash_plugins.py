@@ -9,7 +9,7 @@ from dash.contrib.plugins.rss_feed.dash_widgets import BaseReadRSSFeedWidget
 from dash.contrib.plugins.video.dash_widgets import BaseVideoWidget
 #from dash.contrib.plugins.weather.dash_widgets import BaseWeatherWidget
 from dash.contrib.layouts.windows8.dash_widgets import (
-    URL1x1Windows8MainWidget, URL1x1Windows8SidebarWidget,
+    URL1x1Windows8MainWidget, URL1x1Windows8SidebarWidget, BaseBookmarkWindows8Widget
     )
 
 # **************************************************************************
@@ -96,3 +96,18 @@ sidebar_sizes = (
 )
 plugin_widget_factory(BaseVideoWidget, 'windows8', 'main', 'video', main_sizes)
 plugin_widget_factory(BaseVideoWidget, 'windows8', 'sidebar', 'video', sidebar_sizes)
+
+# **************************************************************************
+# *************** Registering the widgets for Bookmark plugin ***************
+# **************************************************************************
+
+main_sizes = (
+    (1, 1),
+    #(2, 2),
+)
+shortcut_sizes = (
+    (1, 1),
+    #(2, 2),
+)
+plugin_widget_factory(BaseBookmarkWindows8Widget, 'windows8', 'main', 'bookmark', main_sizes)
+plugin_widget_factory(BaseBookmarkWindows8Widget, 'windows8', 'sidebar', 'bookmark', shortcut_sizes)

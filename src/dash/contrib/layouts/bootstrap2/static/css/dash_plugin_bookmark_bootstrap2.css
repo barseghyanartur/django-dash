@@ -1,0 +1,27 @@
+/*
+    Document   : dash_plugin_bookmark_bootstrap2.css
+    Created on : Dec 22, 2013, 00:51:48 PM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        Bookmark plugin styles for django-dash (Bootstrap 2 Fluid layout). Take this
+        as an example of how to write layout specific plugin CSS.
+
+        Tweaks to stretch the chosen URL icon to full content width
+        for both `main` and `shortcuts` placeholders. Note, that we
+        know, that URL plugin widgets are never greater in size than
+        1x1. This allows us to be lazy and do not include the size
+        specific classes here. Otherwise, we would have to.
+*/
+.layout-bootstrap2_fluid  .placeholder.placeholder-main .plugin.plugin-bookmark_bootstrap_two_1x1 .plugin-content-wrapper {
+    padding-top: 0;
+}
+    .layout-bootstrap2_fluid .placeholder.placeholder-main .plugin.plugin-bookmark_bootstrap_two_1x1 .plugin-content-wrapper a {
+        display: block;
+        height: 14px;
+        left: 50%;
+        margin: -7px 0 0 -7px;
+        position: absolute;
+        top: 50%;
+        width: 14px;
+    }
+

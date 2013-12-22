@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from dash.utils import update_plugin_data
+from dash.utils import update_plugin_data_for_entries
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
@@ -11,4 +11,4 @@ class Command(BaseCommand):
         This command shall be ran if significant changes have been made to the system for which the data
         shall be updated.
         """
-        update_plugin_data()
+        update_plugin_data_for_entries()

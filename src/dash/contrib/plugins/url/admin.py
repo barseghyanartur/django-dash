@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from dash.models import DashboardEntry
 from dash.contrib.plugins.url.models import Bookmark
-from dash.utils import update_plugin_data
+from dash.utils import update_plugin_data_for_entries
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +38,7 @@ class BookmarkAdmin(admin.ModelAdmin):
 
         dashboard_entries = DashboardEntry._default_manager.filter(plugin_uid__startswith='bookmark_')
         try:
-            update_plugin_data(dashboard_entries)
+            update_plugin_data_for_entries(dashboard_entries=dashboard_entries, request=request)
         except Exception as e:
             logger.debug(str(e))
 

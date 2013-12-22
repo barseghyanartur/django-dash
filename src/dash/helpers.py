@@ -1,7 +1,10 @@
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('slugify_workspace', 'lists_overlap', 'iterable_to_dict', 'clean_plugin_data', 'clone_plugin_data')
+__all__ = (
+    'slugify_workspace', 'lists_overlap', 'iterable_to_dict', 'clean_plugin_data',
+    'clone_plugin_data', 'update_plugin_data'
+    )
 
 from autoslug.settings import slugify
 
@@ -57,3 +60,13 @@ def clone_plugin_data(dashboard_entry, request=None):
                 plugin_data = dashboard_entry.plugin_data
 
             return plugin_data
+
+def update_plugin_data(dashboard_entry, request=None):
+    """
+    Update plugin data of a dashboard entry.
+    """
+    if dashboard_entry:
+        plugin = dashboard_entry.get_plugin(request=request)
+
+        if plugin:
+            return plugin._update_plugin_data(dashboard_entry)

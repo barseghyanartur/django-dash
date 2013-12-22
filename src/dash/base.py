@@ -1021,7 +1021,9 @@ class BaseDashboardPlugin(object):
         For private use. Do not override this method. Override `update_plugin_data` instead.
         """
         try:
-            self.update_plugin_data(dashboard_entry)
+            updated_plugin_data = self.update_plugin_data(dashboard_entry)
+            plugin_data = self.get_updated_plugin_data(update=updated_plugin_data)
+            return self.save_plugin_data(dashboard_entry, plugin_data=plugin_data)
         except Exception as e:
             logging.debug(str(e))
 
@@ -1038,6 +1040,7 @@ class BaseDashboardPlugin(object):
         ``dash.management.commands.dash_update_plugin_data`` module).
 
         :param dash.models.DashboardEntry: Instance of ``dash.models.DashboardEntry``.
+        :return dict: Should return a dictionary containing data of fields to be updated.
         """
 
     def _delete_plugin_data(self):
@@ -1077,6 +1080,20 @@ class BaseDashboardPlugin(object):
         """
 
     def get_cloned_plugin_data(self, update={}):
+        """
+        Get the cloned plugin data and returns it in a JSON dumped format.
+
+        :param dict update:
+        :return string: JSON dumped string of the cloned plugin data.
+
+        :example:
+
+        In the ``get_cloned_plugin_data`` method of your plugin, do as follows:
+
+        >>> def clone_plugin_data(self, dashboard_entry):
+        >>>     cloned_image = clone_file(self.data.image, relative_path=True)
+        >>>     return self.get_cloned_plugin_data(update={'image': cloned_image})
+        """
         form = self.get_form()
 
         cloned_data = copy.copy(self.data)
@@ -1084,6 +1101,24 @@ class BaseDashboardPlugin(object):
 
         for field, default_value in form.plugin_data_fields:
             data.update({field: getattr(cloned_data, field, '')})
+
+        for prop, value in update.items():
+            data.update({prop: value})
+
+        return json.dumps(data)
+
+    def get_updated_plugin_data(self, update={}):
+        """
+        Get the plugin data and returns it in a JSON dumped format.
+
+        :param dict update:
+        :return string: JSON dumped string of the cloned plugin data.
+        """
+        form = self.get_form()
+        data = {}
+
+        for field, default_value in form.plugin_data_fields:
+            data.update({field: getattr(self.data, field, '')})
 
         for prop, value in update.items():
             data.update({prop: value})
@@ -1109,6 +1144,23 @@ class BaseDashboardPlugin(object):
         
         Note, that request (django.http.HttpRequest) is available (self.request).
         """
+
+    def save_plugin_data(self, dashboard_entry, plugin_data):
+        """
+        Save plugin data. Used in bulk update plugin data.
+
+        :param dash.models.DashboardEntry dashboard_entry:
+        :param dict plugin_data:
+        :return bool: True if all went well.
+        """
+        try:
+            if plugin_data:
+                dashboard_entry.plugin_data = plugin_data
+                dashboard_entry.save()
+                return True
+        except Exception as e:
+            logger.debug(str(e))
+
 
 class MetaBaseDashboardPluginWidget(type):
     """

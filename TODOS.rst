@@ -86,18 +86,18 @@ Core and contrib
   assign rights to certain plugins for users and groups at once.
 + Plugin and widget factory, for creating plugins and widgets easier (since it's mostly just extending
   some plugin or widget, just changing the name and rows/cols).
++ Bookmark plugin.
++ Simplify the plugin data update mechanism (when plugin data for certain ``DashboardEntry`` objects
+  shall be updated using ``dash.utils.update_plugin_data``).
++ Fix the issue with missing top background image in Django admin.
 - Use factory in example layout.
 - Check docs and apply factory.
-+ Fix the issue with missing top background image in Django admin.
 - In Russian not all the text fits nicely into the overlays. For "Bootstrap2" layout, all overlays
   are scrollable and too much text is not a problem. For "Android", "Windows8" and "Example" layouts
   it's an issue. Optimise the CSS in such a way, that the overlays are scrollable and heading
   backgrounds grow with text.
 - Check all translation messages, as some of them are not properly shown in Russian locale.
 - When using unicode characters in workspace slug, `django-slug` raises an exception.
-- Bookmark plugin (finish).
-- Simplify the plugin data update mechanism (when plugin data for certain ``DashboardEntry`` objects
-  shall be updated using ``dash.utils.update_plugin_data``).
 
 Should haves
 ===============================================

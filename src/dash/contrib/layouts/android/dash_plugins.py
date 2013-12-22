@@ -127,11 +127,11 @@ plugin_widget_factory(BaseWeatherWidget, 'android', 'main', 'weather', main_size
 
 main_sizes = (
     (1, 1),
-    (2, 2),
+    #(2, 2),
 )
 shortcut_sizes = (
     (1, 1),
-    (2, 2),
+    #(2, 2),
 )
 plugin_widget_factory(BaseBookmarkAndroidWidget, 'android', 'main', 'bookmark', main_sizes)
 plugin_widget_factory(BaseBookmarkAndroidWidget, 'android', 'shortcut', 'bookmark', shortcut_sizes)
