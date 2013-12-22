@@ -11,7 +11,8 @@ Release history
 2013-12-21
 
 - Add Bookmark plugin.
-- Improve (simplify) of the update_plugin_data API.
+- Improvements (simplification) of the API related to force-updating of plugin data, triggered by
+  developers upon changes in source models, used by certain plugins.
 
 0.4.2
 -------------------------------------
