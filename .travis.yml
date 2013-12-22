@@ -39,7 +39,7 @@ install:
   - mkdir example/logs
   - mkdir example/media
   - mkdir example/media/static
-  - python example/example/manage.py syncdb
+  - python example/example/manage.py syncdb --noinput 
 # --noinput --traceback -v 3
 # Command to run tests
 script: 
