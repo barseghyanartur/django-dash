@@ -80,7 +80,7 @@ def get_user_plugin_uids():
     ensure_autodiscover()
 
     if not RESTRICT_PLUGIN_ACCESS or getattr(user, 'is_superuser', False):
-        return get_registered_plugin_keys()
+        return get_registered_plugin_uids()
 
     registered_plugins = []
 
