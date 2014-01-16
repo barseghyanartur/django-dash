@@ -4,6 +4,14 @@ dash.contrib.plugins.url package
 Submodules
 ----------
 
+dash.contrib.plugins.url.admin module
+-------------------------------------
+
+.. automodule:: dash.contrib.plugins.url.admin
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 dash.contrib.plugins.url.conf module
 ------------------------------------
 
@@ -40,6 +48,14 @@ dash.contrib.plugins.url.forms module
 -------------------------------------
 
 .. automodule:: dash.contrib.plugins.url.forms
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dash.contrib.plugins.url.models module
+--------------------------------------
+
+.. automodule:: dash.contrib.plugins.url.models
     :members:
     :undoc-members:
     :show-inheritance:

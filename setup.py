@@ -4,8 +4,11 @@ from setuptools import setup, find_packages
 
 try:
     readme = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
+    screenshots = open(os.path.join(os.path.dirname(__file__), 'SCREENSHOTS.rst')).read()
+    screenshots = screenshots.replace('.. image:: _static', '.. figure:: https://github.com/barseghyanartur/django-dash/raw/master/docs/_static')
 except:
     readme = ''
+    screenshots = ''
 
 template_dirs = [
     "src/dash/templates/dash", # Core templates
@@ -81,7 +84,7 @@ setup(
     name = 'django-dash',
     version = version,
     description = ("Customisable, modular dashboard application framework for Django."),
-    long_description = readme,
+    long_description = "{0}{1}".format(readme, screenshots),
     classifiers = [
         "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",

@@ -98,6 +98,9 @@ Core and contrib
   backgrounds grow with text.
 - Check all translation messages, as some of them are not properly shown in Russian locale.
 - When using unicode characters in workspace slug, `django-slug` raises an exception.
+- Check if it's possible to add plugins without config (without form).
+- Rewrite the Javascript and core templates with bootstrap3 in mind. Support old themes as well.
+- Add information (especially license information) of the third-party apps used in the project.
 
 Should haves
 ===============================================

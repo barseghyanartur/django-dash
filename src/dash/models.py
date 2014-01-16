@@ -1,3 +1,4 @@
+__title__ = 'dash.models'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
@@ -49,6 +50,7 @@ class DashboardWorkspace(models.Model):
     Dashboard workspace.
 
     :Properties:
+
         - `user` (django.contrib.auth.models.User: User owning the plugin.
         - `layout_uid` (str): Layout to which the entry belongs to.
         - `name` (str): Dashboard name.
@@ -122,6 +124,7 @@ class DashboardEntry(models.Model):
     Since workspace can be nullable (default), we duplicate the `layout_uid`.
 
     :Properties:
+
         - `user` (django.contrib.auth.models.User: User owning the plugin.
         - `workspace` (dash.models.DashboardWorkspace): Workspace to which the plugin belongs to.
           If left blank, entry belongs to default workspace.
@@ -150,7 +153,7 @@ class DashboardEntry(models.Model):
 
     def get_plugin(self, fetch_related_data=False, request=None):
         """
-        Gets the plugin class (by ``plugin_name`` property), makes an instance of it, serves the
+        Gets the plugin class (by ``plugin_uid`` property), makes an instance of it, serves the
         data stored in ``plugin_data`` field (if available). Once all is done, plugin is ready to
         be rendered.
 
@@ -183,7 +186,6 @@ class DashboardEntry(models.Model):
         """
         Mainly used in admin.
         """
-        # TODO - shall be showing the dimensions.
         return self.plugin_uid
     plugin_uid_code.allow_tags = True
     plugin_uid_code.short_description = _('UID')
@@ -200,6 +202,7 @@ class DashboardPlugin(models.Model):
     Dashboard plugin. Used when ``dash.settings.RESTRICT_PLUGIN_ACCESS`` is set to True.
 
     :Properties:
+
         - `plugin_uid` (str): Plugin UID.
         - `users` (django.contrib.auth.models.User): White list of the users allowed to use the dashboard plugin.
         - `groups` (django.contrib.auth.models.Group): White list of the user groups allowed to use the dashboard

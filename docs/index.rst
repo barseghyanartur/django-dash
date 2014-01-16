@@ -65,7 +65,7 @@ Installation
 
 2. Add `dash` to ``INSTALLED_APPS`` of the your projects' Django settings. Furthermore, all layouts
    and plugins to be used, shall be added to the ``INSTALLED_APPS`` as well.
-
+   
 >>> INSTALLED_APPS = (
 >>>     # ...
 >>>     'dash',
@@ -134,7 +134,7 @@ layouts (https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/con
 
 Creating a new layout
 ===============================================
-Dash comes with several bundled layouts. Do check their source code as example.
+Dash comes with several bundled layouts. Do check their source code as example. 
 
 Let's say, our imaginary layout has two placeholders. One large placeholder for all kinds of widgets
 (called `main`) and a tiny one for shortcuts (called `shortcuts`).
@@ -271,11 +271,11 @@ Defining and registering the Layout.
 >>>     # Edit template. Master template used in edit mode.
 >>>     edit_template_name = 'example/edit_layout.html'
 >>>
->>>     # All placeholders listed. Note, that placeholders are rendered in the
+>>>     # All placeholders listed. Note, that placeholders are rendered in the 
 >>>     # order specified here.
 >>>     placeholders = [ExampleMainPlaceholder, ExampleShortcutsPlaceholder]
 >>>
->>>     # Cell units used in the entire layout. Allowed values are: 'px', 'pt',
+>>>     # Cell units used in the entire layout. Allowed values are: 'px', 'pt', 
 >>>     # 'em' or '%'. In the ``ExampleMainPlaceholder`` cell_width is set to 150.
 >>>     #  It means that in this particular case its' actual width would be `150px`.
 >>>     cell_units = 'px'
