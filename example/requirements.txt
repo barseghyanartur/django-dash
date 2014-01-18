@@ -9,6 +9,6 @@ ipython==1.1.0
 lorem-ipsum-generator==0.3
 #MySQL-python==1.2.4
 ordereddict==1.1
-selenium==2.39.0
+selenium==2.37.0
 simple-timer==0.2
 tox
