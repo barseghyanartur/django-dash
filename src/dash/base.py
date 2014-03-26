@@ -34,7 +34,7 @@ from dash.settings import (
     DEFAULT_PLACEHOLDER_EDIT_TEMPLATE_NAME
     )
 from dash.exceptions import InvalidRegistryItemType
-from dash.helpers import iterable_to_dict
+from dash.helpers import iterable_to_dict, uniquify_sequence
 
 import logging
 logger = logging.getLogger(__name__)
@@ -221,7 +221,7 @@ class BaseDashboardLayout(object):
         if self.widget_media_css:
             media_css += self.widget_media_css
 
-        media_css = list(set(media_css))
+        media_css = uniquify_sequence(media_css)
 
         return media_css
 
@@ -235,7 +235,7 @@ class BaseDashboardLayout(object):
         if self.widget_media_js:
             media_js += self.widget_media_js
 
-        media_js = list(set(media_js))
+        media_js = uniquify_sequence(media_js)
 
         return media_js
 

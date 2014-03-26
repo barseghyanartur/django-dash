@@ -101,6 +101,8 @@ Core and contrib
 - Check if it's possible to add plugins without config (without form).
 - Rewrite the Javascript and core templates with bootstrap3 in mind. Support old themes as well.
 - Add information (especially license information) of the third-party apps used in the project.
+- Test dash with plugin which doesn't have a form. If problems occur, use the
+  the django-fobi approach.
 
 Should haves
 ===============================================

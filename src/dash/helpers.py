@@ -3,8 +3,8 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'slugify_workspace', 'lists_overlap', 'iterable_to_dict', 'clean_plugin_data',
-    'clone_plugin_data', 'update_plugin_data'
+    'slugify_workspace', 'lists_overlap', 'iterable_to_dict', 'uniquify_sequence',
+    'clean_plugin_data', 'clone_plugin_data', 'update_plugin_data'
     )
 
 from autoslug.settings import slugify
@@ -29,6 +29,17 @@ def iterable_to_dict(items, key_attr_name):
     for item in items:
         items_dict.update({getattr(item, key_attr_name): item})
     return items_dict
+
+def uniquify_sequence(sequence):
+    """
+    Makes sure items in the given sequence are unique, having the original order preserved.
+
+    :param iterable sequence:
+    :return list:
+    """
+    seen = set()
+    seen_add = seen.add
+    return [x for x in sequence if x not in seen and not seen_add(x)]
 
 def clean_plugin_data(dashboard_entries, request=None):
     """
