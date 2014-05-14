@@ -15,10 +15,12 @@ class ChartForm(forms.Form, DashboardPluginFormBase):
     """
 
     plugin_data_fields = [
+        ("title", ""),
         ("data_date", DEFAULT_DATE_VALUE),
         ("data_open", DEFAULT_OPEN_VALUE)
     ]
 
+    title = forms.CharField(label=_("Title"), required=True)
     data_date = forms.CharField(label=_("Date"), required=True, initial=DEFAULT_DATE_VALUE,
                                 widget=forms.widgets.Textarea)
     data_open = forms.CharField(label=_("Open"), required=True, initial=DEFAULT_OPEN_VALUE,
