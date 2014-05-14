@@ -183,6 +183,7 @@ INSTALLED_APPS = (
     # Other project specific apps
     #'admin_tools_dashboard', # Admin dashboard
     'foo', # Test app
+    'bar', # Another test app
 )
 
 LOGIN_REDIRECT_URL = '/dashboard/'

@@ -2,10 +2,12 @@ __title__ = 'dash.defaults'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('RESTRICT_PLUGIN_ACCESS', 'PLUGINS_MODULE_NAME', 'LAYOUTS_MODULE_NAME', 'ACTIVE_LAYOUT', \
-           'LAYOUT_CELL_UNITS', 'DEFAULT_WORKSPACE_NAME', 'DEFAULT_PLACEHOLDER_VIEW_TEMPLATE_NAME', \
-           'DEFAULT_PLACEHOLDER_EDIT_TEMPLATE_NAME', 'DISPLAY_AUTH_LINK', 'WAIT_BETWEEN_TEST_STEPS', \
-           'WAIT_AT_TEST_END', 'DEBUG')
+__all__ = (
+    'RESTRICT_PLUGIN_ACCESS', 'PLUGINS_MODULE_NAME', 'LAYOUTS_MODULE_NAME', 'ACTIVE_LAYOUT', \
+    'LAYOUT_CELL_UNITS', 'DEFAULT_WORKSPACE_NAME', 'DEFAULT_PLACEHOLDER_VIEW_TEMPLATE_NAME', \
+    'DEFAULT_PLACEHOLDER_EDIT_TEMPLATE_NAME', 'DISPLAY_AUTH_LINK', 'WAIT_BETWEEN_TEST_STEPS', \
+    'WAIT_AT_TEST_END', 'DEBUG'
+)
 
 from django.utils.translation import ugettext
 
@@ -25,7 +27,7 @@ LAYOUTS_MODULE_NAME = 'dash_layouts'
 ACTIVE_LAYOUT = 'android'
 
 # Allowed layout cell units.
-LAYOUT_CELL_UNITS = ('em', 'px', 'pt', '%')
+LAYOUT_CELL_UNITS = ('em', 'px', 'pt', '%', 'rem', 'in', 'cm', 'mm', 'ex', 'pc')
 
 # Name of the default dashboard workspace (no workspace).
 DEFAULT_WORKSPACE_NAME = 'Default'

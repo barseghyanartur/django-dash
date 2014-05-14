@@ -1,0 +1,36 @@
+
+<p>
+        <span id="chart-{{ plugin.html_id }}" ></span>
+        <script type="text/javascript">
+        $(document).ready(function(){
+            var djData = {
+                'Date': {{ data_date|safe }},
+                'Open': {{ data_open|safe }}
+            }
+            var polyjsdata = polyjs.data(djData)
+            var spec = {
+                title: "JSE Daily Opening Values",
+                layer: {
+                    data: polyjsdata,
+                    type: 'line',
+                    x: 'Date',
+                    y: 'Open',
+                    size: {'const': 3}
+                },
+                guide: {
+                    x: {
+                        numticks: 10
+                    },
+                    y: {
+                        min: 12000,
+                        max: 15000
+                    }
+                },
+                dom: 'chart-{{ plugin.html_id }}',
+                width: {{ width }},
+                height: {{ height }}
+            }
+            polyjs.chart(spec);
+        });
+    </script>
+</p>

@@ -102,7 +102,9 @@ Core and contrib
 - Rewrite the Javascript and core templates with bootstrap3 in mind. Support old themes as well.
 - Add information (especially license information) of the third-party apps used in the project.
 - Test dash with plugin which doesn't have a form. If problems occur, use the
-  the django-fobi approach.
+  the yet unreleased ``django-fobi`` approach.
+- Make a "Foundation 5" theme. Most likely, set it as a default layout.
+- Add "rem" (and other CSS units) to the list of available cell units.
 
 Should haves
 ===============================================
