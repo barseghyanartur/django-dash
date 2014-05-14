@@ -51,3 +51,5 @@ plugin_factory(BaseChartPlugin, 'chart', sizes)
 
 # Registering dummy plugin widgets
 plugin_widget_factory(BaseChartWidget, 'android', 'main', 'chart', sizes)
+plugin_widget_factory(BaseChartWidget, 'windows8', 'main', 'chart', sizes)
+plugin_widget_factory(BaseChartWidget, 'bootstrap2_fluid', 'main', 'chart', sizes)
