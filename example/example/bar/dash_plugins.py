@@ -4,16 +4,15 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 
 from django.utils.translation import ugettext_lazy as _
 
-from dash.base import plugin_registry, plugin_widget_registry, BaseDashboardPlugin
+from dash.base import BaseDashboardPlugin
 from dash.factory import plugin_factory, plugin_widget_factory
-from dash.contrib.plugins.image.dash_plugins import BaseImagePlugin
 
 from bar.dash_widgets import BaseChartWidget
 from bar.forms import ChartForm
 
-# ******************************************************
-# ******************Extended plugins *******************
-# ******************************************************
+# ********************************************************************************
+# *************************** Extended plugins ***********************************
+# ********************************************************************************
 
 class BaseChartPlugin(BaseDashboardPlugin):
     """
@@ -45,11 +44,11 @@ sizes = (
 
 plugin_factory(BaseChartPlugin, 'chart', sizes)
 
-# ******************************************************
-# ***************** Registering widgets ****************
-# ******************************************************
+# ********************************************************************************
+# ********************************* Registering widgets **************************
+# ********************************************************************************
 
-# Registering dummy plugin widgets
+# Registering chart plugin widgets
 plugin_widget_factory(BaseChartWidget, 'android', 'main', 'chart', sizes)
 plugin_widget_factory(BaseChartWidget, 'windows8', 'main', 'chart', sizes)
 plugin_widget_factory(BaseChartWidget, 'bootstrap2_fluid', 'main', 'chart', sizes)

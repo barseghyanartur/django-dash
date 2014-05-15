@@ -3,7 +3,6 @@ __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 
 from django.template.loader import render_to_string
-from django.conf import settings
 
 from dash.base import BaseDashboardPluginWidget
 
@@ -22,7 +21,6 @@ class BaseChartWidget(BaseDashboardPluginWidget):
     def render(self, request=None):
         context = {
             'plugin': self.plugin,
-            'MEDIA_URL': settings.MEDIA_URL,
             'data_date': str(self.plugin.data.data_date),
             'data_open': str(self.plugin.data.data_open),
             'width': self.get_width(),
