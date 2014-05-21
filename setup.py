@@ -58,18 +58,18 @@ for locale_dir in locale_dirs:
 version = '0.4.5'
 
 install_requires = [
-    'Pillow==2.1.0',
+    'Pillow>=2.1.0,<=2.4.0',
     'django-autoslug==1.7.1',
-    'django-slim==0.7.1',
-    'django-tinymce==1.5.1',
+    'django-slim>=0.7.3',
+    'django-tinymce>=1.5.1,<=1.5.2',
     'feedparser==5.1.3',
     'ordereddict==1.1',
-    'pif==0.5',
-    'radar==0.3',
-    'six==1.4.1',
-    'easy-thumbnails==1.4',
-    'transliterate==1.5',
-    'vishap==0.1'
+    'pif>=0.5,<1.0',
+    'radar>=0.3,<1.0',
+    'six>=1.4.1,<=1.6.1',
+    'easy-thumbnails>=1.4,<2.0',
+    'transliterate>=1.5,<2.0',
+    'vishap>=0.1.1,<2.0'
 ]
 
 try:

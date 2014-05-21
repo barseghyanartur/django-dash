@@ -2,10 +2,10 @@ Release history
 =====================================
 0.4.5
 -------------------------------------
-2014-04-?? (yet unreleased)
+2014-05-21
 
-- "Foundation 5" theme.
 - Added 'rem', 'in', 'cm', 'mm', 'ex' and 'pc' units to the list of available units.
+- Softened dependencies.
 
 0.4.4
 -------------------------------------
