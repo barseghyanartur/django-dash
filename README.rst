@@ -53,35 +53,43 @@ Installation
 ===============================================
 1. Install latest stable version from PyPI:
 
+.. code-block:: none
+
     $ pip install django-dash
 
-   Or latest stable version from GitHub:
+Or latest stable version from GitHub:
+
+.. code-block:: none
 
     $ pip install -e git+https://github.com/barseghyanartur/django-dash@stable#egg=django-dash
 
-   Or latest stable version from BitBucket:
+Or latest stable version from BitBucket:
+
+.. code-block:: none
 
     $ pip install -e hg+https://bitbucket.org/barseghyanartur/django-dash@stable#egg=django-dash
 
 2. Add `dash` to ``INSTALLED_APPS`` of the your projects' Django settings. Furthermore, all layouts
    and plugins to be used, shall be added to the ``INSTALLED_APPS`` as well.
-   
->>> INSTALLED_APPS = (
->>>     # ...
->>>     'dash',
->>>     'dash.contrib.layouts.android',
->>>     'dash.contrib.layouts.bootstrap2',
->>>     'dash.contrib.layouts.windows8',
->>>     'dash.contrib.plugins.dummy',
->>>     'dash.contrib.plugins.image',
->>>     'dash.contrib.plugins.memo',
->>>     'dash.contrib.plugins.news',
->>>     'dash.contrib.plugins.rss_feed',
->>>     'dash.contrib.plugins.url',
->>>     'dash.contrib.plugins.video',
->>>     'dash.contrib.plugins.weather',
->>>     # ...
->>> )
+
+.. code-block:: python
+
+    INSTALLED_APPS = (
+        # ...
+        'dash',
+        'dash.contrib.layouts.android',
+        'dash.contrib.layouts.bootstrap2',
+        'dash.contrib.layouts.windows8',
+        'dash.contrib.plugins.dummy',
+        'dash.contrib.plugins.image',
+        'dash.contrib.plugins.memo',
+        'dash.contrib.plugins.news',
+        'dash.contrib.plugins.rss_feed',
+        'dash.contrib.plugins.url',
+        'dash.contrib.plugins.video',
+        'dash.contrib.plugins.weather',
+        # ...
+    )
 
 3. Make sure that ``django.core.context_processors.request`` is in ``TEMPLATE_CONTEXT_PROCESSORS``.
 
@@ -98,9 +106,13 @@ below for having the demo running within a minute.
 
 Grab the latest `django_dash_example_app_installer.sh`:
 
+.. code-block:: none
+
     $ wget https://raw.github.com/barseghyanartur/django-dash/stable/example/django_dash_example_app_installer.sh
 
 Assign execute rights to the installer and run the `django_dash_example_app_installer.sh`:
+
+.. code-block:: none
 
     $ chmod +x django_dash_example_app_installer.sh
 
@@ -166,69 +178,75 @@ To make it clear, see following cases:
 - Plugin widget has 4 cols and 3 rows. Then, for example, it may occupy cells (22, 23, 24,
   25, 32, 33, 34, 35, 42, 43, 44 and 45).
 
->>>                                  `main`                                `shortcuts`
->>>┌───────────┬───────────┬───────────┬───────────┬───────────┬───────────┐ ┌─────┐
->>>│           │           │           │           │           │           │ │  1  │
->>>│           │           │           │           │           │           │ │     │
->>>│    11     │    12     │    13     │    14     │    15     │    16     │ ├─────┤
->>>│           │           │           │           │           │           │ │  2  │
->>>│           │           │           │           │           │           │ │     │
->>>├───────────┼───────────┼───────────┼───────────┼───────────┼───────────┤ ├─────┤
->>>│           │           │           │           │           │           │ │     │
->>>│           │           │           │           │           │           │ │  3  │
->>>│    21     │    22     │    23     │    24     │    25     │    26     │ ├─────┤
->>>│           │           │           │           │           │           │ │  4  │
->>>│           │           │           │           │           │           │ │     │
->>>├───────────┼───────────┼───────────┼───────────┼───────────┼───────────┤ ├─────┤
->>>│           │           │           │           │           │           │ │     │
->>>│           │           │           │           │           │           │ │  5  │
->>>│    31     │    32     │    33     │    34     │    35     │    36     │ ├─────┤
->>>│           │           │           │           │           │           │ │  6  │
->>>│           │           │           │           │           │           │ │     │
->>>├───────────┼───────────┼───────────┼───────────┼───────────┼───────────┤ ├─────┤
->>>│           │           │           │           │           │           │ │     │
->>>│           │           │           │           │           │           │ │  7  │
->>>│    41     │    42     │    43     │    44     │    45     │    46     │ ├─────┤
->>>│           │           │           │           │           │           │ │  8  │
->>>│           │           │           │           │           │           │ │     │
->>>├───────────┼───────────┼───────────┼───────────┼───────────┼───────────┤ ├─────┤
->>>│           │           │           │           │           │           │ │     │
->>>│           │           │           │           │           │           │ │  9  │
->>>│    51     │    52     │    53     │    54     │    55     │    56     │ ├─────┤
->>>│           │           │           │           │           │           │ │ 10  │
->>>│           │           │           │           │           │           │ │     │
->>>└───────────┴───────────┴───────────┴───────────┴───────────┴───────────┘ └─────┘
+.. code-block:: none
+
+                                     `main`                                `shortcuts`
+    ┌───────────┬───────────┬───────────┬───────────┬───────────┬───────────┐ ┌─────┐
+    │           │           │           │           │           │           │ │  1  │
+    │           │           │           │           │           │           │ │     │
+    │    11     │    12     │    13     │    14     │    15     │    16     │ ├─────┤
+    │           │           │           │           │           │           │ │  2  │
+    │           │           │           │           │           │           │ │     │
+    ├───────────┼───────────┼───────────┼───────────┼───────────┼───────────┤ ├─────┤
+    │           │           │           │           │           │           │ │     │
+    │           │           │           │           │           │           │ │  3  │
+    │    21     │    22     │    23     │    24     │    25     │    26     │ ├─────┤
+    │           │           │           │           │           │           │ │  4  │
+    │           │           │           │           │           │           │ │     │
+    ├───────────┼───────────┼───────────┼───────────┼───────────┼───────────┤ ├─────┤
+    │           │           │           │           │           │           │ │     │
+    │           │           │           │           │           │           │ │  5  │
+    │    31     │    32     │    33     │    34     │    35     │    36     │ ├─────┤
+    │           │           │           │           │           │           │ │  6  │
+    │           │           │           │           │           │           │ │     │
+    ├───────────┼───────────┼───────────┼───────────┼───────────┼───────────┤ ├─────┤
+    │           │           │           │           │           │           │ │     │
+    │           │           │           │           │           │           │ │  7  │
+    │    41     │    42     │    43     │    44     │    45     │    46     │ ├─────┤
+    │           │           │           │           │           │           │ │  8  │
+    │           │           │           │           │           │           │ │     │
+    ├───────────┼───────────┼───────────┼───────────┼───────────┼───────────┤ ├─────┤
+    │           │           │           │           │           │           │ │     │
+    │           │           │           │           │           │           │ │  9  │
+    │    51     │    52     │    53     │    54     │    55     │    56     │ ├─────┤
+    │           │           │           │           │           │           │ │ 10  │
+    │           │           │           │           │           │           │ │     │
+    └───────────┴───────────┴───────────┴───────────┴───────────┴───────────┘ └─────┘
 
 There are some rules/guideles you should follow.
 
 Let's assume that layout is named `example`. The layout directory should then have the following
 structure.
 
->>> path/to/layout/example/
->>> ├── static
->>> │   ├── css
->>> │   │   └── dash_layout_example.css # Contains layout-specific CSS
->>> │   ├── images
->>> │   └── js
->>> │       └── dash_layout_example.js # Contains layout specific JavaScripts
->>> ├── templates
->>> │   └── example
->>> │       ├── edit_layout.html # Master edit layout
->>> │       └── view_layout.html # Master view layout
->>> ├── __init__.py
->>> ├── dash_layouts.py # Where layouts and placeholders are defined and registered
->>> ├── dash_plugins.py # Where layout specific plugins and plugin widgets are defined and registered
->>> └── dash_widgets.py # Where layout specific plugin widgets are defined
+.. code-block:: none
+
+    path/to/layout/example/
+    ├── static
+    │   ├── css
+    │   │   └── dash_layout_example.css # Contains layout-specific CSS
+    │   ├── images
+    │   └── js
+    │       └── dash_layout_example.js # Contains layout specific JavaScripts
+    ├── templates
+    │   └── example
+    │       ├── edit_layout.html # Master edit layout
+    │       └── view_layout.html # Master view layout
+    ├── __init__.py
+    ├── dash_layouts.py # Where layouts and placeholders are defined and registered
+    ├── dash_plugins.py # Where layout specific plugins and plugin widgets are defined and registered
+    └── dash_widgets.py # Where layout specific plugin widgets are defined
 
 Layout and placeholder classes should be placed in the `dash_layouts.py` file.
 
 Each layout should be put into the ``INSTALLED_APPS`` of your Django projects' settings module.
 
->>> INSTALLED_APPS = (
->>>     # ...
->>>     'path.to.layout.example',
->>>     # ...
->>> )
+.. code-block:: python
+
+    INSTALLED_APPS = (
+        # ...
+        'path.to.layout.example',
+        # ...
+    )
 
 path/to/layout/example/dash_layouts.py
 -----------------------------------------------
@@ -238,56 +256,64 @@ are defined, has to be named `dash_layouts.py`.
 
 Required imports.
 
->>> from dash.base import BaseDashboardLayout, BaseDashboardPlaceholder
->>> from dash.base import layout_registry
+.. code-block:: python
+
+    from dash.base import BaseDashboardLayout, BaseDashboardPlaceholder
+    from dash.base import layout_registry
 
 Defining the Main placeholder.
 
->>> class ExampleMainPlaceholder(BaseDashboardPlaceholder):
->>>    uid = 'main' # Unique ID of the placeholder.
->>>    cols = 6 # Number of columns in the placeholder.
->>>    rows = 5 # Number of rows in the placeholder.
->>>    cell_width = 150 # Width of a single cell in the placeholder.
->>>    cell_height = 110 # Height of a single cell in the placeholder.
+.. code-block:: python
+
+    class ExampleMainPlaceholder(BaseDashboardPlaceholder):
+       uid = 'main' # Unique ID of the placeholder.
+       cols = 6 # Number of columns in the placeholder.
+       rows = 5 # Number of rows in the placeholder.
+       cell_width = 150 # Width of a single cell in the placeholder.
+       cell_height = 110 # Height of a single cell in the placeholder.
 
 Defining the Shortcuts placeholder.
 
->>> class ExampleShortcutsPlaceholder(BaseDashboardPlaceholder):
->>>     uid = 'shortcuts' # UID of the placeholder.
->>>     cols = 1 # Number of columns in the placeholder.
->>>     rows = 10 # Number of rows in the placeholder.
->>>     cell_width = 60 # Width of a single cell in the placeholder.
->>>     cell_height = 55 # Height of a single cell in the placeholder.
+.. code-block:: python
+
+    class ExampleShortcutsPlaceholder(BaseDashboardPlaceholder):
+        uid = 'shortcuts' # UID of the placeholder.
+        cols = 1 # Number of columns in the placeholder.
+        rows = 10 # Number of rows in the placeholder.
+        cell_width = 60 # Width of a single cell in the placeholder.
+        cell_height = 55 # Height of a single cell in the placeholder.
 
 Defining and registering the Layout.
 
->>> class ExampleLayout(BaseDashboardLayout):
->>>     uid = 'example' # Layout UID.
->>>     name = 'Example' # Layout name.
->>>
->>>     # View template. Master template used in view mode.
->>>     view_template_name = 'example/view_layout.html'
->>>
->>>     # Edit template. Master template used in edit mode.
->>>     edit_template_name = 'example/edit_layout.html'
->>>
->>>     # All placeholders listed. Note, that placeholders are rendered in the 
->>>     # order specified here.
->>>     placeholders = [ExampleMainPlaceholder, ExampleShortcutsPlaceholder]
->>>
->>>     # Cell units used in the entire layout. Allowed values are: 'px', 'pt', 
->>>     # 'em' or '%'. In the ``ExampleMainPlaceholder`` cell_width is set to 150.
->>>     #  It means that in this particular case its' actual width would be `150px`.
->>>     cell_units = 'px'
->>>
->>>     # Layout specific CSS.
->>>     media_css = ('css/dash_layout_example.css',)
->>>
->>>     # Layout specific JS.
->>>     media_js = ('js/dash_layout_example.js',)
->>>
->>> # Registering the layout.
->>> layout_registry.register(ExampleLayout)
+.. code-block:: python
+
+    class ExampleLayout(BaseDashboardLayout):
+        uid = 'example' # Layout UID.
+        name = 'Example' # Layout name.
+
+        # View template. Master template used in view mode.
+        view_template_name = 'example/view_layout.html'
+
+        # Edit template. Master template used in edit mode.
+        edit_template_name = 'example/edit_layout.html'
+
+        # All placeholders listed. Note, that placeholders are rendered in the
+        # order specified here.
+        placeholders = [ExampleMainPlaceholder, ExampleShortcutsPlaceholder]
+
+        # Cell units used in the entire layout. Allowed values are: 'px', 'pt',
+        # 'em' or '%'. In the ``ExampleMainPlaceholder`` cell_width is set to 150.
+        #  It means that in this particular case its' actual width would be `150px`.
+        cell_units = 'px'
+
+        # Layout specific CSS.
+        media_css = ('css/dash_layout_example.css',)
+
+        # Layout specific JS.
+        media_js = ('js/dash_layout_example.js',)
+
+    # Registering the layout.
+    layout_registry.register(ExampleLayout)
 
 HTML templates
 -----------------------------------------------
@@ -303,9 +329,13 @@ Both "dash/layouts/base_view_layout.html" and "dash/layouts/base_edit_layout.htm
 Note, that when rendered to HTML, each Dash template, gets a body class "layout" + layouts' unique
 identifier (UID). So, the ``ExampleLayout`` layout would automatically get the class "layout-example".
 
+.. code-block:: html
+
     <body class="layout-example">
 
 In case of Android layout (UID "android") it would be as follows.
+
+.. code-block:: html
 
     <body class="layout-android">
 
@@ -315,9 +345,13 @@ Same goes for Placeholders. Each placeholder gets `id_` + placeholders' UID and 
 "placeholder" and "placeholder-" + placeholders' UID. So, the ``ExampleMainPlaceholder`` would look
 as follows.
 
+.. code-block:: html
+
     <div id="id_main" class="placeholder placeholder-main">
 
 And the ``ExampleShortcutsPlaceholder`` placeholder would look as follows.
+
+.. code-block:: html
 
     <div id="id_shortcuts" class="placeholder placeholder-shortcuts">
 
@@ -326,28 +360,38 @@ positioning, it gets the "plugin" and "plugin-" + plugin UID. See the following 
 plugin Dummy with UID "dummy"). Each plugin also gets an automatic UID on the moment when rendered.
 In the example below it's the "p6d06f17d-e142-4f45-b9c1-893c38fc2b01".
 
-<div id="p6d06f17d-e142-4f45-b9c1-893c38fc2b01" class="plugin plugin-dummy">
+.. code-block:: html
+
+    <div id="p6d06f17d-e142-4f45-b9c1-893c38fc2b01" class="plugin plugin-dummy">
 
 Layout, placeholder, plugin and plugin widget have properties for getting their HTML specific
 classes and IDs.
 
 Layout (instance)
 
->>> layout.html_class
+.. code-block:: python
+
+    layout.html_class
 
 Placeholder (instance)
 
->>> placeholder.html_id
->>> placeholder.html_class
+.. code-block:: python
+
+    placeholder.html_id
+    placeholder.html_class
 
 Plugin (instance)
 
->>> plugin.html_id
->>> plugin.html_class
+.. code-block:: python
+
+    plugin.html_id
+    plugin.html_class
 
 Plugin widget (static call)
 
->>> plugin_widget.html_class # Static one
+.. code-block:: python
+
+    plugin_widget.html_class # Static one
 
 Creating a new plugin
 ===============================================
@@ -361,21 +405,23 @@ following structure.
 Note, that you are advised to prefix all your plugin specific media files with `dash_plugin_` for
 the sake of common sense.
 
->>> path/to/plugin/sample_memo/
->>> ├── static
->>> │   ├── css
->>> │   │   └── dash_plugin_sample_memo.css # Plugin specific CSS
->>> │   ├── images
->>> │   └── js
->>> │       └── dash_plugin_sample_memo.js # Plugin specific JavaScripts
->>> ├── templates
->>> │   └── sample_memo
->>> │       ├── render_main.html # Plugin widget templ. for `main` Placeholder
->>> │       └── render_short.html # Plugin widget templ. for `shortcuts` Placeholder
->>> ├── __init__.py
->>> ├── dash_plugins.py # Where plugins and widgets are defined and registered
->>> ├── dash_widgets.py # Where the plugin widgets are defined
->>> └── forms.py # Plugin configuration form
+.. code-block:: none
+
+    path/to/plugin/sample_memo/
+    ├── static
+    │   ├── css
+    │   │   └── dash_plugin_sample_memo.css # Plugin specific CSS
+    │   ├── images
+    │   └── js
+    │       └── dash_plugin_sample_memo.js # Plugin specific JavaScripts
+    ├── templates
+    │   └── sample_memo
+    │       ├── render_main.html # Plugin widget templ. for `main` Placeholder
+    │       └── render_short.html # Plugin widget templ. for `shortcuts` Placeholder
+    ├── __init__.py
+    ├── dash_plugins.py # Where plugins and widgets are defined and registered
+    ├── dash_widgets.py # Where the plugin widgets are defined
+    └── forms.py # Plugin configuration form
 
 In some cases, you would need plugin specific overridable settings (see ``dash.contrib.plugins.weather``
 plugin as an example. You are advised to write your settings in such a way, that variables of your
@@ -397,30 +443,40 @@ approaches would be explained.
 
 Required imports.
 
->>> from dash.base import BaseDashboardPlugin, plugin_registry
->>> from path.to.plugin.sample_memo.forms import SampleMemoForm
+.. code-block:: python
+
+    from dash.base import BaseDashboardPlugin, plugin_registry
+    from path.to.plugin.sample_memo.forms import SampleMemoForm
 
 Defining the Sample Memo plugin (2x2) (to be used in the `main` placeholder).
 
->>> class SampleMemo2x2Plugin(BaseDashboardPlugin):
->>>     uid = 'sample_memo_2x2' # Plugin UID
->>>     name = _("Memo") # Plugin name
->>>     group = _("Memo") # Group to which the plugin belongs to
->>>     form = SampleMemoForm # Plugin forms are explained later
->>>     html_classes = ['sample-memo'] # This is optional. Adds extra HTML classes.
+.. code-block:: python
+
+    class SampleMemo2x2Plugin(BaseDashboardPlugin):
+        uid = 'sample_memo_2x2' # Plugin UID
+        name = _("Memo") # Plugin name
+        group = _("Memo") # Group to which the plugin belongs to
+        form = SampleMemoForm # Plugin forms are explained later
+        html_classes = ['sample-memo'] # This is optional. Adds extra HTML classes.
 
 Registering the Sample Memo plugin.
 
->>> plugin_registry.register(SampleMemo2x2Plugin)
+.. code-block:: python
+
+    plugin_registry.register(SampleMemo2x2Plugin)
 
 Defining the Sample Memo plugin (1x1) (to be used in the `shortcuts` placeholder).
 
->>> class SampleMemo1x1Plugin(SampleMemo2x2Plugin):
->>>     uid = 'sample_memo_1x1' # Plugin UID
+.. code-block:: python
+
+    class SampleMemo1x1Plugin(SampleMemo2x2Plugin):
+        uid = 'sample_memo_1x1' # Plugin UID
 
 Registering the Sample Memo plugin.
 
->>> plugin_registry.register(SampleMemo1x1Plugin)
+.. code-block:: python
+
+    plugin_registry.register(SampleMemo1x1Plugin)
 
 Repeat the steps below for each plugin size (or read about factory registering the plugins
 and widgets below).
@@ -434,27 +490,33 @@ it's very easy to get a clear overview of all plugins sizes registered.
 
 Required imports.
 
->>> from dash.base import BaseDashboardPlugin
->>> from dash.factory import plugin_factory
->>> from path.to.plugin.sample_memo.forms import SampleMemoForm
+.. code-block:: python
+
+    from dash.base import BaseDashboardPlugin
+    from dash.factory import plugin_factory
+    from path.to.plugin.sample_memo.forms import SampleMemoForm
 
 Defining the base plugin class.
 
->>> class BaseSampleMemoPlugin(BaseDashboardPlugin):
->>>     name = _("Memo") # Plugin name
->>>     group = _("Memo") # Group to which the plugin belongs to
->>>     form = SampleMemoForm # Plugin forms are explained later
->>>     html_classes = ['sample-memo'] # This is optional. Adds extra HTML classes.
+.. code-block:: python
+
+    class BaseSampleMemoPlugin(BaseDashboardPlugin):
+        name = _("Memo") # Plugin name
+        group = _("Memo") # Group to which the plugin belongs to
+        form = SampleMemoForm # Plugin forms are explained later
+        html_classes = ['sample-memo'] # This is optional. Adds extra HTML classes.
 
 Note, that we don't provide ``uid`` property in the base class.
 
 Now, that we have the base plugin defined, factory register it for the sizes given.
 
->>> sizes = (
->>>     (1, 1),
->>>     (2, 2),
->>> )
->>> plugin_factory(BaseSampleMemoPlugin, 'sample_memo', sizes)
+.. code-block:: python
+
+    sizes = (
+        (1, 1),
+        (2, 2),
+    )
+    plugin_factory(BaseSampleMemoPlugin, 'sample_memo', sizes)
 
 In the example above, "sample_memo" is the base name of the plugin. Size information would
 be appended to it ("sample_memo_1x1", "sample_memo_2x2").
@@ -466,18 +528,24 @@ Plugin widgets are defined in `dash_widgets.py` module (described later), but re
 
 Required imports.
 
->>> from dash.base import plugin_widget_registry
->>> from path.to.plugin.sample_memo.dash_widgets import (
->>>     SampleMemo1x1ExampleMainWidget, SampleMemo2x2ExampleMainWidget
->>> )
+.. code-block:: python
+
+    from dash.base import plugin_widget_registry
+    from path.to.plugin.sample_memo.dash_widgets import (
+        SampleMemo1x1ExampleMainWidget, SampleMemo2x2ExampleMainWidget
+    )
 
 Registering the Sample Memo plugin widget for placeholder `main` of layout `example`.
 
->>> plugin_widget_registry.register(SampleMemo2x2ExampleMainWidget)
+.. code-block:: python
+
+    plugin_widget_registry.register(SampleMemo2x2ExampleMainWidget)
 
 Registering the Sample Memo plugin widget for placeholder `shortcuts` of layout `example`.
 
->>> plugin_widget_registry.register(SampleMemo1x1ExampleMainWidget)
+.. code-block:: python
+
+    plugin_widget_registry.register(SampleMemo1x1ExampleMainWidget)
 
 path/to/plugin/sample_memo/dash_widgets.py
 -----------------------------------------------
@@ -492,34 +560,40 @@ Define and register the plugin widget
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Required imports.
 
->>> from django.template.loader import render_to_string
->>> from dash.base import BaseDashboardPluginWidget
+.. code-block:: python
+
+    from django.template.loader import render_to_string
+    from dash.base import BaseDashboardPluginWidget
 
 Memo plugin widget for Example layout (placeholder `main`).
 
->>> class SampleMemo2x2ExampleMainWidget(BaseDashboardPluginWidget):
->>>     layout_uid = 'example' # Layout for which the widget is written
->>>     placeholder_uid = 'main' # Placeholder within the layout for which
->>>                              # the widget is written
->>>     plugin_uid = 'sample_memo_2x2' # Plugin for which the widget is written
->>>     cols = 2 # Number of widget columns
->>>     rows = 2 # Number of widget rows
->>>
->>>     def render(self, request=None):
->>>         context = {'plugin': self.plugin}
->>>         return render_to_string('sample_memo/render_main.html', context)
+.. code-block:: python
+
+    class SampleMemo2x2ExampleMainWidget(BaseDashboardPluginWidget):
+        layout_uid = 'example' # Layout for which the widget is written
+        placeholder_uid = 'main' # Placeholder within the layout for which
+                                 # the widget is written
+        plugin_uid = 'sample_memo_2x2' # Plugin for which the widget is written
+        cols = 2 # Number of widget columns
+        rows = 2 # Number of widget rows
+
+        def render(self, request=None):
+            context = {'plugin': self.plugin}
+            return render_to_string('sample_memo/render_main.html', context)
 
 Memo plugin widget for Example layout (placeholder `shortcuts`).
 
->>> class SampleMemo1x1ExampleShortcutWidget(SampleMemo2x2ExampleMainWidget):
->>>     placeholder_uid = 'shortcuts' # Placeholder within the layout for which
->>>                                   # the widget is written
->>>     cols = 1 # Number of widget columns
->>>     rows = 1 # Number of widget rows
->>>
->>>     def render(self, request=None):
->>>         context = {'plugin': self.plugin}
->>>         return render_to_string('sample_memo/render_shortcuts.html', context)
+.. code-block:: python
+
+    class SampleMemo1x1ExampleShortcutWidget(SampleMemo2x2ExampleMainWidget):
+        placeholder_uid = 'shortcuts' # Placeholder within the layout for which
+                                      # the widget is written
+        cols = 1 # Number of widget columns
+        rows = 1 # Number of widget rows
+
+        def render(self, request=None):
+            context = {'plugin': self.plugin}
+            return render_to_string('sample_memo/render_shortcuts.html', context)
 
 Factory register plugin widgets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -529,24 +603,30 @@ sizes 1x1 and 2x2.
 
 Required imports.
 
->>> from django.template.loader import render_to_string
->>> from dash.factory import plugin_widget_factory
->>> from dash.base import BaseDashboardPluginWidget
+.. code-block:: python
+
+    from django.template.loader import render_to_string
+    from dash.factory import plugin_widget_factory
+    from dash.base import BaseDashboardPluginWidget
 
 Defining the base plugin widget class.
 
->>> class BaseSampleMemoWidget(BaseDashboardPluginWidget):
->>>     def render(self, request=None):
->>>         context = {'plugin': self.plugin}
->>>         return render_to_string('sample_memo/render.html', context)
+.. code-block:: python
+
+    class BaseSampleMemoWidget(BaseDashboardPluginWidget):
+        def render(self, request=None):
+            context = {'plugin': self.plugin}
+            return render_to_string('sample_memo/render.html', context)
 
 Now, that we have the base plugin defined, factory register it for the sizes given.
 
->>> sizes = (
->>>     (1, 1),
->>>     (2, 2),
->>> )
->>> plugin_widget_factory(BaseSampleMemoWidget, 'example', 'main', 'sample_memo', sizes)
+.. code-block:: python
+
+    sizes = (
+        (1, 1),
+        (2, 2),
+    )
+    plugin_widget_factory(BaseSampleMemoWidget, 'example', 'main', 'sample_memo', sizes)
 
 In the example above:
 
@@ -563,35 +643,43 @@ Media directive in the form.
 
 Required imports.
 
->>> from django import forms
->>> from dash.base import DashboardPluginFormBase
+.. code-block:: python
+
+    from django import forms
+    from dash.base import DashboardPluginFormBase
 
 Memo form (for `Sample Memo` plugin).
 
->>> class SampleMemoForm(forms.Form, DashboardPluginFormBase):
->>>     plugin_data_fields = [
->>>         ("title", ""),
->>>         ("text", "")
->>>     ]
->>>
->>>     title = forms.CharField(label=_("Title"), required=False)
->>>     text = forms.CharField(label=_("Text"), required=True, \
->>>                            widget=forms.widgets.Textarea)
->>>
->>>     def __init__(self, *args, **kwargs):
->>>         super(MemoForm, self).__init__(*args, **kwargs)
+.. code-block:: python
+
+    class SampleMemoForm(forms.Form, DashboardPluginFormBase):
+        plugin_data_fields = [
+            ("title", ""),
+            ("text", "")
+        ]
+
+        title = forms.CharField(label=_("Title"), required=False)
+        text = forms.CharField(label=_("Text"), required=True, \
+                               widget=forms.widgets.Textarea)
+
+        def __init__(self, *args, **kwargs):
+            super(MemoForm, self).__init__(*args, **kwargs)
 
 Now, that everything is ready, make sure your that both layout and the plugin modules are added to
 ``INSTALLED_APPS`` for your projects' Django settings.
 
->>> INSTALLED_APPS = (
->>>     # ...
->>>     'path.to.layout.example',
->>>     'path.to.plugin.sample_memo',
->>>     # ...
->>> )
+.. code-block:: python
+
+    INSTALLED_APPS = (
+        # ...
+        'path.to.layout.example',
+        'path.to.plugin.sample_memo',
+        # ...
+    )
 
 After it's done, go to terminal and type the following command.
+
+.. code-block:: none
 
     $ ./manage.py dash_sync_plugins
 
@@ -609,17 +697,21 @@ Plugin and widget factory
 In general, when making a new plugin, base widgets are made for then too. By creating base
 widgets you avoid duplication of the code. See the example below.
 
->>> from dash.base import BaseDashboardPlugin
->>> class BaseMemoPlugin(BaseDashboardPlugin):
->>>    name = _("Memo")
->>>    group = _("Memo")
->>>    form = MemoForm
+.. code-block:: python
+
+    from dash.base import BaseDashboardPlugin
+    class BaseMemoPlugin(BaseDashboardPlugin):
+       name = _("Memo")
+       group = _("Memo")
+       form = MemoForm
 
 Now that we have the base plugin, we can use plugin factory to generate and register
 plugin classes of the required dimensions.
 
->>> from dash.factory import plugin_factory
->>> plugin_factory(BaseMemoPlugin, 'memo', ((5, 6), (6, 5), (6, 6)))
+.. code-block:: python
+
+    from dash.factory import plugin_factory
+    plugin_factory(BaseMemoPlugin, 'memo', ((5, 6), (6, 5), (6, 6)))
 
 The code above will generate "memo_5x6", "memo_6x5" and "memo_6x6" plugin classes which
 subclass the ``BaseMemoPlugin`` and register them in the plugin registry. The ``uid`` property
@@ -627,17 +719,21 @@ would be automatically generated.
 
 Same goes for the widgets.
 
->>> from dash.base import BaseDashboardPluginWidget
->>> class BaseMemoWidget(BaseDashboardPluginWidget):
->>>     def render(self, request=None):
->>>         context = {'plugin': self.plugin}
->>>         return render_to_string('memo/render.html', context)
+.. code-block:: python
+
+    from dash.base import BaseDashboardPluginWidget
+    class BaseMemoWidget(BaseDashboardPluginWidget):
+        def render(self, request=None):
+            context = {'plugin': self.plugin}
+            return render_to_string('memo/render.html', context)
 
 Now that we have the base widget, we can use plugin widget factory to generate and register
 plugin widget classes of the required dimensions.
 
->>> from dash.factory import plugin_widget_factory
->>> plugin_widget_factory(BaseMemoWidget, 'bootstrap2_fluid', 'main', 'memo', ((5, 6), (6, 5), (6, 6)))
+.. code-block:: python
+
+    from dash.factory import plugin_widget_factory
+    plugin_widget_factory(BaseMemoWidget, 'bootstrap2_fluid', 'main', 'memo', ((5, 6), (6, 5), (6, 6)))
 
 The code above will generate "memo_5x6", "memo_6x5" and "memo_6x6" plugin widget classes which
 subclass the ``BaseMemoWidget`` and register them in the plugin widget registry. The ``layout_uid``,
@@ -673,26 +769,28 @@ have the rights to access plugin, it doesn't appear on his dashboard even if has
 (imagine, you have once granted the right to use the news plugin to all users, but later on decided
 to limit it to Staff members group only). Note, that superusers have access to all plugins.
 
->>>         Plugin access rights management interface in Django admin
->>>┌──────────────────────────────┬───────────────────────┬───────────────────────┐
->>>│ `Plugin`                     │ `Users`               │ `Groups`              │
->>>├──────────────────────────────┼───────────────────────┼───────────────────────┤
->>>│ Video (big_video)            │ John Doe              │ Dashboard users       │
->>>├──────────────────────────────┼───────────────────────┼───────────────────────┤
->>>│ TinyMCE memo (tinymce_memo)  │                       │ Dashboard users       │
->>>├──────────────────────────────┼───────────────────────┼───────────────────────┤
->>>│ News (news)                  │ Oscar, John Doe       │ Staff members         │
->>>├──────────────────────────────┼───────────────────────┼───────────────────────┤
->>>│ URL (url)                    │                       │ Dashboard users       │
->>>├──────────────────────────────┼───────────────────────┼───────────────────────┤
->>>│ Video (video)                │                       │ Dashboard users       │
->>>├──────────────────────────────┼───────────────────────┼───────────────────────┤
->>>│ Dummy (dummy)                │                       │ Testers               │
->>>├──────────────────────────────┼───────────────────────┼───────────────────────┤
->>>│ Dummy (large_dummy)          │                       │ Testers               │
->>>├──────────────────────────────┼───────────────────────┼───────────────────────┤
->>>│ Memo (big_memo)              │                       │ Dashboard users       │
->>>└──────────────────────────────┴───────────────────────┴───────────────────────┘
+.. code-block:: none
+
+            Plugin access rights management interface in Django admin
+    ┌──────────────────────────────┬───────────────────────┬───────────────────────┐
+    │ `Plugin`                     │ `Users`               │ `Groups`              │
+    ├──────────────────────────────┼───────────────────────┼───────────────────────┤
+    │ Video (big_video)            │ John Doe              │ Dashboard users       │
+    ├──────────────────────────────┼───────────────────────┼───────────────────────┤
+    │ TinyMCE memo (tinymce_memo)  │                       │ Dashboard users       │
+    ├──────────────────────────────┼───────────────────────┼───────────────────────┤
+    │ News (news)                  │ Oscar, John Doe       │ Staff members         │
+    ├──────────────────────────────┼───────────────────────┼───────────────────────┤
+    │ URL (url)                    │                       │ Dashboard users       │
+    ├──────────────────────────────┼───────────────────────┼───────────────────────┤
+    │ Video (video)                │                       │ Dashboard users       │
+    ├──────────────────────────────┼───────────────────────┼───────────────────────┤
+    │ Dummy (dummy)                │                       │ Testers               │
+    ├──────────────────────────────┼───────────────────────┼───────────────────────┤
+    │ Dummy (large_dummy)          │                       │ Testers               │
+    ├──────────────────────────────┼───────────────────────┼───────────────────────┤
+    │ Memo (big_memo)              │                       │ Dashboard users       │
+    └──────────────────────────────┴───────────────────────┴───────────────────────┘
 
 Management commands
 ===============================================
