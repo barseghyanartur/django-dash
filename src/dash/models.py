@@ -10,13 +10,20 @@ logger = logging.getLogger(__name__)
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
 
 from autoslug import AutoSlugField
 
 from dash.base import plugin_registry, get_registered_plugins, get_registered_layouts
 from dash.helpers import slugify_workspace
 from dash.fields import OrderField
+
+try:
+    from django.contrib.auth import get_user_model
+except ImportError:
+    from django.contrib.auth.models import User
+else:
+    User = get_user_model()
 
 class DashboardSettings(models.Model):
     """

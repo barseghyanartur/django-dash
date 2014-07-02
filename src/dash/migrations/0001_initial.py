@@ -4,6 +4,18 @@ from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
 
+# Safe User import for Django < 1.5
+try:
+    from django.contrib.auth import get_user_model
+except ImportError:
+    from django.contrib.auth.models import User
+else:
+    User = get_user_model()
+
+# With the default User model these will be 'auth.User' and 'auth.user'
+# so instead of using orm['auth.User'] we can use orm[user_orm_label]
+user_orm_label = '%s.%s' % (User._meta.app_label, User._meta.object_name)
+user_model_label = '%s.%s' % (User._meta.app_label, User._meta.module_name)
 
 class Migration(SchemaMigration):
 
@@ -11,7 +23,7 @@ class Migration(SchemaMigration):
         # Adding model 'DashboardSettings'
         db.create_table(u'dash_dashboardsettings', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], unique=True)),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm[user_orm_label], unique=True)),
             ('layout_uid', self.gf('django.db.models.fields.CharField')(max_length=25)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('is_public', self.gf('django.db.models.fields.BooleanField')(default=False)),
@@ -21,7 +33,7 @@ class Migration(SchemaMigration):
         # Adding model 'DashboardWorkspace'
         db.create_table(u'dash_dashboardworkspace', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm[user_orm_label])),
             ('layout_uid', self.gf('django.db.models.fields.CharField')(max_length=25)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('slug', self.gf('autoslug.fields.AutoSlugField')(unique=True, max_length=50, populate_from='name', unique_with=())),
@@ -39,7 +51,7 @@ class Migration(SchemaMigration):
         # Adding model 'DashboardEntry'
         db.create_table(u'dash_dashboardentry', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm[user_orm_label])),
             ('workspace', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['dash.DashboardWorkspace'], null=True, blank=True)),
             ('layout_uid', self.gf('django.db.models.fields.CharField')(max_length=25)),
             ('placeholder_uid', self.gf('django.db.models.fields.CharField')(max_length=255)),
@@ -61,7 +73,7 @@ class Migration(SchemaMigration):
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('dashboardplugin', models.ForeignKey(orm[u'dash.dashboardplugin'], null=False)),
-            ('user', models.ForeignKey(orm[u'auth.user'], null=False))
+            ('user', models.ForeignKey(orm[user_orm_label], null=False))
         ))
         db.create_unique(m2m_table_name, ['dashboardplugin_id', 'user_id'])
 
@@ -115,21 +127,9 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
-        u'auth.user': {
-            'Meta': {'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
+        user_model_label: {
+            'Meta': {'object_name': User.__name__, 'db_table': "'%s'" % User._meta.db_table},
+            User._meta.pk.attname: ('django.db.models.fields.AutoField', [], {'primary_key': 'True', 'db_column': "'%s'" % User._meta.pk.column}),
         },
         u'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
@@ -146,7 +146,7 @@ class Migration(SchemaMigration):
             'plugin_data': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'plugin_uid': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'position': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm[user_orm_label]"}),
             'workspace': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['dash.DashboardWorkspace']", 'null': 'True', 'blank': 'True'})
         },
         u'dash.dashboardplugin': {
@@ -154,7 +154,7 @@ class Migration(SchemaMigration):
             'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['auth.Group']", 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'plugin_uid': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
-            'users': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'})
+            'users': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm[user_orm_label]", 'null': 'True', 'blank': 'True'})
         },
         u'dash.dashboardsettings': {
             'Meta': {'object_name': 'DashboardSettings'},
@@ -162,7 +162,7 @@ class Migration(SchemaMigration):
             'is_public': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'layout_uid': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'unique': 'True'})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm[user_orm_label]", 'unique': 'True'})
         },
         u'dash.dashboardworkspace': {
             'Meta': {'unique_together': "(('user', 'slug'), ('user', 'name'))", 'object_name': 'DashboardWorkspace'},
@@ -172,7 +172,7 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'position': ('dash.fields.OrderField', [], {'null': 'True', 'blank': 'True'}),
             'slug': ('autoslug.fields.AutoSlugField', [], {'unique': 'True', 'max_length': '50', 'populate_from': "'name'", 'unique_with': '()'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm[user_orm_label]"})
         }
     }
 
