@@ -1,6 +1,6 @@
 __title__ = 'dash.models'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2013-2014 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('DashboardSettings', 'DashboardWorkspace', 'DashboardEntry', 'DashboardPlugin')
 
@@ -17,13 +17,7 @@ from autoslug import AutoSlugField
 from dash.base import plugin_registry, get_registered_plugins, get_registered_layouts
 from dash.helpers import slugify_workspace
 from dash.fields import OrderField
-
-try:
-    from django.contrib.auth import get_user_model
-except ImportError:
-    from django.contrib.auth.models import User
-else:
-    User = get_user_model()
+from dash.compat import User
 
 class DashboardSettings(models.Model):
     """

@@ -184,7 +184,11 @@ INSTALLED_APPS = (
     #'admin_tools_dashboard', # Admin dashboard
     'foo', # Test app
     'bar', # Another test app
+    #'customauth', # Custom user model
 )
+
+# Using custom user model
+#AUTH_USER_MODEL = 'customauth.MyUser'
 
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGIN_URL = '/accounts/login/'

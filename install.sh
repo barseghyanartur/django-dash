@@ -6,4 +6,4 @@ mkdir example/media
 mkdir example/media/static
 python example/example/manage.py collectstatic --noinput
 python example/example/manage.py syncdb --noinput
-python example/example/manage.py migrate --noinput
+python example/example/manage.py migrate --noinput --delete-ghost-migrations

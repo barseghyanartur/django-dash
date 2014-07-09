@@ -29,18 +29,12 @@ from dash.utils import get_occupied_cells, get_user_plugins
 from dash.models import DashboardEntry
 from dash.management.commands import dash_sync_plugins
 from dash.settings import WAIT_BETWEEN_TEST_STEPS, WAIT_AT_TEST_END
+from dash.compat import User
 
 DASH_TEST_USER_USERNAME = 'test_admin'
 DASH_TEST_USER_PASSWORD = 'test'
 PRINT_INFO = True
 TRACK_TIME = False
-
-try:
-    from django.contrib.auth import get_user_model
-except ImportError:
-    from django.contrib.auth.models import User
-else:
-    User = get_user_model()
 
 def print_info(func):
     """

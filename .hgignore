@@ -11,6 +11,7 @@ syntax: regexp
 \.zip
 ^release/
 ^deploy/
+^forks/
 ^docs/dash\.migrations\.rst
 ^example/db/example\.db
 ^example/tmp/
