@@ -11,7 +11,6 @@ from time import sleep
 from six import print_
 
 from django.test import TestCase
-from django.contrib.auth.models import User
 from django.test import RequestFactory
 from django.core.management import call_command
 from django.test import LiveServerTestCase
@@ -35,6 +34,13 @@ DASH_TEST_USER_USERNAME = 'test_admin'
 DASH_TEST_USER_PASSWORD = 'test'
 PRINT_INFO = True
 TRACK_TIME = False
+
+try:
+    from django.contrib.auth import get_user_model
+except ImportError:
+    from django.contrib.auth.models import User
+else:
+    User = get_user_model()
 
 def print_info(func):
     """
