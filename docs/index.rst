@@ -266,11 +266,11 @@ Defining the Main placeholder.
 .. code-block:: python
 
     class ExampleMainPlaceholder(BaseDashboardPlaceholder):
-       uid = 'main' # Unique ID of the placeholder.
-       cols = 6 # Number of columns in the placeholder.
-       rows = 5 # Number of rows in the placeholder.
-       cell_width = 150 # Width of a single cell in the placeholder.
-       cell_height = 110 # Height of a single cell in the placeholder.
+        uid = 'main' # Unique ID of the placeholder.
+        cols = 6 # Number of columns in the placeholder.
+        rows = 5 # Number of rows in the placeholder.
+        cell_width = 150 # Width of a single cell in the placeholder.
+        cell_height = 110 # Height of a single cell in the placeholder.
 
 Defining the Shortcuts placeholder.
 
@@ -701,9 +701,9 @@ widgets you avoid duplication of the code. See the example below.
 
     from dash.base import BaseDashboardPlugin
     class BaseMemoPlugin(BaseDashboardPlugin):
-       name = _("Memo")
-       group = _("Memo")
-       form = MemoForm
+        name = _("Memo")
+        group = _("Memo")
+        form = MemoForm
 
 Now that we have the base plugin, we can use plugin factory to generate and register
 plugin classes of the required dimensions.
