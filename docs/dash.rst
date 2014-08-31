@@ -30,6 +30,14 @@ dash.base module
     :undoc-members:
     :show-inheritance:
 
+dash.compat module
+------------------
+
+.. automodule:: dash.compat
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 dash.conf module
 ----------------
 

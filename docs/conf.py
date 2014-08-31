@@ -20,16 +20,45 @@ import os
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../src'))
+sys.path.insert(0, os.path.abspath('../example'))
 try:
     import dash
+    from example import settings as example_settings
     version = dash.__version__
+    project = dash.__title__
+    copyright = dash.__copyright__
 except Exception as e:
     version = '0.1'
+    project = u'django-dash'
+    copyright = u'2013-2014, Artur Barseghyan <artur.barseghyan@gmail.com>'
 
 # -- Django configuration ------------------------------------------------------
 from django.conf import settings
 if not settings.configured:
-    settings.configure()
+    INSTALLED_APPS = list(example_settings.INSTALLED_APPS)
+    if 'foo' in INSTALLED_APPS:
+        INSTALLED_APPS.remove('foo')
+    if 'bar' in INSTALLED_APPS:
+        INSTALLED_APPS.remove('bar')
+
+    settings.configure(
+        DATABASES = example_settings.DATABASES,
+        INSTALLED_APPS = INSTALLED_APPS,
+        LANGUAGES = example_settings.LANGUAGES,
+        MEDIA_ROOT = example_settings.MEDIA_ROOT,
+        MEDIA_URL = example_settings.MEDIA_URL,
+        MIDDLEWARE_CLASSES = example_settings.MIDDLEWARE_CLASSES,
+        ROOT_URLCONF = example_settings.ROOT_URLCONF,
+        SECRET_KEY = example_settings.SECRET_KEY,
+        SITE_ID = example_settings.SITE_ID,
+        STATICFILES_DIRS = example_settings.STATICFILES_DIRS,
+        STATICFILES_FINDERS = example_settings.STATICFILES_FINDERS,
+        STATIC_URL = example_settings.STATIC_URL,
+        STATIC_ROOT = example_settings.STATIC_ROOT,
+        TEMPLATE_CONTEXT_PROCESSORS = example_settings.TEMPLATE_CONTEXT_PROCESSORS,
+        TEMPLATE_DIRS = example_settings.TEMPLATE_DIRS,
+        TEMPLATE_LOADERS = example_settings.TEMPLATE_LOADERS,
+        )
 
 # -- General configuration ------------------------------------------------
 
@@ -57,8 +86,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'django-dash'
-copyright = u'2013, Artur Barseghyan <artur.barseghyan@gmail.com>'
+#project = u'django-dash'
+#copyright = u'2013, Artur Barseghyan <artur.barseghyan@gmail.com>'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
