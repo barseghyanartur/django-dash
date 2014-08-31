@@ -19,19 +19,19 @@ Screenshots
 Several screenshots of the sample D3 plugins (in Bootstrap2 layout) are
 presented below.
 
-Bubble Chart, Stacked-to-Grouped Bars and Sunburst Partition (view dashboard
-mode):
+- Bubble Chart, Stacked-to-Grouped Bars and Sunburst Partition (view dashboard
+  mode):
 
-.. image:: docs/_static/d3_sample_charts_view_dashboard.png
-    :align: center
-    :width: 900px
+  .. image:: docs/_static/d3_sample_charts_view_dashboard.png
+        :align: center
+        :width: 900px
 
-Bubble Chart, Stacked-to-Grouped Bars and Sunburst Partition (edit dashboard
-mode):
+- Bubble Chart, Stacked-to-Grouped Bars and Sunburst Partition (edit dashboard
+  mode):
 
-.. image:: docs/_static/d3_sample_charts_edit_dashboard.png
-    :align: center
-    :width: 900px
+  .. image:: docs/_static/d3_sample_charts_edit_dashboard.png
+        :align: center
+        :width: 900px
 
 License
 ============================================
