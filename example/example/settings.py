@@ -184,6 +184,7 @@ INSTALLED_APPS = (
     #'admin_tools_dashboard', # Admin dashboard
     'foo', # Test app
     'bar', # Another test app
+    'd3_samples', # Sample D3 plugins
     #'customauth', # Custom user model
 )
 

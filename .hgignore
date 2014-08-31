@@ -9,6 +9,7 @@ syntax: regexp
 ^MANIFEST\.in~
 ^tmp/
 \.zip
+^codebin/
 ^release/
 ^deploy/
 ^forks/

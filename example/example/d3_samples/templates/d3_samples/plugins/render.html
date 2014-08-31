@@ -1,0 +1,21 @@
+
+<p>
+    <strong>{{ plugin.data.title }}</strong>
+    <span id="chart-{{ plugin.html_id }}" ></span>
+    <script type="text/javascript">
+        // *****************************************************************
+        // ************************* Initialisation ************************
+        // *****************************************************************
+        $(document).ready(function(){
+
+            d3BubbleChartSample(
+                '#chart-{{ plugin.html_id }}',
+                {{ width }},
+                1.5,
+                ".3em",
+                "middle"
+            );
+
+        });
+    </script>
+</p>

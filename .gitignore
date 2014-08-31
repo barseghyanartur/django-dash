@@ -9,6 +9,7 @@
 MANIFEST.in~
 tmp/
 .zip
+/codebin/
 /release/
 /forks/
 /deploy/
