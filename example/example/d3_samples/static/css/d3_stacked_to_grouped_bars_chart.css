@@ -1,0 +1,12 @@
+form {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}

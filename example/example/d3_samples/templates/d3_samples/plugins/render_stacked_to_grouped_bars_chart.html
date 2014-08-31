@@ -1,0 +1,27 @@
+
+<div>
+    <strong>{{ plugin.data.title }}</strong>
+    <span id="chart-{{ plugin.html_id }}" ></span>
+    <form>
+        <label><input type="radio" name="mode" value="grouped"> Grouped</label>
+        <label><input type="radio" name="mode" value="stacked" checked> Stacked</label>
+    </form>
+    <script type="text/javascript">
+        // *****************************************************************
+        // ************************* Initialisation ************************
+        // *****************************************************************
+        $(document).ready(function(){
+
+            d3StackedToGroupedBarsChartSample(
+                '#chart-{{ plugin.html_id }}', // element ID
+                {{ width }}, // width
+                {{ height}}, // height
+                40, // margin top
+                10, // margin right
+                20, // margin bottom
+                10 // margin left
+            );
+
+        });
+    </script>
+</div>

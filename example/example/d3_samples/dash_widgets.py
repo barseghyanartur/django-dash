@@ -1,5 +1,5 @@
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 
 from django.template.loader import render_to_string
@@ -14,10 +14,7 @@ class BaseChartWidget(BaseDashboardPluginWidget):
     """
     Base chart widget.
     """
-    media_js = (
-        'js/d3.v3.min.js', # Main D3 script
-        'js/d3_bubble_chart.js', # Helper script
-    )
+    _template = None
 
     def render(self, request=None):
         context = {
@@ -25,5 +22,34 @@ class BaseChartWidget(BaseDashboardPluginWidget):
             'width': self.get_width(),
             'height': self.get_height(),
         }
-        return render_to_string('d3_samples/plugins/render.html', context)
+        return render_to_string(
+            self._template,
+            context
+            )
 
+
+class BaseBubbleChartWidget(BaseChartWidget):
+    """
+    Base bubble chart widget.
+    """
+    media_js = (
+        'js/d3.v3.min.js', # Main D3 script
+        'js/d3_bubble_chart.js', # Helper script
+    )
+    _template = 'd3_samples/plugins/render_bubble_chart.html'
+
+
+class BaseStackedToGroupedBarsChartWidget(BaseChartWidget):
+    """
+    Stacked-to-grouped bars chart widget.
+    """
+    media_js = (
+        'js/d3.v3.min.js', # Main D3 script
+        'js/d3_stacked_to_grouped_bars_chart.js', # Helper script
+    )
+
+    media_css = (
+        'css/d3_stacked_to_grouped_bars_chart.css', # Specific styles
+    )
+
+    _template = 'd3_samples/plugins/render_stacked_to_grouped_bars_chart.html'
