@@ -2,7 +2,7 @@
 // ************************* Simple function ************************
 // ******************************************************************
 
-function d3BubbleChartSample(bubbleContainer, diameter, bubblePadding, bubbleNodeDy, bubbleNodeTextAnchor) {
+function d3BubbleChartSample(bubbleContainer, diameter, staticURL, bubblePadding, bubbleNodeDy, bubbleNodeTextAnchor) {
     var format = d3.format(",d"),
         color = d3.scale.category20c();
 
@@ -16,7 +16,7 @@ function d3BubbleChartSample(bubbleContainer, diameter, bubblePadding, bubbleNod
         .attr("height", diameter)
         .attr("class", "bubble");
 
-    d3.json("/static/js/d3_bubble_chart_flare.json", function(error, root) {
+    d3.json(staticURL + "js/d3_bubble_chart_flare.json", function(error, root) {
       var node = svg.selectAll(".node")
           .data(bubble.nodes(classes(root))
           .filter(function(d) { return !d.children; }))

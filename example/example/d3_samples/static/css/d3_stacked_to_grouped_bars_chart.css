@@ -1,11 +1,11 @@
-form {
+.d3-stacked-to-grouped-bars-chart-plugin form {
   position: absolute;
   right: 10px;
   top: 10px;
 }
 
-.axis path,
-.axis line {
+.d3-stacked-to-grouped-bars-chart-plugin .axis path,
+.d3-stacked-to-grouped-bars-chart-plugin .axis line {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;

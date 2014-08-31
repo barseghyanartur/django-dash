@@ -56,7 +56,7 @@ FAQ
 
   Answer: Yes. Check the source code of the following sample plugins:
 
-    - `Sample D3 plugin <https://github.com/barseghyanartur/django-dash/tree/master/example/example/d3_samples>`_.
+    - `Sample D3 plugins <https://github.com/barseghyanartur/django-dash/tree/master/example/example/d3_samples>`_.
     - `Sample Polychart2 plugin <https://github.com/barseghyanartur/django-dash/tree/master/example/example/bar>`_.
 
 Installation

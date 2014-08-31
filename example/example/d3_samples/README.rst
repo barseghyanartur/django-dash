@@ -7,6 +7,8 @@ Contains sample D3 plugins:
   `sample <http://bl.ocks.org/mbostock/4063269>`_.
 - Stacked-to-Grouped Bars, which is based on the original
   `sample <http://bl.ocks.org/mbostock/3943967>`_.
+- Sunburst Partition, which is based on the original
+  `sample <http://bl.ocks.org/mbostock/4063423>`_.
 
 Usage
 ============================================
