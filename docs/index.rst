@@ -49,6 +49,16 @@ Main features
 - Public dashboards (as a contrib app).
 - Clonable workspaces.
 
+FAQ
+===============================================
+- Question: Is it possible to have Dash working with a (pick what's applicable: D3,
+  Polychart2, or some other library for making charts).
+
+  Answer: Yes. Check the source code of the following sample plugins:
+
+    - `Sample D3 plugins <https://github.com/barseghyanartur/django-dash/tree/master/example/example/d3_samples>`_.
+    - `Sample Polychart2 plugin <https://github.com/barseghyanartur/django-dash/tree/master/example/example/bar>`_.
+
 Installation
 ===============================================
 1. Install latest stable version from PyPI:
