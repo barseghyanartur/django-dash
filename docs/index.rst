@@ -914,6 +914,11 @@ Available translations
 - Dutch (core and plugins)
 - Russian (core and plugins)
 
+Troubleshooting
+===============================================
+If you somehow get problems installing ``Dash``, check the `example <https://github.com/barseghyanartur/django-dash/tree/master/example>`_
+project and the `requirements.txt <https://raw.githubusercontent.com/barseghyanartur/django-dash/master/example/requirements.txt>`_.
+
 License
 ===============================================
 GPL 2.0/LGPL 2.1

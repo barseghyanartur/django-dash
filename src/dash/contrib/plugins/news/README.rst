@@ -4,6 +4,12 @@ dash.contrib.plugins.news
 A simple news plugin for django-dash. Allows users to place news application on their dashboards.
 Shows how to integrate complex applications into Dash widgets.
 
+Additional requirements
+==================================
+See the requirements.txt in current directory.
+
+- django-tinymce
+
 Installation
 ==================================
 Installation steps described below.

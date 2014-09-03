@@ -6,6 +6,12 @@ two sort of memos implemented:
 - Plain text memos.
 - WYSIWYG (TinyMCE) memos.
 
+Additional requirements
+==================================
+See the requirements.txt in current directory.
+
+- django-tinymce
+
 Installation
 ==================================
 Installation steps described below.

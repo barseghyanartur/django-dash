@@ -69,14 +69,17 @@ install_requires = [
     'six>=1.4.1,<=1.6.1',
     'easy-thumbnails>=1.4,<2.0',
     'transliterate>=1.5,<2.0',
-    'vishap>=0.1.1,<2.0'
+    'vishap>=0.1.1,<2.0',
+    #'django-tinymce>=1.5',
 ]
 
 try:
     PY2 = sys.version_info[0] == 2
     PY3 = sys.version_info[0] == 3
-    if PY2:
-        install_requires.append('django-localeurl==2.0.1')
+    if PY3:
+        install_requires.append('django-localeurl>=2.0.1')
+    else:
+        install_requires.append('django-localeurl')
 except:
     pass
 
