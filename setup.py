@@ -55,7 +55,7 @@ for static_dir in static_dirs:
 for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f) for f in os.listdir(locale_dir)]
 
-version = '0.4.6'
+version = '0.4.7'
 
 install_requires = [
     'Pillow>=2.1.0,<=2.4.0',
@@ -65,12 +65,16 @@ install_requires = [
     'feedparser==5.1.3',
     'ordereddict==1.1',
     'pif>=0.5,<1.0',
-    'radar>=0.3,<1.0',
-    'six>=1.4.1,<=1.6.1',
+    'six>=1.4.1',
     'easy-thumbnails>=1.4,<2.0',
     'transliterate>=1.5,<2.0',
     'vishap>=0.1.1,<2.0',
     #'django-tinymce>=1.5',
+]
+
+tests_require = [
+    'radar>=0.3,<1.0',
+    'simple_timer>=0.2',
 ]
 
 try:

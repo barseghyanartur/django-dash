@@ -384,9 +384,9 @@ def plugin_widgets(request, placeholder_uid, workspace=None, position=None, \
             layout,
             placeholder,
             request.user,
-            workspace=workspace,
-            position=position,
-            occupied_cells=occupied_cells
+            workspace = workspace,
+            position = position,
+            occupied_cells = occupied_cells
             ),
         'dashboard_settings': dashboard_settings
     }

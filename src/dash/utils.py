@@ -93,7 +93,8 @@ def get_user_plugin_uids(user):
 
     return registered_plugins
 
-def get_widgets(layout, placeholder, user=None, workspace=None, position=None, occupied_cells=[]):
+def get_widgets(layout, placeholder, user=None, workspace=None, position=None, \
+                occupied_cells=[], sort_items=True):
     """
     Gets widgets. In case if in restricted mode (``RESTRICT_PLUGIN_ACCESS`` is set to True),
     user argument should be provided. Based on it, the list of plugins is returned.  Restrictions are
@@ -107,6 +108,7 @@ def get_widgets(layout, placeholder, user=None, workspace=None, position=None, o
     :param string workspace: Workspace slug.
     :param int position: Plugin position.
     :param list occupied_cells: List of already occupied cells.
+    :param bool sort_items: If set to True, returned items are sorted.
     :return list:
     """
     # We should get the layout, see loop through its' plugins and see which of those do have rendererrs. Then
@@ -181,6 +183,10 @@ def get_widgets(layout, placeholder, user=None, workspace=None, position=None, o
                         reverse('dash.add_dashboard_entry', kwargs=kwargs)
                     )
                     )
+
+    if sort_items:
+        for key, prop in registered_widgets.items():
+            prop.sort()
 
     return registered_widgets
 
