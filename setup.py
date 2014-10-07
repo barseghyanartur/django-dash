@@ -55,7 +55,7 @@ for static_dir in static_dirs:
 for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f) for f in os.listdir(locale_dir)]
 
-version = '0.4.7'
+version = '0.4.8'
 
 install_requires = [
     'Pillow>=2.1.0,<=2.4.0',
@@ -75,6 +75,7 @@ install_requires = [
 tests_require = [
     'radar>=0.3,<1.0',
     'simple_timer>=0.2',
+    'selenium',
 ]
 
 try:
@@ -113,6 +114,7 @@ setup(
     packages = find_packages(where='./src'),
     license = 'GPL 2.0/LGPL 2.1',
     install_requires = install_requires,
+    tests_require = tests_require,
     package_data = {
         'dash': templates + static_files + locale_files
     },

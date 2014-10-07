@@ -73,9 +73,6 @@ Core and contrib
 - Widgets dialogue in bootstrap style for Bootstrap layout (find a proper theme!).
 + Fix bug with public dashboard app not showing entries for `example` layouts. This is actually caused by
   probably not well tested placeholder usage by name in templates.
-- Fix Google Chrome bug, when dash widget controls (edit/delete) being hidden under Youtube video.
-- Strange problems with hover in IE (all versions).
-- Add workspace create/delete/edit tests.
 + Allow users to make their workspaces clonable. Then, some other user could clone someone elses
   workspace to his own.
 + Make plugins cloneable.
@@ -90,6 +87,10 @@ Core and contrib
 + Simplify the plugin data update mechanism (when plugin data for certain ``DashboardEntry`` objects
   shall be updated using ``dash.utils.update_plugin_data``).
 + Fix the issue with missing top background image in Django admin.
+- Django 1.7 support (in progress).
+- Fix Google Chrome bug, when dash widget controls (edit/delete) being hidden under Youtube video.
+- Strange problems with hover in IE (all versions).
+- Add workspace create/delete/edit tests.
 - Use factory in example layout.
 - Check docs and apply factory.
 - In Russian not all the text fits nicely into the overlays. For "Bootstrap2" layout, all overlays
@@ -97,7 +98,7 @@ Core and contrib
   it's an issue. Optimise the CSS in such a way, that the overlays are scrollable and heading
   backgrounds grow with text.
 - Check all translation messages, as some of them are not properly shown in Russian locale.
-- When using unicode characters in workspace slug, `django-slug` raises an exception.
+- When using unicode characters in workspace slug, ``django-slug`` raises an exception.
 - Check if it's possible to add plugins without config (without form).
 - Rewrite the Javascript and core templates with bootstrap3 in mind. Support old themes as well.
 - Add information (especially license information) of the third-party apps used in the project.
@@ -120,11 +121,13 @@ Core and contrib
 + Add `get_width` and `get_height` shortcut methods to the base plugin widget.
 + Add translations for Dutch.
 + Add translations for Russian.
+- Make it possible to use something else than Django's ORM (django-mongoengine,
+  SQLAlchemy).
 - Add translations for Armenian.
 - Add dashboard settings (edit) tests and tests after the changed layout (for the bootstrap2 theme).
 - File plugin.
 - Add navigation (at right and left) to navigate through the workspaces (like in Android).
-- Copy/paste widgets between workspaces.
+- Copy-paste and cut-paste functionality for widgets (between workspaces).
 - Allow users to share their workspaces with other users. They would need to know someone elses' username.
 - In bulk change dashboard plugins, make use of fancy widget for the users too.
 

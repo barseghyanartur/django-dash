@@ -15,11 +15,11 @@ applications with minimal efforts.
 
 Prerequisites
 ===============================================
-- Django 1.5.+
-- Python 2.6.8+, 2.7.+, 3.3.+
+- Django 1.5.*, 1.6.*
+- Python 2.6.8+, 2.7.*, 3.3.*
 
-Core and plugins that don't rely on third-party Django apps seem to work well with Django 1.6 (Selenium
-tests pass), although Django 1.6 is not yet proclaimed to be flawlessly supported by Dash.
+Core and plugins that don't rely on third-party Django apps seem to work well with Django 1.7 (Selenium
+tests pass), although Django 1.7 is not yet proclaimed to be flawlessly supported by Dash.
 
 Key concepts
 ===============================================
