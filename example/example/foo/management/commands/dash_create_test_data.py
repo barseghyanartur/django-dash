@@ -2,8 +2,9 @@ from django.core.management.base import BaseCommand
 
 from django.conf import settings
 from django.core.management import call_command
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth import get_user_model
 
 from dash.models import DashboardSettings, DashboardWorkspace, DashboardEntry
 from dash.base import get_registered_plugins, get_layout
@@ -11,6 +12,7 @@ from dash.tests import create_dashboard_user, DASH_TEST_USER_USERNAME, DASH_TEST
 from dash.contrib.layouts.android.dash_layouts import (
     AndroidLayout, AndroidMainPlaceholder, AndroidShortcutsPlaceholder
     )
+#from dash.compat import User
 
 clean_extra_spaces = lambda s: ' '.join(s.split())
 
@@ -470,6 +472,7 @@ class Command(BaseCommand):
         except Exception as e:
             pass
 
+        User = get_user_model()
         user = User._default_manager.get(username=DASH_TEST_USER_USERNAME)
 
         # *********************************

@@ -15,6 +15,7 @@ Core and contrib
     + Windows 8 layout.
     + Twitter bootstrap 2.
     - Twitter bootstrap 3.
+    - Foundation 5.
 + Documentation.
 + Group widgets.
 + Plugins:
@@ -70,7 +71,7 @@ Core and contrib
   available.
 + Fix image plugin bug with "Fit width" and "Fit height" resize methods.
 + For each plugin, create base widgets. Further, move all layout specific widgets to the layout modules.
-- Widgets dialogue in bootstrap style for Bootstrap layout (find a proper theme!).
++ Widgets dialogue in bootstrap style for Bootstrap layout (find a proper theme!).
 + Fix bug with public dashboard app not showing entries for `example` layouts. This is actually caused by
   probably not well tested placeholder usage by name in templates.
 + Allow users to make their workspaces clonable. Then, some other user could clone someone elses
@@ -87,6 +88,9 @@ Core and contrib
 + Simplify the plugin data update mechanism (when plugin data for certain ``DashboardEntry`` objects
   shall be updated using ``dash.utils.update_plugin_data``).
 + Fix the issue with missing top background image in Django admin.
+- Leave the bundled plugins but also release each of them separately (bitbucket,
+  github, PyPI) in order to simplify improvements and make it easier to
+  modify them as needed.
 - Django 1.7 support (in progress).
 - Fix Google Chrome bug, when dash widget controls (edit/delete) being hidden under Youtube video.
 - Strange problems with hover in IE (all versions).
@@ -104,7 +108,6 @@ Core and contrib
 - Add information (especially license information) of the third-party apps used in the project.
 - Test dash with plugin which doesn't have a form. If problems occur, use the
   the yet unreleased ``django-fobi`` approach.
-- Make a "Foundation 5" theme. Most likely, set it as a default layout.
 - Add "rem" (and other CSS units) to the list of available cell units.
 
 Should haves

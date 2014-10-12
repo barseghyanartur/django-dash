@@ -6,7 +6,10 @@ __all__ = ('MemoForm', 'TinyMCEMemoForm')
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from tinymce.widgets import TinyMCE
+try:
+    from tinymce.widgets import TinyMCE
+except ImportError:
+    from dash.lib.tinymce.widgets import TinyMCE
 
 from dash.base import DashboardPluginFormBase
 

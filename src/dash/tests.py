@@ -29,7 +29,8 @@ from dash.utils import get_occupied_cells, get_user_plugins
 from dash.models import DashboardEntry
 from dash.management.commands import dash_sync_plugins
 from dash.settings import WAIT_BETWEEN_TEST_STEPS, WAIT_AT_TEST_END
-from dash.compat import User
+#from dash.compat import User
+from django.contrib.auth import get_user_model
 
 DASH_TEST_USER_USERNAME = 'test_admin'
 DASH_TEST_USER_PASSWORD = 'test'
@@ -75,6 +76,7 @@ def create_dashboard_user():
     TODO: At the moment an admin account is being tested. Automated tests with diverse accounts are
     to be implemented.
     """
+    User = get_user_model()
     u = User()
     u.username = DASH_TEST_USER_USERNAME
     u.email = 'admin@dev.django-dash.com'
@@ -151,7 +153,7 @@ class DashCoreTest(TestCase):
             create_dashboard_user()
         except:
             pass
-
+        User = get_user_model()
         # Getting the admin (user with plugin data)
         user = User.objects.get(username=DASH_TEST_USER_USERNAME)
 

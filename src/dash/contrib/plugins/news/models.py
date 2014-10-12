@@ -1,6 +1,7 @@
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('NEWS_IMAGES_STORAGE_PATH', '_news_images', 'NewsItem',)
 
 import datetime
 
@@ -9,7 +10,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 
-from tinymce.models import HTMLField
+try:
+    from tinymce.models import HTMLField
+except ImportError:
+    from django.db.models import TextField as HTMLField
 
 from slim import Slim, LanguageField
 from slim.models.decorators import auto_prepend_language

@@ -60,8 +60,8 @@ version = '0.4.8'
 install_requires = [
     'Pillow>=2.1.0,<=2.4.0',
     'django-autoslug==1.7.1',
-    'django-slim>=0.7.3',
-    'django-tinymce>=1.5.1,<=1.5.2',
+    'django-slim>=0.7.4',
+    'django-tinymce>=1.5.3',
     'feedparser==5.1.3',
     'ordereddict==1.1',
     'pif>=0.5,<1.0',
@@ -69,7 +69,6 @@ install_requires = [
     'easy-thumbnails>=1.4,<2.0',
     'transliterate>=1.5,<2.0',
     'vishap>=0.1.1,<2.0',
-    #'django-tinymce>=1.5',
 ]
 
 tests_require = [
