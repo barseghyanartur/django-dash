@@ -91,7 +91,7 @@ Core and contrib
 - Leave the bundled plugins but also release each of them separately (bitbucket,
   github, PyPI) in order to simplify improvements and make it easier to
   modify them as needed.
-- Django 1.7 support (in progress).
++ Django 1.7 support.
 - Fix Google Chrome bug, when dash widget controls (edit/delete) being hidden under Youtube video.
 - Strange problems with hover in IE (all versions).
 - Add workspace create/delete/edit tests.
