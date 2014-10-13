@@ -1,45 +1,49 @@
 ===============================================
 django-dash
 ===============================================
-`django-dash` (later on named Dash) is a customisable, modular dashboard application framework for Django.
+`django-dash` (later on named Dash) is a customisable, modular dashboard
+application framework for Django.
 
-Dash allows users to create their own custom dashboards. Supports theming (in Dash themes are called layouts)
-and multiple workspaces. Dash comes with extensive pythonic API which allows developers to create new Dash
-plugins, as well as to modify bundled ones.
+Dash allows users to create their own custom dashboards. Supports theming (in
+Dash themes are called layouts) and multiple workspaces. Dash comes with
+extensive pythonic API which allows developers to create new Dash plugins, as
+well as to modify bundled ones.
 
-To make a clearer association, think of Android for tablets (shortcuts, widgets and apps) or Windows 8 for
-tablets or desktops.
+To make a clearer association, think of Android for tablets (shortcuts, widgets
+and apps) or Windows 8 for tablets or desktops.
 
-Dash inherits all those concepts and makes it possible to implement a dashboard system for Django
-applications with minimal efforts.
+Dash inherits all those concepts and makes it possible to implement a dashboard
+system for Django applications with minimal efforts.
 
 Prerequisites
 ===============================================
-- Django 1.5.*, 1.6.*
+- Django 1.5, 1.6, 1.7
 - Python 2.6.8+, 2.7.*, 3.3.*
 
-Core and plugins that don't rely on third-party Django apps seem to work well with Django 1.7 (Selenium
-tests pass), although Django 1.7 is not yet proclaimed to be flawlessly supported by Dash.
+Note, that Django 1.7 is not yet proclaimed to be flawlessly supported!
 
 Key concepts
 ===============================================
-- Each layout (theme) consist of placeholders. Each plugin widget has its' own specific HTML/JavaScript/CSS.
-- There might be multiple themes implemented and installed, but only one can be active for a
-  certain user. Default layout is chosen system wide, but each user (if has an appropriate permission)
-  can choose his preferred layout.
+- Each layout (theme) consist of placeholders. Each plugin widget has its' own
+  specific HTML/JavaScript/CSS.
+- There might be multiple themes implemented and installed, but only one can 
+  be active for a certain user. Default layout is chosen system wide, but each
+  user (if has an appropriate permission) can choose his preferred layout.
 - Placeholder is a space, in which the plugin widgets are placed.
-- Placeholders are rectangles consisting of cells. Each placeholder has its' own custom number of
-  rows and columns.
-- Workspace is just another named dashboard. Users switch between workspaces in navigation. Amount of
-  workspaces is unlimited.
-- Plugin is a (Django) micro app. Most heavy work should happen in plugin. Plugin may have its' own
-  views, urls, etc. Rendering happens with use of plugin widgets.
-- Plugin widgets are mainly responsible for rendering of the plugin data. Each plugin widget has
-  its' own specific HTML/JavaScript/CSS. A single plugin widget is registered for a triple (layout,
-  placeholder, plugin).
-- Public dashboard (implemented as a contrib app, which makes it optional) allows users to make their
-  workspaces public. If user chooses to make his dashboard public, default workspace becomes public.
-  As for non-default workspaces, user can still make each of them private or public.
+- Placeholders are rectangles consisting of cells. Each placeholder has its' 
+  own custom number of rows and columns.
+- Workspace is just another named dashboard. Users switch between workspaces 
+  in navigation. Amount of workspaces is unlimited.
+- Plugin is a (Django) micro app. Most heavy work should happen in plugin. 
+  Plugin may have its' own views, urls, etc. Rendering happens with use of
+  plugin widgets.
+- Plugin widgets are mainly responsible for rendering of the plugin data. 
+  Each plugin widget has its' own specific HTML/JavaScript/CSS. A single
+  plugin widget is registered for a triple (layout, placeholder, plugin).
+- Public dashboard (implemented as a contrib app, which makes it optional)
+  allows users to make their workspaces public. If user chooses to make his
+  dashboard public, default workspace becomes public. As for non-default
+  workspaces, user can still make each of them private or public.
 
 Main features
 ===============================================
