@@ -919,10 +919,6 @@ of each plugin for details.
 - `Memo plugin
   <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/memo>`_.
   Allows users to put short notes on their dashboard.
-- `News plugin
-  <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/news>`_.
-  Shows how to embed your Django news application (front-end part of it) into
-  a Dash plugin widget.
 - `RSS feed plugin
   <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/rss_feed>`_.
   Allows users to put any RSS feed right into the dashboard.
@@ -940,6 +936,19 @@ of each plugin for details.
   <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/weather>`_.
   Allows to put a weather widget into dashboard.
 
+Demo plugins
+-----------------------------------------------
+- `Sample D3 plugins
+  <https://github.com/barseghyanartur/django-dash/tree/master/examples/example/d3_samples>`_.
+  Shows how to transform D3.js charts into Dash plugins.
+- `Sample Polychart2 plugin
+  <https://github.com/barseghyanartur/django-dash/tree/master/examples/example/bar>`_.
+  Shows how to transform Polychart2.js charts into Dash plugins.
+- `News plugin
+  <https://github.com/barseghyanartur/django-dash/tree/stable/examples/example/news>`_.
+  Shows how to embed your Django news application (front-end part of it) into
+  a Dash plugin widget.
+
 Bundled layouts
 -----------------------------------------------
 Below a short overview of the layouts. See the README.rst file in directory of each layout for details.
@@ -956,6 +965,15 @@ Below a short overview of the layouts. See the README.rst file in directory of e
   <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/windows8>`_
   (like) layout. Has two placeholders: main (6 cols x 4 rows, each block sized
   140x135 px) and sidebar (2 cols x 4 rows, each block sized 140x135 px).
+
+Demo layouts
+-----------------------------------------------
+- `Example
+  <https://github.com/barseghyanartur/django-dash/tree/stable/examples/example/foo>`_
+  layout. Has five placeholders: top (8 cols x 1 rows, each block sized
+  55x55 px), right (3 col x 8 rows, each block sized 55x55 px), bottom (
+  8 cols x 1 rows, each block sized 55x55 px), left (3 col x 8 rows, each
+  block sized 55x55 px) and main (5 col x 4 rows, each block sized 110x95 px).
 
 Naming conventions
 ===============================================
