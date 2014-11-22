@@ -1144,6 +1144,20 @@ Edit dashboard settings dialogue.
     :align: center
     :width: 900px
 
+Bubble Chart, Stacked-to-Grouped Bars and Sunburst Partition (view dashboard
+mode).
+
+.. image:: _static/dash/d3_sample_charts_view_dashboard.png
+    :align: center
+    :width: 900px
+
+Bubble Chart, Stacked-to-Grouped Bars and Sunburst Partition (edit dashboard
+mode).
+
+.. image:: _static/dash/d3_sample_charts_edit_dashboard.png
+    :align: center
+    :width: 900px
+
 Example layout
 -----------------------------------------------
 Several screenshots of Example layout are presented below.
