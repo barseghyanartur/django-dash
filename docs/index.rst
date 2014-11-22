@@ -944,23 +944,24 @@ Bundled layouts
 -----------------------------------------------
 Below a short overview of the layouts. See the README.rst file in directory of each layout for details.
 
-- `Android (like) layout
-  <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/android>`_.
-  Has two placeholders: main (6 cols x 5 rows, each block sized 150x110 px) and
-  shortcuts (1 col x 10 rows, each block sized 60x55 px).
-- `Bootstrap 2 fluid (like) layout
-  <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/bootstrap2>`_.
-  Has one placeholder: main (11 cols x 9 rows, each block sized 70x40 px).
-- `Windows 8 (like) layout
-  <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/windows8>`_.
-  Has two placeholders: main (6 cols x 4 rows, each block sized 140x135 px) and
-  sidebar (2 cols x 4 rows, each block sized 140x135 px).
+- `Android 
+  <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/android>`_
+  (like) layout. Has two placeholders: main (6 cols x 5 rows, each block sized
+  150x110 px) and shortcuts (1 col x 10 rows, each block sized 60x55 px).
+- `Bootstrap 2 fluid 
+  <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/bootstrap2>`_
+  (like) layout. Has one placeholder: main (11 cols x 9 rows, each block sized
+  70x40 px).
+- `Windows 8 
+  <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/windows8>`_
+  (like) layout. Has two placeholders: main (6 cols x 4 rows, each block sized
+  140x135 px) and sidebar (2 cols x 4 rows, each block sized 140x135 px).
 
 Naming conventions
 ===============================================
 Although you are free to name your plugins and widgets as you want (except that
 you should comply with `PEP-008
-<http://www.python.org/dev/peps/pep-0008/#function-names>_`), there are some
+<http://www.python.org/dev/peps/pep-0008/#function-names>`_), there are some
 naming conventions introduced, that you are recommended to follow.
 
 - Example1x1Plugin: 1x1 example plugin
