@@ -85,8 +85,9 @@ Or latest stable version from BitBucket:
 
     $ pip install -e hg+https://bitbucket.org/barseghyanartur/django-dash@stable#egg=django-dash
 
-2. Add `dash` to ``INSTALLED_APPS`` of the your projects' Django settings. Furthermore, all layouts
-   and plugins to be used, shall be added to the ``INSTALLED_APPS`` as well.
+2. Add `dash` to ``INSTALLED_APPS`` of the your projects' Django settings. 
+   Furthermore, all layouts and plugins to be used, shall be added to the
+   ``INSTALLED_APPS`` as well.
 
 .. code-block:: python
 
@@ -107,7 +108,8 @@ Or latest stable version from BitBucket:
         # ...
     )
 
-3. Make sure that ``django.core.context_processors.request`` is in ``TEMPLATE_CONTEXT_PROCESSORS``.
+3. Make sure that ``django.core.context_processors.request`` is in
+   ``TEMPLATE_CONTEXT_PROCESSORS``.
 
 Demo
 ===============================================
@@ -116,8 +118,9 @@ See the documentation for some screen shots:
 - `PythonHosted <http://pythonhosted.org/django-dash/#screenshots>`_
 - `ReadTheDocs <http://django-dash.readthedocs.org/en/latest/#screenshots>`_
 
-In order to be able to quickly evaluate the `django-dash`, a demo app (with a quick installer) has been created
-(works on Ubuntu/Debian, may work on other Linux systems as well, although not guaranteed). Follow the instructions
+In order to be able to quickly evaluate the `django-dash`, a demo app (with a
+quick installer) has been created (works on Ubuntu/Debian, may work on other
+Linux systems as well, although not guaranteed). Follow the instructions
 below for having the demo running within a minute.
 
 Grab the latest `django_dash_example_app_installer.sh`:
@@ -491,7 +494,7 @@ Defining the Sample Memo plugin (2x2) (to be used in the `main` placeholder).
         name = _("Memo") # Plugin name
         group = _("Memo") # Group to which the plugin belongs to
         form = SampleMemoForm # Plugin forms are explained later
-        html_classes = ['sample-memo'] # This is optional. Adds extra HTML classes.
+        html_classes = ['sample-memo'] # Optional. Adds extra HTML classes.
 
 Registering the Sample Memo plugin.
 
@@ -540,7 +543,7 @@ Defining the base plugin class.
         name = _("Memo") # Plugin name
         group = _("Memo") # Group to which the plugin belongs to
         form = SampleMemoForm # Plugin forms are explained later
-        html_classes = ['sample-memo'] # This is optional. Adds extra HTML classes.
+        html_classes = ['sample-memo'] # Optional. Adds extra HTML classes.
 
 Note, that we don't provide ``uid`` property in the base class.
 
@@ -633,7 +636,9 @@ Memo plugin widget for Example layout (placeholder `shortcuts`).
 
         def render(self, request=None):
             context = {'plugin': self.plugin}
-            return render_to_string('sample_memo/render_shortcuts.html', context)
+            return render_to_string(
+                'sample_memo/render_shortcuts.html', context
+                )
 
 Factory register plugin widgets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -667,7 +672,9 @@ given.
         (1, 1),
         (2, 2),
     )
-    plugin_widget_factory(BaseSampleMemoWidget, 'example', 'main', 'sample_memo', sizes)
+    plugin_widget_factory(
+        BaseSampleMemoWidget, 'example', 'main', 'sample_memo', sizes
+        )
 
 In the example above:
 
@@ -777,7 +784,13 @@ and register plugin widget classes of the required dimensions.
 .. code-block:: python
 
     from dash.factory import plugin_widget_factory
-    plugin_widget_factory(BaseMemoWidget, 'bootstrap2_fluid', 'main', 'memo', ((5, 6), (6, 5), (6, 6)))
+    plugin_widget_factory(
+        BaseMemoWidget,
+        'bootstrap2_fluid',
+        'main',
+        'memo',
+        ((5, 6), (6, 5), (6, 6))
+        )
 
 The code above will generate "memo_5x6", "memo_6x5" and "memo_6x6" plugin
 widget classes which subclass the ``BaseMemoWidget`` and register them in the
@@ -900,69 +913,86 @@ of each plugin for details.
   plugin and widgets.
 - `Image plugin
   <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/image>`_.
-  Allows users to put images on their dashboard. If you plan to make a plugin that deals with
-  file uploads, make sure to check the source of this one first.
+  Allows users to put images on their dashboard. If you plan to make a plugin
+  that deals with file uploads, make sure to check the source of this one
+  first.
 - `Memo plugin
   <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/memo>`_.
   Allows users to put short notes on their dashboard.
-- News plugin. Shows how to embed your Django news application (front-end part of it) into a Dash plugin widget.
-  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/news
-- RSS feed plugin. Allows users to put any RSS feed right into the dashboard.
-  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/rss_feed
-- URL plugin. Allows users to put links to their dashboard.
-  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/url
-- Bookmark plugin. Allows users to put bookmarks to their dashboard. Bookmarks are added by
+- `News plugin
+  <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/news>`_.
+  Shows how to embed your Django news application (front-end part of it) into
+  a Dash plugin widget.
+- `RSS feed plugin
+  <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/rss_feed>`_.
+  Allows users to put any RSS feed right into the dashboard.
+- `URL plugin
+  <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/url>`_.
+  Allows users to put links to their dashboard.
+- `Bookmark plugin
+  <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/url>`_.
+  Allows users to put bookmarks to their dashboard. Bookmarks are added by
   the administrator.
-  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/url
-- Video plugin. Allows users to put YouTube or Vimeo videos to their dashboard.
-  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/video
-- Weather plugin. Allows to put a weather widget into dashboard.
-  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/weather
+- `Video plugin
+  <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/video>`_.
+  Allows users to put YouTube or Vimeo videos to their dashboard.
+- `Weather plugin
+  <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/plugins/weather>`_.
+  Allows to put a weather widget into dashboard.
 
 Bundled layouts
 -----------------------------------------------
 Below a short overview of the layouts. See the README.rst file in directory of each layout for details.
 
-- Android (like) layout. Has two placeholders: main (6 cols x 5 rows, each block sized 150x110 px) and
+- `Android (like) layout
+  <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/android>`_.
+  Has two placeholders: main (6 cols x 5 rows, each block sized 150x110 px) and
   shortcuts (1 col x 10 rows, each block sized 60x55 px).
-  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/android
-- Bootstrap 2 fluid (like) layout. Has one placeholder: main (11 cols x 9 rows, each block sized 70x40 px).
-  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/bootstrap2
-- Windows 8 (like) layout. Has two placeholders: main (6 cols x 4 rows, each block sized 140x135 px) and
+- `Bootstrap 2 fluid (like) layout
+  <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/bootstrap2>`_.
+  Has one placeholder: main (11 cols x 9 rows, each block sized 70x40 px).
+- `Windows 8 (like) layout
+  <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/windows8>`_.
+  Has two placeholders: main (6 cols x 4 rows, each block sized 140x135 px) and
   sidebar (2 cols x 4 rows, each block sized 140x135 px).
-  https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/windows8
 
 Naming conventions
 ===============================================
-Although you are free to name your plugins and widgets as you want (except that you should comply with PEP
-http://www.python.org/dev/peps/pep-0008/#function-names), there are some naming conventions introduced,
-that you are recommended to follow.
+Although you are free to name your plugins and widgets as you want (except that
+you should comply with `PEP-008
+<http://www.python.org/dev/peps/pep-0008/#function-names>_`), there are some
+naming conventions introduced, that you are recommended to follow.
 
 - Example1x1Plugin: 1x1 example plugin
-    - Example1x1AndroidMainWidget: 1x1 widget for 1x1 example plugin (layout Android, placeholder 'main')
-    - Example1x1AndroidShortcutsWidget: 1x1 widget for 1x1 example plugin (layout Android,
-      placeholder 'shortcuts')
-    - Example1x1Windows8MainWidget: 1x1 widget for 1x1 example plugin (layout Windows 8,
-      placeholder 'main')
-    - Example1x1Windows8SidebarWidget: 1x1 widget for 1x1 example plugin (layout Windows 8,
-      placeholder 'sidebar')
+    - Example1x1AndroidMainWidget: 1x1 widget for 1x1 example plugin (layout
+      Android, placeholder 'main')
+    - Example1x1AndroidShortcutsWidget: 1x1 widget for 1x1 example plugin (
+      layout Android, placeholder 'shortcuts')
+    - Example1x1Windows8MainWidget: 1x1 widget for 1x1 example plugin (layout
+      Windows 8, placeholder 'main')
+    - Example1x1Windows8SidebarWidget: 1x1 widget for 1x1 example plugin (
+      layout Windows 8, placeholder 'sidebar')
 
 - Example2x3Plugin: 2x3 example plugin
-    - Example2x3Windows8MainWidget: 2x3 widget for 2x3 example plugin (layout Windows 8,
-      placeholder 'main')
-    - Example2x3Windows8SidebarWidget: 2x3 widget for 2x3 example plugin (layout Windows 8,
-      placeholder 'sidebar')
+    - Example2x3Windows8MainWidget: 2x3 widget for 2x3 example plugin (layout
+      Windows 8, placeholder 'main')
+    - Example2x3Windows8SidebarWidget: 2x3 widget for 2x3 example plugin (
+      layout Windows 8, placeholder 'sidebar')
 
 - Example6x1Plugin: 6x1 example plugin
-    - Example6x1YourLayoutSidebarWidget: 6x1 widget for 6x1 example plugin (layout Your Layout,
-      placeholder 'main')
+    - Example6x1YourLayoutSidebarWidget: 6x1 widget for 6x1 example plugin (
+      layout Your Layout, placeholder 'main')
 
 Debugging
 ===============================================
-Most of the errors are logged (DEBUG). If you have written a plugin and it somehow doesn't appear
-in the list of available plugins, do run the ./manage.py dash_sync_plugins management command
-since it not only syncs your plugins into the database, but also is a great way of checking for
-possible errors.
+Most of the errors are logged (DEBUG). If you have written a plugin and it
+somehow doesn't appear in the list of available plugins, do run the following
+management command::
+
+    $ ./manage.py dash_sync_plugins
+
+The ``dash_sync_plugins`` not only syncs your plugins into the database, but
+also is a great way of checking for possible errors.
 
 Available translations
 ===============================================
@@ -971,8 +1001,10 @@ Available translations
 
 Troubleshooting
 ===============================================
-If you somehow get problems installing ``Dash``, check the `example <https://github.com/barseghyanartur/django-dash/tree/master/example>`_
-project and the `requirements.txt <https://raw.githubusercontent.com/barseghyanartur/django-dash/master/example/requirements.txt>`_.
+If you somehow get problems installing ``Dash``, check the `example
+<https://github.com/barseghyanartur/django-dash/tree/master/examples>`__
+project and the `requirements.txt
+<https://raw.githubusercontent.com/barseghyanartur/django-dash/master/examples/requirements.txt>`__.
 
 License
 ===============================================
@@ -985,12 +1017,6 @@ For any issues contact me at the e-mail given in the `Author` section.
 Author
 ===============================================
 Artur Barseghyan <artur.barseghyan@gmail.com>
-
-
-.. image:: https://d2weczhvl823v0.cloudfront.net/barseghyanartur/django-dash/trend.png
-   :alt: Bitdeli badge
-   :target: https://bitdeli.com/free
-
 
 Screenshots
 ===============================================
