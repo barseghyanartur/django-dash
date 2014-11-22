@@ -173,7 +173,6 @@ INSTALLED_APPS = (
     'dash.contrib.plugins.dummy', # Dummy (testing) plugin for Dash
     'dash.contrib.plugins.memo', # Memo plugin for Dash
     'dash.contrib.plugins.image', # Image plugin for Dash
-    'dash.contrib.plugins.news', # Sample news plugin for Dash
     'dash.contrib.plugins.rss_feed', # RSS feed plugin for Dash
     'dash.contrib.plugins.url', # URL plugin for Dash
     'dash.contrib.plugins.video', # Video plugin for Dash
@@ -185,6 +184,7 @@ INSTALLED_APPS = (
     'foo', # Test app
     'bar', # Another test app
     'd3_samples', # Sample D3 plugins
+    'news', # Sample news plugin for Dash
     #'customauth', # Custom user model
 )
 
@@ -285,15 +285,22 @@ except:
     pass
 
 if DEBUG and DEBUG_TOOLBAR:
-    # debug_toolbar
-    MIDDLEWARE_CLASSES += (
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
-	)
+    try:
+        # Make sure the django-debug-toolbar is installed
+        import debug_toolbar
 
-    INSTALLED_APPS += (
-        'debug_toolbar',
-    )
+        # debug_toolbar
+        MIDDLEWARE_CLASSES += (
+            'debug_toolbar.middleware.DebugToolbarMiddleware',
+        )
 
-    DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS': False,
-    }
+        INSTALLED_APPS += (
+            'debug_toolbar',
+        )
+
+        DEBUG_TOOLBAR_CONFIG = {
+            'INTERCEPT_REDIRECTS': False,
+        }
+
+    except ImportError:
+        pass

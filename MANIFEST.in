@@ -25,8 +25,8 @@ recursive-include src/dash/contrib/plugins/image/static *
 
 recursive-include src/dash/contrib/plugins/memo/templates *
 
-recursive-include src/dash/contrib/plugins/news/templates *
-recursive-include src/dash/contrib/plugins/news/static *
+#recursive-include src/dash/contrib/plugins/news/templates *
+#recursive-include src/dash/contrib/plugins/news/static *
 
 recursive-include src/dash/contrib/plugins/rss_feed/templates *
 recursive-include src/dash/contrib/plugins/rss_feed/static *

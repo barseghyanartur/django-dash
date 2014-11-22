@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     url(r'^dash/contrib/plugins/rss-feed/', include('dash.contrib.plugins.rss_feed.urls')),
 
     # django-dash News contrib plugin URLs:
-    url(r'^dash/contrib/plugins/news/', include('dash.contrib.plugins.news.urls')),
+    url(r'^news/', include('news.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

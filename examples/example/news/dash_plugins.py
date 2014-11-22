@@ -8,13 +8,15 @@ from django.utils.translation import ugettext_lazy as _
 from slim.helpers import get_language_from_request
 
 from dash.base import BaseDashboardPlugin
-from dash.factory import plugin_factory
-from dash.contrib.plugins.news.models import NewsItem
-from dash.contrib.plugins.news.forms import NewsForm
+from dash.factory import plugin_factory, plugin_widget_factory
 
-# ********************************************************************************
-# ****************************** Base News plugin ********************************
-# ********************************************************************************
+from news.models import NewsItem
+from news.forms import NewsForm
+from news.dash_widgets import BaseNewsWidget
+
+# *****************************************************************************
+# ****************************** Base News plugin *****************************
+# *****************************************************************************
 
 class BaseNewsPlugin(BaseDashboardPlugin):
     """
@@ -37,9 +39,9 @@ class BaseNewsPlugin(BaseDashboardPlugin):
         self.data.news_items = NewsItem._default_manager.filter(**results_kwargs) \
                                        .order_by('-date_published')[:self.data.max_items]
 
-# ********************************************************************************
-# ********** Generating and registering the plugins using factory ****************
-# ********************************************************************************
+# *****************************************************************************
+# ********** Generating and registering the plugins using factory *************
+# *****************************************************************************
 
 sizes = (
     (2, 5),
@@ -47,3 +49,13 @@ sizes = (
 )
 
 plugin_factory(BaseNewsPlugin, 'news', sizes)
+
+# ****************************************************************************
+# ****************** Registering widgets for News plugin *********************
+# ****************************************************************************
+
+main_sizes = (
+    (2, 5),
+    (4, 5),
+)
+plugin_widget_factory(BaseNewsWidget, 'android', 'main', 'news', main_sizes)

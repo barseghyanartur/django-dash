@@ -1,8 +1,8 @@
 ============================================
 Example project for `django-dash`
 ============================================
-Follow instructions below to install the example project. Commands below are written for Ubuntu/Debian,
-but may work on other Linux distributions as well.
+Follow instructions below to install the example project. Commands below are
+written for Ubuntu/Debian, but may work on other Linux distributions as well.
 
 - Create a new- or switch to existing- virtual environement.
 
@@ -26,31 +26,31 @@ but may work on other Linux distributions as well.
 
     $ pip install Django
 
-    $ pip install -r example/requirements.txt
+    $ pip install -r examples/requirements.txt
 
     $ pip install -e git+https://github.com/barseghyanartur/django-dash@stable#egg=django-dash
 
 - Create some directories.
 
-    $ mkdir -p example/media/static/ example/static/ example/db/ example/logs
+    $ mkdir -p examples/media/static/ examples/static/ examples/db/ examples/logs
 
 - Copy local_settings.example
 
-    $ cp example/example/local_settings.example example/example/local_settings.py
+    $ cp examples/example/local_settings.example examples/example/local_settings.py
 
 - Run the commands to sync database, install test data and run the server.
 
-    $ python example/example/manage.py syncdb --noinput --traceback -v 3
+    $ python examples/example/manage.py syncdb --noinput --traceback -v 3
 
-    $ python example/example/manage.py migrate --noinput
+    $ python examples/example/manage.py migrate --noinput
 
-    $ python example/example/manage.py collectstatic --noinput --traceback -v 3
+    $ python examples/example/manage.py collectstatic --noinput --traceback -v 3
 
-    $ python example/example/manage.py news_create_test_data --traceback -v 3
+    $ python examples/example/manage.py news_create_test_data --traceback -v 3
 
-    $ python example/example/manage.py dash_create_test_data --traceback -v 3
+    $ python examples/example/manage.py dash_create_test_data --traceback -v 3
 
-    $ python example/example/manage.py runserver 0.0.0.0:8001 --traceback -v 3
+    $ python examples/example/manage.py runserver 0.0.0.0:8001 --traceback -v 3
 
 - Open your browser and test the app.
 

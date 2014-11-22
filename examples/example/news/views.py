@@ -16,13 +16,16 @@ from slim.helpers import get_language_from_request
 
 from dash.base import get_layout
 from dash.utils import get_or_create_dashboard_settings
-from dash.contrib.plugins.news.models import NewsItem
-from dash.contrib.plugins.news.constants import MAX_NUM_POSTS_LISTING, PAGE_URL_PARAM, NUM_POSTS_URL_PARAM
-from dash.contrib.plugins.news.defaults import DEFAULT_MAX_NEWS_ITEMS
+from news.models import NewsItem
+from news.constants import (
+    MAX_NUM_POSTS_LISTING, PAGE_URL_PARAM, NUM_POSTS_URL_PARAM
+)
+from news.defaults import DEFAULT_MAX_NEWS_ITEMS
 
 @csrf_exempt
 @login_required
-def browse(request, template_name='news/browse.html', template_name_ajax='news/browse_ajax.html'):
+def browse(request, template_name='news/browse.html', \
+           template_name_ajax='news/browse_ajax.html'):
     """
     In the template, we show all available NewsItems for current language.
 
@@ -32,7 +35,9 @@ def browse(request, template_name='news/browse.html', template_name_ajax='news/b
     """
     # Getting dashboard settings for the user. Then get users' layout.
     dashboard_settings = get_or_create_dashboard_settings(request.user)
-    layout = get_layout(layout_uid=dashboard_settings.layout_uid, as_instance=True)
+    layout = get_layout(
+        layout_uid=dashboard_settings.layout_uid, as_instance=True
+        )
 
     language = get_language_from_request(request)
 
@@ -42,7 +47,8 @@ def browse(request, template_name='news/browse.html', template_name_ajax='news/b
         translation.activate(language)
         results_kwargs.update({'language': language})
 
-    queryset = NewsItem._default_manager.filter(**results_kwargs).order_by('-date_published')
+    queryset = NewsItem._default_manager.filter(**results_kwargs) \
+                       .order_by('-date_published')
 
     page = request.GET.get(PAGE_URL_PARAM, 1)
     #import ipdb; ipdb.set_trace()
@@ -98,13 +104,16 @@ def browse(request, template_name='news/browse.html', template_name_ajax='news/b
     if request.is_ajax():
         template_name = template_name_ajax
 
-    return render_to_response(template_name, context, context_instance=RequestContext(request))
+    return render_to_response(
+        template_name, context, context_instance=RequestContext(request)
+        )
 
 
-def detail(request, slug, template_name='news/detail.html', template_name_ajax='news/detail_ajax.html'):
+def detail(request, slug, template_name='news/detail.html', \
+           template_name_ajax='news/detail_ajax.html'):
     """
-    News item detail. In the template, we show the title and the body of the News item and links to all its' all
-    available translations.
+    News item detail. In the template, we show the title and the body of the
+    News item and links to all its' all available translations.
 
     :param django.http.HttpRequest request:
     :param string slug: Foo item slug.
@@ -135,4 +144,6 @@ def detail(request, slug, template_name='news/detail.html', template_name_ajax='
     if request.is_ajax():
         template_name = template_name_ajax
 
-    return render_to_response(template_name, context, context_instance=RequestContext(request))
+    return render_to_response(
+        template_name, context, context_instance=RequestContext(request)
+        )

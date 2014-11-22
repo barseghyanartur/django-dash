@@ -22,7 +22,8 @@ NEWS_IMAGES_STORAGE_PATH = 'news-images'
 
 def _news_images(instance, filename):
     """
-    Store the images in their own folder. This allows us to keep thumbnailed versions of all images.
+    Store the images in their own folder. This allows us to keep thumbnailed
+    versions of all images.
     """
     if instance.pk:
         return '{0}/{1}-{2}'.format(NEWS_IMAGES_STORAGE_PATH, str(instance.pk), filename.replace(' ', '-'))
@@ -35,19 +36,27 @@ class NewsItem(models.Model, Slim):
     - `title`: Title of the news item.
     - `body`: Teaser of the news item. WYSIWYG.
     - `image`: Headline image of the news item.
-    - `date_published`: Date item is published. On creating defaults to ``datetime.datetime.now``.
+    - `date_published`: Date item is published. On creating defaults to
+        ``datetime.datetime.now``.
     - `language`: Language.
     """
     title = models.CharField(_("Title"), max_length=100)
     body = HTMLField(_("Body"))
-    image = models.ImageField(_("Headline image"), blank=True, null=True, upload_to=_news_images)
-    date_published = models.DateTimeField(_("Date published"), blank=True, null=True, default=datetime.datetime.now())
+    image = models.ImageField(_("Headline image"), blank=True, null=True, \
+                              upload_to=_news_images)
+    date_published = models.DateTimeField(_("Date published"), blank=True, \
+                                          null=True, \
+                                          default=datetime.datetime.now())
     slug = models.SlugField(unique=True, verbose_name=_("Slug"))
 
     language = LanguageField()
 
-    date_created = models.DateTimeField(_("Date created"), blank=True, null=True, auto_now_add=True, editable=False)
-    date_updated = models.DateTimeField(_("Date updated"), blank=True, null=True, auto_now=True, editable=False)
+    date_created = models.DateTimeField(_("Date created"), blank=True, \
+                                        null=True, auto_now_add=True, \
+                                        editable=False)
+    date_updated = models.DateTimeField(_("Date updated"), blank=True, \
+                                        null=True, auto_now=True, \
+                                        editable=False)
 
     class Meta:
         verbose_name = _("News item")
@@ -73,7 +82,10 @@ class NewsItem(models.Model, Slim):
         :return string:
         """
         if self.image:
-            return render_to_string('news/_image_preview.html', {'alt': self.title, 'image_file': self.image})
+            return render_to_string(
+                'news/_image_preview.html',
+                {'alt': self.title, 'image_file': self.image}
+                )
         else:
             return u''
     admin_image_preview.allow_tags = True

@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from slim.admin import SlimAdmin
 
-from dash.contrib.plugins.news.models import NewsItem
+from news.models import NewsItem
 
 class NewsItemAdmin(SlimAdmin):
     """

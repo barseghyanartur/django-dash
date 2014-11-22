@@ -3,8 +3,9 @@ __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('AndroidLayout',)
 
-from dash.base import BaseDashboardLayout, BaseDashboardPlaceholder, layout_registry
-
+from dash.base import (
+    BaseDashboardLayout, BaseDashboardPlaceholder, layout_registry
+    )
 
 class AndroidMainPlaceholder(BaseDashboardPlaceholder):
     """

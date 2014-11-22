@@ -6,7 +6,7 @@ __all__ = ('BaseNewsWidget', 'News2x5Widget', 'News4x5Widget')
 from django.template.loader import render_to_string
 
 from dash.base import BaseDashboardPluginWidget
-from dash.contrib.plugins.news.constants import PAGE_URL_PARAM, NUM_POSTS_URL_PARAM
+from news.constants import PAGE_URL_PARAM, NUM_POSTS_URL_PARAM
 
 # ***********************************************************************
 # ********************** Base widget for Memo plugin ********************

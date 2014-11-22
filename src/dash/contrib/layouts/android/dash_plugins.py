@@ -3,7 +3,6 @@ from dash.factory import plugin_widget_factory
 from dash.contrib.plugins.dummy.dash_widgets import BaseDummyWidget
 from dash.contrib.plugins.image.dash_widgets import BaseImageWidget
 from dash.contrib.plugins.memo.dash_widgets import BaseMemoWidget, BaseTinyMCEMemoWidget
-from dash.contrib.plugins.news.dash_widgets import BaseNewsWidget
 from dash.contrib.plugins.rss_feed.dash_widgets import BaseReadRSSFeedWidget
 from dash.contrib.plugins.video.dash_widgets import BaseVideoWidget
 from dash.contrib.plugins.weather.dash_widgets import BaseWeatherWidget
@@ -72,16 +71,6 @@ main_sizes = (
     (3, 3),
 )
 plugin_widget_factory(BaseTinyMCEMemoWidget, 'android', 'main', 'tinymce_memo', main_sizes)
-
-# **************************************************************************
-# ****************** Registering widgets for News plugin *******************
-# **************************************************************************
-
-main_sizes = (
-    (2, 5),
-    (4, 5),
-)
-plugin_widget_factory(BaseNewsWidget, 'android', 'main', 'news', main_sizes)
 
 # **************************************************************************
 # ******************* Registering widgets for RSS plugin *******************

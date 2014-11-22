@@ -92,6 +92,7 @@ Core and contrib
   github, PyPI) in order to simplify improvements and make it easier to
   modify them as needed.
 + Django 1.7 support.
++ When using unicode characters found in workspace slug, ``django-slug`` raises an exception.
 - Fix Google Chrome bug, when dash widget controls (edit/delete) being hidden under Youtube video.
 - Strange problems with hover in IE (all versions).
 - Add workspace create/delete/edit tests.
@@ -102,7 +103,6 @@ Core and contrib
   it's an issue. Optimise the CSS in such a way, that the overlays are scrollable and heading
   backgrounds grow with text.
 - Check all translation messages, as some of them are not properly shown in Russian locale.
-- When using unicode characters in workspace slug, ``django-slug`` raises an exception.
 - Check if it's possible to add plugins without config (without form).
 - Rewrite the Javascript and core templates with bootstrap3 in mind. Support old themes as well.
 - Add information (especially license information) of the third-party apps used in the project.

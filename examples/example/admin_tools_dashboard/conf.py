@@ -5,7 +5,7 @@ foo_apps = [
 
 # News apps list
 news_apps = [
-    'dash.contrib.plugins.news.models.*',
+    'news.models.*',
 ]
 
 bookmark_apps = [

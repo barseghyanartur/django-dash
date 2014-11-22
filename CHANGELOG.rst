@@ -1,5 +1,28 @@
-Release history
+Release history and notes
 =====================================
+`Sequence based identifiers
+<http://en.wikipedia.org/wiki/Software_versioning#Sequence-based_identifiers>`_
+are used for versioning (schema follows below):
+
+.. code-block:: none
+
+    major.minor[.revision]
+
+It's always safe to migrate within the same minor version. Minor version
+changes might be backwards incompatible. All backwards incompatible changes
+are mentioned in this document.
+
+0.4.9
+-------------------------------------
+
+- Fixed exceptions raised when unicode characters were used as dashboard
+  names.
+- Softened setup requirements.
+- Moved `dash.contrib.plugins.news` into the `examples.example` example
+  project. If you have used it, change the path in your projects'
+  `settings.py` module accordingly.
+- Documentation improvements.
+
 0.4.8
 -------------------------------------
 2014-10-12
@@ -23,7 +46,8 @@ Release history
 -------------------------------------
 2014-05-21
 
-- Added 'rem', 'in', 'cm', 'mm', 'ex' and 'pc' units to the list of available units.
+- Added 'rem', 'in', 'cm', 'mm', 'ex' and 'pc' units to the list of available
+  units.
 - Softened dependencies.
 
 0.4.4
@@ -37,14 +61,16 @@ Release history
 2013-12-21
 
 - Add Bookmark plugin.
-- Improvements (simplification) of the API related to force-updating of plugin data, triggered by
-  developers upon changes in source models, used by certain plugins.
+- Improvements (simplification) of the API related to force-updating of plugin 
+  data, triggered by developers upon changes in source models, used by certain
+  plugins.
 
 0.4.2
 -------------------------------------
 2013-12-08
 
-- Fix extra (duplicate) menu appearing on the public dashboard of the "Bootstrap2 Fluid" layout.
+- Fix extra (duplicate) menu appearing on the public dashboard of the "Bootstrap2
+  Fluid" layout.
 
 0.4.1
 -------------------------------------
@@ -56,12 +82,14 @@ Release history
 -------------------------------------
 2013-12-07
 
-While core stayed almost intact, there have been major changes made to plugins and widgets. If you
-have written your own plugins and widgets, having inherited existing ones, review your code before
-updating to this version. It would be very simple to migrate, though. All layout specific widgets
-have been moved to layout modules, having the plugins only implemented base widgets, which are
-used (subclassed) by plugins and widgets specified in layouts. Moreover, a factory feature for
-plugins and widgets has been introduced. Take `android` layout as example.
+While core stayed almost intact, there have been major changes made to plugins
+and widgets. If you have written your own plugins and widgets, having inherited
+existing ones, review your code before updating to this version. It would be
+very simple to migrate, though. All layout specific widgets have been moved to
+layout modules, having the plugins only implemented base widgets, which are
+used (subclassed) by plugins and widgets specified in layouts. Moreover, a
+factory feature for plugins and widgets has been introduced. Take `android`
+layout as example.
 
 - Plugin and widget factory added, which decreases the amount of plugin and widget code by 90%.
 - Dashboard workspace cloning feature added. There are two options. Either clone your own workspace or
@@ -81,14 +109,15 @@ plugins and widgets has been introduced. Take `android` layout as example.
 -------------------------------------
 2013-11-24
 
-- Fix image plugin bug occuring with "Fit width" and "Fit height" resize methods.
+- Fix image plugin bug occuring with "Fit width" and "Fit height" resize
+  methods.
 
 0.3.1
 -------------------------------------
 2013-11-24
 
-- Fixed issue when the left gray menu (workspaces) is empty in cases when only default workspace is
-  available.
+- Fixed issue when the left gray menu (workspaces) is empty in cases when only 
+  default workspace is available.
 
 0.3
 -------------------------------------
@@ -101,16 +130,19 @@ plugins and widgets has been introduced. Take `android` layout as example.
 - Placeholder cell margins definable for each placeholder.
 - Customisable form snippets for layouts.
 - The very essential core CSS moved to a separate file (dash_core.css).
-- Plugin and widget documentation brought in accordance with new naming conventions.
+- Plugin and widget documentation brought in accordance with new naming
+  conventions.
 - Overal cleanup and improvements.
 
 0.2.4
 -------------------------------------
 2013-11-09
 
-- Now when workspace is deleted, the plugin `delete_plugin_data` method is fired for all dashboard entries
-  so that all the related plugin data is wiped as well.
-- Move layout borders into separate stylesheet, making it easy to switch between those.
+- Now when workspace is deleted, the plugin `delete_plugin_data` method is 
+  fired for all dashboard entries so that all the related plugin data is wiped
+  as well.
+- Move layout borders into separate stylesheet, making it easy to switch
+  between those.
 
 0.2.3
 -------------------------------------
@@ -118,7 +150,8 @@ plugins and widgets has been introduced. Take `android` layout as example.
 
 - Making it possible to refer to a placeholder by it's uid in templates.
 - Nice example project with example layouts, plugins and widgets.
-- Added notes about Django 1.6 support (seems to work, although not yet proclaimed to be flawlessly supported).
+- Added notes about Django 1.6 support (seems to work, although not yet
+  proclaimed to be flawlessly supported).
 - Some core improvements.
 - Updated demo installer.
 
@@ -140,11 +173,13 @@ plugins and widgets has been introduced. Take `android` layout as example.
 2013-11-07
 
 - Added Image plugin.
-- All existing plugin and widget names are brought in accordance with new naming 
-  convention (http://pythonhosted.org/django-dash/#naming-conventions). If you're using the
-  old plugins, you're likely want to clean up your dashboard and start over.
+- All existing plugin and widget names are brought in accordance with new 
+  naming  convention (http://pythonhosted.org/django-dash/#naming-conventions).
+  If you're using the old plugins, you're likely want to clean up your
+  dashboard and start over.
 - Some improvements of core.
-- Adding `get_size`, `get_width` and `get_height` methods to the plugin widget class.
+- Adding `get_size`, `get_width` and `get_height` methods to the plugin widget
+  class.
 
 0.1.4
 -------------------------------------
@@ -164,7 +199,7 @@ plugins and widgets has been introduced. Take `android` layout as example.
 -------------------------------------
 2013-10-31
 
-- Replace DISPLAY_LOGOUT_LINK with DISPLAY_AUTH_LINK.
+- Replace `DISPLAY_LOGOUT_LINK` with `DISPLAY_AUTH_LINK`.
 - Better documentation.
 
 0.1.1

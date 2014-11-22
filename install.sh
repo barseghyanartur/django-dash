@@ -1,9 +1,9 @@
-pip install -r example/requirements.txt
+pip install -r examples/requirements.txt
 python setup.py install
-mkdir example/logs
-mkdir example/db
-mkdir example/media
-mkdir example/media/static
-python example/example/manage.py collectstatic --noinput
-python example/example/manage.py syncdb --noinput
-python example/example/manage.py migrate --noinput --delete-ghost-migrations
+mkdir examples/logs
+mkdir examples/db
+mkdir examples/media
+mkdir examples/media/static
+python examples/example/manage.py collectstatic --noinput
+python examples/example/manage.py syncdb --noinput
+python examples/example/manage.py migrate --noinput --delete-ghost-migrations

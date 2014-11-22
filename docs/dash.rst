@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
 
     dash.contrib
+    dash.lib
     dash.management
     dash.migrations
     dash.templatetags

@@ -18,7 +18,7 @@ template_dirs = [
     "src/dash/contrib/plugins/dummy/templates/dummy", # Dummy plugin
     "src/dash/contrib/plugins/image/templates/image", # Image plugin
     "src/dash/contrib/plugins/memo/templates/memo", # Memo plugin
-    "src/dash/contrib/plugins/news/templates/news", # News plugin
+    #"src/dash/contrib/plugins/news/templates/news", # News plugin
     "src/dash/contrib/plugins/rss_feed/templates/rss_feed", # RSS feed plugin
     "src/dash/contrib/plugins/url/templates/url", # URL plugin
     "src/dash/contrib/plugins/video/templates/video", # Video plugin
@@ -30,7 +30,7 @@ static_dirs = [
     "src/dash/contrib/layouts/bootstrap2/static", # Bootstrap 2 layouts
     "src/dash/contrib/layouts/windows8/static", # Windows 8 layout
     "src/dash/contrib/plugins/image/static", # Image plugin
-    "src/dash/contrib/plugins/news/static", # News plugin
+    #"src/dash/contrib/plugins/news/static", # News plugin
     "src/dash/contrib/plugins/rss_feed/static", # RSS feed plugin
     "src/dash/contrib/plugins/url/static", # URL plugin
     "src/dash/contrib/plugins/video/static", # Video plugin
@@ -55,11 +55,11 @@ for static_dir in static_dirs:
 for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f) for f in os.listdir(locale_dir)]
 
-version = '0.4.8'
+version = '0.4.9'
 
 install_requires = [
-    'Pillow>=2.1.0,<=2.4.0',
-    'django-autoslug==1.7.1',
+    'Pillow>=2.1.0',
+    'django-autoslug>=1.7.1',
     'django-slim>=0.7.4',
     'django-tinymce>=1.5.3',
     'feedparser==5.1.3',
@@ -69,6 +69,7 @@ install_requires = [
     'easy-thumbnails>=1.4,<2.0',
     'transliterate>=1.5,<2.0',
     'vishap>=0.1.1,<2.0',
+    'unidecode',
 ]
 
 tests_require = [

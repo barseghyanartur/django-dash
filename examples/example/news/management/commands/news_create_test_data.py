@@ -20,7 +20,7 @@ from django.core.management.base import BaseCommand
 from django.utils.text import slugify
 from django.conf import settings
 
-from dash.contrib.plugins.news.models import NewsItem, NEWS_IMAGES_STORAGE_PATH
+from news.models import NewsItem, NEWS_IMAGES_STORAGE_PATH
 
 logger = logging.getLogger(__file__)
 
@@ -128,8 +128,8 @@ def fix_image(image):
 
 def _build_image_factory():
     """
-    Clones the https://bitbucket.org/barseghyanartur/delusionalinsanity.images repository locally to
-    grab the images. Then makes a list of all the images.
+    Clones the https://bitbucket.org/barseghyanartur/delusionalinsanity.images
+    repository locally to grab the images. Then makes a list of all the images.
 
     :return list: List of relative paths to images.
     """
@@ -154,8 +154,9 @@ def _build_image_factory():
 
 def build_image_factory():
     """
-    Downloads the https://github.com/barseghyanartur/delusionalinsanity.images/archive/latest.zip locally,
-    unpacks it to grab the images. Then makes a list of all the images.
+    Downloads the
+    https://github.com/barseghyanartur/delusionalinsanity.images/archive/latest.zip
+    locally, unpacks it to grab the images. Then makes a list of all the images.
 
     :return list: List of relative paths to images.
     """
