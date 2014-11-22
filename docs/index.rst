@@ -151,14 +151,14 @@ Django admin interface:
 
 If quick installer doesn't work for you, see the manual steps on running the
 `example project
-<https://github.com/barseghyanartur/django-dash/tree/stable/example>`_.
+<https://github.com/barseghyanartur/django-dash/tree/stable/example>`__.
 
 Take a look at the templates in "example/example/templates" directory for
 getting a better idea of how to transform your own- or thirdy-part- templates
 into Dash templates.
 
 Also, the `example project
-<https://github.com/barseghyanartur/django-dash/tree/stable/example/example/foo>`_
+<https://github.com/barseghyanartur/django-dash/tree/stable/example/example/foo>`__
 has example layouts, plugins and widgets implemented. Take it as a good example
 of how to add widgets for existing plugins to your own customly made layout.
 Make sure to see how same is done for the `bundled layouts
