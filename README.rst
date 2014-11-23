@@ -100,7 +100,6 @@ Or latest stable version from BitBucket:
         'dash.contrib.plugins.dummy',
         'dash.contrib.plugins.image',
         'dash.contrib.plugins.memo',
-        'dash.contrib.plugins.news',
         'dash.contrib.plugins.rss_feed',
         'dash.contrib.plugins.url',
         'dash.contrib.plugins.video',
