@@ -1,4 +1,5 @@
 import datetime
+from time import struct_time
 
 from django import template
 
