@@ -32,5 +32,6 @@ tmp/
 /build/
 /dist/
 /src/django_dash.egg-info
+/src/dash/clipboard.py
 examples/example/local_settings.py
 heroku_setup.py

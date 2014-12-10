@@ -3,18 +3,20 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'RESTRICT_PLUGIN_ACCESS', 'PLUGINS_MODULE_NAME', 'LAYOUTS_MODULE_NAME', 'ACTIVE_LAYOUT', \
-    'LAYOUT_CELL_UNITS', 'DEFAULT_WORKSPACE_NAME', 'DEFAULT_PLACEHOLDER_VIEW_TEMPLATE_NAME', \
-    'DEFAULT_PLACEHOLDER_EDIT_TEMPLATE_NAME', 'DISPLAY_AUTH_LINK', 'WAIT_BETWEEN_TEST_STEPS', \
-    'WAIT_AT_TEST_END', 'DEBUG'
+    'RESTRICT_PLUGIN_ACCESS', 'PLUGINS_MODULE_NAME', 'LAYOUTS_MODULE_NAME',
+    'ACTIVE_LAYOUT', 'LAYOUT_CELL_UNITS', 'DEFAULT_WORKSPACE_NAME',
+    'DEFAULT_PLACEHOLDER_VIEW_TEMPLATE_NAME', 'WAIT_BETWEEN_TEST_STEPS',
+    'DEFAULT_PLACEHOLDER_EDIT_TEMPLATE_NAME', 'DISPLAY_AUTH_LINK',
+    'WAIT_AT_TEST_END', 'PLUGIN_CLIPBOARD_KEY', 'DEBUG'
 )
 
 from django.utils.translation import ugettext
 
 gettext = lambda s: s
 
-# If set to True, plugins would be only accessible by the white-listed user(s) or group(s). If set to False, all
-# users have the same access rights to all plugins.
+# If set to True, plugins would be only accessible by the white-listed user(s) 
+# or group(s). If set to False, all users have the same access rights to all
+# plugins.
 RESTRICT_PLUGIN_ACCESS = True
 
 # Name of the module in which the dash plugins are registered.
@@ -40,5 +42,9 @@ DISPLAY_AUTH_LINK = True
 
 WAIT_BETWEEN_TEST_STEPS = 2
 WAIT_AT_TEST_END = 4
+
+# Key of the clipboard variable used in sessions to store the plugin clipboard
+# data.
+PLUGIN_CLIPBOARD_KEY = 'dash_plugin_clipboard'
 
 DEBUG = False

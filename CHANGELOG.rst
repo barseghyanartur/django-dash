@@ -12,8 +12,16 @@ It's always safe to migrate within the same minor version. Minor version
 changes might be backwards incompatible. All backwards incompatible changes
 are mentioned in this document.
 
+0.4.10
+-------------------------------------
+2014-12-10
+
+- Minor fixes in Image plugin.
+- Minor fixes in RSS feed plugin.
+
 0.4.9
 -------------------------------------
+2014-10-22
 
 - Fixed exceptions raised when unicode characters were used as dashboard
   names.
