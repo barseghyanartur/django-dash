@@ -11,5 +11,6 @@ lorem-ipsum-generator==0.3
 #MySQL-python==1.2.4
 ordereddict==1.1
 #selenium==2.42.1
+selenium
 simple-timer==0.2
 tox
