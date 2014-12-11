@@ -126,7 +126,7 @@ Grab the latest `django_dash_example_app_installer.sh`:
 
 .. code-block:: none
 
-    $ wget https://raw.github.com/barseghyanartur/django-dash/stable/example/django_dash_example_app_installer.sh
+    $ wget https://raw.github.com/barseghyanartur/django-dash/stable/examples/django_dash_example_app_installer.sh
 
 Assign execute rights to the installer and run the
 `django_dash_example_app_installer.sh`:

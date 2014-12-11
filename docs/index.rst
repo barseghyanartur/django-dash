@@ -100,7 +100,6 @@ Or latest stable version from BitBucket:
         'dash.contrib.plugins.dummy',
         'dash.contrib.plugins.image',
         'dash.contrib.plugins.memo',
-        'dash.contrib.plugins.news',
         'dash.contrib.plugins.rss_feed',
         'dash.contrib.plugins.url',
         'dash.contrib.plugins.video',
@@ -127,7 +126,7 @@ Grab the latest `django_dash_example_app_installer.sh`:
 
 .. code-block:: none
 
-    $ wget https://raw.github.com/barseghyanartur/django-dash/stable/example/django_dash_example_app_installer.sh
+    $ wget https://raw.github.com/barseghyanartur/django-dash/stable/examples/django_dash_example_app_installer.sh
 
 Assign execute rights to the installer and run the
 `django_dash_example_app_installer.sh`:

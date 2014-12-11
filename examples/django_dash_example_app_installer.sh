@@ -4,7 +4,7 @@ source dash/bin/activate
 mkdir django_dash_example_app_installer/
 tar -xvf django_dash_example_app_installer.tar.gz -C django_dash_example_app_installer
 cd django_dash_example_app_installer/django-dash-stable/examples/example/
-pip install Django
+pip install Django==1.6.8
 pip install -r ../requirements.txt
 pip install -e git+https://github.com/barseghyanartur/django-dash@stable#egg=django-dash
 mkdir ../media/
