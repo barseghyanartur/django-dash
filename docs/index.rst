@@ -51,7 +51,9 @@ Main features
 - Multiple workspaces.
 - Tunable access permissions to plugins.
 - Public dashboards (as a contrib app).
-- Clonable workspaces.
+- Clonable workspaces. It's possible to clone entire workspace, including
+  all the plugins into another workspace.
+- Copy/paste functionality for plugin widgets.
 
 FAQ
 ===============================================
