@@ -18,6 +18,9 @@
             <a href="{% url 'dash.edit_dashboard_entry' entry.pk %}" class="edit-plugin" title="{% trans 'Edit widget' %}">
                 <span class="iconic icon-edit"></span>
             </a>
+            <a href="{% url 'dash.copy_dashboard_entry' entry.pk %}" class="copy-plugin" title="{% trans 'Copy widget' %}">
+                <span class="iconic icon-copy"></span>
+            </a>
             <div class="plugin-content-wrapper">
                 {{ plugin.render }}
             </div>

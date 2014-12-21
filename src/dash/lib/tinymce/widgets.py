@@ -7,8 +7,6 @@ http://code.djangoproject.com/wiki/CustomWidgetsTinyMCE
 """
 from __future__ import unicode_literals
 
-from dash.lib.tinymce import settings as tinymce_settings
-
 from django import forms
 from django.conf import settings
 from django.contrib.admin import widgets as admin_widgets
@@ -18,10 +16,7 @@ from django.utils.html import escape
 from django.utils.datastructures import SortedDict
 from django.utils.safestring import mark_safe
 from django.utils.translation import get_language, ugettext as _
-try:
-    import json
-except ImportError:
-    from django.utils import simplejson as json
+
 try:
     from django.utils.encoding import smart_text as smart_unicode
 except ImportError:
@@ -30,6 +25,8 @@ except ImportError:
     except ImportError:
         from django.forms.util import smart_unicode
 
+from dash.lib.tinymce import settings as tinymce_settings
+from dash.json_package import json
 
 class TinyMCE(forms.Textarea):
     """

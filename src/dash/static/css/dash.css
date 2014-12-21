@@ -266,3 +266,8 @@ a .textonic {
 a:hover .textonic {
     color: #000;
 }
+
+.paste-from-clipboard {
+    clear: both;
+    margin-bottom: 18px;
+}

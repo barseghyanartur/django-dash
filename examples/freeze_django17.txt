@@ -32,5 +32,5 @@ sqlparse==0.1.11
 tox==1.7.1
 transliterate==1.7.2
 virtualenv==1.11.6
-vishap==0.1.1
+vishap==0.1.2
 wsgiref==0.1.2

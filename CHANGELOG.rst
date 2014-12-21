@@ -8,9 +8,25 @@ are used for versioning (schema follows below):
 
     major.minor[.revision]
 
-It's always safe to migrate within the same minor version. Minor version
-changes might be backwards incompatible. All backwards incompatible changes
-are mentioned in this document.
+- It's always safe to upgrade within the same minor version (for example, from
+  0.3 to 0.3.2).
+- Minor version changes might be backwards incompatible. Read the
+  release notes carefully before upgrading (for example, when upgrading from
+  0.3.2 to 0.4).
+- All backwards incompatible changes are mentioned in this document.
+
+0.4.11
+-------------------------------------
+2014-12-21
+
+- Clipboard module for copy, cut and paste operations.
+- Make it possible to provide a template for rendering the plugin widgets
+  popup dialogue.
+- Improvements in Bootstrap 2 layout (using Bootstrap 2 own accordion instead
+  of the one coming with jQuery UI in the plugin widgets popup).
+- If `ujson` or `simplejson` are installed, they're used in preference to
+  stldib `json` module.
+- Minor improvements and fixes.
 
 0.4.10
 -------------------------------------

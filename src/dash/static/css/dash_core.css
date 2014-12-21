@@ -46,12 +46,14 @@
             text-align: center;
         }
         .placeholder .empty-widget-cell .add-plugin:hover,
+        .placeholder .plugin .copy-plugin:hover,
         .placeholder .plugin .edit-plugin:hover,
         .placeholder .plugin .remove-plugin:hover {
 
         }
 
         /* `Remove plugin widget` link for the empty widget cell. */
+        .placeholder .plugin .copy-plugin,
         .placeholder .plugin .edit-plugin,
         .placeholder .plugin .remove-plugin {
             position: absolute;
@@ -61,6 +63,9 @@
             text-align: right;
             background-color: #fff;
             z-index: 9999;
+        }
+        .placeholder .plugin .copy-plugin {
+            right: 40px;
         }
         .placeholder .plugin .edit-plugin {
             right: 20px;

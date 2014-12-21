@@ -3,27 +3,30 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'get_allowed_plugin_uids', 'get_user_plugins', 'get_user_plugin_uids', 'get_widgets',
-    'update_plugin_data_for_entries', 'sync_plugins', 'get_workspaces', 'build_cells_matrix',
-    'get_or_create_dashboard_settings', 'get_dashboard_settings', 'get_public_dashboard_url'
+    'get_allowed_plugin_uids', 'get_user_plugins', 'get_user_plugin_uids',
+    'get_widgets', 'update_plugin_data_for_entries', 'sync_plugins',
+    'get_workspaces', 'build_cells_matrix', 'get_or_create_dashboard_settings',
+    'get_dashboard_settings', 'get_public_dashboard_url'
 )
 
 import copy
 import datetime
 
-from six import PY3
-
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
-from django.utils.encoding import force_text
 
 from dash.base import (
-    plugin_registry, get_registered_plugin_uids, ensure_autodiscover, get_registered_plugins,
-    plugin_widget_registry, PluginWidgetRegistry, get_layout,
-    BaseDashboardLayout, BaseDashboardPlaceholder
+    plugin_registry, get_registered_plugin_uids, ensure_autodiscover, 
+    get_registered_plugins, plugin_widget_registry, PluginWidgetRegistry,
+    get_layout, BaseDashboardLayout, BaseDashboardPlaceholder
     )
-from dash.models import DashboardEntry, DashboardPlugin, DashboardWorkspace, DashboardSettings
-from dash.helpers import slugify_workspace, lists_overlap, clone_plugin_data, update_plugin_data
+from dash.models import (
+    DashboardEntry, DashboardPlugin, DashboardWorkspace, DashboardSettings
+    )
+from dash.helpers import (
+    slugify_workspace, lists_overlap, clone_plugin_data, update_plugin_data,
+    safe_text
+    )
 from dash.exceptions import PluginWidgetOutOfPlaceholderBoundaries
 from dash.settings import RESTRICT_PLUGIN_ACCESS, DEBUG
 
@@ -40,8 +43,12 @@ def get_allowed_plugin_uids(user):
     :return list:
     """
     try:
-        queryset_groups = DashboardPlugin._default_manager.filter(groups__in=user.groups.all()).distinct()
-        queryset_users = DashboardPlugin._default_manager.filter(users=user).distinct()
+        queryset_groups = DashboardPlugin._default_manager \
+                                         .filter(groups__in=user.groups.all()) \
+                                         .distinct()
+        queryset_users = DashboardPlugin._default_manager \
+                                        .filter(users=user)\
+                                        .distinct()
         queryset = queryset_groups | queryset_users
         queryset = queryset.only('plugin_uid')
         return [p.plugin_uid for p in queryset]
@@ -52,8 +59,8 @@ def get_allowed_plugin_uids(user):
 
 def get_user_plugins(user):
     """
-    Gets a list of user plugins in a form if tuple (plugin name, plugin description). If not yet autodiscovered,
-    autodiscovers them.
+    Gets a list of user plugins in a form if tuple (plugin name, plugin
+    description). If not yet autodiscovered, autodiscovers them.
 
     :return list:
     """
@@ -68,13 +75,14 @@ def get_user_plugins(user):
 
     for uid, plugin in plugin_registry._registry.items():
         if uid in allowed_plugin_uids:
-            registered_plugins.append((uid, force_text(plugin.name)))
+            registered_plugins.append((uid, safe_text(plugin.name)))
 
     return registered_plugins
 
 def get_user_plugin_uids(user):
     """
-    Gets a list of user plugin uids as a list . If not yet autodiscovered, autodiscovers them.
+    Gets a list of user plugin uids as a list . If not yet autodiscovered,
+    autodiscovers them.
 
     :return list:
     """
@@ -93,12 +101,13 @@ def get_user_plugin_uids(user):
 
     return registered_plugins
 
-def get_widgets(layout, placeholder, user=None, workspace=None, position=None, \
-                occupied_cells=[], sort_items=True):
+def get_widgets(layout, placeholder, user=None, workspace=None, \
+                position=None, occupied_cells=[], sort_items=True):
     """
-    Gets widgets. In case if in restricted mode (``RESTRICT_PLUGIN_ACCESS`` is set to True),
-    user argument should be provided. Based on it, the list of plugins is returned.  Restrictions are
-    bypassed in case if ``RESTRICT_PLUGIN_ACCESS`` is set to False or user given is a superuser.
+    Gets widgets. In case if in restricted mode (``RESTRICT_PLUGIN_ACCESS`` is
+    set to True), user argument should be provided. Based on it, the list of
+    plugins is returned.  Restrictions are bypassed in case if
+    ``RESTRICT_PLUGIN_ACCESS`` is set to False or user given is a superuser.
 
     Placeholders are validated already. We don't need to have validation here.
 
@@ -111,9 +120,10 @@ def get_widgets(layout, placeholder, user=None, workspace=None, position=None, \
     :param bool sort_items: If set to True, returned items are sorted.
     :return list:
     """
-    # We should get the layout, see loop through its' plugins and see which of those do have rendererrs. Then
-    # we get all the plugins (based on whether they are restricted or not - get the list) and then filter
-    # out those that do not have renderers.
+    # We should get the layout, see loop through its' plugins and see which of
+    # those do have rendererrs. Then we get all the plugins (based on whether
+    # they are restricted or not - get the list) and then filter out those
+    # that do not have renderers.
 
     ensure_autodiscover()
 
@@ -123,14 +133,21 @@ def get_widgets(layout, placeholder, user=None, workspace=None, position=None, \
 
     if not RESTRICT_PLUGIN_ACCESS or getattr(user, 'is_superuser', False):
         for uid, plugin in plugin_registry._registry.items():
-            # We should make sure that there are widgets available for the placeholder.
-            plugin_widget_uid = PluginWidgetRegistry.namify(layout.uid, placeholder.uid, uid)
+            # We should make sure that there are widgets available for the
+            # placeholder.
+            plugin_widget_uid = PluginWidgetRegistry.namify(
+                layout.uid, placeholder.uid, uid
+                )
 
             # Get cells occupied by plugin widget.
-            widget_occupied_cells = get_occupied_cells(layout, placeholder, uid, position, check_boundaries=True)
+            widget_occupied_cells = get_occupied_cells(
+                layout, placeholder, uid, position, check_boundaries=True
+                )
 
-            if plugin_widget_uid in plugin_widget_uids and widget_occupied_cells is not False and \
-               not lists_overlap(widget_occupied_cells, occupied_cells):
+            if plugin_widget_uid in plugin_widget_uids \
+               and widget_occupied_cells is not False \
+               and not lists_overlap(widget_occupied_cells, occupied_cells):
+
                 plugin_widget = plugin_widget_registry.get(plugin_widget_uid)
                 kwargs = {'placeholder_uid': placeholder.uid, 'plugin_uid': uid}
                 if workspace:
@@ -138,33 +155,41 @@ def get_widgets(layout, placeholder, user=None, workspace=None, position=None, \
                 if position:
                     kwargs.update({'position': position})
 
-                plugin_group = force_text(plugin.group)
+                plugin_group = safe_text(plugin.group)
                 if not plugin_group in registered_widgets:
                     registered_widgets[plugin_group] = []
 
-                if PY3:
-                    widget_name = force_text(plugin.name, encoding='utf-8')
-                else:
-                    widget_name = force_text(plugin.name, encoding='utf-8').encode('utf-8')
+                widget_name = safe_text(plugin.name)
 
-                registered_widgets[plugin_group].append((
-                    uid,
-                    '{0} ({1}x{2})'.format(widget_name, plugin_widget.cols, plugin_widget.rows),
-                    reverse('dash.add_dashboard_entry', kwargs=kwargs)
-                    ))
+                registered_widgets[plugin_group].append(
+                    (
+                        uid,
+                        '{0} ({1}x{2})'.format(widget_name, \
+                                               plugin_widget.cols, \
+                                               plugin_widget.rows),
+                        reverse('dash.add_dashboard_entry', kwargs=kwargs)
+                    )
+                    )
     else:
         allowed_plugin_uids = get_allowed_plugin_uids(user)
 
         for uid, plugin in plugin_registry._registry.items():
-            # We should make sure that there are widgets available for the placeholder and user has access to the
-            # widget desired.
-            plugin_widget_uid = PluginWidgetRegistry.namify(layout.uid, placeholder.uid, uid)
+            # We should make sure that there are widgets available for the
+            # placeholder and user has access to the widget desired.
+            plugin_widget_uid = PluginWidgetRegistry.namify(
+                layout.uid, placeholder.uid, uid
+                )
 
             # Get cells occupied by plugin widget.
-            widget_occupied_cells = get_occupied_cells(layout, placeholder, uid, position, check_boundaries=True)
+            widget_occupied_cells = get_occupied_cells(
+                layout, placeholder, uid, position, check_boundaries=True
+                )
 
-            if uid in allowed_plugin_uids and plugin_widget_uid in plugin_widget_uids and \
-               widget_occupied_cells is not False and not lists_overlap(widget_occupied_cells, occupied_cells):
+            if uid in allowed_plugin_uids \
+               and plugin_widget_uid in plugin_widget_uids \
+               and widget_occupied_cells is not False \
+               and not lists_overlap(widget_occupied_cells, occupied_cells):
+
                 plugin_widget = plugin_widget_registry.get(plugin_widget_uid)
                 kwargs = {'placeholder_uid': placeholder.uid, 'plugin_uid': uid}
                 if workspace:
@@ -172,14 +197,16 @@ def get_widgets(layout, placeholder, user=None, workspace=None, position=None, \
                 if position:
                     kwargs.update({'position': position})
 
-                plugin_group = force_text(plugin.group)
+                plugin_group = safe_text(plugin.group)
                 if not plugin_group in registered_widgets:
                     registered_widgets[plugin_group] = []
 
                 registered_widgets[plugin_group].append(
                     (
                         uid,
-                        '{0} ({1}x{2})'.format(force_text(plugin.name), plugin_widget.cols, plugin_widget.rows),
+                        '{0} ({1}x{2})'.format(safe_text(plugin.name), \
+                                               plugin_widget.cols, \
+                                               plugin_widget.rows),
                         reverse('dash.add_dashboard_entry', kwargs=kwargs)
                     )
                     )
@@ -192,11 +219,12 @@ def get_widgets(layout, placeholder, user=None, workspace=None, position=None, \
 
 def update_plugin_data_for_entries(dashboard_entries=None, request=None):
     """
-    Updates the plugin data for all dashboard entries of all users. Rules for update are specified in the
-    plugin itself.
+    Updates the plugin data for all dashboard entries of all users. Rules for
+    update are specified in the plugin itself.
 
-    :param iterable dashboard_entries: If given, is used to iterate through and update the plugin data.
-        If left empty, all dashboard entries will be updated.
+    :param iterable dashboard_entries: If given, is used to iterate through
+        and update the plugin data. If left empty, all dashboard entries will
+        be updated.
     """
     if dashboard_entries is None:
         dashboard_entries = DashboardEntry._default_manager.all()
@@ -206,7 +234,8 @@ def update_plugin_data_for_entries(dashboard_entries=None, request=None):
 
 def sync_plugins():
     """
-    Syncs the registered plugin list with data in ``dash.models.DashboardPlugin``.
+    Syncs the registered plugin list with data in
+    ``dash.models.DashboardPlugin``.
     """
     # If not in restricted mode, the quit.
 
@@ -215,7 +244,8 @@ def sync_plugins():
 
     registered_plugins = set(get_registered_plugin_uids())
 
-    synced_plugins = set([p.plugin_uid for p in DashboardPlugin._default_manager.only('plugin_uid')])
+    synced_plugins = set([p.plugin_uid for p in \
+                          DashboardPlugin._default_manager.only('plugin_uid')])
 
     non_synced_plugins = registered_plugins - synced_plugins
 
@@ -242,7 +272,9 @@ def get_workspaces(user, layout_uid=None, workspace=None, public=False):
     if public:
         q_kwargs.update({'is_public': public})
 
-    workspaces = list(DashboardWorkspace._default_manager.filter(**q_kwargs).only('id', 'name', 'slug') \
+    workspaces = list(DashboardWorkspace._default_manager \
+                                        .filter(**q_kwargs) \
+                                        .only('id', 'name', 'slug') \
                                         .order_by('position')[:])
 
     next = None
@@ -308,20 +340,23 @@ def get_workspaces(user, layout_uid=None, workspace=None, public=False):
         'current_workspace_not_found': current_not_found
     }
 
-def get_occupied_cells(layout, placeholder, plugin_uid, position, check_boundaries=False, fail_silently=True):
+def get_occupied_cells(layout, placeholder, plugin_uid, position, \
+                       check_boundaries=False, fail_silently=True):
     """
     Get cells occupied by the given dashboard entry.
 
-    :param dash.base.BaseDashboardLayout dashboard_entry: Instance of subclassed
-        ``dash.base.BaseDashboardLayout`` object.
-    :param dash.base.BaseDashboardPlaceholder placeholder: Instance of subclassed
-        ``dash.base.BaseDashboardPlaceholder`` object.
+    :param dash.base.BaseDashboardLayout dashboard_entry: Instance of 
+        subclassed ``dash.base.BaseDashboardLayout`` object.
+    :param dash.base.BaseDashboardPlaceholder placeholder: Instance of 
+        subclassed ``dash.base.BaseDashboardPlaceholder`` object.
     :param string plugin_uid: UID of the plugin to check against.
     :param int position: Position of the plugin to check against.
-    :param bool check_boundaries: If set to True, boundaries of the placeholders are also considered.
+    :param bool check_boundaries: If set to True, boundaries of the
+        placeholders are also considered.
     :param bool fail_silently: If set to True, no exceptions are raised.
-    :return mixed: Returns a list (could be an empty list as well) if all goes well and returns boolean False
-        if out of the placeholder boundaries.
+    :return mixed: Returns a list (could be an empty list as well) if all
+        goes well and returns boolean False if out of the placeholder
+        boundaries.
     """
     assert isinstance(layout, BaseDashboardLayout)
     #assert issubclass(placeholder, BaseDashboardPlaceholder)
@@ -344,7 +379,8 @@ def get_occupied_cells(layout, placeholder, plugin_uid, position, check_boundari
 
         # First check the basic things.
         if check_boundaries:
-            # Checking if widget isn't touching the boundaries. Checking the widget width.
+            # Checking if widget isn't touching the boundaries. Checking the
+            # widget width.
             relative_col_num = position % placeholder.cols
             if 0 == relative_col_num:
                 relative_col_num = placeholder.cols
@@ -353,9 +389,12 @@ def get_occupied_cells(layout, placeholder, plugin_uid, position, check_boundari
                 if fail_silently:
                     return False
                 else:
-                    raise PluginWidgetOutOfPlaceholderBoundaries("Widget is out of placeholder boundaries.")
+                    raise PluginWidgetOutOfPlaceholderBoundaries(
+                        "Widget is out of placeholder boundaries."
+                        )
 
-            # Checking if widget isn't touching the boundaries. Checking the widget height.
+            # Checking if widget isn't touching the boundaries. Checking the
+            # widget height.
             #relative_row_num = position % placeholder.rows
             #if 0 == relative_row_num:
             #    relative_row_num = placeholder.rows
@@ -363,7 +402,9 @@ def get_occupied_cells(layout, placeholder, plugin_uid, position, check_boundari
             #    if fail_silently:
             #        return False
             #    else:
-            #        raise PluginWidgetOutOfPlaceholderBoundaries("Widget is out of placeholder boundaries.")
+            #        raise PluginWidgetOutOfPlaceholderBoundaries(
+            #            "Widget is out of placeholder boundaries."
+            #            )
 
         # Now check the collision with other plugin widgets.
         for row in range(0, widget_cls.rows):
@@ -374,7 +415,9 @@ def get_occupied_cells(layout, placeholder, plugin_uid, position, check_boundari
                     if fail_silently:
                         return False
                     else:
-                        raise PluginWidgetOutOfPlaceholderBoundaries("Widget is out of placeholder boundaries.")
+                        raise PluginWidgetOutOfPlaceholderBoundaries(
+                            "Widget is out of placeholder boundaries."
+                            )
                 occupied_cells.append(cell_num)
 
     return occupied_cells
@@ -397,7 +440,9 @@ def build_cells_matrix(user, layout, placeholder, workspace=None):
 
     # Getting the queryset for user and freezing it.
     dashboard_entries = DashboardEntry._default_manager \
-                                      .get_for_user(user=user, layout_uid=layout.uid, workspace=workspace) \
+                                      .get_for_user(user=user, \
+                                                    layout_uid=layout.uid, \
+                                                    workspace=workspace) \
                                       .select_related('workspace', 'user') \
                                       .filter(plugin_uid__in=user_plugin_uids) \
                                       .filter(placeholder_uid=placeholder.uid) \
@@ -405,7 +450,12 @@ def build_cells_matrix(user, layout, placeholder, workspace=None):
 
     matrix = []
     for dashboard_entry in dashboard_entries:
-        occupied_cells = get_occupied_cells(layout, placeholder, dashboard_entry.plugin_uid, dashboard_entry.position)
+        occupied_cells = get_occupied_cells(
+            layout,
+            placeholder,
+            dashboard_entry.plugin_uid,
+            dashboard_entry.position
+            )
         if occupied_cells:
             matrix += occupied_cells
         # Now we should calculate how much space each widget occupies.
@@ -414,14 +464,18 @@ def build_cells_matrix(user, layout, placeholder, workspace=None):
 
 def get_or_create_dashboard_settings(user):
     """
-    Gets dashboard settings for the user given. If no settings found, creates default settings.
+    Gets dashboard settings for the user given. If no settings found, creates
+    default settings.
 
     :param django.contrib.auth.models.User:
-    :return dash.models.DashboardSettings: Returns ``dash.models.DashboardSettings`` instance.
+    :return dash.models.DashboardSettings: Returns
+        ``dash.models.DashboardSettings`` instance.
     """
     # Check if user trying to edit the dashboard workspace actually owns it.
     try:
-        dashboard_settings = DashboardSettings._default_manager.select_related('user').get(user=user)
+        dashboard_settings = DashboardSettings._default_manager \
+                                              .select_related('user') \
+                                              .get(user=user)
     except ObjectDoesNotExist as e:
         layout = get_layout(as_instance=True)
         dashboard_settings = DashboardSettings()
@@ -433,29 +487,37 @@ def get_or_create_dashboard_settings(user):
 
 def get_dashboard_settings(username):
     """
-    Gets dashboard settings for the user given. If no settings found, creates default settings.
+    Gets dashboard settings for the user given. If no settings found, creates
+    default settings.
 
     :param string username:
-    :return dash.models.DashboardSettings: Returns ``dash.models.DashboardSettings`` instance.
+    :return dash.models.DashboardSettings: Returns
+        ``dash.models.DashboardSettings`` instance.
     """
     # Check if user trying to edit the dashboard workspace actually owns it.
     try:
-        return DashboardSettings._default_manager.select_related('user').get(user__username=username)
+        return DashboardSettings._default_manager \
+                                .select_related('user') \
+                                .get(user__username=username)
     except ObjectDoesNotExist as e:
         pass
 
 def get_public_dashboard_url(dashboard_settings):
     """
-    Gets resolved public dashboard URL (if public dashboard app is installed == present in the global
-    urls module of the project).
+    Gets resolved public dashboard URL (if public dashboard app is
+    installed == present in the global urls module of the project).
 
-    :param dash.models.DashboardSettings: Instance of `dash.models.DashboardSettings`.
+    :param dash.models.DashboardSettings: Instance of
+        ``dash.models.DashboardSettings``.
     :return string:
     """
     if dashboard_settings.is_public:
         try:
             # Resolve URL
-            return reverse('dash.public_dashboard', kwargs={'username': dashboard_settings.user.username})
+            return reverse(
+                'dash.public_dashboard',
+                kwargs={'username': dashboard_settings.user.username}
+                )
         except:
             # Most likely, the public dashboard is not present
             pass
@@ -475,12 +537,14 @@ def clone_workspace(workspace, for_user, request=None):
     cloned_workspace.user = for_user
     cloned_workspace.is_public = False
     cloned_workspace.is_clonable = False
-    cloned_workspace.name = "{0} cloned on {1}".format(cloned_workspace.name, datetime.datetime.now())
+    cloned_workspace.name = "{0} cloned on {1}".format(cloned_workspace.name, \
+                                                       datetime.datetime.now())
 
     cloned_workspace.save()
 
     # Cloning workspace entries.
-    dashboard_entries = DashboardEntry._default_manager.filter(workspace=workspace)
+    dashboard_entries = DashboardEntry._default_manager \
+                                      .filter(workspace=workspace)
 
     buf = []
 

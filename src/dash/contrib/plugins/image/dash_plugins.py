@@ -10,9 +10,9 @@ from dash.factory import plugin_factory
 from dash.contrib.plugins.image.forms import ImageForm
 from dash.contrib.plugins.image.helpers import delete_file, clone_file
 
-# *************************************************************************
-# ***************************** Base Image plugin *************************
-# *************************************************************************
+# *****************************************************************************
+# ***************************** Base Image plugin *****************************
+# *****************************************************************************
 class BaseImagePlugin(BaseDashboardPlugin):
     """
     Base image plugin.
@@ -38,9 +38,9 @@ class BaseImagePlugin(BaseDashboardPlugin):
         return self.get_cloned_plugin_data(update={'image': cloned_image})
 
 
-# ********************************************************************************
-# ********** Generating and registering the plugins using factory ****************
-# ********************************************************************************
+# *****************************************************************************
+# ********** Generating and registering the plugins using factory *************
+# *****************************************************************************
 sizes = (
     (1, 1),
     (1, 2),

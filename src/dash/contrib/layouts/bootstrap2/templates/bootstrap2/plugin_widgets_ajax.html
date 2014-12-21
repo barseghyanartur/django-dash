@@ -1,0 +1,43 @@
+{% load i18n %}
+
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        <div class="well well-small">
+            <h3>{% trans "Widgets" %}</h3>
+        </div>
+    </div>
+
+    {% if paste_from_clipboard_url %}
+    <div class="paste-from-clipboard">
+        <a href="{{ paste_from_clipboard_url }}" class="btn btn-primary btn-lg">{% trans "Paste from clipboard" %}</a>
+    </div>
+    {% endif %}
+
+    <div class="panel-body">
+
+        <div class="accordion" id="plugin-widgets-accordion">
+            {% for group,widgets in grouped_widgets.items %}
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#plugin-widgets-accordion" href="#collapse-{{ forloop.counter }}">
+                    {{ group }}
+                    </a>
+                </div>
+
+                <div id="collapse-{{ forloop.counter }}" class="accordion-body collapse{% if not paste_from_clipboard_url and forloop.first %} in{% endif %}">
+                    <div class="accordion-inner">
+                        <ul class="nav nav-list">
+                    {% for uid, name, url in widgets %}
+                            <li>
+                                <a href="{{ url }}" class="widget widget-{{ uid }}">{{ name }}</a>
+                            </li>
+                    {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

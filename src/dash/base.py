@@ -4,7 +4,7 @@ PEP http://www.python.org/dev/peps/pep-0008/#function-names).
 """
 __title__ = 'dash.base'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2013-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'BaseDashboardLayout', 'BaseDashboardPlaceholder', 'BaseDashboardPlugin',
@@ -17,24 +17,22 @@ __all__ = (
 
 import copy
 import uuid
-import json
-
-from six import text_type, PY3
 
 from django.forms import ModelForm
 from django.forms.util import ErrorList
 from django.http import Http404
 from django.template.loader import render_to_string
-from django.utils.encoding import force_text
 
+from dash.json_package import json
 from dash.discover import autodiscover
 from dash.exceptions import LayoutDoesNotExist
 from dash.settings import (
-    ACTIVE_LAYOUT, LAYOUT_CELL_UNITS, DEBUG, DEFAULT_PLACEHOLDER_VIEW_TEMPLATE_NAME,
+    ACTIVE_LAYOUT, LAYOUT_CELL_UNITS, DEBUG,
+    DEFAULT_PLACEHOLDER_VIEW_TEMPLATE_NAME,
     DEFAULT_PLACEHOLDER_EDIT_TEMPLATE_NAME
     )
 from dash.exceptions import InvalidRegistryItemType
-from dash.helpers import iterable_to_dict, uniquify_sequence
+from dash.helpers import iterable_to_dict, uniquify_sequence, safe_text
 
 import logging
 logger = logging.getLogger(__name__)
@@ -45,10 +43,12 @@ class DashboardPluginFormBase(object):
     """
     Not a form actually. Defined for magic only.
 
-    :property iterable plugin_data_fields: Fields to get when calling the ``get_plugin_data`` method. These
-        field will be JSON serialized. All other fields, even if they are part of the form, won't be.
-        Make sure all fields are serializable. If some of them aren't, override the ``save_plugin_data``
-        method and make them serializable there. See `dash.contrib.plugins.image.forms` as a good example.
+    :property iterable plugin_data_fields: Fields to get when calling the
+        ``get_plugin_data`` method. These field will be JSON serialized. All
+        other fields, even if they are part of the form, won't be. Make sure
+        all fields are serializable. If some of them aren't, override the
+        ``save_plugin_data`` method and make them serializable there. See
+        ``dash.contrib.plugins.image.forms`` as a good example.
 
     :example:
 
@@ -75,8 +75,8 @@ class DashboardPluginFormBase(object):
 
     def get_plugin_data(self, request=None):
         """
-        Data that would be saved in the ``plugin_data`` field of the ``dash.models.DashboardEntry``
-        subclassed model.
+        Data that would be saved in the ``plugin_data`` field of the
+        ``dash.models.DashboardEntry`` subclassed model.
 
         :param django.http.HttpRequest request:
         """
@@ -99,11 +99,16 @@ class BaseDashboardLayout(object):
         - `uid` (string): Layout unique identifier (globally).
         - `name` (string): Layout name.
         - `description` (string): Layout description.
-        - `placeholders` (iterable): Iterable (list, tuple or set) of `dash.base.BaseDashboardPlaceholder`
-           subclasses.
-        - `view_template_name` (string): Temlate used to render the layout (view).
-        - `edit_template_name` (string): Template used to render the layout (edit).
-        - `form_snippet_template_name` (string): Template used to render the forms.
+        - `placeholders` (iterable): Iterable (list, tuple or set) 
+          of ``dash.base.BaseDashboardPlaceholder` subclasses.
+        - `view_template_name` (string): Temlate used to render the
+          layout (view).
+        - `edit_template_name` (string): Template used to render the
+          layout (edit).
+        - `plugin_widgets_template_name_ajax` (string): Temlate used to render
+          the plugin widgets popup.
+        - `form_snippet_template_name` (string): Template used to render the
+          forms.
         - `html_classes` (string): Extra HTML class that layout should get.
         - `cell_units` (string):
         - `media_css` (list): List all specific stylesheets.
@@ -117,9 +122,11 @@ class BaseDashboardLayout(object):
     view_template_name_ajax = None
     edit_template_name = None
     edit_template_name_ajax = None
+    plugin_widgets_template_name_ajax = 'dash/plugin_widgets_ajax.html'
     form_snippet_template_name = 'dash/snippets/generic_form_snippet.html'
     html_classes = []
-    cell_units = None # Most likely, it makes sense to define this on a layout level. Think of it.
+    cell_units = None # Most likely, it makes sense to define this on a
+                      # layout level. Think of it.
     media_css = []
     media_js = []
 
@@ -157,8 +164,9 @@ class BaseDashboardLayout(object):
         Gets the view template name.
 
         :param django.http.HttpRequest request:
-        :param string origin: Origin of the request. Hook to provide custom templates for apps.
-            Example value: 'public_dashboard'. Take the `public_dashboard` app as example.
+        :param string origin: Origin of the request. Hook to provide custom
+            templates for apps. Example value: 'public_dashboard'. Take the
+            `public_dashboard` app as example.
         """
         if not self.view_template_name_ajax:
             return self.view_template_name
@@ -183,7 +191,8 @@ class BaseDashboardLayout(object):
         Gets the list of placeholders registered for the layout.
 
         :param django.http.HttpRequest request:
-        :return itetable: List of placeholder classes. Override in your layout if you need a custom behaviour.
+        :return itetable: List of placeholder classes. Override in your layout
+            if you need a custom behaviour.
         """
         return self.placeholders
 
@@ -203,13 +212,15 @@ class BaseDashboardLayout(object):
         """
         Collects the widget media files.
 
-        :param iterable dashboard_entries: Iterable of ``dash.models.DashboardEntry`` instances.
+        :param iterable dashboard_entries: Iterable of
+            ``dash.models.DashboardEntry`` instances.
         :return list:
         """
         widget_media = collect_widget_media(dashboard_entries)
 
         if widget_media:
-            self.widget_media_js, self.widget_media_css = widget_media['js'], widget_media['css']
+            self.widget_media_js = widget_media['js']
+            self.widget_media_css = widget_media['css']
 
     def get_media_css(self):
         """
@@ -243,7 +254,8 @@ class BaseDashboardLayout(object):
         """
         Gets dashboard entries grouped by placeholder.
 
-        :param iterable dashboard_entries: Iterable of `dash.models.DashboardEntry` objects.
+        :param iterable dashboard_entries: Iterable of
+            ``dash.models.DashboardEntry`` objects.
         :return list:
         """
         entries = {}
@@ -258,13 +270,16 @@ class BaseDashboardLayout(object):
 
         return entries
 
-    def get_placeholder_instances(self, dashboard_entries=None, workspace=None, request=None):
+    def get_placeholder_instances(self, dashboard_entries=None, \
+                                  workspace=None, request=None):
         """
         Gets placeholder instances.
 
-        :param iterable dashboard_entries: Iterable of `dash.models.DashboardEntry` objects.
+        :param iterable dashboard_entries: Iterable of
+            ``dash.models.DashboardEntry`` objects.
         :param django.http.HttpRequest request:
-        :return list: List of `dash.base.BaseDashboardPlaceholder` subclassed instances.
+        :return list: List of `dash.base.BaseDashboardPlaceholder` subclassed
+            instances.
         """
         entries = self.get_grouped_dashboard_entries(dashboard_entries)
 
@@ -276,7 +291,9 @@ class BaseDashboardLayout(object):
             placeholder.request = request
             placeholder.workspace = workspace
             if entries:
-                placeholder.dashboard_entries = entries.get(placeholder_cls.uid, None)
+                placeholder.dashboard_entries = entries.get(
+                    placeholder_cls.uid, None
+                    )
 
             placeholder_instances.append(placeholder)
 
@@ -293,13 +310,15 @@ class BaseDashboardLayout(object):
 
         :return string:
         """
-        return '{0} {1}'.format(self.primary_html_class, ' '.join(self.html_classes))
+        return '{0} {1}'.format(self.primary_html_class, \
+                                ' '.join(self.html_classes))
 
     def get_css(self, placeholders):
         """
         Gets placeholder specific css.
 
-        :param iterable placeholders: Iterable of `dash.base.BaseDashboardPlaceholder` subclassed instances.
+        :param iterable placeholders: Iterable of
+            ``dash.base.BaseDashboardPlaceholder`` subclassed instances.
         :return string:
         """
         css = []
@@ -307,41 +326,51 @@ class BaseDashboardLayout(object):
             css.append(placeholder.css)
         return '\n'.join(css)
 
-    def render_for_view(self, dashboard_entries=None, workspace=None, request=None):
+    def render_for_view(self, dashboard_entries=None, workspace=None, \
+                        request=None):
         """
         Renders the layout.
 
-        NOTE: This is not used at the moment. You most likely want the `dash.views.dashboard` view.
+        NOTE: This is not used at the moment. You most likely want the
+        ``dash.views.dashboard`` view.
 
         :param iterable dashboard_entries:
         :param string workspace: Current workspace.
         :param django.http.HttpRequest request:
         :return string:
         """
-        placeholders = self.get_placeholder_instances(dashboard_entries, workspace, request)
+        placeholders = self.get_placeholder_instances(
+            dashboard_entries, workspace, request
+            )
         context = {
             'placeholders': placeholders,
-            'placeholders_dict': iterable_to_dict(placeholders, key_attr_name='uid'),
+            'placeholders_dict': iterable_to_dict(placeholders, \
+                                                  key_attr_name='uid'),
             'request': request,
             'css': self.get_css(placeholders)
         }
         return render_to_string(self.get_view_template_name(request), context)
 
-    def render_for_edit(self, dashboard_entries=None, workspace=None, request=None):
+    def render_for_edit(self, dashboard_entries=None, workspace=None, \
+                        request=None):
         """
         Renders the layout.
 
-        NOTE: This is not used at the moment. You most likely want the `dash.views.edit_dashboard` view.
+        NOTE: This is not used at the moment. You most likely want the
+        ``dash.views.edit_dashboard`` view.
 
         :param iterable dashboard_entries:
         :param string workspace: Current workspace.
         :param django.http.HttpRequest request:
         :return string:
         """
-        placeholders = self.get_placeholder_instances(dashboard_entries, workspace, request)
+        placeholders = self.get_placeholder_instances(
+            dashboard_entries, workspace, request
+            )
         context = {
             'placeholders': placeholders,
-            'placeholders_dict': iterable_to_dict(placeholders, key_attr_name='uid'),
+            'placeholders_dict': iterable_to_dict(placeholders, \
+                                                  key_attr_name='uid'),
             'request': request,
             'css':  self.get_css(placeholders)
         }
@@ -353,7 +382,8 @@ class BaseDashboardPlaceholder(object):
     Base placeholder.
 
     :Properties:
-        - `uid` (string): Unique identifier (shouldn't repeat within a single layout).
+        - `uid` (string): Unique identifier (shouldn't repeat within a single
+          layout).
         - `cols` (int): Number of cols in the placeholder.
         - `rows` (int): Number of rows in the placeholder.
         - `cell_width` (int): Single cell (1x1) width.
@@ -362,8 +392,10 @@ class BaseDashboardPlaceholder(object):
         - `cell_margin_right` (int): Right margin of a single cell.
         - `cell_margin_bottom` (int): Bottom margin of a single cell.
         - `cell_margin_left` (int): Left margin of a single cell.
-        - `view_template_name` (string): Template to be used for rendering the placeholder in view mode.
-        - `edit_template_name` (string): Template to be used for rendering the placeholder in edit mode.
+        - `view_template_name` (string): Template to be used for rendering the
+          placeholder in view mode.
+        - `edit_template_name` (string): Template to be used for rendering the
+          placeholder in edit mode.
         - `html_classes` (string): Extra HTML class that layout should get.
     """
     uid = None
@@ -414,7 +446,8 @@ class BaseDashboardPlaceholder(object):
 
         :return string:
         """
-        return '{0} {1}'.format(self.primary_html_class, ' '.join(self.html_classes))
+        return '{0} {1}'.format(self.primary_html_class, \
+                                ' '.join(self.html_classes))
 
     def get_view_template_name(self):
         return self.view_template_name if self.view_template_name else DEFAULT_PLACEHOLDER_VIEW_TEMPLATE_NAME
@@ -426,7 +459,8 @@ class BaseDashboardPlaceholder(object):
         """
         Feed the dashboard entries to the layout for rendering later.
 
-        :param iterable dashboard_entries: Iterable of `dash.models.DashboardEntry` objects.
+        :param iterable dashboard_entries: Iterable of
+            ``dash.models.DashboardEntry`` objects.
         """
         self.dashboard_entries = dashboard_entries
 
@@ -446,8 +480,9 @@ class BaseDashboardPlaceholder(object):
 
     def _generate_widget_cells(self):
         """
-        Generates widget cells. Returns a list of tuples, where the first element represents the cell class
-        and the second element represents the cell position.
+        Generates widget cells. Returns a list of tuples, where the first
+        element represents the cell class and the second element represents
+        the cell position.
 
         :param string workspace: Current workspace slug.
         :param django.http.HttpRequest request:
@@ -511,14 +546,16 @@ class BaseDashboardPlaceholder(object):
     @property
     def css(self):
         """
-        CSS styles for the placeholders and plugins. The placeholder dimensions as well as columns sizes,
-        should be handled here. Since we are in a placeholder and a placeholder has a defined number of
-        rows and columns and each reneder has just a fixed amount of rows and columns defined, we can
-        render the top left corners generic css classes.
+        CSS styles for the placeholders and plugins. The placeholder dimensions 
+        as well as columns sizes, should be handled here. Since we are in a
+        placeholder and a placeholder has a defined number of rows and columns
+        and each reneder has just a fixed amount of rows and columns defined,
+        we can render the top left corners generic css classes.
 
-        Cells do NOT have margins or paddings. This is essential (since all the plugins are positioned
-        absolutely). If you want to have padding in your plugin widget, specify the `plugin-content-wrapper`
-        class style in your specific layout/theme.
+        Cells do NOT have margins or paddings. This is essential (since all
+        the plugins are positioned absolutely). If you want to have padding in
+        your plugin widget, specify the `plugin-content-wrapper` class style
+        in your specific layout/theme.
 
         :example:
 
@@ -534,7 +571,8 @@ class BaseDashboardPlaceholder(object):
 
             :return string:
             """
-            return '{0}{1}'.format(self.cols * self.get_cell_width(), self.cell_units)
+            return '{0}{1}'.format(self.cols * self.get_cell_width(), \
+                                   self.cell_units)
 
         def placeholder_height():
             """
@@ -542,7 +580,8 @@ class BaseDashboardPlaceholder(object):
 
             :return string:
             """
-            return '{0}{1}'.format(self.rows * self.get_cell_height(), self.cell_units)
+            return '{0}{1}'.format(self.rows * self.get_cell_height(), \
+                                   self.cell_units)
 
         def plugin_width():
             """
@@ -562,8 +601,9 @@ class BaseDashboardPlaceholder(object):
 
         def plugin_positions():
             """
-            Plugin positions depending on the row and cell occupied. All plugins are positioned absolutely.
-            Based on the row, we use `margin-top` and `margin-left` to position a plugin.
+            Plugin positions depending on the row and cell occupied. All
+            plugins are positioned absolutely. Based on the row, we use
+            `margin-top` and `margin-left` to position a plugin.
 
             ..:Used CSS classes:
                 - `row-1`, `row-2`, etc.
@@ -581,7 +621,8 @@ class BaseDashboardPlaceholder(object):
                     """.format(
                     placeholder_class = self.primary_html_class,
                     row_num = (row_num + 1),
-                    top = '{0}{1}'.format(self.get_cell_height() * row_num, self.cell_units)
+                    top = '{0}{1}'.format(self.get_cell_height() * row_num, \
+                                          self.cell_units)
                 )
                 positions.append(s)
 
@@ -594,7 +635,8 @@ class BaseDashboardPlaceholder(object):
                     """.format(
                     placeholder_class = self.primary_html_class,
                     col_num = (col_num + 1),
-                    left = '{0}{1}'.format(self.get_cell_width() * col_num, self.cell_units)
+                    left = '{0}{1}'.format(self.get_cell_width() * col_num, \
+                                           self.cell_units)
                 )
                 positions.append(s)
 
@@ -703,20 +745,26 @@ class BaseDashboardPlugin(object):
     Base dashboard plugin from which every plugin should inherit.
 
     :Properties:
-        - `uid` (string): Plugin uid (obligatory). Example value: 'dummy', 'wysiwyg', 'news'.
-        - `name` (string): Plugin name (obligatory). Example value: 'Dummy plugin',
-          'WYSIWYG', 'Latest news'.
-        - `description` (string): Plugin decription (optional). Example value: 'Dummy plugin used just for testing'.
-        - `help_text` (string): Plugin help text (optional). This text would be shown in
-            ``dash.views.add_dashboard_entry`` and ``dash.views.edit_dashboard_entry`` views.
-        - `form`: Plugin form (optional). A subclass of ``django.forms.Form``. Should be given
-          in case plugin is configurable.
-        - `add_form_template` (str) (optional): Add form template (optional). If given, overrides the
-          `dash.views.add_dashboard_entry` default template.
-        - `edit_form_template` (string): Edit form template (optional). If given, overrides the
-          `dash.views.edit_dashboard_entry` default template.
+        - `uid` (string): Plugin uid (obligatory). Example value: 'dummy',
+          'wysiwyg', 'news'.
+        - `name` (string): Plugin name (obligatory). Example value:
+          'Dummy plugin', 'WYSIWYG', 'Latest news'.
+        - `description` (string): Plugin decription (optional). Example value:
+          'Dummy plugin used just for testing'.
+        - `help_text` (string): Plugin help text (optional). This text would be
+          shown in ``dash.views.add_dashboard_entry`` 
+          and ``dash.views.edit_dashboard_entry`` views.
+        - `form`: Plugin form (optional). A subclass of ``django.forms.Form``.
+          Should be given in case plugin is configurable.
+        - `add_form_template` (str) (optional): Add form template (optional).
+          If given, overrides the ``dash.views.add_dashboard_entry`` default
+          template.
+        - `edit_form_template` (string): Edit form template (optional). If
+          given, overrides the ``dash.views.edit_dashboard_entry`` default
+          template.
         - `html_classes` (list): List of extra HTML classes for the plugin.
-        - `group` (string): Plugin are grouped under the specified group. Override in your plugin if necessary.
+        - `group` (string): Plugin are grouped under the specified group.
+          Override in your plugin if necessary.
     """
     uid = None
     name = None
@@ -728,9 +776,11 @@ class BaseDashboardPlugin(object):
     html_classes = []
     group = _("General")
 
-    def __init__(self, layout_uid, placeholder_uid, workspace=None, user=None, position=None):
+    def __init__(self, layout_uid, placeholder_uid, workspace=None, \
+                 user=None, position=None):
         """
-        :param string placeholder_uid: Unique identifier of plugin placeholder (layout.placeholder).
+        :param string placeholder_uid: Unique identifier of plugin
+            placeholder (layout.placeholder).
         :param dash.models.DashboardWorkspace workspace: Plugin workspace.
         :param django.contrib.auth.models.User user: Plugin owner.
         """
@@ -754,7 +804,9 @@ class BaseDashboardPlugin(object):
         if not (self.layout and self.placeholder):
             raise Exception(
                 "Invalid placeholder value {0} in your `{1}.{2}` class.".format(
-                    placeholder_uid, self.__class__.__module__, self.__class__.__name__
+                    placeholder_uid,
+                    self.__class__.__module__,
+                    self.__class__.__name__
                     )
                 )
 
@@ -777,7 +829,8 @@ class BaseDashboardPlugin(object):
 
     def get_position(self):
         """
-        Gets the exact position of the plugin widget in the placeholder (row number, col number).
+        Gets the exact position of the plugin widget in the placeholder (row
+        number, col number).
 
         :return tuple: Tuple of row and col numbers.
         """
@@ -791,10 +844,11 @@ class BaseDashboardPlugin(object):
     @property # Comment the @property if something goes wrong.
     def html_class(self):
         """
-        A massive work on positioning the plugin and having it to be displayed in a given width is
-        done here. We should be getting the plugin widget for the plugin given and based on its'
-        properties (static!) as well as on plugin position (which we have from model), we can show
-        the plugin with the exact class.
+        A massive work on positioning the plugin and having it to be displayed
+        in a given width is done here. We should be getting the plugin widget
+        for the plugin given and based on its' properties (static!) as well as
+        on plugin position (which we have from model), we can show the plugin
+        with the exact class.
         """
         try:
             widget = self.get_widget()
@@ -825,12 +879,15 @@ class BaseDashboardPlugin(object):
                     # Trying to load the plugin data to JSON.
                     plugin_data = json.loads(plugin_data)
 
-                    # If a valid JSON object, feed it to our plugin and process the data. The
-                    # ``process_data`` method should be defined in your subclassed plugin class.
+                    # If a valid JSON object, feed it to our plugin and process 
+                    # the data. The ``process_data`` method should be defined
+                    # in your subclassed plugin class.
                     if plugin_data:
                         self.load_plugin_data(plugin_data)
 
-                        self.process_plugin_data(fetch_related_data=fetch_related_data)
+                        self.process_plugin_data(
+                            fetch_related_data = fetch_related_data
+                            )
                 except Exception as e:
                     if DEBUG:
                         logger.debug(str(e))
@@ -845,8 +902,8 @@ class BaseDashboardPlugin(object):
 
     def load_plugin_data(self, plugin_data):
         """
-        Loads the plugin data saved in ``dash.models.DashboardEntry``. Plugin data is saved in JSON
-        string.
+        Loads the plugin data saved in ``dash.models.DashboardEntry``. Plugin
+        data is saved in JSON string.
 
         :param string plugin_data: JSON string with plugin data.
         """
@@ -870,7 +927,10 @@ class BaseDashboardPlugin(object):
         """
         form = self.get_form()
 
-        return self._process_plugin_data(form.plugin_data_fields, fetch_related_data=fetch_related_data)
+        return self._process_plugin_data(
+            form.plugin_data_fields,
+            fetch_related_data = fetch_related_data
+            )
 
     def _get_plugin_form_data(self, fields):
         """
@@ -890,8 +950,9 @@ class BaseDashboardPlugin(object):
 
     def get_plugin_form_data(self):
         """
-        Fed as ``initial`` argument to the plugin form when initialising the instance for adding or
-        editing the plugin. Override in your plugin class if you need customisations.
+        Fed as ``initial`` argument to the plugin form when initialising the
+        instance for adding or editing the plugin. Override in your plugin
+        class if you need customisations.
         """
         form = self.get_form()
 
@@ -902,18 +963,21 @@ class BaseDashboardPlugin(object):
 
     def get_form(self):
         """
-        Get the plugin form class. Override this method in your subclassed ``dash.base.DashboardPlugin``
-        class when you need your plugin setup to vary depending on the placeholder, workspace, user or
-        request given. By default returns the value of the ``form`` attribute defined in your plugin.
+        Get the plugin form class. Override this method in your subclassed
+        ``dash.base.DashboardPlugin`` class when you need your plugin setup to
+        vary depending on the placeholder, workspace, user or request given.
+        By default returns the value of the ``form`` attribute defined in your
+        plugin.
 
-        :return django.forms.Form|django.forms.ModelForm: Subclass of ``django.forms.Form`` or
-            ``django.forms.ModelForm``.
+        :return django.forms.Form|django.forms.ModelForm: Subclass of
+            ``django.forms.Form`` or ``django.forms.ModelForm``.
         """
         return self.form
 
     def get_initialised_create_form(self, data=None, files=None):
         """
-        Used ``dash.views.add_dashboard_entry`` view to gets initialised form for object to be created.
+        Used ``dash.views.add_dashboard_entry`` view to gets initialised form
+        for object to be created.
         """
         plugin_form = self.get_form()
         if plugin_form:
@@ -928,7 +992,8 @@ class BaseDashboardPlugin(object):
 
     def get_initialised_create_form_or_404(self, data=None, files=None):
         """
-        Same as ``get_initialised_create_form`` but raises ``django.http.Http404`` on errors.
+        Same as ``get_initialised_create_form`` but raises
+        ``django.http.Http404`` on errors.
         """
         plugin_form = self.get_form()
         if plugin_form:
@@ -939,8 +1004,9 @@ class BaseDashboardPlugin(object):
                     logger.debug(e)
                 raise Http404(e)
 
-    def get_initialised_edit_form(self, data=None, files=None, auto_id='id_%s', prefix=None, \
-                                  initial=None, error_class=ErrorList, label_suffix=':', \
+    def get_initialised_edit_form(self, data=None, files=None, \
+                                  auto_id='id_%s', prefix=None, initial=None, \
+                                  error_class=ErrorList, label_suffix=':', \
                                   empty_permitted=False, instance=None):
         """
         Used in ``dash.views.edit_dashboard_entry`` view.
@@ -961,19 +1027,28 @@ class BaseDashboardPlugin(object):
                 kwargs.update({'instance': instance})
             return plugin_form(**kwargs)
 
-    def get_initialised_edit_form_or_404(self, data=None, files=None, auto_id='id_%s', prefix=None, \
-                                         error_class=ErrorList, label_suffix=':', empty_permitted=False):
+    def get_initialised_edit_form_or_404(self, data=None, files=None, \
+                                         auto_id='id_%s', prefix=None, \
+                                         error_class=ErrorList, \
+                                         label_suffix=':', \
+                                         empty_permitted=False):
         """
-        Same as ``get_initialised_edit_form`` but raises ``django.http.Http404`` on errors.
+        Same as ``get_initialised_edit_form`` but raises ``django.http.Http404``
+        on errors.
         """
         plugin_form = self.get_form()
         if plugin_form:
             try:
                 return self.get_initialised_edit_form(
-                    data=data, files=files, auto_id=auto_id, prefix=prefix,
-                    initial=self.get_plugin_form_data(), error_class=error_class,
-                    label_suffix=label_suffix, empty_permitted=empty_permitted,
-                    instance=self.get_instance()
+                    data = data,
+                    files = files,
+                    auto_id = auto_id,
+                    prefix = prefix,
+                    initial = self.get_plugin_form_data(),
+                    error_class = error_class,
+                    label_suffix = label_suffix,
+                    empty_permitted = empty_permitted,
+                    instance = self.get_instance()
                     )
             except Exception as e:
                 if DEBUG:
@@ -986,11 +1061,14 @@ class BaseDashboardPlugin(object):
 
         :param django.http.HttpRequest request:
         :param bool as_instance:
-        :return mixed: Subclass of `dash.base.BaseDashboardPluginWidget` or instance of subclassed
-            `dash.base.BaseDashboardPluginWidget` object.
+        :return mixed: Subclass of ``dash.base.BaseDashboardPluginWidget`` or
+            instance of subclassed ``dash.base.BaseDashboardPluginWidget``
+            object.
         """
         widget_cls = plugin_widget_registry.get(
-            PluginWidgetRegistry.namify(self.layout.uid, self.placeholder.uid, self.uid)
+            PluginWidgetRegistry.namify(self.layout.uid, \
+                                        self.placeholder.uid, \
+                                        self.uid)
             )
 
         if not as_instance:
@@ -1014,16 +1092,26 @@ class BaseDashboardPlugin(object):
             render = widget.render(request=request)
             return render or ''
         elif DEBUG:
-            logger.debug("No widget defined for {0}.{1}.{2}".format(self.layout.uid, self.placeholder.uid, self.uid))
+            logger.debug(
+                "No widget defined for {0}.{1}.{2}".format(self.layout.uid, \
+                                                           self.placeholder.uid, \
+                                                           self.uid)
+                )
 
     def _update_plugin_data(self, dashboard_entry):
         """
-        For private use. Do not override this method. Override `update_plugin_data` instead.
+        For private use. Do not override this method. Override
+        ``update_plugin_data`` instead.
         """
         try:
             updated_plugin_data = self.update_plugin_data(dashboard_entry)
-            plugin_data = self.get_updated_plugin_data(update=updated_plugin_data)
-            return self.save_plugin_data(dashboard_entry, plugin_data=plugin_data)
+            plugin_data = self.get_updated_plugin_data(
+                update = updated_plugin_data
+                )
+            return self.save_plugin_data(
+                dashboard_entry,
+                plugin_data = plugin_data
+                )
         except Exception as e:
             logging.debug(str(e))
 
@@ -1031,21 +1119,27 @@ class BaseDashboardPlugin(object):
         """
         Used in ``dash.management.commands.dash_update_plugin_data``.
 
-        Some plugins would contain data fetched from various sources (models, remote data). Since dashboard 
-        entries are by definition loaded extremely much, you are advised to store as much data as possible in
-        ``plugin_data`` field of ``dash.models.DashboardEntry``. Some externally fetched data becomes invalid
-        after some time and needs updating. For that purpose, in case if your plugin needs that, redefine this
-        method in your plugin. If you need your data to be periodically updated, add a cron-job which would 
-        run ``dash_update_plugin_data`` management command (see
+        Some plugins would contain data fetched from various sources (models, 
+        remote data). Since dashboard entries are by definition loaded
+        extremely much, you are advised to store as much data as possible in
+        ``plugin_data`` field of ``dash.models.DashboardEntry``. Some 
+        externally fetched data becomes invalid after some time and needs
+        updating. For that purpose, in case if your plugin needs that, redefine
+        this method in your plugin. If you need your data to be periodically
+        updated, add a cron-job which would run ``dash_update_plugin_data``
+        management command (see
         ``dash.management.commands.dash_update_plugin_data`` module).
 
-        :param dash.models.DashboardEntry: Instance of ``dash.models.DashboardEntry``.
-        :return dict: Should return a dictionary containing data of fields to be updated.
+        :param dash.models.DashboardEntry: Instance of
+            ``dash.models.DashboardEntry``.
+        :return dict: Should return a dictionary containing data of fields to
+            be updated.
         """
 
     def _delete_plugin_data(self):
         """
-        For private use. Do not override this method. Override `delete_plugin_data` instead.
+        For private use. Do not override this method. Override
+        ``delete_plugin_data`` instead.
         """
         try:
             self.delete_plugin_data()
@@ -1054,14 +1148,16 @@ class BaseDashboardPlugin(object):
 
     def delete_plugin_data(self):
         """
-        Used in ``dash.views.delete_dashboard_entry``. Fired automatically, when ``dash.models.DashboardEntry``
-        object is about to be deleted. Make use of it if your plugin creates database records or files that are
+        Used in ``dash.views.delete_dashboard_entry``. Fired automatically, 
+        when ``dash.models.DashboardEntry`` object is about to be deleted. Make
+        use of it if your plugin creates database records or files that are
         not monitored externally but by dash only.
         """
 
     def _clone_plugin_data(self, dashboard_entry):
         """
-        For private use. Do not override this method. Override `clone_plugin_data` instead.
+        For private use. Do not override this method. Override
+        ``clone_plugin_data`` instead.
         """
         try:
             return self.clone_plugin_data(dashboard_entry)
@@ -1070,13 +1166,14 @@ class BaseDashboardPlugin(object):
 
     def clone_plugin_data(self, dashboard_entry):
         """
-        Used when copying entries. If any objects or files are created by plugin, they should be
-        cloned.
+        Used when copying entries. If any objects or files are created by
+        plugin, they should be cloned.
 
-        :param dash.models.DashboardEntry: Instance of ``dash.models.DashboardEntry``.
-        :return string: JSON dumped string of the cloned plugin data. The returned value
-            would be inserted as is into the `dash.models.DashboardEntry.plugin_data`
-            field.
+        :param dash.models.DashboardEntry: Instance of
+            ``dash.models.DashboardEntry``.
+        :return string: JSON dumped string of the cloned plugin data. The 
+            returned value would be inserted as is into the
+            ``dash.models.DashboardEntry.plugin_data`` field.
         """
 
     def get_cloned_plugin_data(self, update={}):
@@ -1129,8 +1226,8 @@ class BaseDashboardPlugin(object):
         """
         Redefine in your subclassed plugin when necessary.
 
-        Pre process plugin data (before rendering). This method is being called before the data has been
-        loaded into the plugin.
+        Pre process plugin data (before rendering). This method is being called
+        before the data has been loaded into the plugin.
         
         Note, that request (django.http.HttpRequest) is available (self.request).
         """
@@ -1139,8 +1236,8 @@ class BaseDashboardPlugin(object):
         """
         Redefine in your subclassed plugin when necessary.
 
-        Post process plugin data here (before rendering). This methid is being called after the data has been
-        loaded into the plugin.
+        Post process plugin data here (before rendering). This methid is being 
+        called after the data has been loaded into the plugin.
         
         Note, that request (django.http.HttpRequest) is available (self.request).
         """
@@ -1186,19 +1283,21 @@ class BaseDashboardPluginWidget(object):
     """
     Base plugin widget.
 
-    So, if we would want to register a plugin widget (renderer) for some layout, we would first define the
-    plugin widget and then just write:
+    So, if we would want to register a plugin widget (renderer) for some
+    layout, we would first define the plugin widget and then just write:
 
         >>> plugin_widget_registry.register(DummyPluginWidget)
 
-    Plugin widget is always being registered for a placeholder. Placeholder in its' turn has number of
-    rows and columns. Since we register each widget for a (layout, placeholder, plugin) combination
-    separately, it fits the needs and requirements perfectly. In that way we are able to tell, wheither
-    plugin has a widget available and actually valid (qua dimensions) for the placeholder. Plugin is
-    just data. Nothing more. Widget operates with that data. Thus, widget has number of rows and
-    columns it occupies in the placeholder registered. By default, number of rows and columns is set to
-    1, which means that a plugin occupies just 1 cell. But, certainly, there can be plugins that occupy
-    more space in a placeholder.
+    Plugin widget is always being registered for a placeholder. Placeholder in 
+    its' turn has number of rows and columns. Since we register each widget
+    for a (layout, placeholder, plugin) combination separately, it fits the
+    needs and requirements perfectly. In that way we are able to tell, wheither 
+    plugin has a widget available and actually valid (qua dimensions) for the
+    placeholder. Plugin is just data. Nothing more. Widget operates with that
+    data. Thus, widget has number of rows and columns it occupies in the
+    placeholder registered. By default, number of rows and columns is set to
+    1, which means that a plugin occupies just 1 cell. But, certainly, there
+    can be plugins that occupy more space in a placeholder.
     """
     layout_uid = None
     placeholder_uid = None
@@ -1271,7 +1370,8 @@ class BaseDashboardPluginWidget(object):
 
 class BaseRegistry(object):
     """
-    Registry of dash plugins. It's essential, that class registered has the ``uid`` property.
+    Registry of dash plugins. It's essential, that class registered has the
+    ``uid`` property.
     """
     type = None
 
@@ -1287,7 +1387,9 @@ class BaseRegistry(object):
         :param mixed.
         """
         if not issubclass(cls, self.type):
-            raise InvalidRegistryItemType("Invalid item type `{0}` for registry `{1}`".format(cls, self.__class__))
+            raise InvalidRegistryItemType(
+                "Invalid item type `{0}` for registry `{1}`".format(cls, self.__class__)
+                )
 
         # If item has not been forced yet, add/replace its' value in the registry
         if force:
@@ -1309,7 +1411,9 @@ class BaseRegistry(object):
 
     def unregister(self, cls):
         if not issubclass(cls, self.type):
-            raise InvalidRegistryItemType("Invalid item type `{0}` for registry `{1}`".format(cls, self.__class__))
+            raise InvalidRegistryItemType(
+                "Invalid item type `{0}` for registry `{1}`".format(cls, self.__class__)
+                )
 
         # Only non-forced items are allowed to be unregistered.
         if cls.uid in self._registry and not cls.uid in self._forced:
@@ -1327,7 +1431,9 @@ class BaseRegistry(object):
         """
         item = self._registry.get(uid, default)
         if not item:
-            logger.debug("Can't find plugin with uid `{0}` in `{1}` registry".format(uid, self.__class__))
+            logger.debug(
+                "Can't find plugin with uid `{0}` in `{1}` registry".format(uid, self.__class__)
+                )
         return item
 
 
@@ -1364,14 +1470,22 @@ class PluginWidgetRegistry(object):
         """
         Registers the plugin renderer in the registry.
 
-        :param dash.base.BasePluginRenderer cls: Subclass of `dash.base.BasePluginRenderer`.
+        :param dash.base.BasePluginRenderer cls: Subclass of
+            ``dash.base.BasePluginRenderer``.
         """
         if not issubclass(cls, self.type):
-            raise InvalidRegistryItemType("Invalid item type `{0}` for registry `{1}`".format(cls, self.__class__))
+            raise InvalidRegistryItemType(
+                "Invalid item type `{0}` for registry `{1}`".format(cls, self.__class__)
+                )
 
-        uid = PluginWidgetRegistry.namify(cls.layout_uid, cls.placeholder_uid, cls.plugin_uid)
+        uid = PluginWidgetRegistry.namify(
+            cls.layout_uid,
+            cls.placeholder_uid,
+            cls.plugin_uid
+            )
 
-        # If item has not been forced yet, add/replace its' value in the registry
+        # If item has not been forced yet, add/replace its' value in the
+        # registry.
         if force:
 
             if not uid in self._forced:
@@ -1391,9 +1505,15 @@ class PluginWidgetRegistry(object):
 
     def unregister(self, cls):
         if not issubclass(cls, self.type):
-            raise InvalidRegistryItemType("Invalid item type `{0}` for registry `{1}`".format(cls, self.__class__))
+            raise InvalidRegistryItemType(
+                "Invalid item type `{0}` for registry `{1}`".format(cls, self.__class__)
+                )
 
-        uid = PluginWidgetRegistry.namify(cls.layout_uid, cls.placeholder_uid, cls.plugin_uid)
+        uid = PluginWidgetRegistry.namify(
+            cls.layout_uid,
+            cls.placeholder_uid,
+            cls.plugin_uid
+            )
 
         # Only non-forced items are allowed to be unregistered.
         if uid in self._registry and not uid in self._forced:
@@ -1411,7 +1531,9 @@ class PluginWidgetRegistry(object):
         """
         item = self._registry.get(uid, default)
         if not item:
-            logger.debug("Can't find plugin with uid `{0}` in `{1}` registry".format(uid, self.__class__))
+            logger.debug(
+                "Can't find plugin with uid `{0}` in `{1}` registry".format(uid, self.__class__)
+                )
         return item
 
 
@@ -1433,8 +1555,8 @@ def ensure_autodiscover():
 
 def get_registered_plugins():
     """
-    Gets a list of registered plugins in a form if tuple (plugin name, plugin description). If not yet
-    autodiscovered, autodiscovers them.
+    Gets a list of registered plugins in a form if tuple (plugin name, plugin
+    description). If not yet autodiscovered, autodiscovers them.
 
     :return list:
     """
@@ -1443,17 +1565,14 @@ def get_registered_plugins():
     registered_plugins = []
 
     for uid, plugin in plugin_registry._registry.items():
-        if PY3:
-            plugin_name = force_text(plugin.name, encoding='utf-8')
-        else:
-            plugin_name = force_text(plugin.name, encoding='utf-8').encode('utf-8')
-        registered_plugins.append((uid, plugin_name))
+        registered_plugins.append((uid, safe_text(plugin.name)))
 
     return registered_plugins
 
 def get_registered_plugin_uids():
     """
-    Gets a list of registered plugin uids as a list . If not yet autodiscovered, autodiscovers them.
+    Gets a list of registered plugin uids as a list . If not yet
+    autodiscovered, autodiscovers them.
 
     :return list:
     """
@@ -1493,11 +1612,7 @@ def get_registered_layouts():
     registered_layouts = []
 
     for uid, layout in layout_registry._registry.items():
-        if PY3:
-            layout_name = force_text(layout.name, encoding='utf-8')
-        else:
-            layout_name = force_text(layout.name, encoding='utf-8').encode('utf-8')
-        registered_layouts.append((uid, layout_name))
+        registered_layouts.append((uid, safe_text(layout.name)))
 
     return registered_layouts
 
@@ -1509,11 +1624,14 @@ def get_registered_layout_uids():
 
 def get_layout(layout_uid=None, as_instance=False):
     """
-    Gets the layout by ``layout_uid`` given. If left empty, takes the default one chosen in settings.
+    Gets the layout by ``layout_uid`` given. If left empty, takes the default
+    one chosen in settings.
 
-    Raises a ``dash.exceptions.NoActiveLayoutChosen`` when no default layout could be found.
+    Raises a ``dash.exceptions.NoActiveLayoutChosen`` when no default layout
+    could be found.
 
-    :return dash.base.BaseDashboardLayout: Sublcass of `dash.base.BaseDashboardLayout`.
+    :return dash.base.BaseDashboardLayout: Sublcass of
+        ``dash.base.BaseDashboardLayout``.
     """
     ensure_autodiscover()
 
@@ -1522,7 +1640,9 @@ def get_layout(layout_uid=None, as_instance=False):
 
     layout_cls = layout_registry.get(layout_uid, None)
     if not layout_cls:
-        raise LayoutDoesNotExist(_("Layout `{0}` does not exist!").format(layout_uid))
+        raise LayoutDoesNotExist(
+            _("Layout `{0}` does not exist!").format(layout_uid)
+            )
 
     if as_instance:
         return layout_cls()
@@ -1533,21 +1653,27 @@ def collect_widget_media(dashboard_entries):
     """
     Collects the widget media for dashboard entries given.
 
-    :param iterable dashboard_entries: Iterable of ``dash.models.DashboardEntry`` instances.
-    :return dict: Returns a dict containing the 'js' and 'css' keys. Correspondent values of those keys are
-        lists containing paths to the CSS and JS media files.
+    :param iterable dashboard_entries: Iterable of
+        ``dash.models.DashboardEntry`` instances.
+    :return dict: Returns a dict containing the 'js' and 'css' keys. 
+        Correspondent values of those keys are lists containing paths to the
+        CSS and JS media files.
     """
     media_js = []
     media_css = []
     for dashboard_entry in dashboard_entries:
         widget_cls = plugin_widget_registry.get(
             PluginWidgetRegistry.namify(
-                dashboard_entry.layout_uid, dashboard_entry.placeholder_uid, dashboard_entry.plugin_uid
+                dashboard_entry.layout_uid,
+                dashboard_entry.placeholder_uid,
+                dashboard_entry.plugin_uid
                 )
         )
         if widget_cls:
             media_js += widget_cls.media_js
             media_css += widget_cls.media_css
         else:
-            logger.debug("widget_cls empty for dashboard entry {0}".format(dashboard_entry.__dict__))
+            logger.debug(
+                "widget_cls empty for dashboard entry {0}".format(dashboard_entry.__dict__)
+                )
     return {'js': media_js, 'css': media_css}

@@ -92,3 +92,8 @@ ul.workspaces {
     margin: 0 20px 0 20px;
     padding: 0;
 }
+
+.paste-from-clipboard {
+    clear: both;
+    margin-bottom: 18px;
+}

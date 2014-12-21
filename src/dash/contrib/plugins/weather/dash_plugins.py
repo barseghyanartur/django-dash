@@ -4,11 +4,11 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('BaseWeatherPlugin',)
 
 from six.moves.urllib.request import urlopen
-import json
 
 from django.utils.translation import ugettext_lazy as _
 from django.core.cache import cache
 
+from dash.json_package import json
 from dash.base import BaseDashboardPlugin
 from dash.factory import plugin_factory
 from dash.contrib.plugins.weather.forms import WeatherForm

@@ -25,14 +25,19 @@ if not os.path.exists(IMAGES_UPLOAD_DIR_ABSOLUTE_PATH):
 
 def ensure_unique_filename(destination):
     """
-    Makes sure filenames are never overwritten.
+    Makes sure filenames are never overwritten. If file name already exists,
+    makes a new one based on the first 50 chars of the original file name,
+    having a uuid4 appended afterwards.
 
     :param string destination:
     :return string:
     """
     if os.path.exists(destination):
-        filename, extension = os.path.splitext(destination)
-        return "{0}_{1}{2}".format(filename, uuid.uuid4(), extension)
+        dest, filename = os.path.split(destination)
+        filename, extension = os.path.splitext(filename)
+        return os.path.join(
+            dest, "{0}_{1}{2}".format(filename[:30], uuid.uuid4(), extension)
+            )
     else:
         return destination
 

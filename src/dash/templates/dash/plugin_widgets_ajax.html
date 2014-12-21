@@ -7,6 +7,14 @@
     </div>
 
     <div class="content-body">
+        {% if paste_from_clipboard_url %}
+        <div class="paste-from-clipboard">
+            <a href="{{ paste_from_clipboard_url }}">
+                <span class="iconic icon-paste"></span>
+                <span class="textonic">{% trans "Paste from clipboard" %}</span>
+            </a>
+        </div>
+        {% endif %}
         <div id="accordion">
             {% for group,widgets in grouped_widgets.items %}
             <h3>{{ group }}</h3>

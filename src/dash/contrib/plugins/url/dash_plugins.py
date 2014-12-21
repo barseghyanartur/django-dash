@@ -11,9 +11,9 @@ from dash.factory import plugin_factory
 from dash.contrib.plugins.url.forms import URLForm, BookmarkForm
 from dash.contrib.plugins.url.models import Bookmark
 
-# ********************************************************************************
-# ********************************* URL plugin ***********************************
-# ********************************************************************************
+# *****************************************************************************
+# ********************************* URL plugin ********************************
+# *****************************************************************************
 
 class BaseURLPlugin(BaseDashboardPlugin):
     """
@@ -33,9 +33,9 @@ class BaseURLPlugin(BaseDashboardPlugin):
             html_class += ' iconic-url'
         return html_class
 
-# ********************************************************************************
-# ********** Generating and registering the URL plugins using factory ************
-# ********************************************************************************
+# *****************************************************************************
+# ********** Generating and registering the URL plugins using factory *********
+# *****************************************************************************
 
 sizes = (
     (1, 1),
@@ -45,9 +45,9 @@ sizes = (
 plugin_factory(BaseURLPlugin, 'url', sizes)
 
 
-# ********************************************************************************
-# ********************************* Bookmark plugin ******************************
-# ********************************************************************************
+# *****************************************************************************
+# ********************************* Bookmark plugin ***************************
+# *****************************************************************************
 
 class BaseBookmarkPlugin(BaseDashboardPlugin):
     """
@@ -69,7 +69,8 @@ class BaseBookmarkPlugin(BaseDashboardPlugin):
 
     def update_plugin_data(self, dashboard_entry):
         """
-        Should return a dictionary with the plugin data which is supposed to be updated.
+        Should return a dictionary with the plugin data which is supposed to
+        be updated.
         """
         try:
             bookmark = Bookmark._default_manager.get(pk=self.data.bookmark)
@@ -86,9 +87,9 @@ class BaseBookmarkPlugin(BaseDashboardPlugin):
             }
             return data
 
-# ********************************************************************************
-# ******* Generating and registering the Bookmark plugins using factory **********
-# ********************************************************************************
+# *****************************************************************************
+# ******* Generating and registering the Bookmark plugins using factory *******
+# *****************************************************************************
 
 sizes = (
     (1, 1),

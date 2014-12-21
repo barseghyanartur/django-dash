@@ -7,7 +7,8 @@ __all__ = (
     'ACTIVE_LAYOUT', 'LAYOUT_CELL_UNITS', 'DEFAULT_WORKSPACE_NAME',
     'DEFAULT_PLACEHOLDER_VIEW_TEMPLATE_NAME', 'WAIT_BETWEEN_TEST_STEPS',
     'DEFAULT_PLACEHOLDER_EDIT_TEMPLATE_NAME', 'DISPLAY_AUTH_LINK',
-    'WAIT_AT_TEST_END', 'PLUGIN_CLIPBOARD_KEY', 'DEBUG'
+    'RAISE_EXCEPTION_WHEN_PERMISSIONS_INSUFFICIENT', 'WAIT_AT_TEST_END',
+    'PLUGIN_CLIPBOARD_KEY', 'DEBUG'
 )
 
 from django.utils.translation import ugettext
@@ -18,6 +19,9 @@ gettext = lambda s: s
 # or group(s). If set to False, all users have the same access rights to all
 # plugins.
 RESTRICT_PLUGIN_ACCESS = True
+
+# If set to True, exceptions are raised when user has insufficient permissions.
+RAISE_EXCEPTION_WHEN_PERMISSIONS_INSUFFICIENT = True
 
 # Name of the module in which the dash plugins are registered.
 PLUGINS_MODULE_NAME = 'dash_plugins'

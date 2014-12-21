@@ -6,18 +6,23 @@ __all__ = ('autodiscover',)
 
 import imp
 
+from django.conf import settings
+
+from dash.conf import get_setting
+
 def autodiscover():
     """
     Autodiscovers files that should be found by dash.
     """
-    from django.conf import settings
-    from dash.settings import PLUGINS_MODULE_NAME, LAYOUTS_MODULE_NAME
+    PLUGINS_MODULE_NAME = get_setting('PLUGINS_MODULE_NAME')
+    LAYOUTS_MODULE_NAME = get_setting('LAYOUTS_MODULE_NAME')
 
     def do_discover(module_name):
         for app in settings.INSTALLED_APPS:
             try:
+                app = str(app)
                 app_path = __import__(app, {}, {}, [app.split('.')[-1]]).__path__
-            except AttributeError:
+            except (AttributeError, TypeError) as e:
                 continue
 
             try:

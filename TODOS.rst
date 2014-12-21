@@ -15,7 +15,7 @@ Core and contrib
     + Windows 8 layout.
     + Twitter bootstrap 2.
     - Twitter bootstrap 3.
-    - Foundation 5.
+    - Foundation 5 (planned in 0.4.12).
 + Documentation.
 + Group widgets.
 + Plugins:
@@ -93,6 +93,9 @@ Core and contrib
   modify them as needed.
 + Django 1.7 support.
 + When using unicode characters found in workspace slug, ``django-slug`` raises an exception.
+- Fix some strange bug on Windows 8 layout, on which somehow the boundaries
+  don't seem to work very well, as sometimes paste doesn't work due to lack of
+  space while it shouldn't (when there's enough space).
 - Fix Google Chrome bug, when dash widget controls (edit/delete) being hidden under Youtube video.
 - Strange problems with hover in IE (all versions).
 - Add workspace create/delete/edit tests.

@@ -2,8 +2,11 @@ __title__ = 'dash.decorators'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('SATISFY_ANY', 'SATISFY_ALL', 'DEFAULT_SATISFY', 'permissions_required', 'all_permissions_required', \
-           'any_permission_required', 'edit_dashboard_permission_required')
+__all__ = (
+    'SATISFY_ANY', 'SATISFY_ALL', 'DEFAULT_SATISFY', 'permissions_required',
+    'all_permissions_required', 'any_permission_required',
+    'edit_dashboard_permission_required'
+)
 
 SATISFY_ANY = 'any'
 SATISFY_ALL = 'all'
@@ -12,14 +15,16 @@ DEFAULT_SATISFY = SATISFY_ALL
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import user_passes_test
 
-def permissions_required(perms, satisfy=DEFAULT_SATISFY, login_url=None, raise_exception=False):
+def permissions_required(perms, satisfy=DEFAULT_SATISFY, login_url=None, \
+                         raise_exception=False):
     """
     Checks for the permissions given based on the strategy chosen.
 
     :param iterable perms:
     :param string satisfy: Allowed values are "all" and "any".
     :param string login_url:
-    :param bool raise_exception: If set to True, the ``PermissionDenied`` exception is raised on failures.
+    :param bool raise_exception: If set to True, the ``PermissionDenied``
+        exception is raised on failures.
     :return bool:
 
     :example:
@@ -73,7 +78,12 @@ def all_permissions_required(perms, login_url=None, raise_exception=False):
     >>> def edit_dashboard(request):
     >>>     # your code
     """
-    return permissions_required(perms, satisfy=SATISFY_ALL, login_url=login_url, raise_exception=raise_exception)
+    return permissions_required(
+        perms,
+        satisfy = SATISFY_ALL,
+        login_url = login_url,
+        raise_exception = raise_exception
+        )
 
 def any_permission_required(perms, login_url=None, raise_exception=False):
     """
@@ -87,12 +97,17 @@ def any_permission_required(perms, login_url=None, raise_exception=False):
     >>> def edit_dashboard(request):
     >>>     # your code
     """
-    return permissions_required(perms, satisfy=SATISFY_ANY, login_url=login_url, raise_exception=raise_exception)
+    return permissions_required(
+        perms,
+        satisfy = SATISFY_ANY,
+        login_url = login_url,
+        raise_exception = raise_exception
+        )
 
 def edit_dashboard_permission_required(login_url=None, raise_exception=False):
     """
-    Checks if user has permissions to edit dashboard. Simply, check is successfull if any of the following
-    permission checks are satisfied:
+    Checks if user has permissions to edit dashboard. Simply, check is
+    successfull if any of the following permission checks are satisfied:
     
         - Can add dashboard entry
         - Can change dashboard entry
@@ -112,11 +127,37 @@ def edit_dashboard_permission_required(login_url=None, raise_exception=False):
     """
     return permissions_required(
         perms = [
-            'dash.add_dashboardentry', 'dash.change_dashboardentry', 'dash.delete_dashboardentry',
-            'dash.add_dashboardworkspace', 'dash.change_dashboardworkspace', 'dash.delete_dashboardworkspace',
-            'dash.add_dashboardsettings', 'dash.change_dashboardsettings', 'dash.delete_dashboardsettings',
+            'dash.add_dashboardentry', 'dash.change_dashboardentry',
+            'dash.delete_dashboardentry',
+            'dash.add_dashboardworkspace', 'dash.change_dashboardworkspace',
+            'dash.delete_dashboardworkspace',
+            'dash.add_dashboardsettings', 'dash.change_dashboardsettings',
+            'dash.delete_dashboardsettings',
         ],
         satisfy = SATISFY_ANY,
+        login_url = login_url,
+        raise_exception = raise_exception
+        )
+
+def use_clipboard_permission_required(login_url=None, raise_exception=False):
+    """
+    Checks if user has permissions to use clipboard. Simply, check is
+    successfull if all of the following permission checks are satisfied:
+
+        - Can add dashboard entry
+        - Can delete dashboard entry
+
+    :example:
+    >>> @login_required
+    >>> @use_clipboard_permission_required() # Do not forget the brackets!
+    >>> def cut_dashboard_entry(request):
+    >>>     # your code
+    """
+    return permissions_required(
+        perms = [
+            'dash.add_dashboardentry', 'dash.delete_dashboardentry'
+        ],
+        satisfy = SATISFY_ALL,
         login_url = login_url,
         raise_exception = raise_exception
         )

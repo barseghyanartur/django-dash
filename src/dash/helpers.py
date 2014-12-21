@@ -3,13 +3,29 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'slugify_workspace', 'lists_overlap', 'iterable_to_dict', 'uniquify_sequence',
-    'clean_plugin_data', 'clone_plugin_data', 'update_plugin_data'
+    'slugify_workspace', 'lists_overlap', 'iterable_to_dict',
+    'uniquify_sequence', 'clean_plugin_data', 'clone_plugin_data',
+    'update_plugin_data', 'safe_text',
     )
+
+from six import PY3
+
+from django.utils.encoding import force_text
 
 from autoslug.settings import slugify
 
 slugify_workspace = lambda s: slugify(s.lower()).lower()
+
+def safe_text(text):
+    """
+    Safe text (encode).
+
+    :return str:
+    """
+    if PY3:
+        return force_text(text, encoding='utf-8')
+    else:
+        return force_text(text, encoding='utf-8').encode('utf-8')
 
 def lists_overlap(sub, main):
     for i in sub:
