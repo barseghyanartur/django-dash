@@ -14,7 +14,7 @@ Core and contrib
     + Android layout.
     + Windows 8 layout.
     + Twitter bootstrap 2.
-    - Twitter bootstrap 3.
+    - Twitter bootstrap 3 (planned in 0.4.12).
     - Foundation 5 (planned in 0.4.12).
 + Documentation.
 + Group widgets.
@@ -93,9 +93,12 @@ Core and contrib
   modify them as needed.
 + Django 1.7 support.
 + When using unicode characters found in workspace slug, ``django-slug`` raises an exception.
++ Copy-paste and cut-paste functionality for widgets (between workspaces).
 - Fix some strange bug on Windows 8 layout, on which somehow the boundaries
   don't seem to work very well, as sometimes paste doesn't work due to lack of
-  space while it shouldn't (when there's enough space).
+  space while it shouldn't (when there's enough space). It's possible that
+  it happens when number of columns and rows aren't equal.
+- Update the screenshots to reflect the latest changes (copy/paste).
 - Fix Google Chrome bug, when dash widget controls (edit/delete) being hidden under Youtube video.
 - Strange problems with hover in IE (all versions).
 - Add workspace create/delete/edit tests.
@@ -133,7 +136,6 @@ Core and contrib
 - Add dashboard settings (edit) tests and tests after the changed layout (for the bootstrap2 theme).
 - File plugin.
 - Add navigation (at right and left) to navigate through the workspaces (like in Android).
-- Copy-paste and cut-paste functionality for widgets (between workspaces).
 - Allow users to share their workspaces with other users. They would need to know someone elses' username.
 - In bulk change dashboard plugins, make use of fancy widget for the users too.
 
