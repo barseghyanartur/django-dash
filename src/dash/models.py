@@ -35,6 +35,9 @@ class DashboardSettings(models.Model):
     user = models.ForeignKey(User, verbose_name=_("User"), unique=True)
     layout_uid = models.CharField(_("Layout"), max_length=25, choices=get_registered_layouts())
     title = models.CharField(_("Title"), max_length=255)
+    allow_different_layouts = models.BooleanField(_("Allow different layouts per workspace?"), default=False, \
+                                                  help_text=_("Allows you to use different layouts for each "
+                                                              "workspace."))
     is_public = models.BooleanField(_("Is public?"), default=False, \
                                     help_text=_("Makes your dashboard to be visible to the public. Visibility "
                                                 "of workspaces could be adjust separately for each workspace, "
