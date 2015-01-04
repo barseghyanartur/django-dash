@@ -35,7 +35,6 @@ install:
   - if [[ $TRAVIS_PYTHON_VERSION == '3.3' && $DJANGO15 == true ]]; then pip install Django==1.5.5; fi
   - if [[ $TRAVIS_PYTHON_VERSION == '3.3' && $DJANGO16 == true ]]; then pip uninstall Django -y; fi
   - if [[ $TRAVIS_PYTHON_VERSION == '3.3' && $DJANGO16 == true ]]; then pip install Django==1.6; fi
-  - mkdir examples/db
   - mkdir examples/logs
   - mkdir examples/media
   - mkdir examples/media/static
