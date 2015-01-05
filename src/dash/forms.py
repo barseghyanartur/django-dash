@@ -26,12 +26,9 @@ class DashboardWorkspaceForm(forms.ModelForm):
         fields = ('layout_uid', 'user', 'name', 'is_public', 'is_clonable')
 
     def __init__(self, *args, **kwargs):
-        different_layouts = kwargs.get('different_layouts', False)
-        if 'different_layouts' in kwargs:
-            del kwargs['different_layouts']
+        different_layouts = kwargs.pop('different_layouts', False)
         super(DashboardWorkspaceForm, self).__init__(*args, **kwargs)
         self.fields['user'].widget = forms.widgets.HiddenInput()
-        print self.fields['layout_uid']
         if not different_layouts:
             self.fields['layout_uid'].widget = forms.widgets.HiddenInput()
 

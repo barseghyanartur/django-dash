@@ -147,7 +147,7 @@ def edit_dashboard(request, workspace=None):
 
     workspaces = get_workspaces(
         request.user,
-        dasboard_settings.layout_uid,
+        dashboard_settings.layout_uid,
         workspace,
         different_layouts=dashboard_settings.allow_different_layouts,
     )
