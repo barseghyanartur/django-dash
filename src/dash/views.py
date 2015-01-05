@@ -369,8 +369,8 @@ def edit_dashboard_entry(request, entry_id, \
     except ObjectDoesNotExist as e:
         raise Http404(e)
 
-    if obj.workspace.layout_uid:
-        layout_uid = obj.workspace.layout_uid
+    if obj.layout_uid:
+        layout_uid = obj.layout_uid
     else:
         layout_uid = dashboard_settings.layout_uid
 
