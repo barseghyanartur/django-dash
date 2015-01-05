@@ -294,7 +294,6 @@ def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None, \
             form = plugin.get_initialised_create_form_or_404(
                 data=request.POST,
                 files=request.FILES,
-                different_layouts=dashboard_settings.allow_different_layouts
                 )
             if form.is_valid():
                 # Saving the plugin form data.
@@ -328,9 +327,7 @@ def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None, \
 
         # If POST but data invalid, show the form with errors.
         else:
-            form = plugin.get_initialised_create_form_or_404(
-                different_layouts=dashboard_settings.allow_different_layouts
-            )
+            form = plugin.get_initialised_create_form_or_404()
 
         context.update(
             {'form': form, 'plugin_uid': plugin_uid, 'plugin': plugin}
@@ -403,7 +400,6 @@ def edit_dashboard_entry(request, entry_id, \
             form = plugin.get_initialised_edit_form_or_404(
                 data=request.POST,
                 files=request.FILES,
-                different_layouts=dashboard_settings.allow_different_layouts
                 )
             if form.is_valid():
                 # Saving the plugin form data.
@@ -427,9 +423,7 @@ def edit_dashboard_entry(request, entry_id, \
                     return redirect('dash.edit_dashboard')
 
         else:
-            form = plugin.get_initialised_edit_form_or_404(
-                different_layouts=dashboard_settings.allow_different_layouts
-            )
+            form = plugin.get_initialised_edit_form_or_404()
 
         context.update({'form': form, 'plugin': plugin})
 

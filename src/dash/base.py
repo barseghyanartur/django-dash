@@ -974,8 +974,7 @@ class BaseDashboardPlugin(object):
         """
         return self.form
 
-    def get_initialised_create_form(self, data=None, files=None, \
-                                    different_layouts=False):
+    def get_initialised_create_form(self, data=None, files=None):
         """
         Used ``dash.views.add_dashboard_entry`` view to gets initialised form
         for object to be created.
@@ -988,16 +987,13 @@ class BaseDashboardPlugin(object):
                     return plugin_form(
                         data=data,
                         files=files,
-                        different_layouts=different_layouts
                     )
             except Exception as e:
                 if DEBUG:
                     logger.debug(e)
                 raise Http404(e)
 
-    def get_initialised_create_form_or_404(self, data=None, \
-                                           files=None, \
-                                           different_layouts=False):
+    def get_initialised_create_form_or_404(self, data=None, files=None):
         """
         Same as ``get_initialised_create_form`` but raises
         ``django.http.Http404`` on errors.
@@ -1008,7 +1004,6 @@ class BaseDashboardPlugin(object):
                 return self.get_initialised_create_form(
                     data=data,
                     files=files,
-                    different_layouts=different_layouts
                 )
             except Exception as e:
                 if DEBUG:
@@ -1018,8 +1013,7 @@ class BaseDashboardPlugin(object):
     def get_initialised_edit_form(self, data=None, files=None, \
                                   auto_id='id_%s', prefix=None, initial=None, \
                                   error_class=ErrorList, label_suffix=':', \
-                                  empty_permitted=False, instance=None, \
-                                  different_layouts=False):
+                                  empty_permitted=False, instance=None):
         """
         Used in ``dash.views.edit_dashboard_entry`` view.
         """
@@ -1034,7 +1028,6 @@ class BaseDashboardPlugin(object):
                 'error_class': error_class,
                 'label_suffix': label_suffix,
                 'empty_permitted': empty_permitted,
-                'different_layouts': different_layouts,
             }
             if issubclass(plugin_form, ModelForm):
                 kwargs.update({'instance': instance})
@@ -1044,8 +1037,7 @@ class BaseDashboardPlugin(object):
                                          auto_id='id_%s', prefix=None, \
                                          error_class=ErrorList, \
                                          label_suffix=':', \
-                                         empty_permitted=False, \
-                                         different_layouts=False):
+                                         empty_permitted=False):
         """
         Same as ``get_initialised_edit_form`` but raises ``django.http.Http404``
         on errors.
@@ -1063,7 +1055,6 @@ class BaseDashboardPlugin(object):
                     label_suffix = label_suffix,
                     empty_permitted = empty_permitted,
                     instance = self.get_instance(),
-                    different_layouts = different_layouts
                     )
             except Exception as e:
                 if DEBUG:
