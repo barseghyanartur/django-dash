@@ -119,6 +119,15 @@ See the documentation for some screen shots:
 - `PythonHosted <http://pythonhosted.org/django-dash/#screenshots>`_
 - `ReadTheDocs <http://django-dash.readthedocs.org/en/latest/#screenshots>`_
 
+See the `live demo app <https://django-dash.herokuapp.com/>`_ on Heroku.
+
+Credentials:
+
+- username: test_user
+- password: test_user
+
+Run demo locally
+-----------------------------------------------
 In order to be able to quickly evaluate the `django-dash`, a demo app (with a
 quick installer) has been created (works on Ubuntu/Debian, may work on other
 Linux systems as well, although not guaranteed). Follow the instructions
