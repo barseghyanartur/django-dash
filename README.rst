@@ -67,51 +67,6 @@ FAQ
     - `Sample Polychart2 plugin
       <https://github.com/barseghyanartur/django-dash/tree/master/examples/example/bar>`_.
 
-Installation
-===============================================
-1. Install latest stable version from PyPI:
-
-.. code-block:: none
-
-    $ pip install django-dash
-
-Or latest stable version from GitHub:
-
-.. code-block:: none
-
-    $ pip install -e git+https://github.com/barseghyanartur/django-dash@stable#egg=django-dash
-
-Or latest stable version from BitBucket:
-
-.. code-block:: none
-
-    $ pip install -e hg+https://bitbucket.org/barseghyanartur/django-dash@stable#egg=django-dash
-
-2. Add `dash` to ``INSTALLED_APPS`` of the your projects' Django settings. 
-   Furthermore, all layouts and plugins to be used, shall be added to the
-   ``INSTALLED_APPS`` as well.
-
-.. code-block:: python
-
-    INSTALLED_APPS = (
-        # ...
-        'dash',
-        'dash.contrib.layouts.android',
-        'dash.contrib.layouts.bootstrap2',
-        'dash.contrib.layouts.windows8',
-        'dash.contrib.plugins.dummy',
-        'dash.contrib.plugins.image',
-        'dash.contrib.plugins.memo',
-        'dash.contrib.plugins.rss_feed',
-        'dash.contrib.plugins.url',
-        'dash.contrib.plugins.video',
-        'dash.contrib.plugins.weather',
-        # ...
-    )
-
-3. Make sure that ``django.core.context_processors.request`` is in
-   ``TEMPLATE_CONTEXT_PROCESSORS``.
-
 Demo
 ===============================================
 See the documentation for some screen shots:
@@ -178,6 +133,51 @@ has example layouts, plugins and widgets implemented. Take it as a good example
 of how to add widgets for existing plugins to your own customly made layout.
 Make sure to see how same is done for the `bundled layouts
 <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/>`_.
+
+Installation
+===============================================
+1. Install latest stable version from PyPI:
+
+.. code-block:: none
+
+    $ pip install django-dash
+
+Or latest stable version from GitHub:
+
+.. code-block:: none
+
+    $ pip install -e git+https://github.com/barseghyanartur/django-dash@stable#egg=django-dash
+
+Or latest stable version from BitBucket:
+
+.. code-block:: none
+
+    $ pip install -e hg+https://bitbucket.org/barseghyanartur/django-dash@stable#egg=django-dash
+
+2. Add `dash` to ``INSTALLED_APPS`` of the your projects' Django settings. 
+   Furthermore, all layouts and plugins to be used, shall be added to the
+   ``INSTALLED_APPS`` as well.
+
+.. code-block:: python
+
+    INSTALLED_APPS = (
+        # ...
+        'dash',
+        'dash.contrib.layouts.android',
+        'dash.contrib.layouts.bootstrap2',
+        'dash.contrib.layouts.windows8',
+        'dash.contrib.plugins.dummy',
+        'dash.contrib.plugins.image',
+        'dash.contrib.plugins.memo',
+        'dash.contrib.plugins.rss_feed',
+        'dash.contrib.plugins.url',
+        'dash.contrib.plugins.video',
+        'dash.contrib.plugins.weather',
+        # ...
+    )
+
+3. Make sure that ``django.core.context_processors.request`` is in
+   ``TEMPLATE_CONTEXT_PROCESSORS``.
 
 Creating a new layout
 ===============================================
