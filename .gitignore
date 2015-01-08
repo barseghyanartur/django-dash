@@ -34,3 +34,7 @@ tmp/
 /src/django_dash.egg-info
 examples/example/local_settings.py
 heroku_setup.py
+/demos/heroku_demo/
+/demos/heroku_demo/db.sqlite3
+/demos/heroku_demo/staticfiles/
+/src/dash/contrib/layouts/bootstrap3/

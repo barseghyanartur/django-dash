@@ -12,6 +12,14 @@ dash.contrib.plugins.url.admin module
     :undoc-members:
     :show-inheritance:
 
+dash.contrib.plugins.url.apps module
+------------------------------------
+
+.. automodule:: dash.contrib.plugins.url.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 dash.contrib.plugins.url.conf module
 ------------------------------------
 

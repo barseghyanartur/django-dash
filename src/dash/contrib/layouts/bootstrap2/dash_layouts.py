@@ -3,7 +3,9 @@ __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('Bootstrap2FluidLayout',)
 
-from dash.base import BaseDashboardLayout, BaseDashboardPlaceholder, layout_registry
+from dash.base import (
+    BaseDashboardLayout, BaseDashboardPlaceholder, layout_registry
+    )
 
 # *******************************************************************
 # ******************** Bootstrap 2 Fluid layout *********************
@@ -54,7 +56,10 @@ class Bootstrap2FluidLayout(BaseDashboardLayout):
         if 'dash.public_dashboard' == origin:
             return 'bootstrap2/fuild_public_dashboard_view_layout.html'
         else:
-            return super(Bootstrap2FluidLayout, self).get_view_template_name(request=request, origin=origin)
+            return super(Bootstrap2FluidLayout, self).get_view_template_name(
+                request = request,
+                origin = origin
+                )
 
 
 layout_registry.register(Bootstrap2FluidLayout)

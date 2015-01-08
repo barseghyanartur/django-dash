@@ -31,6 +31,14 @@ dash.base module
     :undoc-members:
     :show-inheritance:
 
+dash.clipboard module
+---------------------
+
+.. automodule:: dash.clipboard
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 dash.compat module
 ------------------
 
@@ -115,6 +123,14 @@ dash.helpers module
 -------------------
 
 .. automodule:: dash.helpers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dash.json_package module
+------------------------
+
+.. automodule:: dash.json_package
     :members:
     :undoc-members:
     :show-inheritance:

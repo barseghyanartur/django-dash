@@ -15,6 +15,27 @@ are used for versioning (schema follows below):
   0.3.2 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.13
+-------------------------------------
+yyyy-mm-dd (Not yet released)
+
+- Bootstrap 3 layout.
+- Foundation 5 layout.
+
+0.4.12
+-------------------------------------
+2015-01-08
+
+This release contains a small, yet important fix. You are recommended to
+upgrade to this version as soon as possible.
+
+- Improved Django 1.7 support.
+- Support for wheel packages.
+- Soften requirements.
+- Mention the heroku demo app in the docs.
+- Fix a mistake in `dash.utils.get_user_plugin_uids` function due to which
+  the list of allowed user plugin uids for non-admins was always empty.
+
 0.4.11
 -------------------------------------
 2014-12-21

@@ -4,6 +4,14 @@ dash.contrib.layouts.bootstrap2 package
 Submodules
 ----------
 
+dash.contrib.layouts.bootstrap2.apps module
+-------------------------------------------
+
+.. automodule:: dash.contrib.layouts.bootstrap2.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 dash.contrib.layouts.bootstrap2.conf module
 -------------------------------------------
 

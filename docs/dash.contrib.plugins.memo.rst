@@ -4,6 +4,14 @@ dash.contrib.plugins.memo package
 Submodules
 ----------
 
+dash.contrib.plugins.memo.apps module
+-------------------------------------
+
+.. automodule:: dash.contrib.plugins.memo.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 dash.contrib.plugins.memo.dash_plugins module
 ---------------------------------------------
 

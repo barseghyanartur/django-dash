@@ -4,6 +4,14 @@ dash.contrib.plugins.image package
 Submodules
 ----------
 
+dash.contrib.plugins.image.apps module
+--------------------------------------
+
+.. automodule:: dash.contrib.plugins.image.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 dash.contrib.plugins.image.conf module
 --------------------------------------
 

@@ -2,11 +2,14 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'URLBootstrapTwo1x1Bootstrap2FluidMainWidget', 'URLBootstrapTwo2x2Bootstrap2FluidMainWidget',
+    'URLBootstrapTwo1x1Bootstrap2FluidMainWidget',
+    'URLBootstrapTwo2x2Bootstrap2FluidMainWidget',
     'BaseBookmarkBootstrapTwoWidget'
 )
 
-from dash.contrib.plugins.url.dash_widgets import BaseURLWidget, BaseBookmarkWidget
+from dash.contrib.plugins.url.dash_widgets import (
+    BaseURLWidget, BaseBookmarkWidget
+    )
 
 # *************************************************************
 # ******************* URL widgets *****************************

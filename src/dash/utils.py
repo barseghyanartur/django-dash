@@ -95,7 +95,7 @@ def get_user_plugin_uids(user):
 
     allowed_plugin_uids = get_allowed_plugin_uids(user)
 
-    for uid in plugin_registry._registry.items():
+    for uid, plugin in plugin_registry._registry.items():
         if uid in allowed_plugin_uids:
             registered_plugins.append(uid)
 

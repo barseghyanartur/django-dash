@@ -17,7 +17,9 @@ from django.contrib.auth.models import Group
 
 from autoslug import AutoSlugField
 
-from dash.base import plugin_registry, get_registered_plugins, get_registered_layouts
+from dash.base import (
+    plugin_registry, get_registered_plugins, get_registered_layouts
+    )
 from dash.helpers import slugify_workspace
 from dash.fields import OrderField
 from dash.compat import User
@@ -30,16 +32,23 @@ class DashboardSettings(models.Model):
         - `user` (django.contrib.auth.models.User: User owning the plugin.
         - `layout_uid` (str): Users' preferred layout.
         - `title` (str): Dashboard title.
-        - `is_public` (bool): If set to True, available as public (read-only mode).
+        - `is_public` (bool): If set to True, available as public (read-only
+          mode).
     """
     user = models.ForeignKey(User, verbose_name=_("User"), unique=True)
-    layout_uid = models.CharField(_("Layout"), max_length=25, choices=get_registered_layouts())
+    layout_uid = models.CharField(_("Layout"), max_length=25, \
+                                  choices=get_registered_layouts())
     title = models.CharField(_("Title"), max_length=255)
     is_public = models.BooleanField(_("Is public?"), default=False, \
-                                    help_text=_("Makes your dashboard to be visible to the public. Visibility "
-                                                "of workspaces could be adjust separately for each workspace, "
-                                                "however setting your dashboard to be visible to public, makes "
-                                                "your default workspace visible to public too."))
+                                    help_text=_("Makes your dashboard to be "
+                                                "visible to the public. "
+                                                "Visibility of workspaces "
+                                                "could be adjust separately "
+                                                "for each workspace, however "
+                                                "setting your dashboard to be "
+                                                "visible to public, makes "
+                                                "your default workspace "
+                                                "visible to public too."))
 
     class Meta:
         verbose_name = _("Dashboard settings")
@@ -62,18 +71,23 @@ class DashboardWorkspace(models.Model):
         - `position` (int): Dashboard position.
         - `is_public` (int): If set to True, is visible to public.
         - `is_clonable` (bool): If set to True, is clonable.
-        - `shared_with` (django.db.models.ManyToManyField): Users the workspace shared with. If workspace
-          is shared with specific user, then the user it's shared with can also clone the workspace.
+        - `shared_with` (django.db.models.ManyToManyField): Users the workspace
+          shared with. If workspace is shared with specific user, then the
+          user it's shared with can also clone the workspace.
     """
     user = models.ForeignKey(User, verbose_name=_("User"))
-    layout_uid = models.CharField(_("Layout"), max_length=25, choices=get_registered_layouts())
+    layout_uid = models.CharField(_("Layout"), max_length=25, \
+                                  choices=get_registered_layouts())
     name = models.CharField(_("Name"), max_length=255)
-    slug = AutoSlugField(populate_from='name', verbose_name=_("Slug"), unique=True, slugify=slugify_workspace)
+    slug = AutoSlugField(populate_from='name', verbose_name=_("Slug"), \
+                         unique=True, slugify=slugify_workspace)
     position = OrderField(_("Position"), null=True, blank=True)
     is_public = models.BooleanField(_("Is public?"), default=False, \
-                                    help_text=_("Makes your workspace to be visible to the public."))
+                                    help_text=_("Makes your workspace to be "
+                                                "visible to the public."))
     is_clonable = models.BooleanField(_("Is cloneable?"), default=False, \
-                                    help_text=_("Makes your workspace to be cloneable by other users."))
+                                    help_text=_("Makes your workspace to be "
+                                                "cloneable by other users."))
 
     class Meta:
         verbose_name = _("Dashboard workspace")
@@ -115,10 +129,15 @@ class DashboardEntryManager(models.Manager):
 
         :param django.contrib.auth.models.User user:
         :param string layout_uid:
-        :param string workspace: Workspace slug (``dash.models.DashboardWorkspace``).
+        :param string workspace: Workspace slug
+            (``dash.models.DashboardWorkspace``).
         :return iterable:
         """
-        return self.filter(user=user, layout_uid=layout_uid, workspace__slug=workspace)
+        return self.filter(
+            user = user,
+            layout_uid = layout_uid,
+            workspace__slug = workspace
+            )
 
 
 class DashboardEntry(models.Model):
@@ -130,8 +149,8 @@ class DashboardEntry(models.Model):
     :Properties:
 
         - `user` (django.contrib.auth.models.User: User owning the plugin.
-        - `workspace` (dash.models.DashboardWorkspace): Workspace to which the plugin belongs to.
-          If left blank, entry belongs to default workspace.
+        - `workspace` (dash.models.DashboardWorkspace): Workspace to which the
+          plugin belongs to. If left blank, entry belongs to default workspace.
         - `layout_uid` (str): Layout to which the entry belongs to.
         - `placeholder_uid` (str): Placeholder to which the entry belongs to.
         - `plugin_uid` (str): Plugin name.
@@ -139,11 +158,15 @@ class DashboardEntry(models.Model):
         - `position` (int): Entry position.
     """
     user = models.ForeignKey(User, verbose_name=_("User"))
-    workspace = models.ForeignKey(DashboardWorkspace, verbose_name=_("Workspace"), null=True, blank=True)
-    layout_uid = models.CharField(_("Layout"), max_length=25, choices=get_registered_layouts())
+    workspace = models.ForeignKey(DashboardWorkspace, null=True, blank=True, \
+                                  verbose_name=_("Workspace"), )
+    layout_uid = models.CharField(_("Layout"), max_length=25, \
+                                  choices=get_registered_layouts())
     placeholder_uid = models.CharField(_("Placeholder"), max_length=255)
-    plugin_uid = models.CharField(_("Plugin name"), max_length=255, choices=get_registered_plugins())
-    plugin_data = models.TextField(verbose_name=_("Plugin data"), null=True, blank=True)
+    plugin_uid = models.CharField(_("Plugin name"), max_length=255, \
+                                  choices=get_registered_plugins())
+    plugin_data = models.TextField(verbose_name=_("Plugin data"), null=True, \
+                                   blank=True)
     position = models.PositiveIntegerField(_("Position"), null=True, blank=True)
 
     objects = DashboardEntryManager()
@@ -157,13 +180,14 @@ class DashboardEntry(models.Model):
 
     def get_plugin(self, fetch_related_data=False, request=None):
         """
-        Gets the plugin class (by ``plugin_uid`` property), makes an instance of it, serves the
-        data stored in ``plugin_data`` field (if available). Once all is done, plugin is ready to
-        be rendered.
+        Gets the plugin class (by ``plugin_uid`` property), makes an instance
+        of it, serves the data stored in ``plugin_data`` field (if available).
+        Once all is done, plugin is ready to be rendered.
 
-        :param bool fetch_related_data: When set to True, plugin is told to re-fetch all related
-            data (stored in models or other sources).
-        :return dash.base.DashboardPlugin: Subclass of ``dash.base.DashboardPlugin``.
+        :param bool fetch_related_data: When set to True, plugin is told to
+            re-fetch all related data (stored in models or other sources).
+        :return dash.base.DashboardPlugin: Subclass of
+            ``dash.base.DashboardPlugin``.
         """
         # Getting plugin from registry.
         cls = plugin_registry.get(self.plugin_uid)
@@ -184,7 +208,10 @@ class DashboardEntry(models.Model):
         # So that plugin has the request object
         plugin.request = request
 
-        return plugin.process(self.plugin_data, fetch_related_data=fetch_related_data)
+        return plugin.process(
+            self.plugin_data,
+            fetch_related_data = fetch_related_data
+            )
 
     def plugin_uid_code(self):
         """
@@ -203,19 +230,24 @@ class DashboardPluginManager(models.Manager):
 
 class DashboardPlugin(models.Model):
     """
-    Dashboard plugin. Used when ``dash.settings.RESTRICT_PLUGIN_ACCESS`` is set to True.
+    Dashboard plugin. Used when ``dash.settings.RESTRICT_PLUGIN_ACCESS`` is
+    set to True.
 
     :Properties:
 
         - `plugin_uid` (str): Plugin UID.
-        - `users` (django.contrib.auth.models.User): White list of the users allowed to use the dashboard plugin.
-        - `groups` (django.contrib.auth.models.Group): White list of the user groups allowed to use the dashboard
-          plugin.
+        - `users` (django.contrib.auth.models.User): White list of the users
+          allowed to use the dashboard plugin.
+        - `groups` (django.contrib.auth.models.Group): White list of the user
+          groups allowed to use the dashboard plugin.
     """
-    plugin_uid = models.CharField(_("Plugin UID"), max_length=255, choices=get_registered_plugins(), \
+    plugin_uid = models.CharField(_("Plugin UID"), max_length=255, \
+                                  choices=get_registered_plugins(), \
                                   unique=True, editable=False)
-    users = models.ManyToManyField(User, verbose_name=_("User"), null=True, blank=True)
-    groups = models.ManyToManyField(Group, verbose_name=_("Group"), null=True, blank=True)
+    users = models.ManyToManyField(User, verbose_name=_("User"), null=True, \
+                                   blank=True)
+    groups = models.ManyToManyField(Group, verbose_name=_("Group"), null=True, \
+                                    blank=True)
 
     objects = DashboardPluginManager()
 
@@ -224,7 +256,10 @@ class DashboardPlugin(models.Model):
         verbose_name_plural = _("Dashboard plugins")
 
     def __unicode__(self):
-        return "{0} ({1})".format(dict(get_registered_plugins()).get(self.plugin_uid, ''), self.plugin_uid)
+        return "{0} ({1})".format(
+            dict(get_registered_plugins()).get(self.plugin_uid, ''),
+            self.plugin_uid
+            )
 
     def plugin_uid_code(self):
         """
@@ -244,7 +279,8 @@ class DashboardPlugin(models.Model):
 
     def groups_list(self):
         """
-        Flat list (comma separated string) of groups allowed to use the dashboard plugin. Used in Django admin.
+        Flat list (comma separated string) of groups allowed to use the
+        dashboard plugin. Used in Django admin.
 
         :return string:
         """
@@ -254,7 +290,8 @@ class DashboardPlugin(models.Model):
 
     def users_list(self):
         """
-        Flat list (comma separated string) of users allowed to use the dashboard plugin. Used in Django admin.
+        Flat list (comma separated string) of users allowed to use the
+        dashboard plugin. Used in Django admin.
 
         :return string:
         """
