@@ -67,13 +67,15 @@ FAQ
     - `Sample Polychart2 plugin
       <https://github.com/barseghyanartur/django-dash/tree/master/examples/example/bar>`_.
 
-Demo
+Documentation
 ===============================================
 See the documentation for some screen shots:
 
 - `PythonHosted <http://pythonhosted.org/django-dash/#screenshots>`_
 - `ReadTheDocs <http://django-dash.readthedocs.org/en/latest/#screenshots>`_
 
+Demo
+===============================================
 Live demo
 -----------------------------------------------
 See the `live demo app <https://django-dash.herokuapp.com/>`_ on Heroku.
