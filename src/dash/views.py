@@ -292,8 +292,7 @@ def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None, \
         # to the dashboard edit.
         if 'POST' == request.method:
             form = plugin.get_initialised_create_form_or_404(
-                data=request.POST,
-                files=request.FILES,
+                data=request.POST, files=request.FILES
                 )
             if form.is_valid():
                 # Saving the plugin form data.

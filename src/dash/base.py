@@ -984,10 +984,7 @@ class BaseDashboardPlugin(object):
             try:
                 plugin_form = self.get_form()
                 if plugin_form:
-                    return plugin_form(
-                        data=data,
-                        files=files,
-                    )
+                    return plugin_form(data=data, files=files)
             except Exception as e:
                 if DEBUG:
                     logger.debug(e)
@@ -1001,10 +998,7 @@ class BaseDashboardPlugin(object):
         plugin_form = self.get_form()
         if plugin_form:
             try:
-                return self.get_initialised_create_form(
-                    data=data,
-                    files=files,
-                )
+                return self.get_initialised_create_form(data=data, files=files)
             except Exception as e:
                 if DEBUG:
                     logger.debug(e)
@@ -1027,7 +1021,7 @@ class BaseDashboardPlugin(object):
                 'initial': initial,
                 'error_class': error_class,
                 'label_suffix': label_suffix,
-                'empty_permitted': empty_permitted,
+                'empty_permitted': empty_permitted
             }
             if issubclass(plugin_form, ModelForm):
                 kwargs.update({'instance': instance})
@@ -1054,7 +1048,7 @@ class BaseDashboardPlugin(object):
                     error_class = error_class,
                     label_suffix = label_suffix,
                     empty_permitted = empty_permitted,
-                    instance = self.get_instance(),
+                    instance = self.get_instance()
                     )
             except Exception as e:
                 if DEBUG:
