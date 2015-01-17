@@ -4,6 +4,14 @@ dash.contrib.plugins.dummy package
 Submodules
 ----------
 
+dash.contrib.plugins.dummy.apps module
+--------------------------------------
+
+.. automodule:: dash.contrib.plugins.dummy.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 dash.contrib.plugins.dummy.dash_plugins module
 ----------------------------------------------
 

@@ -6,7 +6,8 @@ from dash.contrib.layouts.bootstrap2 import defaults
 
 def get_setting(setting, override=None):
     """
-    Get a setting from ``dash.contrib.layouts.bootstrap2`` conf module, falling back to the default.
+    Get a setting from ``dash.contrib.layouts.bootstrap2`` conf module,
+    falling back to the default.
 
     If override is not None, it will be used instead of the setting.
 

@@ -14,6 +14,7 @@ template_dirs = [
     "src/dash/templates/dash", # Core templates
     "src/dash/contrib/layouts/android/templates/android", # Android layout
     "src/dash/contrib/layouts/bootstrap2/templates/bootstrap2", # Bootstrap 2 layouts
+    #"src/dash/contrib/layouts/bootstrap3/templates/bootstrap3", # Bootstrap 3 layouts
     "src/dash/contrib/layouts/windows8/templates/windows8", # Windows 8 layout
     "src/dash/contrib/plugins/dummy/templates/dummy", # Dummy plugin
     "src/dash/contrib/plugins/image/templates/image", # Image plugin
@@ -28,6 +29,7 @@ static_dirs = [
     "src/dash/static", # Core static
     "src/dash/contrib/layouts/android/static", # Android layout
     "src/dash/contrib/layouts/bootstrap2/static", # Bootstrap 2 layouts
+    #"src/dash/contrib/layouts/bootstrap3/static", # Bootstrap 3 layouts
     "src/dash/contrib/layouts/windows8/static", # Windows 8 layout
     "src/dash/contrib/plugins/image/static", # Image plugin
     #"src/dash/contrib/plugins/news/static", # News plugin
@@ -55,15 +57,15 @@ for static_dir in static_dirs:
 for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f) for f in os.listdir(locale_dir)]
 
-version = '0.4.11'
+version = '0.4.12'
 
 install_requires = [
     'Pillow>=2.1.0',
     'django-autoslug>=1.7.1',
     'django-slim>=0.7.5',
     'django-tinymce>=1.5.3',
-    'feedparser==5.1.3',
-    'ordereddict==1.1',
+    'feedparser>=5.1.3',
+    'ordereddict>=1.1',
     'pif>=0.5,<1.0',
     'six>=1.4.1',
     'easy-thumbnails>=1.4,<2.0',

@@ -34,4 +34,6 @@ syntax: regexp
 ^build/
 ^dist/
 ^src/django_dash\.egg-info
-
+^demos/heroku_demo/db\.sqlite3
+^demos/heroku_demo/staticfiles/
+^demos/heroku_demo/heroku_demo/media/

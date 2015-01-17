@@ -4,6 +4,14 @@ dash.contrib.plugins.video package
 Submodules
 ----------
 
+dash.contrib.plugins.video.apps module
+--------------------------------------
+
+.. automodule:: dash.contrib.plugins.video.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 dash.contrib.plugins.video.dash_plugins module
 ----------------------------------------------
 

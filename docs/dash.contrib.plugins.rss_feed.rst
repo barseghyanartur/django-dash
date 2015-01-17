@@ -11,6 +11,14 @@ Subpackages
 Submodules
 ----------
 
+dash.contrib.plugins.rss_feed.apps module
+-----------------------------------------
+
+.. automodule:: dash.contrib.plugins.rss_feed.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 dash.contrib.plugins.rss_feed.dash_plugins module
 -------------------------------------------------
 

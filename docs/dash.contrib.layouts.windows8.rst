@@ -4,6 +4,14 @@ dash.contrib.layouts.windows8 package
 Submodules
 ----------
 
+dash.contrib.layouts.windows8.apps module
+-----------------------------------------
+
+.. automodule:: dash.contrib.layouts.windows8.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 dash.contrib.layouts.windows8.dash_layouts module
 -------------------------------------------------
 

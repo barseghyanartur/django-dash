@@ -8,14 +8,16 @@ from dash.factory import plugin_widget_factory
 from dash.factory import plugin_widget_factory
 from dash.contrib.plugins.dummy.dash_widgets import BaseDummyWidget
 from dash.contrib.plugins.image.dash_widgets import BaseImageWidget
-from dash.contrib.plugins.memo.dash_widgets import BaseMemoWidget, BaseTinyMCEMemoWidget
-#from dash.contrib.plugins.news.dash_widgets import BaseNewsWidget
+from dash.contrib.plugins.memo.dash_widgets import (
+    BaseMemoWidget, BaseTinyMCEMemoWidget
+    )
 #from dash.contrib.plugins.rss_feed.dash_widgets import BaseReadRSSFeedWidget
 from dash.contrib.plugins.video.dash_widgets import BaseVideoWidget
 #from dash.contrib.plugins.weather.dash_widgets import BaseWeatherWidget
 from dash.contrib.plugins.url.dash_plugins import BaseURLPlugin
 from dash.contrib.layouts.bootstrap2.dash_widgets import (
-    URLBootstrapTwo1x1Bootstrap2FluidMainWidget, URLBootstrapTwo2x2Bootstrap2FluidMainWidget,
+    URLBootstrapTwo1x1Bootstrap2FluidMainWidget,
+    URLBootstrapTwo2x2Bootstrap2FluidMainWidget,
     BaseBookmarkBootstrapTwoWidget
     )
 from dash.contrib.layouts.bootstrap2.forms import URLBootstrapTwoForm
@@ -26,10 +28,11 @@ from dash.contrib.layouts.bootstrap2.forms import URLBootstrapTwoForm
 
 class URLBootstrapTwo1x1Plugin(BaseURLPlugin):
     """
-    URL dashboard plugin. The original `URLPlugin`, as well as the main dash.css, relies on presence of
-    wonderful "Font awesome". Although a lot of icon names are common between Bootstrap 2 and Font awesome,
-    there are some specific icons, that are not present in both. Thus, the original `URLPlugin` is
-    extended to address those differences.
+    URL dashboard plugin. The original `URLPlugin`, as well as the main
+    dash.css, relies on presence of wonderful "Font awesome". Although a lot
+    of icon names are common between Bootstrap 2 and Font awesome, there are
+    some specific icons, that are not present in both. Thus, the original
+    `URLPlugin` is extended to address those differences.
     """
     uid = 'url_bootstrap_two_1x1'
     form = URLBootstrapTwoForm
@@ -61,7 +64,8 @@ main_sizes = (
     (1, 1),
     (2, 2),
 )
-plugin_widget_factory(BaseDummyWidget, 'bootstrap2_fluid', 'main', 'dummy', main_sizes)
+plugin_widget_factory(BaseDummyWidget, 'bootstrap2_fluid', 'main', 'dummy', \
+                      main_sizes)
 
 # **************************************************************************
 # ******************* Registering widgets for Image plugin *****************
@@ -79,7 +83,8 @@ main_sizes = (
     (5, 4),
     (5, 5),
 )
-plugin_widget_factory(BaseImageWidget, 'bootstrap2_fluid', 'main', 'image', main_sizes)
+plugin_widget_factory(BaseImageWidget, 'bootstrap2_fluid', 'main', 'image', \
+                      main_sizes)
 
 # **************************************************************************
 # ******************* Registering widgets for Memo plugin ******************
@@ -91,7 +96,8 @@ main_sizes = (
     (4, 5),
     (5, 5),
 )
-plugin_widget_factory(BaseMemoWidget, 'bootstrap2_fluid', 'main', 'memo', main_sizes)
+plugin_widget_factory(BaseMemoWidget, 'bootstrap2_fluid', 'main', 'memo', \
+                      main_sizes)
 
 # **************************************************************************
 # ************** Registering widgets for TinyMCEMemo plugin ****************
@@ -103,7 +109,8 @@ main_sizes = (
     (4, 5),
     (5, 5),
 )
-plugin_widget_factory(BaseTinyMCEMemoWidget, 'bootstrap2_fluid', 'main', 'tinymce_memo', main_sizes)
+plugin_widget_factory(BaseTinyMCEMemoWidget, 'bootstrap2_fluid', 'main', \
+                      'tinymce_memo', main_sizes)
 
 # **************************************************************************
 # ******************* Registering the widgets for URL plugin ***************
@@ -123,7 +130,8 @@ main_sizes = (
     (4, 4),
     (5, 5),
 )
-plugin_widget_factory(BaseVideoWidget, 'bootstrap2_fluid', 'main', 'video', main_sizes)
+plugin_widget_factory(BaseVideoWidget, 'bootstrap2_fluid', 'main', 'video', \
+                      main_sizes)
 
 # **************************************************************************
 # *************** Registering the widgets for Bookmark plugin ***************
@@ -133,4 +141,5 @@ main_sizes = (
     (1, 1),
     #(2, 2),
 )
-plugin_widget_factory(BaseBookmarkBootstrapTwoWidget, 'bootstrap2_fluid', 'main', 'bookmark', main_sizes)
+plugin_widget_factory(BaseBookmarkBootstrapTwoWidget, 'bootstrap2_fluid', \
+                      'main', 'bookmark', main_sizes)

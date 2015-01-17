@@ -4,6 +4,14 @@ dash.contrib.layouts.android package
 Submodules
 ----------
 
+dash.contrib.layouts.android.apps module
+----------------------------------------
+
+.. automodule:: dash.contrib.layouts.android.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 dash.contrib.layouts.android.dash_layouts module
 ------------------------------------------------
 
