@@ -17,10 +17,9 @@ are used for versioning (schema follows below):
 
 0.4.13
 -------------------------------------
-yyyy-mm-dd (Not yet released)
+2015-03-20
 
-- Bootstrap 3 layout.
-- Foundation 5 layout.
+- Minor fixes.
 
 0.4.12
 -------------------------------------
