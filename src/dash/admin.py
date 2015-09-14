@@ -56,6 +56,20 @@ def bulk_change_dashboard_plugins(modeladmin, request, queryset):
 # *********************************************************
 # *********************************************************
 
+class CompatModelAdmin(admin.ModelAdmin):
+    def __init__(self, *args, **kwargs):
+        self.queryset = self.get_queryset
+        super(CompatModelAdmin, self).__init__(*args, **kwargs)
+
+    def get_queryset(self, request):
+        superobj = super(CompatModelAdmin, self)
+        if getattr(superobj, 'get_queryset', None):
+            return superobj.get_queryset(request)
+
+        if getattr(superobj, 'queryset', None):
+            return superobj.queryset(request)
+
+
 class DashboardWorkspaceAdmin(admin.ModelAdmin):
     """
     Dashboard workspace admin.
@@ -85,7 +99,7 @@ admin.site.register(DashboardWorkspace, DashboardWorkspaceAdmin)
 
 # *********************************************************
 
-class DashboardEntryAdmin(admin.ModelAdmin):
+class DashboardEntryAdmin(CompatModelAdmin):
     """
     Dashboard entry admin.
     """
@@ -106,8 +120,8 @@ class DashboardEntryAdmin(admin.ModelAdmin):
     class Meta:
         app_label = _('Dashboard entry')
 
-    def queryset(self, request):
-        queryset = super(DashboardEntryAdmin, self).queryset(request)
+    def get_queryset(self, request):
+        queryset = super(DashboardEntryAdmin, self).get_queryset(request)
         queryset = queryset.select_related('workspace', 'user')
         return queryset
 
@@ -116,7 +130,7 @@ admin.site.register(DashboardEntry, DashboardEntryAdmin)
 
 # *********************************************************
 
-class DashboardPluginAdmin(admin.ModelAdmin):
+class DashboardPluginAdmin(CompatModelAdmin):
     """
     Dashboard plugin admin.
     """
@@ -133,8 +147,8 @@ class DashboardPluginAdmin(admin.ModelAdmin):
     class Meta:
         app_label = _('Dashboard plugin')
 
-    def queryset(self, request):
-        queryset = super(DashboardPluginAdmin, self).queryset(request)
+    def get_queryset(self, request):
+        queryset = super(DashboardPluginAdmin, self).get_queryset(request)
         queryset = queryset.prefetch_related('users', 'groups')
         return queryset
 
@@ -195,7 +209,7 @@ admin.site.register(DashboardPlugin, DashboardPluginAdmin)
 
 # *********************************************************
 
-class DashboardSettingsAdmin(admin.ModelAdmin):
+class DashboardSettingsAdmin(CompatModelAdmin):
     """
     Dashboard plugin admin.
     """
@@ -210,8 +224,8 @@ class DashboardSettingsAdmin(admin.ModelAdmin):
     class Meta:
         app_label = _('Dashboard settings')
 
-    def queryset(self, request):
-        queryset = super(DashboardSettingsAdmin, self).queryset(request)
+    def get_queryset(self, request):
+        queryset = super(DashboardSettingsAdmin, self).get_queryset(request)
         queryset = queryset.select_related('user')
         return queryset
 

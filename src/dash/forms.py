@@ -30,6 +30,7 @@ class DashboardSettingsForm(forms.ModelForm):
     """
     class Meta:
         model = DashboardSettings
+        fields = ('user', 'layout_uid', 'title', 'is_public')
 
     def __init__(self, *args, **kwargs):
         super(DashboardSettingsForm, self).__init__(*args, **kwargs)
