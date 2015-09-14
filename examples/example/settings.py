@@ -3,7 +3,7 @@ import os
 PROJECT_DIR = lambda base : os.path.abspath(os.path.join(os.path.dirname(__file__), base).replace('\\','/'))
 gettext = lambda s: s
 
-DEBUG = True
+DEBUG = False
 DEBUG_TOOLBAR = False
 TEMPLATE_DEBUG = DEBUG
 
