@@ -19,7 +19,10 @@ import copy
 import uuid
 
 from django.forms import ModelForm
-from django.forms.util import ErrorList
+try:
+    from django.forms.utils import ErrorList
+except ImportError:
+    from django.forms.util import ErrorList
 from django.http import Http404
 from django.template.loader import render_to_string
 
