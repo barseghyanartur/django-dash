@@ -26,9 +26,10 @@ Key concepts
 ===============================================
 - Each layout (theme) consist of placeholders. Each plugin widget has its' own
   specific HTML/JavaScript/CSS.
-- There might be multiple themes implemented and installed, but only one can 
-  be active for a certain user. Default layout is chosen system wide, but each
-  user (if has an appropriate permission) can choose his preferred layout.
+- There might be multiple themes implemented and installed. Default layout is
+  chosen system wide, but each user (if has an appropriate permission) can 
+  choose his preferred layout over all workspaces or even different layouts 
+  per workspace.
 - Placeholder is a space, in which the plugin widgets are placed.
 - Placeholders are rectangles consisting of cells. Each placeholder has its' 
   own custom number of rows and columns.

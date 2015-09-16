@@ -66,10 +66,30 @@ def dashboard(request, workspace=None):
 
     # Getting dashboard settings for the user. Then get users' layout.
     dashboard_settings = get_or_create_dashboard_settings(request.user)
+
+    workspaces = get_workspaces(
+        request.user,
+        dashboard_settings.layout_uid,
+        workspace,
+        different_layouts=dashboard_settings.allow_different_layouts
+    )
+
     layout = get_layout(
-        layout_uid = dashboard_settings.layout_uid,
-        as_instance = True
-        )
+        layout_uid=workspaces['current_workspace'].layout_uid if workspaces['current_workspace'] else dashboard_settings.layout_uid,
+        as_instance=True
+    )
+
+    # If workspace with slug given is not found in the list of workspaces
+    # redirect to the default dashboard.
+    if workspaces['current_workspace_not_found']:
+        msg = _('The workspace with slug "{0}" does '
+                'not belong to layout "{1}".').format(workspace, layout.name)
+        if dashboard_settings.allow_different_layouts:
+            msg = _('The workspace with slug "{0}" does not exist').format(
+                workspace
+            )
+        messages.info(request, msg)
+        return redirect('dash.edit_dashboard')
 
     # Getting the (frozen) queryset.
     dashboard_entries = DashboardEntry._default_manager \
@@ -94,18 +114,6 @@ def dashboard(request, workspace=None):
         'layout': layout,
         'dashboard_settings': dashboard_settings
     }
-
-    workspaces = get_workspaces(request.user, layout.uid, workspace)
-
-    # If workspace with slug given is not found in the list of workspaces
-    # redirect to the default dashboard.
-    if workspaces['current_workspace_not_found']:
-        messages.info(
-            request,
-            _('The workspace with slug "{0}" does '
-              'not belong to layout "{1}".').format(workspace, layout.name)
-            )
-        return redirect('dash.edit_dashboard')
 
     context.update(workspaces)
 
@@ -136,9 +144,28 @@ def edit_dashboard(request, workspace=None):
 
     # Getting dashboard settings for the user. Then get users' layout.
     dashboard_settings = get_or_create_dashboard_settings(request.user)
+
+    workspaces = get_workspaces(
+        request.user,
+        dashboard_settings.layout_uid,
+        workspace,
+        different_layouts=dashboard_settings.allow_different_layouts,
+    )
+
     layout = get_layout(
-        layout_uid=dashboard_settings.layout_uid, as_instance=True
-        )
+        layout_uid=workspaces['current_workspace'].layout_uid if workspaces['current_workspace'] else dashboard_settings.layout_uid,
+        as_instance=True
+    )
+
+    # If workspace with slug given is not found in the list of workspaces
+    # redirect to the default dashboard.
+    if workspaces['current_workspace_not_found']:
+        messages.info(
+            request,
+            _('The workspace with slug "{0}" does '
+              'not belong to layout "{1}".').format(workspace, layout.name)
+            )
+        return redirect('dash.edit_dashboard')
 
     # Getting the (frozen) queryset.
     dashboard_entries = DashboardEntry._default_manager \
@@ -163,18 +190,6 @@ def edit_dashboard(request, workspace=None):
         'edit_mode': True,
         'dashboard_settings': dashboard_settings
     }
-
-    workspaces = get_workspaces(request.user, layout.uid, workspace)
-
-    # If workspace with slug given is not found in the list of workspaces
-    # redirect to the default dashboard.
-    if workspaces['current_workspace_not_found']:
-        messages.info(
-            request,
-            _('The workspace with slug "{0}" does '
-              'not belong to layout "{1}".').format(workspace, layout.name)
-            )
-        return redirect('dash.edit_dashboard')
 
     context.update(workspaces)
 
@@ -215,9 +230,34 @@ def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None, \
     """
     # Getting dashboard settings for the user. Then get users' layout.
     dashboard_settings = get_or_create_dashboard_settings(request.user)
-    layout = get_layout(
-        layout_uid=dashboard_settings.layout_uid, as_instance=True
-        )
+
+    if workspace:
+        workspace_slug = slugify_workspace(workspace)
+        filters = {
+            'slug': workspace_slug,
+            'user': request.user,
+        }
+        if not dashboard_settings.allow_different_layouts:
+            filters.update({
+                'layout_uid': dashboard_settings.layout_uid,
+            })
+        try:
+            workspace = DashboardWorkspace._default_manager.get(**filters)
+        except ObjectDoesNotExist as e:
+            if dashboard_settings.allow_different_layouts:
+                message = _('The workspace with slug "{0}" was not foundi.').format(workspace_slug)
+            else:
+                message = __('The workspace with slug "{0}" does not belong to '
+                'layout "{1}".').format(workspace_slug, layout.name)
+            messages.info(request, message)
+            return redirect('dash.edit_dashboard')
+
+    if dashboard_settings.allow_different_layouts and workspace:
+        layout_uid = workspace.layout_uid
+    else:
+        layout_uid = dashboard_settings.layout_uid
+
+    layout = get_layout(layout_uid=layout_uid, as_instance=True)
 
     if not validate_placeholder_uid(layout, placeholder_uid):
         raise Http404(_("Invalid placeholder: {0}").format(placeholder))
@@ -242,6 +282,7 @@ def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None, \
     obj.placeholder_uid = placeholder_uid
     obj.plugin_uid = plugin_uid
     obj.user = request.user
+    obj.workspace = workspace
 
     # If plugin has form, it is configurable which means we have to load the
     # plugin form and validate user input.
@@ -259,24 +300,6 @@ def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None, \
 
                 # Getting the plugin data.
                 obj.plugin_data = form.get_plugin_data(request=request)
-
-                # Handling the workspace.
-                obj.workspace = None
-                if workspace:
-                    workspace_slug = slugify_workspace(workspace)
-                    try:
-                        obj.workspace = DashboardWorkspace._default_manager.get(
-                            slug = workspace_slug,
-                            user = request.user,
-                            layout_uid = layout.uid
-                            )
-                    except ObjectDoesNotExist as e:
-                        messages.info(
-                            request,
-                            _('The workspace with slug "{0}" does not belong to '
-                              'layout "{1}".').format(workspace_slug, layout.name)
-                            )
-                        return redirect('dash.edit_dashboard')
 
                 # If position given, use it.
                 try:
@@ -337,9 +360,6 @@ def edit_dashboard_entry(request, entry_id, \
     """
     # Getting dashboard settings for the user. Then get users' layout.
     dashboard_settings = get_or_create_dashboard_settings(request.user)
-    layout = get_layout(
-        layout_uid=dashboard_settings.layout_uid, as_instance=True
-        )
 
     try:
         obj = DashboardEntry._default_manager \
@@ -347,6 +367,15 @@ def edit_dashboard_entry(request, entry_id, \
                             .get(pk=entry_id, user=request.user)
     except ObjectDoesNotExist as e:
         raise Http404(e)
+
+    if obj.layout_uid:
+        layout_uid = obj.layout_uid
+    else:
+        layout_uid = dashboard_settings.layout_uid
+
+    layout = get_layout(
+        layout_uid=layout_uid, as_instance=True
+        )
 
     plugin = obj.get_plugin(fetch_related_data=True)
     plugin.request = request
@@ -368,7 +397,8 @@ def edit_dashboard_entry(request, entry_id, \
         # to the dashboard edit.
         if 'POST' == request.method:
             form = plugin.get_initialised_edit_form_or_404(
-                data=request.POST, files=request.FILES
+                data=request.POST,
+                files=request.FILES,
                 )
             if form.is_valid():
                 # Saving the plugin form data.
@@ -563,18 +593,29 @@ def create_dashboard_workspace(request, \
 
 
     if 'POST' == request.method:
-        form = DashboardWorkspaceForm(data=request.POST, files=request.FILES)
+        form = DashboardWorkspaceForm(
+            data=request.POST,
+            files=request.FILES,
+            different_layouts=dashboard_settings.allow_different_layouts
+        )
         if form.is_valid():
             obj = form.save(commit=False)
             obj.user = request.user
-            obj.layout_uid = layout.uid
+            if not dashboard_settings.allow_different_layouts:
+                obj.layout_uid = layout.uid
             obj.save()
             messages.info(request, _('The dashboard workspace "{0}" was '
                                      'created successfully.').format(obj.name))
             return redirect('dash.edit_dashboard', workspace=obj.slug)
 
     else:
-        form = DashboardWorkspaceForm(initial={'user': request.user})
+        form = DashboardWorkspaceForm(
+            initial={
+                'user': request.user,
+                'layout_uid': layout.uid,
+            },
+            different_layouts=dashboard_settings.allow_different_layouts
+        )
 
     if request.is_ajax():
         template_name = template_name_ajax
@@ -605,9 +646,6 @@ def edit_dashboard_workspace(request, workspace_id, \
     """
     # Getting dashboard settings for the user. Then get users' layout.
     dashboard_settings = get_or_create_dashboard_settings(request.user)
-    layout = get_layout(
-        layout_uid=dashboard_settings.layout_uid, as_instance=True
-        )
 
     # Check if user trying to edit the dashboard workspace actually owns it.
     try:
@@ -616,23 +654,32 @@ def edit_dashboard_workspace(request, workspace_id, \
     except ObjectDoesNotExist as e:
         raise Http404(e)
 
+    layout = get_layout(
+        layout_uid=obj.layout_uid, as_instance=True
+        )
+
     if 'POST' == request.method:
         form = DashboardWorkspaceForm(
             data = request.POST,
             files = request.FILES,
-            instance = obj
-            )
+            instance = obj,
+            different_layouts=dashboard_settings.allow_different_layouts
+        )
         if form.is_valid():
             form.save(commit=False)
             obj.user = request.user
-            obj.layout_uid = layout.uid
+            if not dashboard_settings.allow_different_layouts:
+                obj.layout_uid = layout.uid
             obj.save()
             messages.info(request, _('The dashboard workspace "{0}" was '
                                      'edited successfully.').format(obj.name))
             return redirect('dash.edit_dashboard', workspace=obj.slug)
 
     else:
-        form = DashboardWorkspaceForm(instance=obj)
+        form = DashboardWorkspaceForm(
+            instance=obj,
+            different_layouts=dashboard_settings.allow_different_layouts
+        )
 
     if request.is_ajax():
         template_name = template_name_ajax
@@ -664,9 +711,6 @@ def delete_dashboard_workspace(request, workspace_id, \
     """
     # Getting dashboard settings for the user. Then get users' layout.
     dashboard_settings = get_or_create_dashboard_settings(request.user)
-    layout = get_layout(
-        layout_uid=dashboard_settings.layout_uid, as_instance=True
-        )
 
     # Check if user trying to edit the dashboard workspace actually owns it and then delete the workspace.
     if 'POST' == request.method and 'delete' in request.POST is None and request.POST.get('next', None):
@@ -678,6 +722,10 @@ def delete_dashboard_workspace(request, workspace_id, \
 
     except ObjectDoesNotExist as e:
         raise Http404(e)
+
+    layout = get_layout(
+        layout_uid=workspace.layout_uid, as_instance=True
+        )
 
     if 'POST' == request.method:
         if 'delete' in request.POST:
@@ -732,15 +780,28 @@ def dashboard_workspaces(request, workspace=None, \
     """
     # Getting dashboard settings for the user. Then get users' layout.
     dashboard_settings = get_or_create_dashboard_settings(request.user)
-    layout = get_layout(
-        layout_uid=dashboard_settings.layout_uid, as_instance=True
-        )
 
-    context = {
+    context = get_workspaces(
+        request.user,
+        dashboard_settings.layout_uid,
+        workspace,
+        different_layouts=dashboard_settings.allow_different_layouts
+    )
+
+    if dashboard_settings.allow_different_layouts and context['current_workspace']:
+        layout_uid = context['current_workspace'].layout_uid
+    else:
+        layout_uid = dashboard_settings.layout_uid
+
+    layout = get_layout(
+        layout_uid=layout_uid,
+        as_instance=True
+    )
+
+    context.update({
         'layout': layout,
         'dashboard_settings': dashboard_settings
-    }
-    context.update(get_workspaces(request.user, layout.uid, workspace))
+    })
 
     if request.is_ajax():
         template_name = template_name_ajax
@@ -841,7 +902,8 @@ def clone_dashboard_workspace(request, workspace_id):
         layout_uid=dashboard_settings.layout_uid, as_instance=True
         )
 
-    if workspace.layout_uid == layout.uid:
+    if workspace.layout_uid == layout.uid or \
+            dashboard_settings.allow_different_layouts:
 
         messages.info(
             request,

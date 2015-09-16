@@ -259,7 +259,7 @@ def sync_plugins():
 
     DashboardPlugin._default_manager.bulk_create(buf)
 
-def get_workspaces(user, layout_uid=None, workspace=None, public=False):
+def get_workspaces(user, layout_uid=None, workspace=None, public=False, different_layouts=False):
     """
     Gets previous, current, next and and a queryset of all workspaces.
 
@@ -268,7 +268,9 @@ def get_workspaces(user, layout_uid=None, workspace=None, public=False):
     :return dict:
     """
     # We need to show workspaces
-    q_kwargs = {'user': user, 'layout_uid': layout_uid}
+    q_kwargs = {'user': user}
+    if not different_layouts:
+        q_kwargs.update({'layout_uid': layout_uid})
     if public:
         q_kwargs.update({'is_public': public})
 
