@@ -36,8 +36,7 @@ class DashboardSettings(models.Model):
           mode).
     """
     user = models.ForeignKey(User, verbose_name=_("User"), unique=True)
-    layout_uid = models.CharField(_("Layout"), max_length=25, \
-                                  choices=get_registered_layouts())
+    layout_uid = models.CharField(_("Layout"), max_length=25)
     title = models.CharField(_("Title"), max_length=255)
     is_public = models.BooleanField(_("Is public?"), default=False, \
                                     help_text=_("Makes your dashboard to be "
@@ -76,8 +75,7 @@ class DashboardWorkspace(models.Model):
           user it's shared with can also clone the workspace.
     """
     user = models.ForeignKey(User, verbose_name=_("User"))
-    layout_uid = models.CharField(_("Layout"), max_length=25, \
-                                  choices=get_registered_layouts())
+    layout_uid = models.CharField(_("Layout"), max_length=25)
     name = models.CharField(_("Name"), max_length=255)
     slug = AutoSlugField(populate_from='name', verbose_name=_("Slug"), \
                          unique=True, slugify=slugify_workspace)
@@ -160,11 +158,9 @@ class DashboardEntry(models.Model):
     user = models.ForeignKey(User, verbose_name=_("User"))
     workspace = models.ForeignKey(DashboardWorkspace, null=True, blank=True, \
                                   verbose_name=_("Workspace"), )
-    layout_uid = models.CharField(_("Layout"), max_length=25, \
-                                  choices=get_registered_layouts())
+    layout_uid = models.CharField(_("Layout"), max_length=25)
     placeholder_uid = models.CharField(_("Placeholder"), max_length=255)
-    plugin_uid = models.CharField(_("Plugin name"), max_length=255, \
-                                  choices=get_registered_plugins())
+    plugin_uid = models.CharField(_("Plugin name"), max_length=255)
     plugin_data = models.TextField(verbose_name=_("Plugin data"), null=True, \
                                    blank=True)
     position = models.PositiveIntegerField(_("Position"), null=True, blank=True)
@@ -242,7 +238,6 @@ class DashboardPlugin(models.Model):
           groups allowed to use the dashboard plugin.
     """
     plugin_uid = models.CharField(_("Plugin UID"), max_length=255, \
-                                  choices=get_registered_plugins(), \
                                   unique=True, editable=False)
     users = models.ManyToManyField(User, verbose_name=_("User"), null=True, \
                                    blank=True)

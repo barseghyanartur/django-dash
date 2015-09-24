@@ -10,6 +10,9 @@ from django.utils.translation import ugettext_lazy as _
 from dash.models import DashboardWorkspace, DashboardSettings, DashboardPlugin
 from dash.constants import ACTION_CHOICES
 
+from dash.base import get_registered_layouts
+
+
 class DashboardWorkspaceForm(forms.ModelForm):
     """
     Dashboard workspace form.
@@ -31,6 +34,8 @@ class DashboardSettingsForm(forms.ModelForm):
     class Meta:
         model = DashboardSettings
         fields = ('user', 'layout_uid', 'title', 'is_public')
+    
+    layout_uid = forms.ChoiceField(choices=get_registered_layouts())
 
     def __init__(self, *args, **kwargs):
         super(DashboardSettingsForm, self).__init__(*args, **kwargs)
