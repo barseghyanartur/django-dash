@@ -99,6 +99,19 @@ admin.site.register(DashboardWorkspace, DashboardWorkspaceAdmin)
 
 # *********************************************************
 
+class PluginChoiceField(ModelChoiceField):
+    def label_from_instance(self, obj):
+        import pdb
+        pdb.set_trace()
+        
+        return obj[0]
+
+class DashboardEntryForm(forms.ModelForm):
+    plugin_uuid =  PluginChoiceField(queryset=get_registered_plugins())
+
+    class Meta:
+        model   = DashboardEntry
+
 class DashboardEntryAdmin(CompatModelAdmin):
     """
     Dashboard entry admin.
@@ -116,6 +129,8 @@ class DashboardEntryAdmin(CompatModelAdmin):
             'fields': ('user',)
         }),
     )
+
+    form = DashboardEntryForm
 
     class Meta:
         app_label = _('Dashboard entry')
