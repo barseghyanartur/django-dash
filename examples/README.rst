@@ -28,17 +28,17 @@ written for Ubuntu/Debian, but may work on other Linux distributions as well.
 
 - Run the commands to sync database, install test data and run the server.
 
-    $ python examples/example/manage.py syncdb --noinput --traceback -v 3
+    $ ./manage.py syncdb --noinput --traceback -v 3
 
-    $ python examples/example/manage.py migrate --noinput
+    .. $ ./manage.py migrate --noinput
 
-    $ python examples/example/manage.py collectstatic --noinput --traceback -v 3
+    $ ./manage.py collectstatic --noinput --traceback -v 3
 
-    $ python examples/example/manage.py news_create_test_data --traceback -v 3
+    $ ./manage.py news_create_test_data --traceback -v 3
 
-    $ python examples/example/manage.py dash_create_test_data --traceback -v 3
+    $ ./manage.py dash_create_test_data --traceback -v 3
 
-    $ python examples/example/manage.py runserver 0.0.0.0:8001 --traceback -v 3
+    $ ./manage.py runserver 0.0.0.0:8001 --traceback -v 3
 
 - Open your browser and test the app.
 
