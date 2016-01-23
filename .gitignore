@@ -41,3 +41,5 @@ heroku_setup.py
 
 #jetbrains IDE files
 .idea
+
+/examples/example/env

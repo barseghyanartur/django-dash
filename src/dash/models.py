@@ -247,10 +247,8 @@ class DashboardPlugin(models.Model):
     plugin_uid = models.CharField(_("Plugin UID"), max_length=255, \
                                   choices=get_registered_plugins(), \
                                   unique=True, editable=False)
-    users = models.ManyToManyField(User, verbose_name=_("User"), null=True, \
-                                   blank=True)
-    groups = models.ManyToManyField(Group, verbose_name=_("Group"), null=True, \
-                                    blank=True)
+    users = models.ManyToManyField(User, verbose_name=_("User"), blank=True)
+    groups = models.ManyToManyField(Group, verbose_name=_("Group"), blank=True)
 
     objects = DashboardPluginManager()
 
