@@ -43,3 +43,5 @@ heroku_setup.py
 .idea
 
 /examples/example/env
+.DS_Store
+
