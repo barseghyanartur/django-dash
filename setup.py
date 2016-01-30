@@ -62,7 +62,6 @@ version = '0.4.13'
 install_requires = [
     'Pillow>=2.1.0',
     'django-autoslug>=1.7.1',
-    'django-slim>=0.7.5',
     'django-tinymce>=1.5.3',
     'feedparser>=5.1.3',
     'ordereddict>=1.1',
@@ -72,6 +71,10 @@ install_requires = [
     'transliterate>=1.5,<2.0',
     'vishap>=0.1.2,<2.0',
     'unidecode',
+]
+
+dependency_links = [
+    "git+ssh://git@github.com/GMcD/django-slim.git#egg=django-slim"
 ]
 
 tests_require = [
@@ -116,6 +119,7 @@ setup(
     packages = find_packages(where='./src'),
     license = 'GPL 2.0/LGPL 2.1',
     install_requires = install_requires,
+    dependency_links = dependency_links,
     tests_require = tests_require,
     package_data = {
         'dash': templates + static_files + locale_files

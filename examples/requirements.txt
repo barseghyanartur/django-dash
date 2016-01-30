@@ -10,4 +10,4 @@ radar>=0.3,<1.0
 selenium
 simple-timer>=0.2
 tox
-git+https://github.com/GMcD/django-dash#egg=django-dash
+git+https://github.com/GMcD/django-dash@90c6b16bddb40f263f3dd32d69259972b5a7128e#egg=django-dash

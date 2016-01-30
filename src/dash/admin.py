@@ -12,6 +12,9 @@ from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.contrib import messages
 
+from django import forms
+from dash.base import get_registered_plugins
+
 from dash.models import DashboardWorkspace, DashboardEntry, DashboardPlugin, DashboardSettings
 from dash.forms import BulkChangeDashboardPluginsForm
 from dash.constants import ACTION_CHOICE_REPLACE
@@ -98,19 +101,16 @@ class DashboardWorkspaceAdmin(admin.ModelAdmin):
 admin.site.register(DashboardWorkspace, DashboardWorkspaceAdmin)
 
 # *********************************************************
+# class PluginChoiceField(forms.ModelChoiceField):
+#     def label_from_instance(self, obj):
+#         return obj[0]
 
-class PluginChoiceField(ModelChoiceField):
-    def label_from_instance(self, obj):
-        import pdb
-        pdb.set_trace()
-        
-        return obj[0]
+# class DashboardEntryForm(forms.ModelForm):
+#     plugin_uuid =  PluginChoiceField(queryset=get_registered_plugins())
 
-class DashboardEntryForm(forms.ModelForm):
-    plugin_uuid =  PluginChoiceField(queryset=get_registered_plugins())
-
-    class Meta:
-        model   = DashboardEntry
+#     class Meta:
+#         model   = DashboardEntry
+# *********************************************************
 
 class DashboardEntryAdmin(CompatModelAdmin):
     """
@@ -130,7 +130,7 @@ class DashboardEntryAdmin(CompatModelAdmin):
         }),
     )
 
-    form = DashboardEntryForm
+    # form = DashboardEntryForm
 
     class Meta:
         app_label = _('Dashboard entry')
