@@ -54,8 +54,8 @@ class DashboardSettings(models.Model):
                                                 "visible to public too."))
 
     class Meta:
-        verbose_name = _("Dashboard settings")
-        verbose_name_plural = _("Dashboard settings")
+        verbose_name = _("Dashboard Settings")
+        verbose_name_plural = _("Dashboard Settings")
 
     def __unicode__(self):
         return self.title
@@ -93,8 +93,8 @@ class DashboardWorkspace(models.Model):
                                                 "cloneable by other users."))
 
     class Meta:
-        verbose_name = _("Dashboard workspace")
-        verbose_name_plural = _("Dashboard workspaces")
+        verbose_name = _("Dashboard Workspace")
+        verbose_name_plural = _("Dashboard Workspaces")
         unique_together = (('user', 'slug'), ('user', 'name'),)
 
     def __unicode__(self):
@@ -175,8 +175,8 @@ class DashboardEntry(models.Model):
     objects = DashboardEntryManager()
 
     class Meta:
-        verbose_name = _("Dashboard entry")
-        verbose_name_plural = _("Dashboard entries")
+        verbose_name = _("Dashboard Entry")
+        verbose_name_plural = _("Dashboard Entries")
 
     def __unicode__(self):
         return "{0} plugin for user {1}".format(self.plugin_uid, self.user)
@@ -224,7 +224,6 @@ class DashboardEntry(models.Model):
     plugin_uid_code.allow_tags = True
     plugin_uid_code.short_description = _('UID')
 
-
 class DashboardPluginManager(models.Manager):
     """
     Manager for ``dash.models.DashboardPlugin``.
@@ -253,8 +252,8 @@ class DashboardPlugin(models.Model):
     objects = DashboardPluginManager()
 
     class Meta:
-        verbose_name = _("Dashboard plugin")
-        verbose_name_plural = _("Dashboard plugins")
+        verbose_name = _("Dashboard Plugin")
+        verbose_name_plural = _("Dashboard Plugins")
 
     def __unicode__(self):
         return "{0} ({1})".format(
@@ -299,3 +298,7 @@ class DashboardPlugin(models.Model):
         return ', '.join([u.username for u in self.users.all()])
     users_list.allow_tags = True
     users_list.short_description = _('Users')
+
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("plugin_uid__icontains",)

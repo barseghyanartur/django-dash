@@ -15,12 +15,21 @@ and apps) or Windows 8 for tablets or desktops.
 Dash inherits all those concepts and makes it possible to implement a dashboard
 system for Django applications with minimal efforts.
 
+TL;DR
+===============================================
+```
+    pip install git+https://github.com/GMcD/django-dash#egg=django-dash
+    ./manage.py dash_sync_plugins
+    ... implement more plugins
+    ./manage.py dash_sync_plugins
+```
+
 Prerequisites
 ===============================================
-- Django 1.5, 1.6, 1.7
-- Python 2.6.8+, 2.7.*, 3.3.*
+- Django 1.8
+- Python 2.7.*, 3.3.*
 
-Note, that Django 1.7 is not yet proclaimed to be flawlessly supported!
+Note, that Django 1.8 is not yet proclaimed to be flawlessly supported!
 
 Key concepts
 ===============================================

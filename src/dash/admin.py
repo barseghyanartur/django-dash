@@ -13,6 +13,9 @@ from django.template import RequestContext
 from django.contrib import messages
 
 from django import forms
+
+import autocomplete_light.shortcuts as alforms
+
 from dash.base import get_registered_plugins
 
 from dash.models import DashboardWorkspace, DashboardEntry, DashboardPlugin, DashboardSettings
@@ -101,15 +104,22 @@ class DashboardWorkspaceAdmin(admin.ModelAdmin):
 admin.site.register(DashboardWorkspace, DashboardWorkspaceAdmin)
 
 # *********************************************************
-# class PluginChoiceField(forms.ModelChoiceField):
-#     def label_from_instance(self, obj):
-#         return obj[0]
+class DashboardEntryForm(alforms.ModelForm):
+    plugins = get_registered_plugins()
+    plugin_choices = []
+    for plugin in plugins:
+        plugin_choices.append( (plugin[0], "{} ({})".format(plugin[1],plugin[0])) )
 
-# class DashboardEntryForm(forms.ModelForm):
-#     plugin_uuid =  PluginChoiceField(queryset=get_registered_plugins())
+    plugin_uid  = alforms.ModelChoiceField('DashboardPluginAutocomplete')
 
-#     class Meta:
-#         model   = DashboardEntry
+    class Meta:
+        model   = DashboardEntry
+        fields = ( 'user', 'workspace', 'layout_uid', 'placeholder_uid', 'plugin_uid', 'plugin_data', 'position' )
+
+    def clean_plugin_uid(self):
+        plugin = self.cleaned_data['plugin_uid']
+        return plugin.plugin_uid
+
 # *********************************************************
 
 class DashboardEntryAdmin(CompatModelAdmin):
@@ -130,10 +140,10 @@ class DashboardEntryAdmin(CompatModelAdmin):
         }),
     )
 
-    # form = DashboardEntryForm
+    form = DashboardEntryForm
 
     class Meta:
-        app_label = _('Dashboard entry')
+        app_label = _('Dashboard Entry')
 
     def get_queryset(self, request):
         queryset = super(DashboardEntryAdmin, self).get_queryset(request)

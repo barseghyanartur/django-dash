@@ -62,6 +62,7 @@ version = '0.4.13'
 install_requires = [
     'Pillow>=2.1.0',
     'django-autoslug>=1.7.1',
+    'django-autocomplete-light>=2.3.2',
     'django-tinymce>=1.5.3',
     'feedparser>=5.1.3',
     'ordereddict>=1.1',
