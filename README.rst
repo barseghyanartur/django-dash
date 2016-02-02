@@ -17,12 +17,16 @@ system for Django applications with minimal efforts.
 
 TL;DR
 ===============================================
-```
+.. code-block:: none
     pip install git+https://github.com/GMcD/django-dash#egg=django-dash
-    ./manage.py dash_sync_plugins
-    ... implement more plugins
-    ./manage.py dash_sync_plugins
-```
+
+- add to urls.py, at least
+.. code-block:: none
+    url(r'^dashboard/', include('dash.urls')),
+    
+- ./manage.py dash_sync_plugins
+- ... implement more plugins
+- ./manage.py dash_sync_plugins
 
 Prerequisites
 ===============================================
