@@ -8,6 +8,8 @@ class DashboardPluginAutocomplete(al.AutocompleteModelBase):
     model = DashboardPlugin
     choices = DashboardPlugin.objects.all()
 
+    attrs = { 'placeholder' : 'Enter Plugin Format...' }
+
     def choices_for_values(self):
         """
             Map Plugin_Uid names to Ids 
@@ -19,5 +21,8 @@ class DashboardPluginAutocomplete(al.AutocompleteModelBase):
             values.append(DashboardPlugin.objects.get(plugin_uid=value).id)
         self.values = values
         return self.order_choices(ids)
+
+    def validate_values(self):
+        return True
 
 al.register(DashboardPluginAutocomplete)
