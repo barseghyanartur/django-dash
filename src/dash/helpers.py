@@ -14,7 +14,9 @@ from django.utils.encoding import force_text
 
 from autoslug.settings import slugify
 
-slugify_workspace = lambda s: slugify(s.lower()).lower()
+# slugify_workspace = lambda s: slugify(s.lower()).lower()
+def slugify_workspace(s):
+    return slugify(s.lower()).lower()
 
 def safe_text(text):
     """
