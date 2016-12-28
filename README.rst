@@ -1,10 +1,10 @@
-===============================================
+===========
 django-dash
-===============================================
+===========
 `django-dash` (later on named Dash) is a customisable, modular dashboard
 application framework for Django.
 
-Dash allows users to create their own custom dashboards. Supports theming (in
+Dash allows users to create their own custom dashboards. Supports theeming (in
 Dash themes are called layouts) and multiple workspaces. Dash comes with
 extensive pythonic API which allows developers to create new Dash plugins, as
 well as to modify bundled ones.
@@ -16,14 +16,24 @@ Dash inherits all those concepts and makes it possible to implement a dashboard
 system for Django applications with minimal efforts.
 
 Prerequisites
-===============================================
-- Django 1.5, 1.6, 1.7
-- Python 2.6.8+, 2.7.*, 3.3.*
+=============
+Current
+-------
+- Django 1.8, 1.9, 1.10
+- Python >=2.7, >=3.4
 
-Note, that Django 1.7 is not yet proclaimed to be flawlessly supported!
+Past
+----
+- Dropping support of Django 1.5, 1.6 and 1.7 has been announced in version
+  0.5. As of 0.5 everything is still backwards compatible with above mentioned
+  versions , but in future versions compatibility with these versions will be
+  wiped out.
+- Dropping support of Python 2.6 has been announced in version 0.5. As of 0.5
+  everything is still backwards compatible with Python 2.6, but in future
+  versions compatibility with it will be wiped out.
 
 Key concepts
-===============================================
+============
 - Each layout (theme) consist of placeholders. Each plugin widget has its' own
   specific HTML/JavaScript/CSS.
 - There might be multiple themes implemented and installed, but only one can 
@@ -46,17 +56,17 @@ Key concepts
   workspaces, user can still make each of them private or public.
 
 Main features
-===============================================
+=============
 - Customisable layouts (aka theeming).
 - Multiple workspaces.
 - Tunable access permissions to plugins.
 - Public dashboards (as a contrib app).
-- Clonable workspaces. It's possible to clone entire workspace, including
+- Cloneable workspaces. It's possible to clone entire workspace, including
   all the plugins into another workspace.
 - Copy/paste functionality for plugin widgets.
 
 FAQ
-===============================================
+===
 - Question: Is it possible to have Dash working with a (pick what's applicable: 
   D3, Polychart2, or some other library for making charts).
 
@@ -68,16 +78,16 @@ FAQ
       <https://github.com/barseghyanartur/django-dash/tree/master/examples/example/bar>`_.
 
 Some screenshots
-===============================================
+================
 See the documentation for some screen shots:
 
 - `PythonHosted <http://pythonhosted.org/django-dash/#screenshots>`_
 - `ReadTheDocs <http://django-dash.readthedocs.org/en/latest/#screenshots>`_
 
 Demo
-===============================================
+====
 Live demo
------------------------------------------------
+---------
 See the `live demo app <https://django-dash.herokuapp.com/>`_ on Heroku.
 
 Credentials:
@@ -90,7 +100,7 @@ See the public dashboard of a `test_demo_user
 it could become.
 
 Run demo locally
------------------------------------------------
+----------------
 In order to be able to quickly evaluate the `django-dash`, a demo app (with a
 quick installer) has been created (works on Ubuntu/Debian, may work on other
 Linux systems as well, although not guaranteed). Follow the instructions
@@ -98,18 +108,18 @@ below for having the demo running within a minute.
 
 Grab the latest `django_dash_example_app_installer.sh`:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ wget https://raw.github.com/barseghyanartur/django-dash/stable/examples/django_dash_example_app_installer.sh
+    wget https://raw.github.com/barseghyanartur/django-dash/stable/examples/django_dash_example_app_installer.sh
 
 Assign execute rights to the installer and run the
 `django_dash_example_app_installer.sh`:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ chmod +x django_dash_example_app_installer.sh
+    chmod +x django_dash_example_app_installer.sh
 
-    $ ./django_dash_example_app_installer.sh
+    ./django_dash_example_app_installer.sh
 
 Open your browser and test the app.
 
@@ -141,24 +151,24 @@ Make sure to see how same is done for the `bundled layouts
 <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/>`_.
 
 Installation
-===============================================
+============
 1. Install latest stable version from PyPI:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ pip install django-dash
+    pip install django-dash
 
 Or latest stable version from GitHub:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ pip install -e git+https://github.com/barseghyanartur/django-dash@stable#egg=django-dash
+    pip install https://github.com/barseghyanartur/django-dash/archive/stable.tar.gz
 
 Or latest stable version from BitBucket:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ pip install -e hg+https://bitbucket.org/barseghyanartur/django-dash@stable#egg=django-dash
+    pip install https://bitbucket.org/barseghyanartur/django-dash/get/stable.tar.gz
 
 2. Add `dash` to ``INSTALLED_APPS`` of the your projects' Django settings. 
    Furthermore, all layouts and plugins to be used, shall be added to the
@@ -185,8 +195,24 @@ Or latest stable version from BitBucket:
 3. Make sure that ``django.core.context_processors.request`` is in
    ``TEMPLATE_CONTEXT_PROCESSORS``.
 
+4. Add necessary URL patterns to your `urls` module.
+
+   .. code-block:: python
+
+       url(r'^dashboard/', include('dash.urls')),
+
+   Additionally, add all URLs of any Dash apps or plugins
+
+   .. code-block:: python
+
+       # django-dash RSS contrib plugin URLs:
+       url(r'^dash/contrib/plugins/rss-feed/', include('dash.contrib.plugins.rss_feed.urls')),
+
+       # django-dash public dashboards contrib app:
+       url(r'^', include('dash.contrib.apps.public_dashboard.urls')),
+
 Creating a new layout
-===============================================
+=====================
 Dash comes with several bundled layouts. Do check their source code as example. 
 
 Let's say, our imaginary layout has two placeholders. One large placeholder for
@@ -222,7 +248,7 @@ To make it clear, see following cases:
 - Plugin widget has 4 cols and 3 rows. Then, for example, it may occupy cells 
   (22, 23, 24, 25, 32, 33, 34, 35, 42, 43, 44 and 45).
 
-.. code-block:: none
+.. code-block:: text
 
                                      `main`                                `shortcuts`
     ┌───────────┬───────────┬───────────┬───────────┬───────────┬───────────┐ ┌─────┐
@@ -257,12 +283,12 @@ To make it clear, see following cases:
     │           │           │           │           │           │           │ │     │
     └───────────┴───────────┴───────────┴───────────┴───────────┴───────────┘ └─────┘
 
-There are some rules/guideles you should follow.
+There are some rules/guidelines you should follow.
 
 Let's assume that layout is named `example`. The layout directory should then
 have the following structure.
 
-.. code-block:: none
+.. code-block:: text
 
     path/to/layout/example/
     ├── static
@@ -294,9 +320,9 @@ Each layout should be put into the ``INSTALLED_APPS`` of your Django projects'
     )
 
 path/to/layout/example/dash_layouts.py
------------------------------------------------
+--------------------------------------
 Step by step review of a how to create and register a layout and placeholders.
-Note, that Dash autodiscovers your layouts by name of the file
+Note, that Dash auto-discovers your layouts by name of the file
 `dash_layouts.py`. The module, in which the layouts are defined, has to be
 named `dash_layouts.py`.
 
@@ -362,8 +388,8 @@ Defining and registering the Layout.
     layout_registry.register(ExampleLayout)
 
 HTML templates
------------------------------------------------
-You custom layout should be interited from base layout templates (view or
+--------------
+You custom layout should be inherited from base layout templates (view or
 edit). Both view and edit layouts share a lot of things, still edit layout is
 a bit more "heavy".
 
@@ -445,11 +471,11 @@ Plugin widget (static call)
     plugin_widget.html_class # Static one
 
 Creating a new plugin
-===============================================
+=====================
 Dash comes with several bundled plugins. Do check their source code as example.
 
 Making of a plugin or a plugin widget is quite simple, although there are some
-rules/guideles you should follow.
+rules/guidelines you should follow.
 
 Let's assume that plugin is named `sample_memo`. The plugin directory should
 then have the following structure.
@@ -457,7 +483,7 @@ then have the following structure.
 Note, that you are advised to prefix all your plugin specific media files
 with ``dash_plugin_`` for the sake of common sense.
 
-.. code-block:: none
+.. code-block:: text
 
     path/to/plugin/sample_memo/
     ├── static
@@ -481,14 +507,14 @@ write your settings in such a way, that variables of your Django projects'
 `settings.py` module would have ``DASH_PLUGIN_`` prefix.
 
 path/to/plugin/sample_memo/dash_plugins.py
------------------------------------------------
+------------------------------------------
 Step by step review of a how to create and register a plugin and plugin
-widgets. Note, that Dash autodiscovers your plugins if you place them into a
+widgets. Note, that Dash auto-discovers your plugins if you place them into a
 file named `dash_plugins.py` of any Django app listed in ``INSTALLED_APPS``
 of your Django projects' settings module.
 
 Define and register the plugin
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 As already stated, a single plugin widget is registered for a triple (layout,
 placeholder, plugin). That means, that if you need two widgets, one sized 1x1
 and another sized 2x2, you need two plugins for it. You can either manually
@@ -538,7 +564,7 @@ Repeat the steps below for each plugin size (or read about factory registering
 the plugins and widgets below).
 
 Factory register plugins
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~
 Alternatively, you can define just a single plugin base class and have it
 factory registered for the given sizes. The code below would produce and
 register classes for in sizes 1x1 and 2x2. When you need to register a plgin
@@ -580,7 +606,7 @@ In the example above, "sample_memo" is the base name of the plugin. Size
 information would be appended to it ("sample_memo_1x1", "sample_memo_2x2").
 
 Register plugin widgets
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
 Plugin widgets are defined in `dash_widgets.py` module (described later), but
 registered in the `dash_plugins.py`, which is autodiscovered by Dash.
 
@@ -608,7 +634,7 @@ Registering the Sample Memo plugin widget for placeholder `shortcuts` of layout
     plugin_widget_registry.register(SampleMemo1x1ExampleMainWidget)
 
 path/to/plugin/sample_memo/dash_widgets.py
------------------------------------------------
+------------------------------------------
 Why to have another file for defining widgets? Just to keep the code clean and
 less messy, although you could perfectly define all your plugin widgets in the
 module `dash_plugins.py`, it's recommended to keep it separate.
@@ -747,7 +773,7 @@ module.
 
 After it's done, go to terminal and type the following command.
 
-.. code-block:: none
+.. code-block:: text
 
     $ ./manage.py dash_sync_plugins
 
@@ -852,7 +878,7 @@ has been added to it (imagine, you have once granted the right to use the news
 plugin to all users, but later on decided to limit it to Staff members group
 only). Note, that superusers have access to all plugins.
 
-.. code-block:: none
+.. code-block:: text
 
             Plugin access rights management interface in Django admin
     ┌──────────────────────────────┬────────────────────┬─────────────────────┐
@@ -1038,10 +1064,10 @@ Available translations
 
 Troubleshooting
 ===============================================
-If you somehow get problems installing ``Dash``, check the `example
-<https://github.com/barseghyanartur/django-dash/tree/master/examples>`__
-project and the `requirements.txt
-<https://raw.githubusercontent.com/barseghyanartur/django-dash/master/examples/requirements.txt>`__.
+- If you somehow get problems installing ``Dash``, check the `example
+  <https://github.com/barseghyanartur/django-dash/tree/master/examples>`__
+  project and the `requirements.txt
+  <https://raw.githubusercontent.com/barseghyanartur/django-dash/master/examples/requirements.txt>`__.
 
 License
 ===============================================

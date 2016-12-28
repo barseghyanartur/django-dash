@@ -15,14 +15,48 @@ are used for versioning (schema follows below):
   0.3.2 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.5
+---
+yyyy-mm-dd (Not yet released)
+
+- Bootstrap 3 layout.
+- From now on it's possible to set a layout for the workspace. It means you
+  may have different layouts for various workspaces of the same dashboard.
+- Moving static files of Android, Bootstrap2 and Windows8 layouts
+  into a separate directory (android, bootstrap2 and windows8 respectively).
+- The `vishap` package dependency updated to the version 0.1.3 (which
+  contained an small yet important fix).
+- First discover the plugin modules, then the layouts (was the opposite).
+- Remove redundant assets (resulted to smaller package size).
+- Added the following templates to the layout definitions for simpler
+  further customisation: 'dash/add_dashboard_entry_ajax.html' and
+  'dash/edit_dashboard_entry_ajax.html'.
+- Better referencing the custom user model in foreing key relations by using
+  ``settings.AUTH_USER_MODEL`` instead ``django.contrib.auth.get_user_model``.
+- Fix wrong app label of the dummy plugin (``dash.contrib.plugins.dummy``),
+  which caused import errors on Django >= 1.7.
+- From now on it's possible to localise (translated) URLs.
+- Initial work on Django 1.8/1.9 compatibility.
+- Remove redundant dependencies. Mention, that some of the plugins do
+  have additional dependencies.
+- Performing additional checks for collision detection when inserting a new
+  plugin.
+- Improved autodiscover for Django>=1.7. Fix exception when using a dotted
+  path to an `AppConfig` in `INSTALLED_APPS` (instead of using the path to
+  the app).
+- Fixed wrongly formed app config labels.
+- Minor Python 3 improvements.
+- Clean up the documentation.
+- Make a quick start.
+
 0.4.13
--------------------------------------
+------
 2015-03-20
 
 - Minor fixes.
 
 0.4.12
--------------------------------------
+------
 2015-01-08
 
 This release contains a small, yet important fix. You are recommended to
