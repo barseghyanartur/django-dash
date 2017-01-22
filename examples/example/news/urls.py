@@ -1,10 +1,11 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+from news.views import *
 
-urlpatterns = patterns('news.views',
+urlpatterns = [
     # Listing URL
-    url(r'^$', view='browse', name='news.browse'),
+    url(r'^$', view=browse, name='news.browse'),
 
     # Detail URL
-    url(r'^(?P<slug>(?!overview\-)[\w\-\_\.\,]+)/$', view='detail', \
+    url(r'^(?P<slug>(?!overview\-)[\w\-\_\.\,]+)/$', view=detail, \
         name='news.detail'),
-)
+]

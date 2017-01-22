@@ -8,9 +8,8 @@ import feedparser
 from django.core.cache import cache
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.template import RequestContext
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 
@@ -80,4 +79,4 @@ def get_feed(request, layout_uid, placeholder_uid, plugin_uid, template_name='rs
     if request.is_ajax():
         template_name = template_name_ajax
 
-    return render_to_response(template_name, context, context_instance=RequestContext(request))
+    return render(request, template_name, context)

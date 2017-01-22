@@ -7,8 +7,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 from django.http import Http404
-from django.template import RequestContext
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
@@ -89,4 +88,4 @@ def public_dashboard(request, username, workspace=None, template_name='public_da
 
     context.update(workspaces)
 
-    return render_to_response(template_name, context, context_instance=RequestContext(request))
+    return render(request, template_name, context)

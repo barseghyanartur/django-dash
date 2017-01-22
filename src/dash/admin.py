@@ -7,9 +7,8 @@ from django.contrib.admin import helpers
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.decorators import method_decorator
-from django.conf.urls import patterns, url
-from django.shortcuts import render_to_response, redirect
-from django.template import RequestContext
+from django.conf.urls import url
+from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from django import forms
@@ -55,9 +54,7 @@ def bulk_change_dashboard_plugins(modeladmin, request, queryset):
         'opts': opts,
         'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
     }
-    return render_to_response(
-        'dash/admin/bulk_change_dashboard_plugins.html', context, context_instance=RequestContext(request)
-        )
+    return render(request, 'dash/admin/bulk_change_dashboard_plugins.html', context)
 
 # *********************************************************
 # *********************************************************
@@ -222,11 +219,11 @@ class DashboardPluginAdmin(CompatModelAdmin):
             return redirect('admin:dash_dashboardplugin_changelist')
 
     def get_urls(self):
-        my_urls = patterns('',
+        my_urls = [
             # Bulk change dashboard plugins
             url(r'^bulk-change-dashboard-plugins/$', self.bulk_change_dashboard_plugins,
                 name='bulk_change_dashboard_plugins'),
-        )
+        ]
         return my_urls + super(DashboardPluginAdmin, self).get_urls()
 
 

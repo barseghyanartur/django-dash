@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 
 from django.conf import settings
 from django.contrib import admin
@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = [
     # django-dash URLs:
     url(r'^dashboard/', include('dash.urls')),
 
@@ -25,13 +25,13 @@ urlpatterns = patterns('',
     url(r'^administration/', include(admin.site.urls)),
 
     # django-registration URLs:
-    (r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^accounts/', include('registration.backends.default.urls')),
 
     url(r'^$', TemplateView.as_view(template_name='home.html')),
 
     # django-dash public dashboards contrib app:
     url(r'^', include('dash.contrib.apps.public_dashboard.urls')),
-)
+]
 
 if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()

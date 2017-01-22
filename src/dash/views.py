@@ -12,9 +12,8 @@ __all__ = (
     )
 
 from django.http import Http404, HttpResponse
-from django.template import RequestContext
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
@@ -123,9 +122,7 @@ def dashboard(request, workspace=None):
 
     template_name = layout.get_view_template_name(request)
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 @login_required
 @edit_dashboard_permission_required()
@@ -199,9 +196,7 @@ def edit_dashboard(request, workspace=None):
 
     template_name = layout.get_edit_template_name(request)
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # ***************************************************************************
 # ***************************************************************************
@@ -340,9 +335,7 @@ def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None, \
     if request.is_ajax():
         template_name = template_name_ajax
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 @login_required
 @permission_required('dash.change_dashboardentry')
@@ -429,9 +422,7 @@ def edit_dashboard_entry(request, entry_id, \
     if request.is_ajax():
         template_name = template_name_ajax
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 @login_required
 @permission_required('dash.delete_dashboardentry')
@@ -560,11 +551,7 @@ def plugin_widgets(request, placeholder_uid, workspace=None, position=None, \
     if request.is_ajax():
         template_name = layout.plugin_widgets_template_name_ajax
 
-    return render_to_response(
-        template_name,
-        context,
-        context_instance = RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # ***************************************************************************
 # ***************************************************************************
@@ -626,9 +613,7 @@ def create_dashboard_workspace(request, \
         'dashboard_settings': dashboard_settings
     }
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 @login_required
 @permission_required('dash.change_dashboardworkspace')
@@ -691,9 +676,7 @@ def edit_dashboard_workspace(request, workspace_id, \
         'dashboard_settings': dashboard_settings
     }
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 @login_required
 @permission_required('dash.delete_dashboardworkspace')
@@ -761,9 +744,7 @@ def delete_dashboard_workspace(request, workspace_id, \
         'dashboard_settings': dashboard_settings
     }
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 @login_required
 def dashboard_workspaces(request, workspace=None, \
@@ -805,9 +786,7 @@ def dashboard_workspaces(request, workspace=None, \
 
     if request.is_ajax():
         template_name = template_name_ajax
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # ***************************************************************************
 # ***************************************************************************
@@ -860,9 +839,7 @@ def edit_dashboard_settings(request, \
         'dashboard_settings': dashboard_settings
     }
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 @login_required
 @permissions_required(satisfy=SATISFY_ALL, \

@@ -57,7 +57,7 @@ for static_dir in static_dirs:
 for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f) for f in os.listdir(locale_dir)]
 
-version = '0.4.13'
+version = '0.5.1'
 
 install_requires = [
     'Pillow>=2.1.0',
@@ -68,14 +68,15 @@ install_requires = [
     'ordereddict>=1.1',
     'pif>=0.5,<1.0',
     'six>=1.4.1',
-    'easy-thumbnails>=1.4,<2.0',
+    'easy-thumbnails>=2.3',
     'transliterate>=1.5,<2.0',
     'vishap>=0.1.2,<2.0',
     'unidecode',
 ]
 
 dependency_links = [
-    "git+ssh://git@github.com/GMcD/django-slim.git#egg=django-slim"
+    "git+ssh://git@github.com/GMcD/django-slim.git#egg=django-slim",
+    "git+ssh://git@github.com/GMcD/django-localeurl.git#egg=django-localeurl"
 ]
 
 tests_require = [
