@@ -12,9 +12,14 @@ from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.contrib import messages
 
+from django import forms
 from dash.models import DashboardWorkspace, DashboardEntry, DashboardPlugin, DashboardSettings
 from dash.forms import BulkChangeDashboardPluginsForm
 from dash.constants import ACTION_CHOICE_REPLACE
+
+from dash.base import (
+    get_registered_plugins, get_registered_layouts
+    )
 
 staff_member_required_m = method_decorator(staff_member_required)
 
@@ -69,6 +74,7 @@ class CompatModelAdmin(admin.ModelAdmin):
         if getattr(superobj, 'queryset', None):
             return superobj.queryset(request)
 
+# *********************************************************
 
 class DashboardWorkspaceAdmin(admin.ModelAdmin):
     """
@@ -99,15 +105,25 @@ admin.site.register(DashboardWorkspace, DashboardWorkspaceAdmin)
 
 # *********************************************************
 
+class DashboardEntryAdminForm(forms.ModelForm):
+    class Meta:
+        model = DashboardEntry
+        exclude = ()
+
+    layout_uid = forms.ChoiceField(choices=get_registered_layouts())
+    plugin_uid = forms.ChoiceField(choices=get_registered_plugins())
+
+
 class DashboardEntryAdmin(CompatModelAdmin):
     """
     Dashboard entry admin.
     """
+    form = DashboardEntryAdminForm
     list_display = ('plugin_uid', 'plugin_uid_code', 'plugin_data', 'layout_uid', 'placeholder_uid', 'position',
                     'workspace', 'user')
     list_filter = ('user', 'workspace', 'layout_uid', 'placeholder_uid', 'plugin_uid')
     list_editable = ('position',)
-    readonly_fields = ('plugin_uid_code',)
+    readonly_fields = ('plugin_uid_code',)    
     fieldsets = (
         (None, {
             'fields': ('plugin_uid', 'plugin_data', 'layout_uid', 'placeholder_uid', 'position', 'workspace')
@@ -125,15 +141,23 @@ class DashboardEntryAdmin(CompatModelAdmin):
         queryset = queryset.select_related('workspace', 'user')
         return queryset
 
-
 admin.site.register(DashboardEntry, DashboardEntryAdmin)
 
 # *********************************************************
+
+class DashboardPluginAdminForm(forms.ModelForm):
+    class Meta:
+        model = DashboardPlugin
+        exclude = ()
+
+    plugin_uid = forms.ChoiceField(choices=get_registered_plugins())
+
 
 class DashboardPluginAdmin(CompatModelAdmin):
     """
     Dashboard plugin admin.
     """
+    form = DashboardPluginAdminForm
     list_display = ('plugin_uid_admin', 'users_list', 'groups_list')
     readonly_fields = ('plugin_uid', 'plugin_uid_admin')
     fieldsets = (
@@ -204,15 +228,23 @@ class DashboardPluginAdmin(CompatModelAdmin):
         )
         return my_urls + super(DashboardPluginAdmin, self).get_urls()
 
-
 admin.site.register(DashboardPlugin, DashboardPluginAdmin)
 
 # *********************************************************
+
+class DashboardSettingsAdminForm(forms.ModelForm):
+    class Meta:
+        model = DashboardSettings
+        exclude = ()
+
+    layout_uid = forms.ChoiceField(choices=get_registered_layouts())
+
 
 class DashboardSettingsAdmin(CompatModelAdmin):
     """
     Dashboard plugin admin.
     """
+    form = DashboardSettingsAdminForm
     list_display = ('title', 'user', 'layout_uid', 'is_public')
     #readonly_fields = ('plugin_uid',)
     fieldsets = (
