@@ -40,7 +40,7 @@ tmp/
 /build/
 /dist/
 /src/django_dash.egg-info
-examples/example/local_settings.py
+examples/example/settings/local_settings.py
 /demos/heroku_demo/
 /demos/heroku_demo/db.sqlite3
 /demos/heroku_demo/staticfiles/

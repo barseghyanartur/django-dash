@@ -1,4 +1,4 @@
-from settings import *
+from base import *
 
 # Using custom user model
 AUTH_USER_MODEL = 'customauth.MyUser'

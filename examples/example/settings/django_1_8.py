@@ -1,4 +1,4 @@
-from settings import *
+from .base import *
 
 INSTALLED_APPS = list(INSTALLED_APPS)
 
@@ -7,5 +7,4 @@ try:
 except Exception:
     pass
 
-#INSTALLED_APPS.remove('news')
-
+# INSTALLED_APPS.remove('news')
