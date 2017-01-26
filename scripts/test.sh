@@ -1,6 +1,1 @@
-reset
-./scripts/uninstall.sh
-./scripts/install.sh
-python examples/example/manage.py test dash --traceback -v 3
-#python examples/example/manage.py test dummy --traceback -v 3
-#python examples/example/manage.py test memo --traceback -v 3
+./scripts/test_django_1_8.sh
