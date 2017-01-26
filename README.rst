@@ -18,7 +18,7 @@ system for Django applications with minimal efforts.
 Important
 =========
 Current master is a (temporary) development branch. Latest stable version is
-[0.4.13](https://github.com/barseghyanartur/django-dash/tree/0.4.13).
+`0.4.13 <https://github.com/barseghyanartur/django-dash/tree/0.4.13>`_.
 
 Prerequisites
 =============
