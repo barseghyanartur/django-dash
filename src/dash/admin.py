@@ -21,8 +21,13 @@ from nine.versions import DJANGO_LTE_1_5
 from dash.models import (
     DashboardWorkspace, DashboardEntry, DashboardPlugin, DashboardSettings
     )
+from django import forms
 from dash.forms import BulkChangeDashboardPluginsForm
 from dash.constants import ACTION_CHOICE_REPLACE
+
+from dash.base import (
+    get_registered_plugins, get_registered_layouts
+    )
 
 staff_member_required_m = method_decorator(staff_member_required)
 
@@ -64,6 +69,21 @@ def bulk_change_dashboard_plugins(modeladmin, request, queryset):
 # *********************************************************
 # *********************************************************
 
+class CompatModelAdmin(admin.ModelAdmin):
+    def __init__(self, *args, **kwargs):
+        self.queryset = self.get_queryset
+        super(CompatModelAdmin, self).__init__(*args, **kwargs)
+
+    def get_queryset(self, request):
+        superobj = super(CompatModelAdmin, self)
+        if getattr(superobj, 'get_queryset', None):
+            return superobj.get_queryset(request)
+
+        if getattr(superobj, 'queryset', None):
+            return superobj.queryset(request)
+
+# *********************************************************
+
 class DashboardWorkspaceAdmin(admin.ModelAdmin):
     """
     Dashboard workspace admin.
@@ -93,15 +113,25 @@ admin.site.register(DashboardWorkspace, DashboardWorkspaceAdmin)
 
 # *********************************************************
 
-class DashboardEntryAdmin(admin.ModelAdmin):
+class DashboardEntryAdminForm(forms.ModelForm):
+    class Meta:
+        model = DashboardEntry
+        exclude = ()
+
+    layout_uid = forms.ChoiceField(choices=get_registered_layouts())
+    plugin_uid = forms.ChoiceField(choices=get_registered_plugins())
+
+
+class DashboardEntryAdmin(CompatModelAdmin):
     """
     Dashboard entry admin.
     """
+    form = DashboardEntryAdminForm
     list_display = ('plugin_uid', 'plugin_uid_code', 'plugin_data', 'layout_uid', 'placeholder_uid', 'position',
                     'workspace', 'user')
     list_filter = ('user', 'workspace', 'layout_uid', 'placeholder_uid', 'plugin_uid')
     list_editable = ('position',)
-    readonly_fields = ('plugin_uid_code',)
+    readonly_fields = ('plugin_uid_code',)    
     fieldsets = (
         (None, {
             'fields': ('plugin_uid', 'plugin_data', 'layout_uid', 'placeholder_uid', 'position', 'workspace')
@@ -119,22 +149,30 @@ class DashboardEntryAdmin(admin.ModelAdmin):
             queryset = super(DashboardEntryAdmin, self).queryset(request)
         else:
             queryset = super(DashboardEntryAdmin, self).get_queryset(request)
-
         queryset = queryset.select_related('workspace', 'user')
         return queryset
+
     get_queryset = __queryset
     if DJANGO_LTE_1_5:
         queryset = __queryset
-
 
 admin.site.register(DashboardEntry, DashboardEntryAdmin)
 
 # *********************************************************
 
-class DashboardPluginAdmin(admin.ModelAdmin):
+class DashboardPluginAdminForm(forms.ModelForm):
+    class Meta:
+        model = DashboardPlugin
+        exclude = ()
+
+    plugin_uid = forms.ChoiceField(choices=get_registered_plugins())
+
+
+class DashboardPluginAdmin(CompatModelAdmin):
     """
     Dashboard plugin admin.
     """
+    form = DashboardPluginAdminForm
     list_display = ('plugin_uid_admin', 'users_list', 'groups_list')
     readonly_fields = ('plugin_uid', 'plugin_uid_admin')
     fieldsets = (
@@ -156,6 +194,7 @@ class DashboardPluginAdmin(admin.ModelAdmin):
 
         queryset = queryset.prefetch_related('users', 'groups')
         return queryset
+
     get_queryset = __queryset
     if DJANGO_LTE_1_5:
         queryset = __queryset
@@ -212,15 +251,23 @@ class DashboardPluginAdmin(admin.ModelAdmin):
         )
         return my_urls + super(DashboardPluginAdmin, self).get_urls()
 
-
 admin.site.register(DashboardPlugin, DashboardPluginAdmin)
 
 # *********************************************************
 
-class DashboardSettingsAdmin(admin.ModelAdmin):
+class DashboardSettingsAdminForm(forms.ModelForm):
+    class Meta:
+        model = DashboardSettings
+        exclude = ()
+
+    layout_uid = forms.ChoiceField(choices=get_registered_layouts())
+
+
+class DashboardSettingsAdmin(CompatModelAdmin):
     """
     Dashboard plugin admin.
     """
+    form = DashboardSettingsAdminForm
     list_display = ('title', 'user', 'layout_uid', 'is_public')
     #readonly_fields = ('plugin_uid',)
     fieldsets = (
@@ -240,6 +287,7 @@ class DashboardSettingsAdmin(admin.ModelAdmin):
 
         queryset = queryset.select_related('user')
         return queryset
+
     get_queryset = __queryset
     if DJANGO_LTE_1_5:
         queryset = __queryset

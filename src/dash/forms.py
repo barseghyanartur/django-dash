@@ -7,20 +7,34 @@ __all__ = ('DashboardWorkspaceForm',)
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+from dash.base import get_registered_layouts
 from dash.models import DashboardWorkspace, DashboardSettings, DashboardPlugin
 from dash.constants import ACTION_CHOICES
+
+from dash.base import get_registered_layouts
+
 
 class DashboardWorkspaceForm(forms.ModelForm):
     """
     Dashboard workspace form.
     """
+    layout_uid = forms.TypedChoiceField(
+        label=_('Layout'),
+        choices=get_registered_layouts(),
+        empty_value=None,
+    )
+
     class Meta:
         model = DashboardWorkspace
-        fields = ('user', 'name', 'is_public', 'is_clonable')
+        fields = ('layout_uid', 'user', 'name', 'is_public', 'is_clonable')
 
     def __init__(self, *args, **kwargs):
+        different_layouts = kwargs.pop('different_layouts', False)
         super(DashboardWorkspaceForm, self).__init__(*args, **kwargs)
         self.fields['user'].widget = forms.widgets.HiddenInput()
+
+        if not different_layouts:
+            self.fields['layout_uid'].widget = forms.widgets.HiddenInput()
 
 
 class DashboardSettingsForm(forms.ModelForm):
@@ -29,7 +43,9 @@ class DashboardSettingsForm(forms.ModelForm):
     """
     class Meta:
         model = DashboardSettings
-        fields = ('user', 'layout_uid', 'title', 'is_public',)
+        fields = ('user', 'layout_uid', 'title', 'is_public')
+    
+    layout_uid = forms.ChoiceField(choices=get_registered_layouts())
 
     def __init__(self, *args, **kwargs):
         super(DashboardSettingsForm, self).__init__(*args, **kwargs)
