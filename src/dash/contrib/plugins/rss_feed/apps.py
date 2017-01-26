@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'dash.contrib.plugins.rss_feed'
+        name = 'dash.contrib.plugins.rss_feed'
+        label = 'dash_contrib_plugins_rss_feed'
 
 except ImportError:
     pass

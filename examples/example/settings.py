@@ -6,6 +6,7 @@ gettext = lambda s: s
 DEBUG = False
 DEBUG_TOOLBAR = False
 TEMPLATE_DEBUG = DEBUG
+DEV = False
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -37,7 +38,7 @@ TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-#LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
     ('en', gettext("English")), # Main language!
@@ -106,7 +107,6 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'localeurl.middleware.LocaleURLMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -162,15 +162,19 @@ INSTALLED_APPS = (
     'tinymce', # TinyMCE
     'registration', # Auth views and registration app
     'easy_thumbnails', # Thumbnailer
-    'localeurl', # Locale URL
+    'widget_tweaks', # For tweaking the forms
     'slim', # Multi-lingual models app
 
     # Dash core, contrib layouts and apps
     'dash', # Dash core
+
+    # Dash contrib layouts
     'dash.contrib.layouts.android', # Android layout for Dash
     'dash.contrib.layouts.bootstrap2', # Bootstrap 2 layouts for Dash
-    #'dash.contrib.layouts.bootstrap3', # Bootstrap 3 layouts for Dash
+    'dash.contrib.layouts.bootstrap3', # Bootstrap 3 layouts for Dash
     'dash.contrib.layouts.windows8', # Windows 8 layout for Dash
+
+    # Dash contrib plugins
     'dash.contrib.plugins.dummy', # Dummy (testing) plugin for Dash
     'dash.contrib.plugins.memo', # Memo plugin for Dash
     'dash.contrib.plugins.image', # Image plugin for Dash
@@ -192,20 +196,10 @@ INSTALLED_APPS = (
 # Using custom user model
 #AUTH_USER_MODEL = 'customauth.MyUser'
 
-LOGIN_REDIRECT_URL = '/dashboard/'
-LOGIN_URL = '/accounts/login/'
-LOGIN_ERROR_URL = '/accounts/login/'
-LOGOUT_URL = '/accounts/logout/'
-
-# localeurl locale independent paths (language code won't be appended)
-LOCALE_INDEPENDENT_PATHS = (
-    r'^/sitemap.*\.xml$', # Global regex for all XML sitemaps
-    #r'^/administration/',
-    #r'^/dashboard/',
-)
-
-# Tell localeurl to use sessions for language store.
-LOCALEURL_USE_SESSION = True
+LOGIN_REDIRECT_URL = '/en/dashboard/'
+LOGIN_URL = '/en/accounts/login/'
+LOGIN_ERROR_URL = '/en/accounts/login/'
+LOGOUT_URL = '/en/accounts/logout/'
 
 # Tell slim to use localised language names
 SLIM_USE_LOCAL_LANGUAGE_NAMES = True
@@ -273,16 +267,39 @@ LOGGING = {
         },
         'dash': {
             'handlers': ['console', 'dash_log'],
-            'level': 'DEBUG',
+            'level': 'ERROR',
             'propagate': True,
         },
     },
 }
 
+# Make settings quite compatible among various Django versions used.
+from nine.versions import DJANGO_GTE_1_7, DJANGO_GTE_1_8
+if DJANGO_GTE_1_7 or DJANGO_GTE_1_8:
+    INSTALLED_APPS = list(INSTALLED_APPS)
+
+    # Django 1.7 specific checks
+    if DJANGO_GTE_1_7 or DJANGO_GTE_1_8:
+        try:
+            INSTALLED_APPS.remove('south') \
+                if 'south' in INSTALLED_APPS else None
+            INSTALLED_APPS.remove('tinymce') \
+                if 'tinymce' in INSTALLED_APPS else None
+        except Exception as e:
+            pass
+
+    # Django 1.8 specific checks
+    if DJANGO_GTE_1_8:
+        pass
+
+# For Selenium tests
+FIREFOX_BIN_PATH = ''
+PHANTOM_JS_EXECUTABLE_PATH = None
+
 # Do not put any settings below this line
 try:
     from local_settings import *
-except:
+except Exception:
     pass
 
 if DEBUG and DEBUG_TOOLBAR:
@@ -303,5 +320,11 @@ if DEBUG and DEBUG_TOOLBAR:
             'INTERCEPT_REDIRECTS': False,
         }
 
-    except ImportError:
+    except ImportError as err:
         pass
+
+# Make the `django-dash` package available without installation.
+if DEV:
+    import sys
+    dash_source_path = os.environ.get('DASH_SOURCE_PATH', 'src')
+    sys.path.insert(0, dash_source_path)

@@ -19,9 +19,15 @@ import copy
 import uuid
 
 from django.forms import ModelForm
-from django.forms.util import ErrorList
 from django.http import Http404
 from django.template.loader import render_to_string
+
+from nine.versions import DJANGO_GTE_1_8
+
+if DJANGO_GTE_1_8:
+    from django.forms.utils import ErrorList
+else:
+    from django.forms.util import ErrorList
 
 from dash.json_package import json
 from dash.discover import autodiscover
@@ -124,6 +130,14 @@ class BaseDashboardLayout(object):
     edit_template_name_ajax = None
     plugin_widgets_template_name_ajax = 'dash/plugin_widgets_ajax.html'
     form_snippet_template_name = 'dash/snippets/generic_form_snippet.html'
+    add_dashboard_entry_template_name = None #'dash/add_dashboard_entry_ajax.html'
+    add_dashboard_entry_ajax_template_name = None #'dash/add_dashboard_entry_ajax.html'
+    edit_dashboard_entry_template_name = None #'dash/edit_dashboard_entry_ajax.html'
+    edit_dashboard_entry_ajax_template_name = None #'dash/edit_dashboard_entry_ajax.html'
+    create_dashboard_workspace_template_name = None #'dash/create_dashboard_workspace.html'
+    create_dashboard_workspace_ajax_template_name = None #'dash/create_dashboard_workspace_ajax.html'
+    edit_dashboard_workspace_template_name = None #'dash/edit_dashboard_workspace.html'
+    edit_dashboard_workspace_ajax_template_name = None #'dash/edit_dashboard_workspace_ajax.html'
     html_classes = []
     cell_units = None # Most likely, it makes sense to define this on a
                       # layout level. Think of it.
@@ -790,9 +804,9 @@ class BaseDashboardPlugin(object):
             assert self.name
         except Exception as e:
             raise NotImplementedError(
-                "You should define `uid` and `name` properties in your `{0}.{1}` class.".format(
-                    self.__class__.__module__, self.__class__.__name__
-                    )
+                "You should define `uid` and `name` properties in your "
+                "`{0}.{1}` class.".format(self.__class__.__module__,
+                                          self.__class__.__name__)
                 )
 
         layout_cls = layout_registry.get(layout_uid, None)
@@ -853,7 +867,9 @@ class BaseDashboardPlugin(object):
         try:
             widget = self.get_widget()
 
-            html_class = ['plugin-{0} {1} {2}'.format(self.uid, widget.html_class, ' '.join(self.html_classes))]
+            html_class = ['plugin-{0} {1} {2}'.format(self.uid,
+                                                      widget.html_class,
+                                                      ' '.join(self.html_classes))]
 
             html_class.append('width-{0}'.format(widget.cols))
             html_class.append('height-{0}'.format(widget.rows))
@@ -917,7 +933,9 @@ class BaseDashboardPlugin(object):
         """
         for field, default_value in fields:
             try:
-                setattr(self.data, field, self.plugin_data.get(field, default_value))
+                setattr(
+                    self.data, field, self.plugin_data.get(field, default_value)
+                    )
             except Exception as e:
                 setattr(self.data, field, default_value)
 
@@ -942,7 +960,9 @@ class BaseDashboardPlugin(object):
         form_data = {}
         for field, default_value in fields:
             try:
-                form_data.update({field: self.plugin_data.get(field, default_value)})
+                form_data.update(
+                    {field: self.plugin_data.get(field, default_value)}
+                    )
             except Exception as e:
                 if DEBUG:
                     logger.debug(e)
@@ -1093,8 +1113,8 @@ class BaseDashboardPlugin(object):
             return render or ''
         elif DEBUG:
             logger.debug(
-                "No widget defined for {0}.{1}.{2}".format(self.layout.uid, \
-                                                           self.placeholder.uid, \
+                "No widget defined for {0}.{1}.{2}".format(self.layout.uid,
+                                                           self.placeholder.uid,
                                                            self.uid)
                 )
 
@@ -1388,10 +1408,12 @@ class BaseRegistry(object):
         """
         if not issubclass(cls, self.type):
             raise InvalidRegistryItemType(
-                "Invalid item type `{0}` for registry `{1}`".format(cls, self.__class__)
+                "Invalid item type `{0}` for "
+                "registry `{1}`".format(cls, self.__class__)
                 )
 
-        # If item has not been forced yet, add/replace its' value in the registry
+        # If item has not been forced yet, add/replace its' value in the
+        # registry
         if force:
 
             if not cls.uid in self._forced:
@@ -1412,7 +1434,8 @@ class BaseRegistry(object):
     def unregister(self, cls):
         if not issubclass(cls, self.type):
             raise InvalidRegistryItemType(
-                "Invalid item type `{0}` for registry `{1}`".format(cls, self.__class__)
+                "Invalid item type `{0}` for "
+                "registry `{1}`".format(cls, self.__class__)
                 )
 
         # Only non-forced items are allowed to be unregistered.
@@ -1432,7 +1455,8 @@ class BaseRegistry(object):
         item = self._registry.get(uid, default)
         if not item:
             logger.debug(
-                "Can't find plugin with uid `{0}` in `{1}` registry".format(uid, self.__class__)
+                "Can't find plugin with uid `{0}` in `{1}` "
+                "registry".format(uid, self.__class__)
                 )
         return item
 
@@ -1475,7 +1499,8 @@ class PluginWidgetRegistry(object):
         """
         if not issubclass(cls, self.type):
             raise InvalidRegistryItemType(
-                "Invalid item type `{0}` for registry `{1}`".format(cls, self.__class__)
+                "Invalid item type `{0}` for "
+                "registry `{1}`".format(cls, self.__class__)
                 )
 
         uid = PluginWidgetRegistry.namify(
@@ -1506,7 +1531,8 @@ class PluginWidgetRegistry(object):
     def unregister(self, cls):
         if not issubclass(cls, self.type):
             raise InvalidRegistryItemType(
-                "Invalid item type `{0}` for registry `{1}`".format(cls, self.__class__)
+                "Invalid item type `{0}` for "
+                "registry `{1}`".format(cls, self.__class__)
                 )
 
         uid = PluginWidgetRegistry.namify(
@@ -1532,7 +1558,8 @@ class PluginWidgetRegistry(object):
         item = self._registry.get(uid, default)
         if not item:
             logger.debug(
-                "Can't find plugin with uid `{0}` in `{1}` registry".format(uid, self.__class__)
+                "Can't find plugin with uid `{0}` in `{1}` "
+                "registry".format(uid, self.__class__)
                 )
         return item
 
@@ -1550,7 +1577,8 @@ def ensure_autodiscover():
     """
     Ensures that plugins are autodiscovered.
     """
-    if not (plugin_registry._registry and layout_registry._registry and plugin_widget_registry._registry):
+    if not (plugin_registry._registry and layout_registry._registry and \
+            plugin_widget_registry._registry):
         autodiscover()
 
 def get_registered_plugins():
@@ -1674,6 +1702,7 @@ def collect_widget_media(dashboard_entries):
             media_css += widget_cls.media_css
         else:
             logger.debug(
-                "widget_cls empty for dashboard entry {0}".format(dashboard_entry.__dict__)
+                "widget_cls empty for dashboard "
+                "entry {0}".format(dashboard_entry.__dict__)
                 )
     return {'js': media_js, 'css': media_css}

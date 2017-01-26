@@ -67,7 +67,7 @@ FAQ
     - `Sample Polychart2 plugin
       <https://github.com/barseghyanartur/django-dash/tree/master/examples/example/bar>`_.
 
-Documentation
+Some screenshots
 ===============================================
 See the documentation for some screen shots:
 
@@ -84,6 +84,10 @@ Credentials:
 
 - username: test_user
 - password: test_user
+
+See the public dashboard of a `test_demo_user
+<https://django-dash.herokuapp.com/en/test_demo_user/>`_ to get an idea of what
+it could become.
 
 Run demo locally
 -----------------------------------------------
@@ -1034,10 +1038,10 @@ Available translations
 
 Troubleshooting
 ===============================================
-If you somehow get problems installing ``Dash``, check the `example
-<https://github.com/barseghyanartur/django-dash/tree/master/examples>`__
-project and the `requirements.txt
-<https://raw.githubusercontent.com/barseghyanartur/django-dash/master/examples/requirements.txt>`__.
+- If you somehow get problems installing ``Dash``, check the `example
+  <https://github.com/barseghyanartur/django-dash/tree/master/examples>`__
+  project and the `requirements.txt
+  <https://raw.githubusercontent.com/barseghyanartur/django-dash/master/examples/requirements.txt>`__.
 
 License
 ===============================================

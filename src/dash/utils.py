@@ -345,7 +345,7 @@ def get_occupied_cells(layout, placeholder, plugin_uid, position, \
     """
     Get cells occupied by the given dashboard entry.
 
-    :param dash.base.BaseDashboardLayout dashboard_entry: Instance of 
+    :param dash.base.BaseDashboardLayout layout: Instance of
         subclassed ``dash.base.BaseDashboardLayout`` object.
     :param dash.base.BaseDashboardPlaceholder placeholder: Instance of 
         subclassed ``dash.base.BaseDashboardPlaceholder`` object.
@@ -427,7 +427,10 @@ def build_cells_matrix(user, layout, placeholder, workspace=None):
     Builds the cells matrix.
 
     :param django.contrib.auth.models.User user:
-    :param string placeholder_uid:
+    :param dash.base.BaseDashboardLayout layout: Instance of
+        subclassed ``dash.base.BaseDashboardLayout`` object.
+    :param dash.base.BaseDashboardPlaceholder placeholder: Instance of
+        subclassed ``dash.base.BaseDashboardPlaceholder`` object.
     :param string workspace: Workspace slug.
     :return list: List of cells occupied.
     """

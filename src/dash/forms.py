@@ -21,7 +21,6 @@ class DashboardWorkspaceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(DashboardWorkspaceForm, self).__init__(*args, **kwargs)
         self.fields['user'].widget = forms.widgets.HiddenInput()
-        #self.fields['layout_uid'].widget = forms.widgets.HiddenInput()
 
 
 class DashboardSettingsForm(forms.ModelForm):
@@ -30,6 +29,7 @@ class DashboardSettingsForm(forms.ModelForm):
     """
     class Meta:
         model = DashboardSettings
+        fields = ('user', 'layout_uid', 'title', 'is_public',)
 
     def __init__(self, *args, **kwargs):
         super(DashboardSettingsForm, self).__init__(*args, **kwargs)
@@ -62,7 +62,7 @@ class BulkChangeDashboardPluginsForm(forms.ModelForm):
 
     class Meta:
         model = DashboardPlugin
-        fields = ['groups', 'groups_action', 'users', 'users_action',]
+        fields = ('groups', 'groups_action', 'users', 'users_action',)
 
     class Media:
         css = {

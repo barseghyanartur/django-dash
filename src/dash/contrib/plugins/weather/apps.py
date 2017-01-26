@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'dash.contrib.plugins.weather'
+        name = 'dash.contrib.plugins.weather'
+        label = 'dash_contrib_plugins_weather'
 
 except ImportError:
     pass

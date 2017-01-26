@@ -14,6 +14,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import Group
+from django.conf import settings
 
 from autoslug import AutoSlugField
 
@@ -22,7 +23,9 @@ from dash.base import (
     )
 from dash.helpers import slugify_workspace
 from dash.fields import OrderField
-from dash.compat import User
+#from dash.compat import User
+
+AUTH_USER_MODEL = settings.AUTH_USER_MODEL
 
 class DashboardSettings(models.Model):
     """
@@ -35,7 +38,8 @@ class DashboardSettings(models.Model):
         - `is_public` (bool): If set to True, available as public (read-only
           mode).
     """
-    user = models.ForeignKey(User, verbose_name=_("User"), unique=True)
+    user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_("User"), \
+                             unique=True)
     layout_uid = models.CharField(_("Layout"), max_length=25, \
                                   choices=get_registered_layouts())
     title = models.CharField(_("Title"), max_length=255)
@@ -75,7 +79,7 @@ class DashboardWorkspace(models.Model):
           shared with. If workspace is shared with specific user, then the
           user it's shared with can also clone the workspace.
     """
-    user = models.ForeignKey(User, verbose_name=_("User"))
+    user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_("User"))
     layout_uid = models.CharField(_("Layout"), max_length=25, \
                                   choices=get_registered_layouts())
     name = models.CharField(_("Name"), max_length=255)
@@ -157,7 +161,7 @@ class DashboardEntry(models.Model):
         - `plugin_data` (str): JSON formatted string with plugin data.
         - `position` (int): Entry position.
     """
-    user = models.ForeignKey(User, verbose_name=_("User"))
+    user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_("User"))
     workspace = models.ForeignKey(DashboardWorkspace, null=True, blank=True, \
                                   verbose_name=_("Workspace"), )
     layout_uid = models.CharField(_("Layout"), max_length=25, \
@@ -244,8 +248,8 @@ class DashboardPlugin(models.Model):
     plugin_uid = models.CharField(_("Plugin UID"), max_length=255, \
                                   choices=get_registered_plugins(), \
                                   unique=True, editable=False)
-    users = models.ManyToManyField(User, verbose_name=_("User"), null=True, \
-                                   blank=True)
+    users = models.ManyToManyField(AUTH_USER_MODEL, verbose_name=_("User"), \
+                                   null=True, blank=True)
     groups = models.ManyToManyField(Group, verbose_name=_("Group"), null=True, \
                                     blank=True)
 

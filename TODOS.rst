@@ -1,22 +1,36 @@
-===============================================
+=====
 TODOs
-===============================================
+=====
 Based on the MoSCoW principle. Must haves and should haves are planned to be
 worked on.
 
 * Features/issues marked with plus (+) are implemented/solved.
 * Features/issues marked with minus (-) are yet to be implemented.
 
+Upcoming releases
+=================
+0.6
+---
+- Fix bug with lightbox, when last opened URL is remembered by lightbox and
+all attempts after that end up calling the same URL.
+- Fix layout issues with popups.
+
+0.5
+---
+- Django 1.8, 1.9 and 1.10 support.
+- Remove choices from models to forms to avoid unnecessary migrations.
+
 Must haves
-===============================================
+==========
+
 Core and contrib
------------------------------------------------
+----------------
 + Layouts:
     + Android layout.
     + Windows 8 layout.
     + Twitter bootstrap 2.
-    - Twitter bootstrap 3 (planned in 0.4.13).
-    - Foundation 5 (planned in 0.4.13).
+    - Twitter bootstrap 3 (planned in 0.6).
+    - Foundation 5 (planned in 0.6).
 + Documentation.
 + Group widgets.
 + Plugins:
@@ -28,15 +42,15 @@ Core and contrib
     + Video plugin.
 + Unify the CSS usage, so that colours for font-awesome icons do get the same
   colour from layout.
-+ Apply CSS unifications to News plugin.
++ Apply CSS unification to News plugin.
 + Public dashboard (visible to everyone).
 + CRUD operations for models ``DashboardSettings``, ``DashboardWorkspace``, 
   ``DashboardEntry`` based on Django permissions.
 + Template tags for permissions (edit dashboard, add workspace, etc) and
   templates properly adjusted.
 + Add extensive logging.
-+ Make sure no strange things happen logged in with no administartive
-  privelleges.
++ Make sure no strange things happen logged in with no administrative
+  privileges.
 + Fix Internet Explorer bug (layout not centered).
 + When running on Python 3, b'string' like values appear in the front end. Get
   rid of that!
@@ -58,7 +72,7 @@ Core and contrib
   with a letter). Fix this.
 + In documentation, link to specific plugin directory on github or code in
   documentation.
-+ Update documentatio in what's related the plugin access rights management.
++ Update documentation in what's related the plugin access rights management.
 + Find out why huge news and rss feed plugin JavaScripts appear on pages where 
   they are not used. Somehow, on the first page load, all plugins are loaded
   correctly, but when user goes to some other page where other plugins are
@@ -73,12 +87,12 @@ Core and contrib
   database records), while it should!
 + Ensure, that all files saved have unique filenames!
 + Placeholder cell margins.
-+ Add public dashboard hoocks.
++ Add public dashboard hooks.
 + Make the rest of the menus and dialogues to be shown in the same style as 
   Bootstrap 2 layout (when Bootstrap 2 layout is loaded).
 + Limit the number of icons for URL plugin when in Bootstrap layout.
 + Make sure all selenium tests still work after HTML changes.
-+ Fix issue with "edit" icon not shown on the widge in edit mode (only "delete"
++ Fix issue with "edit" icon not shown on the widget in edit mode (only "delete"
   is shown).
 + Fixed issue when the left gray menu (workspaces) is empty in cases when only 
   default workspace is available.
@@ -90,8 +104,8 @@ Core and contrib
 + Fix bug with public dashboard app not showing entries for `example` layouts. 
   This is actually caused by probably not well tested placeholder usage by name
   in templates.
-+ Allow users to make their workspaces clonable. Then, some other user could 
-  clone someone elses workspace to his own.
++ Allow users to make their workspaces cloneable. Then, some other user could
+  clone someone else's workspace to his own.
 + Make plugins cloneable.
 + Refactor plugin widgets. The very base one (size related) should be in plugin 
   specific directory. All layout related things shall be in layout itself. Make
@@ -112,11 +126,15 @@ Core and contrib
 + When using unicode characters found in workspace slug, ``django-slug`` raises
   an exception.
 + Copy-paste and cut-paste functionality for widgets (between workspaces).
-- Fix the copy-paste functionality to work for non-admins as well.
-- Leave the bundled plugins but also release each of them separately (bitbucket,
-  github, PyPI) in order to simplify improvements and make it easier to
++ Django 1.8 support.
++ Fix referencing the User model properly.
++ Fix the copy-paste functionality to work for non-admins as well.
+- Clean up the documentation.
+- Make a quick start.
+- Leave the bundled plugins but also release each of them separately (BitBucket,
+  GitHub, PyPI) in order to simplify improvements and make it easier to
   modify them as needed.
-- Update the screenshots to reflect the latest changes (copy/paste).
+- Update the screen-shots to reflect the latest changes (copy/paste).
 - Fix Google Chrome bug, when dash widget controls (edit/delete) being hidden
   under Youtube video.
 - Strange problems with hover in IE (all versions).
@@ -140,9 +158,9 @@ Core and contrib
 - Add "rem" (and other CSS units) to the list of available cell units.
 
 Should haves
-===============================================
+============
 Core and contrib
------------------------------------------------
+----------------
 + Image plugin (with options to: crop, fit width or fit height).
 + Think of a convention on naming the plugins and widgets.
 + Make installation instructions for all plugins, especially advanced ones (that
@@ -164,17 +182,17 @@ Core and contrib
 - Add navigation (at right and left) to navigate through the workspaces (like
   in Android).
 - Allow users to share their workspaces with other users. They would need to
-  know someone elses' username.
+  know someone else's username.
 - In bulk change dashboard plugins, make use of fancy widget for the users too.
 
 Could haves
-===============================================
+===========
 Core and contrib
------------------------------------------------
+----------------
 - Base auto-updated plugins and widgets (using AJAX pull or socket.io).
 - Contact form plugin.
 - Dragging of widgets (within the Placeholder).
-- Reset dashboards triggers/hoocks.
+- Reset dashboards triggers/hooks.
 - Pre-defined template system for workspaces (with plugins in).
 - Blog application, based on public dashboard concept.
 - When blog engine is ready, add notes about using a public site with blogs.
@@ -185,14 +203,14 @@ Core and contrib
 - Registry decorators.
 
 Example app
------------------------------------------------
+-----------
 + Basic example app with a layout and couple of plugins defined.
 - Implemented triggers for resetting the dashboard.
 
 Would haves
-===============================================
+===========
 Core and contrib
------------------------------------------------
+----------------
 - Share dashboard feature, when user chooses some other users to share his 
   dashboard with. It should most likely happen by adding user by email or
   username.
@@ -201,4 +219,4 @@ Core and contrib
 - Twitter feed plugin.
 
 Example app
------------------------------------------------
+-----------

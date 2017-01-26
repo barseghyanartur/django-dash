@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'dash.contrib.layouts.windows8'
+        name = 'dash.contrib.layouts.windows8'
+        label = 'dash_contrib_layouts_windows8'
 
 except ImportError:
     pass

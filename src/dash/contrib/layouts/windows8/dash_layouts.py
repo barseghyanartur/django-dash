@@ -39,8 +39,8 @@ class Windows8Layout(BaseDashboardLayout):
     placeholders = [Windows8MainPlaceholder, WindowsSidebarPlaceholder]
     cell_units = 'px'
     media_css = (
-        'css/dash_solid_borders.css',
-        'css/dash_layout_windows8.css',
+        'windows8/css/dash_solid_borders.css',
+        'windows8/css/dash_layout_windows8.css',
     )
     #media_js = ('js/dash_layout_windows8.js',)
 

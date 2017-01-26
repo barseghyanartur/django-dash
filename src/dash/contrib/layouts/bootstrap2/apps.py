@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'dash.contrib.layouts.bootstrap2'
+        name = 'dash.contrib.layouts.bootstrap2'
+        label = 'dash_contrib_layouts_bootstrap2'
 
 except ImportError:
     pass

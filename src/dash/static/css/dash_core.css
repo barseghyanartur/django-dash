@@ -72,7 +72,7 @@
         }
         /*
             We don't have any margins or paddings between the plugin widgets. It's not really needed. Everything
-            you want to do can be done using the innner wrapper (plugin-content-wrapper).
+            you want to do can be done using the inner wrapper (plugin-content-wrapper).
         */
         .placeholder .plugin .plugin-content-wrapper {
             padding: 4px;

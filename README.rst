@@ -17,7 +17,7 @@ system for Django applications with minimal efforts.
 
 Prerequisites
 =============
-Current
+Present
 -------
 - Django 1.8, 1.9, 1.10
 - Python >=2.7, >=3.4
@@ -140,13 +140,13 @@ If quick installer doesn't work for you, see the manual steps on running the
 <https://github.com/barseghyanartur/django-dash/tree/stable/example>`__.
 
 Take a look at the templates in "example/example/templates" directory for
-getting a better idea of how to transform your own- or thirdy-part- templates
+getting a better idea of how to transform your own or third-party templates
 into Dash templates.
 
 Also, the `example project
 <https://github.com/barseghyanartur/django-dash/tree/stable/example/example/foo>`__
 has example layouts, plugins and widgets implemented. Take it as a good example
-of how to add widgets for existing plugins to your own customly made layout.
+of how to add widgets for existing plugins to your own custom layout.
 Make sure to see how same is done for the `bundled layouts
 <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/>`_.
 
@@ -206,7 +206,8 @@ Or latest stable version from BitBucket:
    .. code-block:: python
 
        # django-dash RSS contrib plugin URLs:
-       url(r'^dash/contrib/plugins/rss-feed/', include('dash.contrib.plugins.rss_feed.urls')),
+       url(r'^dash/contrib/plugins/rss-feed/',
+           include('dash.contrib.plugins.rss_feed.urls')),
 
        # django-dash public dashboards contrib app:
        url(r'^', include('dash.contrib.apps.public_dashboard.urls')),
@@ -338,30 +339,33 @@ Defining the Main placeholder.
 .. code-block:: python
 
     class ExampleMainPlaceholder(BaseDashboardPlaceholder):
-        uid = 'main' # Unique ID of the placeholder.
-        cols = 6 # Number of columns in the placeholder.
-        rows = 5 # Number of rows in the placeholder.
-        cell_width = 150 # Width of a single cell in the placeholder.
-        cell_height = 110 # Height of a single cell in the placeholder.
+
+        uid = 'main'  # Unique ID of the placeholder.
+        cols = 6  # Number of columns in the placeholder.
+        rows = 5  # Number of rows in the placeholder.
+        cell_width = 150  # Width of a single cell in the placeholder.
+        cell_height = 110  # Height of a single cell in the placeholder.
 
 Defining the Shortcuts placeholder.
 
 .. code-block:: python
 
     class ExampleShortcutsPlaceholder(BaseDashboardPlaceholder):
-        uid = 'shortcuts' # UID of the placeholder.
-        cols = 1 # Number of columns in the placeholder.
-        rows = 10 # Number of rows in the placeholder.
-        cell_width = 60 # Width of a single cell in the placeholder.
-        cell_height = 55 # Height of a single cell in the placeholder.
+
+        uid = 'shortcuts'  # UID of the placeholder.
+        cols = 1  # Number of columns in the placeholder.
+        rows = 10  # Number of rows in the placeholder.
+        cell_width = 60  # Width of a single cell in the placeholder.
+        cell_height = 55  # Height of a single cell in the placeholder.
 
 Defining and registering the Layout.
 
 .. code-block:: python
 
     class ExampleLayout(BaseDashboardLayout):
-        uid = 'example' # Layout UID.
-        name = 'Example' # Layout name.
+
+        uid = 'example'  # Layout UID.
+        name = 'Example'  # Layout name.
 
         # View template. Master template used in view mode.
         view_template_name = 'example/view_layout.html'
@@ -373,9 +377,10 @@ Defining and registering the Layout.
         # order specified here.
         placeholders = [ExampleMainPlaceholder, ExampleShortcutsPlaceholder]
 
-        # Cell units used in the entire layout. Allowed values are: 'px', 'pt',
-        # 'em' or '%'. In the ``ExampleMainPlaceholder`` cell_width is set to 150.
-        #  It means that in this particular case its' actual width would be `150px`.
+        # Cell units used in the entire layout. Allowed values are: 'px',
+        # 'pt', 'em' or '%'. In the ``ExampleMainPlaceholder`` cell_width is
+        # set to 150. It means that in this particular case its' actual width
+        # would be `150px`.
         cell_units = 'px'
 
         # Layout specific CSS.
@@ -417,8 +422,8 @@ In case of Android layout (UID "android") it would be as follows.
 
 Base your layout specific custom CSS on presence of those classes.
 
-Same goes for Placeholders. Each placeholder gets `id_` + placeholders' UID and
-the classes "placeholder" and "placeholder-" + placeholders' UID. So, the
+Same goes for Placeholders. Each placeholder gets `id_` + placeholders' UID
+and the classes "placeholder" and "placeholder-" + placeholders' UID. So, the
 ``ExampleMainPlaceholder`` would look as follows.
 
 .. code-block:: html
@@ -468,7 +473,7 @@ Plugin widget (static call)
 
 .. code-block:: python
 
-    plugin_widget.html_class # Static one
+    plugin_widget.html_class  # Static one
 
 Creating a new plugin
 =====================
@@ -534,11 +539,12 @@ Defining the Sample Memo plugin (2x2) (to be used in the `main` placeholder).
 .. code-block:: python
 
     class SampleMemo2x2Plugin(BaseDashboardPlugin):
-        uid = 'sample_memo_2x2' # Plugin UID
-        name = _("Memo") # Plugin name
-        group = _("Memo") # Group to which the plugin belongs to
-        form = SampleMemoForm # Plugin forms are explained later
-        html_classes = ['sample-memo'] # Optional. Adds extra HTML classes.
+
+        uid = 'sample_memo_2x2'  # Plugin UID
+        name = _("Memo")  # Plugin name
+        group = _("Memo")  # Group to which the plugin belongs to
+        form = SampleMemoForm  # Plugin forms are explained later
+        html_classes = ['sample-memo']  # Optional. Adds extra HTML classes.
 
 Registering the Sample Memo plugin.
 
@@ -552,7 +558,8 @@ placeholder).
 .. code-block:: python
 
     class SampleMemo1x1Plugin(SampleMemo2x2Plugin):
-        uid = 'sample_memo_1x1' # Plugin UID
+
+        uid = 'sample_memo_1x1'  # Plugin UID
 
 Registering the Sample Memo plugin.
 
@@ -584,10 +591,11 @@ Defining the base plugin class.
 .. code-block:: python
 
     class BaseSampleMemoPlugin(BaseDashboardPlugin):
-        name = _("Memo") # Plugin name
-        group = _("Memo") # Group to which the plugin belongs to
-        form = SampleMemoForm # Plugin forms are explained later
-        html_classes = ['sample-memo'] # Optional. Adds extra HTML classes.
+
+        name = _("Memo")  # Plugin name
+        group = _("Memo")  # Group to which the plugin belongs to
+        form = SampleMemoForm  # Plugin forms are explained later
+        html_classes = ['sample-memo']  # Optional. Adds extra HTML classes.
 
 Note, that we don't provide ``uid`` property in the base class.
 
@@ -608,7 +616,7 @@ information would be appended to it ("sample_memo_1x1", "sample_memo_2x2").
 Register plugin widgets
 ~~~~~~~~~~~~~~~~~~~~~~~
 Plugin widgets are defined in `dash_widgets.py` module (described later), but
-registered in the `dash_plugins.py`, which is autodiscovered by Dash.
+registered in the `dash_plugins.py`, which is auto-discovered by Dash.
 
 Required imports.
 
@@ -616,7 +624,8 @@ Required imports.
 
     from dash.base import plugin_widget_registry
     from path.to.plugin.sample_memo.dash_widgets import (
-        SampleMemo1x1ExampleMainWidget, SampleMemo2x2ExampleMainWidget
+        SampleMemo1x1ExampleMainWidget,
+        SampleMemo2x2ExampleMainWidget
     )
 
 Registering the Sample Memo plugin widget for placeholder `main` of layout
@@ -639,12 +648,12 @@ Why to have another file for defining widgets? Just to keep the code clean and
 less messy, although you could perfectly define all your plugin widgets in the
 module `dash_plugins.py`, it's recommended to keep it separate.
 
-Take into consideration, that `dash_widgets.py` is not an autodiscovered file
+Take into consideration, that `dash_widgets.py` is not an auto-discovered file
 pattern. All your plugin widgets should be registered in modules named
 `dash_plugins.py`.
 
 Define and register the plugin widget
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Required imports.
 
 .. code-block:: python
@@ -657,12 +666,14 @@ Memo plugin widget for Example layout (placeholder `main`).
 .. code-block:: python
 
     class SampleMemo2x2ExampleMainWidget(BaseDashboardPluginWidget):
-        layout_uid = 'example' # Layout for which the widget is written
-        placeholder_uid = 'main' # Placeholder within the layout for which
-                                 # the widget is written
-        plugin_uid = 'sample_memo_2x2' # Plugin for which the widget is written
-        cols = 2 # Number of widget columns
-        rows = 2 # Number of widget rows
+
+        layout_uid = 'example'  # Layout for which the widget is written
+        placeholder_uid = 'main'  # Placeholder within the layout for which
+                                  # the widget is written
+        plugin_uid = 'sample_memo_2x2'  # Plugin for which the widget is
+                                        # written
+        cols = 2  # Number of widget columns
+        rows = 2  # Number of widget rows
 
         def render(self, request=None):
             context = {'plugin': self.plugin}
@@ -673,19 +684,20 @@ Memo plugin widget for Example layout (placeholder `shortcuts`).
 .. code-block:: python
 
     class SampleMemo1x1ExampleShortcutWidget(SampleMemo2x2ExampleMainWidget):
-        placeholder_uid = 'shortcuts' # Placeholder within the layout for which
-                                      # the widget is written
-        cols = 1 # Number of widget columns
-        rows = 1 # Number of widget rows
+
+        placeholder_uid = 'shortcuts'  # Placeholder within the layout for
+                                       # which the widget is written
+        cols = 1  # Number of widget columns
+        rows = 1  # Number of widget rows
 
         def render(self, request=None):
             context = {'plugin': self.plugin}
             return render_to_string(
                 'sample_memo/render_shortcuts.html', context
-                )
+            )
 
 Factory register plugin widgets
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Alternatively, you can define just a single plugin widget base class and have
 it factory registered for the given sizes. The code below would produce and
 register classes for in sizes 1x1 and 2x2.
@@ -703,6 +715,7 @@ Defining the base plugin widget class.
 .. code-block:: python
 
     class BaseSampleMemoWidget(BaseDashboardPluginWidget):
+
         def render(self, request=None):
             context = {'plugin': self.plugin}
             return render_to_string('sample_memo/render.html', context)
@@ -718,7 +731,7 @@ given.
     )
     plugin_widget_factory(
         BaseSampleMemoWidget, 'example', 'main', 'sample_memo', sizes
-        )
+    )
 
 In the example above:
 
@@ -729,10 +742,10 @@ In the example above:
   registered.
 
 path/to/plugin/sample_memo/forms.py
------------------------------------------------
+-----------------------------------
 What are the plugin forms? Very simple - if plugin is configurable, it has a
 form. If you need to have a custom CSS or a JavaScript included when rendering
-a speicifc form, use Django's class Media directive in the form.
+a specific form, use Django's class Media directive in the form.
 
 Required imports.
 
@@ -746,13 +759,14 @@ Memo form (for `Sample Memo` plugin).
 .. code-block:: python
 
     class SampleMemoForm(forms.Form, DashboardPluginFormBase):
+
         plugin_data_fields = [
             ("title", ""),
             ("text", "")
         ]
 
         title = forms.CharField(label=_("Title"), required=False)
-        text = forms.CharField(label=_("Text"), required=True, \
+        text = forms.CharField(label=_("Text"), required=True,
                                widget=forms.widgets.Textarea)
 
         def __init__(self, *args, **kwargs):
@@ -773,9 +787,9 @@ module.
 
 After it's done, go to terminal and type the following command.
 
-.. code-block:: text
+.. code-block:: sh
 
-    $ ./manage.py dash_sync_plugins
+    ./manage.py dash_sync_plugins
 
 If your HTTP server is running, you would then be able to access your dashboard.
 
@@ -788,14 +802,16 @@ settings module (`local_settings.py`), re-run your code and check console for
 error notifications.
 
 Plugin and widget factory
-===============================================
+=========================
 In general, when making a new plugin, base widgets are made for then too. By
 creating base widgets you avoid duplication of the code. See the example below.
 
 .. code-block:: python
 
     from dash.base import BaseDashboardPlugin
+
     class BaseMemoPlugin(BaseDashboardPlugin):
+
         name = _("Memo")
         group = _("Memo")
         form = MemoForm
@@ -817,7 +833,9 @@ Same goes for the widgets.
 .. code-block:: python
 
     from dash.base import BaseDashboardPluginWidget
+
     class BaseMemoWidget(BaseDashboardPluginWidget):
+
         def render(self, request=None):
             context = {'plugin': self.plugin}
             return render_to_string('memo/render.html', context)
@@ -828,13 +846,14 @@ and register plugin widget classes of the required dimensions.
 .. code-block:: python
 
     from dash.factory import plugin_widget_factory
+
     plugin_widget_factory(
         BaseMemoWidget,
         'bootstrap2_fluid',
         'main',
         'memo',
         ((5, 6), (6, 5), (6, 6))
-        )
+    )
 
 The code above will generate "memo_5x6", "memo_6x5" and "memo_6x6" plugin
 widget classes which subclass the ``BaseMemoWidget`` and register them in the
@@ -849,28 +868,28 @@ any change to the code, then it's perhaps a right time to start using the
 factory.
 
 Layout, plugin and widget summary
-===============================================
+=================================
 When making your own layouts, plugins and plugin widgets you are free to use
 the API as you wish. While developing the Dash, I found the follow practices
 useful:
 
 - When making a new plugin, always make a base plugin class, from which all 
-  size specific ones would derrive.
+  size specific ones would derive.
 - Do create base plugin widgets (with HTML templates) in the plugin, but do not 
   register them there. Use factory (``dash.factory``) to generate and register
-  layout specific plugin widgets - preferrably in the layout module.
+  layout specific plugin widgets - preferably in the layout module.
 - If you're adding custom plugin to existing bundled layout (those that 
   reside in ``dash.contrib.layouts``), create a new module named
-  ``dash_custom`` (or any other name that you preffer) and factory 
+  ``dash_custom`` (or any other name that you prefer) and factory
   generate/register your layout specific plugin widgets in a module named
   `dash_plugins.py` (do not forget to add the module to ``INSTALLED_APPS``, so
-  that it autodiscovered).
+  that it auto-discovered).
 
 Permissions
-===============================================
+===========
 Plugin system allows administrators to specify the access rights to every 
 plugin. Dash permissions are based on Django Users and User Groups. Access
-rights are managable via Django admin (/administration/dash/dashboardplugin/).
+rights are manageable via Django admin (/administration/dash/dashboardplugin/).
 Note, that your admin URL prefix may vary from the one given in example (it's
 usually "/admin/", while in example it's "/administration/"). If user doesn't
 have the rights to access plugin, it doesn't appear on his dashboard even if
@@ -902,7 +921,7 @@ only). Note, that superusers have access to all plugins.
     └──────────────────────────────┴────────────────────┴─────────────────────┘
 
 Management commands
-===============================================
+===================
 There are several management commands.
 
 - `dash_find_broken_dashboard_entries`. Find broken dashboard entries that 
@@ -915,7 +934,7 @@ There are several management commands.
   data update happens.
 
 Tuning
-===============================================
+======
 There are number of Dash settings you can override in the `settings.py` module
 of your Django project:
 
@@ -932,22 +951,22 @@ of your Django project:
 For tuning of specific contrib plugin, see the docs in the plugin directory.
 
 Styling tips
-===============================================
-Font Awesome is used for icons. As a convension, all icons of font-awesome are
+============
+Font Awesome is used for icons. As a convention, all icons of font-awesome are
 placed within a span. Next to their original class, they all should be getting
 an extra class "iconic". Follow that rule when making a new layout or a
 plugin (HTML). It allows to make the styling easy, since icon colours could be
 then changed within no time.
 
 Bundled plugins and layouts
-===============================================
+===========================
 Dash ships with number of bundled (demo) plugins and layouts that are mainly
-made to demonstrate its' abilities. In order to work amoung various layouts
+made to demonstrate its' abilities. In order to work among various layouts
 (themes), each plugin has a single widget registered for a single layout.
 It's possible to unregister a bundled widget and replace it with a custom one.
 
 Bundled plugins
------------------------------------------------
+---------------
 Below a short overview of the plugins. See the README.rst file in directory
 of each plugin for details.
 
@@ -981,7 +1000,7 @@ of each plugin for details.
   Allows to put a weather widget into dashboard.
 
 Demo plugins
------------------------------------------------
+------------
 - `Sample D3 plugins
   <https://github.com/barseghyanartur/django-dash/tree/master/examples/example/d3_samples>`_.
   Shows how to transform D3.js charts into Dash plugins.
@@ -994,7 +1013,7 @@ Demo plugins
   a Dash plugin widget.
 
 Bundled layouts
------------------------------------------------
+---------------
 Below a short overview of the layouts. See the README.rst file in directory of each layout for details.
 
 - `Android 
@@ -1011,7 +1030,7 @@ Below a short overview of the layouts. See the README.rst file in directory of e
   140x135 px) and sidebar (2 cols x 4 rows, each block sized 140x135 px).
 
 Demo layouts
------------------------------------------------
+------------
 - `Example
   <https://github.com/barseghyanartur/django-dash/tree/stable/examples/example/foo>`_
   layout. Has five placeholders: top (8 cols x 1 rows, each block sized
@@ -1020,7 +1039,7 @@ Demo layouts
   block sized 55x55 px) and main (5 col x 4 rows, each block sized 110x95 px).
 
 Naming conventions
-===============================================
+==================
 Although you are free to name your plugins and widgets as you want (except that
 you should comply with `PEP-008
 <http://www.python.org/dev/peps/pep-0008/#function-names>`_), there are some
@@ -1047,36 +1066,38 @@ naming conventions introduced, that you are recommended to follow.
       layout Your Layout, placeholder 'main')
 
 Debugging
-===============================================
+=========
 Most of the errors are logged (DEBUG). If you have written a plugin and it
 somehow doesn't appear in the list of available plugins, do run the following
-management command::
+management command:
 
-    $ ./manage.py dash_sync_plugins
+.. code-block:: sh
+
+    ./manage.py dash_sync_plugins
 
 The ``dash_sync_plugins`` not only syncs your plugins into the database, but
 also is a great way of checking for possible errors.
 
 Available translations
-===============================================
+======================
 - Dutch (core and plugins)
 - Russian (core and plugins)
 
 Troubleshooting
-===============================================
+===============
 - If you somehow get problems installing ``Dash``, check the `example
   <https://github.com/barseghyanartur/django-dash/tree/master/examples>`__
   project and the `requirements.txt
   <https://raw.githubusercontent.com/barseghyanartur/django-dash/master/examples/requirements.txt>`__.
 
 License
-===============================================
+=======
 GPL 2.0/LGPL 2.1
 
 Support
-===============================================
-For any issues contact me at the e-mail given in the `Author` section.
+=======
+For any issues contact me at the e-mail given in the `Author`_ section.
 
 Author
-===============================================
+======
 Artur Barseghyan <artur.barseghyan@gmail.com>

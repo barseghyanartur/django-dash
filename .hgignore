@@ -5,7 +5,13 @@ syntax: regexp
 \.git/
 \.tox/
 \.travis\.yml~
+\.cache/
+\.coverage$
+^htmlcov/
+\.py,cover
+^ghostdriver\.log
 
+^TRASH\.rst
 ^MANIFEST\.in~
 ^tmp/
 \.zip
@@ -13,6 +19,7 @@ syntax: regexp
 ^release/
 ^deploy/
 ^forks/
+^hotfixes/
 ^docs/dash\.migrations\.rst
 ^examples/db/example\.db
 ^examples/db/example_OLD\.db
@@ -30,6 +37,7 @@ syntax: regexp
 ^examples/media/delusionalinsanity\.images-latest/
 ^examples/media/delusionalinsanity_images_latest\.zip
 ^builddocs/
+^var/
 ^builddocs.zip
 ^build/
 ^dist/

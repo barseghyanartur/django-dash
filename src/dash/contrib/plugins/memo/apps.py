@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'dash.contrib.plugins.memo'
+        name = 'dash.contrib.plugins.memo'
+        label = 'dash_contrib_plugins_memo'
 
 except ImportError:
     pass

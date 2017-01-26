@@ -19,7 +19,6 @@ are used for versioning (schema follows below):
 ---
 yyyy-mm-dd (Not yet released)
 
-- Bootstrap 3 layout.
 - From now on it's possible to set a layout for the workspace. It means you
   may have different layouts for various workspaces of the same dashboard.
 - Moving static files of Android, Bootstrap2 and Windows8 layouts
@@ -48,6 +47,7 @@ yyyy-mm-dd (Not yet released)
 - Minor Python 3 improvements.
 - Clean up the documentation.
 - Make a quick start.
+- Upgraded ``jquery.colorbox`` to the latest version (1.6.4).
 
 0.4.13
 ------

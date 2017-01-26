@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'dash.contrib.apps.public_dashboard'
+        name = 'dash.contrib.apps.public_dashboard'
+        label = 'dash_contrib_apps_public_dashboard'
 
 except ImportError:
     pass

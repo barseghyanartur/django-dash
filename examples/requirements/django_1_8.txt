@@ -1,0 +1,17 @@
+Django>=1.8,<1.9
+sqlparse==0.1.9
+django-admin-tools>=0.5.1
+django-debug-toolbar==1.4
+django-registration-redux>=1.1
+django-widget-tweaks
+django-slim
+ipdb
+ipython>=2.3.0
+lorem-ipsum-generator==0.3
+ordereddict==1.1
+radar>=0.3,<1.0
+#selenium
+simple-timer>=0.2
+tox
+
+-r common_test.txt

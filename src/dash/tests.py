@@ -18,9 +18,14 @@ from django.test import Client
 from django.contrib.staticfiles.management.commands import collectstatic
 from django.conf import settings
 
-from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium.webdriver.remote.webdriver import WebDriver as RemoveWebDriver
+from selenium import webdriver
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.common.exceptions import WebDriverException
+
+from selenium.webdriver.firefox.webdriver import WebDriver
+# from selenium.webdriver.remote.webdriver import WebDriver as RemoveWebDriver
+# from selenium.webdriver.support.wait import WebDriverWait
 
 from dash.discover import autodiscover
 from dash.base import plugin_registry, layout_registry
@@ -37,6 +42,7 @@ DASH_TEST_USER_PASSWORD = 'test'
 PRINT_INFO = True
 TRACK_TIME = False
 
+
 def print_info(func):
     """
     Prints some useful info.
@@ -45,14 +51,14 @@ def print_info(func):
         return func
 
     def inner(self, *args, **kwargs):
-        if TRACK_TIME:
-            import simple_timer
-            timer = simple_timer.Timer() # Start timer
+        #if TRACK_TIME:
+        #    import simple_timer
+        #    timer = simple_timer.Timer() # Start timer
 
         result = func(self, *args, **kwargs)
 
-        if TRACK_TIME:
-            timer.stop() # Stop timer
+        #if TRACK_TIME:
+        #    timer.stop() # Stop timer
 
         print_('\n{0}'.format(func.__name__))
         print_('============================')
@@ -61,8 +67,8 @@ def print_info(func):
         print_('----------------------------')
         if result is not None:
             print_(result)
-        if TRACK_TIME:
-            print_('done in {0} seconds'.format(timer.duration))
+        #if TRACK_TIME:
+        #    print_('done in {0} seconds'.format(timer.duration))
         print_('\n')
 
         return result
@@ -237,28 +243,51 @@ class DashBrowserTest(LiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):
-        try:
-            username = os.environ["SAUCE_USERNAME"]
-            access_key = os.environ["SAUCE_ACCESS_KEY"]
-            capabilities["tunnel-identifier"] = os.environ["TRAVIS_JOB_NUMBER"]
-            hub_url = "%s:%s@localhost:4445" % (username, access_key)
-            cls.selenium = RemoveWebDriver(
-                desired_capabilities=capabilities, command_executor="http://%s/wd/hub" % hub_url
+        """Set up class."""
+        # cls.selenium = WebDriver()
+        firefox_bin_path = getattr(settings, 'FIREFOX_BIN_PATH', None)
+        phantom_js_executable_path = getattr(
+            settings, 'PHANTOM_JS_EXECUTABLE_PATH', None
+        )
+        if phantom_js_executable_path is not None:
+            if phantom_js_executable_path:
+                cls.selenium = webdriver.PhantomJS(
+                    executable_path=phantom_js_executable_path
                 )
-        except:
-            cls.selenium = WebDriver()
-        super(DashBrowserTest, cls).setUpClass()
+            else:
+                cls.selenium = webdriver.PhantomJS()
+        elif firefox_bin_path:
+            binary = FirefoxBinary(firefox_bin_path)
+            cls.selenium = webdriver.Firefox(firefox_binary=binary)
+        else:
+            cls.selenium = webdriver.Firefox()
 
         setup_dash()
 
+        super(DashBrowserTest, cls).setUpClass()
+
     @classmethod
     def tearDownClass(cls):
+        """Tear down class."""
         try:
             cls.selenium.quit()
-        except Exception as e:
-            print(e)
+        except Exception as err:
+            print(err)
 
         super(DashBrowserTest, cls).tearDownClass()
+        call_command('flush', verbosity=0, interactive=False,
+                     reset_sequences=False,
+                     allow_cascade=False,
+                     inhibit_post_migrate=False)
+
+    def _click(self, element):
+        """Click on any element."""
+        self.selenium.execute_script("$(arguments[0]).click();", element)
+
+    def _agressive_click(self, element):
+        """Agressive click."""
+        link = element.get_attribute('href')
+        self.selenium.get(link)
 
     def __add_plugin_widget_test(self, position, plugin_widget_name, plugin_widget_name_with_dimensions, \
                                  plugin_widget_css_class, added_plugin_widget_css_classes, form_data={}, \
@@ -342,7 +371,8 @@ class DashBrowserTest(LiveServerTestCase):
         username_input.send_keys(DASH_TEST_USER_USERNAME)
         password_input = self.selenium.find_element_by_name("password")
         password_input.send_keys(DASH_TEST_USER_PASSWORD)
-        self.selenium.find_element_by_xpath('//button[@type="submit"]').click()
+        submit_button = self.selenium.find_element_by_xpath('//button[@type="submit"]')
+        submit_button.click()
 
         # Wait until the list view opens
         WebDriverWait(self.selenium, timeout=4).until(
@@ -351,7 +381,8 @@ class DashBrowserTest(LiveServerTestCase):
             )
 
         # Click the button to go to dashboard edit
-        self.selenium.find_element_by_xpath('//a[contains(@class, "menu-dashboard-edit")]').click()
+        dashboard_edit_link = self.selenium.find_element_by_xpath('//a[contains(@class, "menu-dashboard-edit")]')
+        dashboard_edit_link.click()
 
         # Wait until the dashboard edit view opens
         WebDriverWait(self.selenium, timeout=4).until(
@@ -362,10 +393,12 @@ class DashBrowserTest(LiveServerTestCase):
         # Click the add widget button to add a new widget to the dashboard
         #self.selenium.find_element_by_xpath('//a[contains(@class, "add-plugin")]').click()
         add_plugin_widget_div = self.selenium.find_element_by_xpath('//div[contains(@class, "{0}")]'.format(position))
-        add_plugin_widget_div.find_element_by_class_name('add-plugin').click()
+        add_plugin_link = add_plugin_widget_div.find_element_by_class_name('add-plugin')
+        # add_plugin_link.click()
+        self._click(add_plugin_link)
 
         # Wait until the add widget view opens
-        WebDriverWait(self.selenium, timeout=4).until(
+        WebDriverWait(self.selenium, timeout=8).until(
             #lambda driver: driver.find_element_by_xpath('//a[contains(@class, "widget-dummy")]')
             lambda driver: driver.find_element_by_xpath('//a[text()="{0}"]'.format(plugin_widget_name_with_dimensions))
             )
@@ -398,10 +431,13 @@ class DashBrowserTest(LiveServerTestCase):
             form_hook_func()
 
         # Click add widget button
-        self.selenium.find_element_by_xpath('//button[@type="submit"]').click()
+        add_widget_button = self.selenium.find_element_by_xpath('//button[@type="submit"]')
+        # add_widget_button.click()
+        self._click(add_widget_button)  # Unsure
 
+        # import ipdb; ipdb.set_trace()
         # Wait until the edit dashboard page opens
-        WebDriverWait(self.selenium, timeout=4).until(
+        WebDriverWait(self.selenium, timeout=8).until(
             lambda driver: driver.find_element_by_xpath(
                 '//div[contains(@class, "{0}")]'.format(plugin_widget_css_class)
                 )
@@ -450,7 +486,8 @@ class DashBrowserTest(LiveServerTestCase):
                 '//select[@name="image"]/option[@value="icon-coffee"]'
                 )
             self.assertTrue(image_input is not None)
-            image_input.click()
+            # image_input.click()
+            self._click(image_input)  # Unsure
 
         # Test 1x1 URL plugin widget
         self.__add_plugin_widget_test(
@@ -561,10 +598,14 @@ class DashBrowserTest(LiveServerTestCase):
         edit_plugin_widget_div = self.selenium.find_element_by_xpath(
             '//div[contains(@class, "{0}")]'.format(plugin_widget_css_class)
             )
-        edit_plugin_widget_div.find_element_by_class_name('edit-plugin').click()
+        edit_plugin_link = edit_plugin_widget_div.find_element_by_class_name('edit-plugin')
+        # edit_plugin_link.click()
+        # self._click(edit_plugin_link)  # Unsure
+        self._agressive_click(edit_plugin_link)  # Unsure
 
+        # import ipdb; ipdb.set_trace()
         # Wait until the edit widget form opens
-        WebDriverWait(self.selenium, timeout=4).until(
+        WebDriverWait(self.selenium, timeout=8).until(
             lambda driver: driver.find_element_by_xpath('//body[contains(@class, "standalone")]')
             )
 
@@ -580,7 +621,9 @@ class DashBrowserTest(LiveServerTestCase):
             form_hook_func()
 
         # Click add widget button
-        self.selenium.find_element_by_xpath('//button[@type="submit"]').click()
+        widget_button = self.selenium.find_element_by_xpath('//button[@type="submit"]')
+        # widget_button.click()
+        self._click(widget_button)  # Unsure
 
         # Wait until the edit dashboard page opens
         WebDriverWait(self.selenium, timeout=4).until(
@@ -614,7 +657,8 @@ class DashBrowserTest(LiveServerTestCase):
                 '//select[@name="image"]/option[@value="icon-camera"]'
                 )
             self.assertTrue(image_input is not None)
-            image_input.click()
+            # image_input.click()
+            self._click(image_input)  # Unsure
 
         self.__edit_plugin_widget_test(
             plugin_widget_name = "URL",
@@ -650,7 +694,6 @@ class DashBrowserTest(LiveServerTestCase):
             sleep(wait)
 
         return flow
-
 
     def __delete_plugin_widget_test(self, plugin_widget_css_class):
         """
@@ -696,10 +739,13 @@ class DashBrowserTest(LiveServerTestCase):
         edit_plugin_widget_div = self.selenium.find_element_by_xpath(
             '//div[contains(@class, "{0}")]'.format(plugin_widget_css_class)
             )
-        edit_plugin_widget_div.find_element_by_class_name('remove-plugin').click()
+
+        remove_plugin_link = edit_plugin_widget_div.find_element_by_class_name('remove-plugin')
+        # remove_plugin_link.click()
+        self._click(remove_plugin_link)
 
         # Wait until the edit dashboard page opens
-        WebDriverWait(self.selenium, timeout=4).until(
+        WebDriverWait(self.selenium, timeout=8).until(
             lambda driver: driver.find_element_by_xpath(
                 '//body[contains(@class, "layout")]'
                 )

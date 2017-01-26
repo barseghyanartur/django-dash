@@ -40,13 +40,13 @@ class Bootstrap2FluidLayout(BaseDashboardLayout):
     placeholders = [Bootstrap2FluidMainPlaceholder,]
     cell_units = 'px'
     media_css = (
-        'css/bootstrap.css',
-        'css/dash_layout_bootstap2_fluid.css',
+        'bootstrap2/css/bootstrap.css',
+        'bootstrap2/css/dash_layout_bootstap2_fluid.css',
         #'css/dash_solid_borders.css',
     )
     media_js = (
-        'js/bootstrap.js',
-        'js/dash_layout_bootstap2_fluid.js',
+        'bootstrap2/js/bootstrap.js',
+        'bootstrap2/js/dash_layout_bootstap2_fluid.js',
     )
 
     def get_view_template_name(self, request=None, origin=None):

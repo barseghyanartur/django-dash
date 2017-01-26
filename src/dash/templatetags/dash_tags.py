@@ -1,24 +1,28 @@
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2013-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('get_dash_plugin',)
+__all__ = (
+    'get_dash_plugin', 'get_dash_workspaces', 'render_auth_link',
+    'has_edit_dashboard_permissions'
+)
 
 from django.template import Library, TemplateSyntaxError, Node
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django import forms
 
 from dash.settings import ACTIVE_LAYOUT, DISPLAY_AUTH_LINK
 from dash.utils import get_workspaces
 
 register = Library()
 
-# ***************************************************************************************
-# ***************************************************************************************
-# ***************************************************************************************
-# **************************** General Dash tags ****************************************
-# ***************************************************************************************
-# ***************************************************************************************
-# ***************************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# **************************** General Dash tags ******************************
+# *****************************************************************************
+# *****************************************************************************
+# *****************************************************************************
 
 class GetDashPluginNode(Node):
     """
@@ -40,7 +44,8 @@ class GetDashPluginNode(Node):
 @register.tag
 def get_dash_plugin(parser, token):
     """
-    Gets the plugin. Note, that ``dashboard_entry`` shall be a instance of ``dash.models.DashboardEntry``.
+    Gets the plugin. Note, that ``dashboard_entry`` shall be a instance of
+    ``dash.models.DashboardEntry``.
     
     :syntax:
 
@@ -58,7 +63,8 @@ def get_dash_plugin(parser, token):
     if 4 == len(bits):
         if 'as' != bits[-2]:
             raise TemplateSyntaxError(
-                "Invalid syntax for {0}. Incorrect number of arguments.".format(bits[0])
+                "Invalid syntax for {0}. Incorrect number of "
+                "arguments.".format(bits[0])
                 )
         as_var = bits[-1]
     else:
@@ -123,7 +129,8 @@ def get_dash_workspaces(parser, token):
 
     if len(bits) not in (1, 2, 3, 4):
         raise TemplateSyntaxError(
-                "Invalid syntax for {0}. Incorrect number of arguments.".format(bits[0])
+                "Invalid syntax for {0}. Incorrect number "
+                "of arguments.".format(bits[0])
                 )
 
     if 4 == len(bits):
@@ -141,13 +148,13 @@ def get_dash_workspaces(parser, token):
     return GetDashWorkspacesNode(layout_uid=layout_uid, edit_mode=edit_mode)
 
 
-# ***************************************************************************************
-# ***************************************************************************************
-# ***************************************************************************************
-# **************************** Additional Dash tags *************************************
-# ***************************************************************************************
-# ***************************************************************************************
-# ***************************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# **************************** Additional Dash tags ***************************
+# *****************************************************************************
+# *****************************************************************************
+# *****************************************************************************
 
 def render_auth_link(context):
     """
@@ -186,16 +193,18 @@ def render_auth_link(context):
 def render_logout_link(context):
     return render_auth_link(context)
 
-register.inclusion_tag('dash/snippets/render_auth_link.html', takes_context=True)(render_auth_link)
-register.inclusion_tag('dash/snippets/render_auth_link.html', takes_context=True)(render_logout_link)
+register.inclusion_tag('dash/snippets/render_auth_link.html',
+                       takes_context=True)(render_auth_link)
+register.inclusion_tag('dash/snippets/render_auth_link.html',
+                       takes_context=True)(render_logout_link)
 
-# ***************************************************************************************
-# ***************************************************************************************
-# ***************************************************************************************
-# **************************** Permission tags ******************************************
-# ***************************************************************************************
-# ***************************************************************************************
-# ***************************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# **************************** Permission tags ********************************
+# *****************************************************************************
+# *****************************************************************************
+# *****************************************************************************
 
 class HasEditDashboardPermissionsNode(Node):
     """
@@ -215,9 +224,15 @@ class HasEditDashboardPermissionsNode(Node):
                 return False
 
         perms_required = [
-            'dash.add_dashboardentry', 'dash.change_dashboardentry', 'dash.delete_dashboardentry',
-            'dash.add_dashboardworkspace', 'dash.change_dashboardworkspace', 'dash.delete_dashboardworkspace',
-            'dash.add_dashboardsettings', 'dash.change_dashboardsettings', 'dash.delete_dashboardsettings',
+            'dash.add_dashboardentry',
+            'dash.change_dashboardentry',
+            'dash.delete_dashboardentry',
+            'dash.add_dashboardworkspace',
+            'dash.change_dashboardworkspace',
+            'dash.delete_dashboardworkspace',
+            'dash.add_dashboardsettings',
+            'dash.change_dashboardsettings',
+            'dash.delete_dashboardsettings',
         ]
 
         for perm in perms_required:
@@ -256,7 +271,8 @@ def has_edit_dashboard_permissions(parser, token):
 
     if len(bits) not in (1, 3):
         raise TemplateSyntaxError(
-                "Invalid syntax for {0}. Incorrect number of arguments.".format(bits[0])
+                "Invalid syntax for {0}. Incorrect number of "
+                "arguments.".format(bits[0])
                 )
 
     if 3 == len(bits):
@@ -266,3 +282,89 @@ def has_edit_dashboard_permissions(parser, token):
         as_var = None
 
     return HasEditDashboardPermissionsNode(as_var=as_var)
+
+# *****************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# **************************** General Django tags ****************************
+# *****************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+
+class FormFieldType(object):
+    """
+    Form field type container.
+    """
+    is_checkbox = False
+    is_password = False
+    is_hidden = False
+    is_text = False
+    is_radio = False
+    is_textarea = False
+
+    def __init__(self, properties=[]):
+        """
+        By default all of them are false. Provide only property
+        names that should be set to True.
+        """
+        for property in properties:
+            setattr(self, property, True)
+
+
+class GetFormFieldTypeNode(Node):
+    """
+    Node for ``get_form_field_type`` tag.
+    """
+    def __init__(self, field, as_var=None):
+        self.field = field
+        self.as_var = as_var
+
+    def render(self, context):
+        field = self.field.resolve(context, True)
+        properties = []
+
+        if isinstance(field.field.widget, forms.CheckboxInput):
+            properties.append('is_checkbox')
+
+        if isinstance(field.field.widget, forms.CheckboxSelectMultiple):
+            properties.append('is_checkbox_multiple')
+
+        if isinstance(field.field.widget, forms.RadioSelect):
+            properties.append('is_radio')
+
+        res = FormFieldType(properties)
+
+        context[self.as_var] = res
+        return ''
+
+
+@register.tag
+def get_form_field_type(parser, token):
+    """
+    Get form field type.
+    Syntax::
+        {% get_form_field_type [field] as [context_var_name] %}
+    Example::
+        {% get_form_field_type form.field as form_field_type %}
+        {% if form_field_type.is_checkbox %}
+            ...
+        {% endif %}
+    """
+    bits = token.contents.split()
+
+    if 4 == len(bits):
+        if 'as' != bits[-2]:
+            raise TemplateSyntaxError(
+                "Invalid syntax for {0}. Incorrect number of arguments.".format(
+                    bits[0]
+                    )
+                )
+        as_var = bits[-1]
+    else:
+        raise TemplateSyntaxError(
+            "Invalid syntax for {0}. See docs for valid syntax.".format(bits[0])
+            )
+
+    field = parser.compile_filter(bits[1])
+
+    return GetFormFieldTypeNode(field=field, as_var=as_var)

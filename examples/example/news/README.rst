@@ -10,6 +10,7 @@ Additional requirements
 See the requirements.txt in current directory.
 
 - django-tinymce
+- django-slim
 
 Installation
 ==================================

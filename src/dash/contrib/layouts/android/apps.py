@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'dash.contrib.layouts.android'
+        name = 'dash.contrib.layouts.android'
+        label = 'dash_contrib_layouts_android'
 
 except ImportError:
     pass

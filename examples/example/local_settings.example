@@ -4,6 +4,7 @@ PROJECT_DIR = lambda base : os.path.abspath(os.path.join(os.path.dirname(__file_
 DEBUG = True
 DEBUG_TOOLBAR = not True
 TEMPLATE_DEBUG = DEBUG
+DEV = True
 
 DATABASES = {
     'default': {
@@ -30,3 +31,12 @@ DASH_DEBUG = True
 
 # Key for API weather
 DASH_PLUGIN_WEATHER_API_KEY = ''
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+FIREFOX_BIN_PATH = '/usr/lib/firefox47/firefox'
+PHANTOM_JS_EXECUTABLE_PATH = ''
+
+os.environ.setdefault(
+    'DASH_SOURCE_PATH',
+    '/home/user/repos/django-dash/src'
+)

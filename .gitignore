@@ -5,13 +5,21 @@
 .hgtags
 .tox/
 .travis.yml~
+.cache/
+.coverage
+/htmlcov/
+*.py,cover
+/ghostdriver.log
+/var/
 
+/TRASH.rst
 MANIFEST.in~
 tmp/
 .zip
 /codebin/
 /release/
 /forks/
+/hotfixes/
 /deploy/
 /examples/db/example.db
 /examples/tmp/
@@ -33,7 +41,6 @@ tmp/
 /dist/
 /src/django_dash.egg-info
 examples/example/local_settings.py
-heroku_setup.py
 /demos/heroku_demo/
 /demos/heroku_demo/db.sqlite3
 /demos/heroku_demo/staticfiles/

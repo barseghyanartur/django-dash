@@ -41,7 +41,7 @@ class AndroidLayout(BaseDashboardLayout):
     cell_units = 'px'
     media_css = (
         'css/dash_dotted_borders.css',
-        'css/dash_layout_android.css',
+        'android/css/dash_layout_android.css',
     )
     #media_js = ('js/dash_layout_android.js',)
 

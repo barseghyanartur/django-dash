@@ -1,0 +1,2 @@
+reset
+pylint src/fobi/

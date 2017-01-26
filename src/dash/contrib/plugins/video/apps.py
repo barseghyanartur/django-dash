@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'dash.contrib.plugins.video'
+        name = 'dash.contrib.plugins.video'
+        label = 'dash_contrib_plugins_video'
 
 except ImportError:
     pass

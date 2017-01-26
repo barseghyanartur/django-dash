@@ -1,14 +1,17 @@
-from django.conf.urls import patterns, include, url
-
+from django.conf.urls import include, url
+from django.conf.urls.i18n import i18n_patterns
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
+from nine import versions
+
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = []
+url_patterns_args = [
     # django-dash URLs:
     url(r'^dashboard/', include('dash.urls')),
 
@@ -18,20 +21,22 @@ urlpatterns = patterns('',
     # django-dash News contrib plugin URLs:
     url(r'^news/', include('news.urls')),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
     # Uncomment the next line to enable the admin:
     url(r'^administration/', include(admin.site.urls)),
 
     # django-registration URLs:
-    (r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^accounts/', include('registration.backends.default.urls')),
 
     url(r'^$', TemplateView.as_view(template_name='home.html')),
 
     # django-dash public dashboards contrib app:
     url(r'^', include('dash.contrib.apps.public_dashboard.urls')),
-)
+]
+
+if versions.DJANGO_LTE_1_7:
+    urlpatterns += i18n_patterns('', *url_patterns_args)
+else:
+    urlpatterns += i18n_patterns(*url_patterns_args)
 
 if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
