@@ -1,8 +1,9 @@
 Django>=1.8,<1.9
 sqlparse==0.1.9
-django-admin-tools>=0.5.1
+django-admin-tools>=0.6.0
+django-autoslug==1.9.3
 django-debug-toolbar==1.4
-django-registration-redux>=1.1
+django-registration-redux>=1.4
 django-widget-tweaks
 django-slim
 ipdb
@@ -12,6 +13,5 @@ ordereddict==1.1
 radar>=0.3,<1.0
 #selenium
 simple-timer>=0.2
-tox
 
 -r common_test.txt

@@ -1,14 +1,6 @@
-__title__ = 'dash.models'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013-2014 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = (
-    'DashboardSettings', 'DashboardWorkspace', 'DashboardEntry',
-    'DashboardPlugin',
-)
-
 import logging
-logger = logging.getLogger(__name__)
+
+from autoslug import AutoSlugField
 
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -16,20 +8,34 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import Group
 from django.conf import settings
 
-from autoslug import AutoSlugField
+from six import python_2_unicode_compatible
 
-from dash.base import (
-    plugin_registry, get_registered_plugins, get_registered_layouts
-    )
-from dash.helpers import slugify_workspace
-from dash.fields import OrderField
-#from dash.compat import User
+from .base import (
+    plugin_registry,
+    get_registered_plugins,
+    get_registered_layouts
+)
+from .helpers import slugify_workspace
+from .fields import OrderField
+
+__title__ = 'dash.models'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = 'Copyright (c) 2013-2017 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = (
+    'DashboardSettings',
+    'DashboardWorkspace',
+    'DashboardEntry',
+    'DashboardPlugin',
+)
 
 AUTH_USER_MODEL = settings.AUTH_USER_MODEL
+logger = logging.getLogger(__name__)
 
+
+@python_2_unicode_compatible
 class DashboardSettings(models.Model):
-    """
-    Dashboard settings.
+    """Dashboard settings.
 
     :Properties:
         - `user` (django.contrib.auth.models.User: User owning the plugin.
@@ -38,6 +44,7 @@ class DashboardSettings(models.Model):
         - `is_public` (bool): If set to True, available as public (read-only
           mode).
     """
+
     user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_("User"),
                              unique=True)
     layout_uid = models.CharField(_("Layout"), max_length=25)
@@ -60,13 +67,13 @@ class DashboardSettings(models.Model):
         verbose_name = _("Dashboard settings")
         verbose_name_plural = _("Dashboard settings")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 
+@python_2_unicode_compatible
 class DashboardWorkspace(models.Model):
-    """
-    Dashboard workspace.
+    """Dashboard workspace.
 
     :Properties:
 
@@ -99,7 +106,7 @@ class DashboardWorkspace(models.Model):
         verbose_name_plural = _("Dashboard workspaces")
         unique_together = (('user', 'slug'), ('user', 'name'),)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_entries(self, user):
@@ -142,9 +149,10 @@ class DashboardEntryManager(models.Manager):
             user = user,
             layout_uid = layout_uid,
             workspace__slug = workspace
-            )
+        )
 
 
+@python_2_unicode_compatible
 class DashboardEntry(models.Model):
     """
     Dashboard entry (widget).
@@ -178,7 +186,7 @@ class DashboardEntry(models.Model):
         verbose_name = _("Dashboard entry")
         verbose_name_plural = _("Dashboard entries")
 
-    def __unicode__(self):
+    def __str__(self):
         return "{0} plugin for user {1}".format(self.plugin_uid, self.user)
 
     def get_plugin(self, fetch_related_data=False, request=None):
@@ -231,6 +239,7 @@ class DashboardPluginManager(models.Manager):
     """
 
 
+@python_2_unicode_compatible
 class DashboardPlugin(models.Model):
     """
     Dashboard plugin. Used when ``dash.settings.RESTRICT_PLUGIN_ACCESS`` is
@@ -257,11 +266,11 @@ class DashboardPlugin(models.Model):
         verbose_name = _("Dashboard plugin")
         verbose_name_plural = _("Dashboard plugins")
 
-    def __unicode__(self):
+    def __str__(self):
         return "{0} ({1})".format(
             dict(get_registered_plugins()).get(self.plugin_uid, ''),
             self.plugin_uid
-            )
+        )
 
     def plugin_uid_code(self):
         """

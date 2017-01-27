@@ -1,24 +1,32 @@
-__title__ = 'dash.helpers'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = (
-    'slugify_workspace', 'lists_overlap', 'iterable_to_dict',
-    'uniquify_sequence', 'clean_plugin_data', 'clone_plugin_data',
-    'update_plugin_data', 'safe_text',
-    )
-
-from six import PY3
+from autoslug.settings import slugify
 
 from django.utils.encoding import force_text
 
-from autoslug.settings import slugify
+from six import PY3
 
-slugify_workspace = lambda s: slugify(s.lower()).lower()
+__title__ = 'dash.helpers'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = 'Copyright (c) 2013-2017 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = (
+    'slugify_workspace',
+    'lists_overlap',
+    'iterable_to_dict',
+    'uniquify_sequence',
+    'clean_plugin_data',
+    'clone_plugin_data',
+    'update_plugin_data',
+    'safe_text',
+)
+
+
+def slugify_workspace(val):
+    """Slugify workspace."""
+    return slugify(val.lower()).lower()
+
 
 def safe_text(text):
-    """
-    Safe text (encode).
+    """Safe text (encode).
 
     :return str:
     """
@@ -27,15 +35,16 @@ def safe_text(text):
     else:
         return force_text(text, encoding='utf-8').encode('utf-8')
 
+
 def lists_overlap(sub, main):
     for i in sub:
         if i in main:
             return True
     return False
 
+
 def iterable_to_dict(items, key_attr_name):
-    """
-    Converts iterable of certain objects to dict.
+    """Convert iterable of certain objects to dict.
 
     :param iterable items:
     :param string key_attr_name: Attribute to use as a dictionary key.
@@ -46,9 +55,12 @@ def iterable_to_dict(items, key_attr_name):
         items_dict.update({getattr(item, key_attr_name): item})
     return items_dict
 
+
 def uniquify_sequence(sequence):
-    """
-    Makes sure items in the given sequence are unique, having the original order preserved.
+    """Makes the sequence unique.
+
+    Makes sure items in the given sequence are unique, having the original
+    order preserved.
 
     :param iterable sequence:
     :return list:
@@ -57,13 +69,15 @@ def uniquify_sequence(sequence):
     seen_add = seen.add
     return [x for x in sequence if x not in seen and not seen_add(x)]
 
+
 def clean_plugin_data(dashboard_entries, request=None):
-    """
-    Cleans up the plugin data (database, files) for the dashboard_entries given.
+    """Clean up the plugin data.
+
+    Clean up the plugin data (database, files) for the dashboard_entries given.
 
     :param iterable dashboard_entries:
     :param django.http.HttpRequest request:
-    :return bool: Boolean True if no errors occured and False otherwise.
+    :return bool: Boolean True if no errors occurred and False otherwise.
     """
     errors = False
     for dashboard_entry in dashboard_entries:
@@ -74,10 +88,9 @@ def clean_plugin_data(dashboard_entries, request=None):
 
     return not errors
 
+
 def clone_plugin_data(dashboard_entry, request=None):
-    """
-    Clone plugin data of a dashboard entry.
-    """
+    """Clone plugin data of a dashboard entry."""
     if dashboard_entry:
         plugin = dashboard_entry.get_plugin(request=request)
 
@@ -89,10 +102,9 @@ def clone_plugin_data(dashboard_entry, request=None):
 
             return plugin_data
 
+
 def update_plugin_data(dashboard_entry, request=None):
-    """
-    Update plugin data of a dashboard entry.
-    """
+    """Update plugin data of a dashboard entry."""
     if dashboard_entry:
         plugin = dashboard_entry.get_plugin(request=request)
 
