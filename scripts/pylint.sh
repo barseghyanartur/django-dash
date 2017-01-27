@@ -1,2 +1,2 @@
 reset
-pylint src/fobi/
+pylint src/dash/
