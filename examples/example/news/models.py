@@ -15,7 +15,8 @@ try:
 except ImportError:
     from django.db.models import TextField as HTMLField
 
-from slim import Slim, LanguageField
+from slim.models import Slim
+from slim.models.fields import LanguageField
 from slim.models.decorators import auto_prepend_language
 
 NEWS_IMAGES_STORAGE_PATH = 'news-images'

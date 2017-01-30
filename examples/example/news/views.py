@@ -4,8 +4,7 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('browse', 'detail')
 
 from django.http import Http404
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.shortcuts import render
 from django.utils import translation
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, InvalidPage
@@ -104,9 +103,7 @@ def browse(request, template_name='news/browse.html', \
     if request.is_ajax():
         template_name = template_name_ajax
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 def detail(request, slug, template_name='news/detail.html', \
@@ -144,6 +141,4 @@ def detail(request, slug, template_name='news/detail.html', \
     if request.is_ajax():
         template_name = template_name_ajax
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)

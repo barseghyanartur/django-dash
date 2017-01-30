@@ -3,7 +3,7 @@ __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('BaseReadRSSFeedWidget', 'ReadRSSFeed2x3Widget', 'ReadRSSFeed3x3Widget')
 
-from django.core.context_processors import csrf
+from django.template.context_processors import csrf
 from django.template.loader import render_to_string
 
 from dash.base import BaseDashboardPluginWidget

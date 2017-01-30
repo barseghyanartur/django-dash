@@ -4,53 +4,41 @@ Example project for `django-dash`
 Follow instructions below to install the example project. Commands below are
 written for Ubuntu/Debian, but may work on other Linux distributions as well.
 
-- Create a new- or switch to existing- virtual environement.
+- Clone the repo, and cd into examples folder
+    $ git+https://github.com/GMcD/django-dash#egg=django-dash
+    $ cd django-dash/examples
 
-    $ virtualenv dash
+- Create a new virtual environment.
 
-    $ source dash/bin/activate
+    $ virtualenv env
 
-- Download the latest stable version of django-dash.
+    $ source env/bin/activate
 
-    $ wget https://github.com/barseghyanartur/django-dash/archive/stable.tar.gz
+- Install Django, requirements and finally django-dash, from GMcD, for 1.8 support
 
-- Unpack it somewhere.
-
-    $ tar -xvf stable.tar.gz
-
-- Go to the unpacked directory.
-
-    $ cd django-dash-stable
-
-- Install Django, requirements and finally django-dash.
-
-    $ pip install Django
-
-    $ pip install -r examples/requirements.txt
-
-    $ pip install -e git+https://github.com/barseghyanartur/django-dash@stable#egg=django-dash
+    $ pip install -r requirements.txt
 
 - Create some directories.
 
-    $ mkdir -p examples/media/static/ examples/static/ examples/db/ examples/logs
+    $ mkdir -p media/static/ static/ db/ logs
 
-- Copy local_settings.example
+- Create Postgresql Dashboard database for local_settings.py
 
-    $ cp examples/example/local_settings.example examples/example/local_settings.py
+    $ dropdb Dashboard; createdb Dashboard;
 
 - Run the commands to sync database, install test data and run the server.
 
-    $ python examples/example/manage.py syncdb --noinput --traceback -v 3
+    $ ./manage.py syncdb --noinput --traceback -v 3
 
-    $ python examples/example/manage.py migrate --noinput
+    .. $ ./manage.py migrate --noinput
 
-    $ python examples/example/manage.py collectstatic --noinput --traceback -v 3
+    $ ./manage.py collectstatic --noinput --traceback -v 3
 
-    $ python examples/example/manage.py news_create_test_data --traceback -v 3
+    $ ./manage.py news_create_test_data --traceback -v 3
 
-    $ python examples/example/manage.py dash_create_test_data --traceback -v 3
+    $ ./manage.py dash_create_test_data --traceback -v 3
 
-    $ python examples/example/manage.py runserver 0.0.0.0:8001 --traceback -v 3
+    $ ./manage.py runserver 0.0.0.0:8001 --traceback -v 3
 
 - Open your browser and test the app.
 

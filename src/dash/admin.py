@@ -4,10 +4,11 @@ from django.contrib.admin import helpers
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.decorators import method_decorator
-from django.conf.urls import patterns, url
-from django.shortcuts import render_to_response, redirect
-from django.template import RequestContext
+from django.conf.urls import url
+from django.shortcuts import render, redirect
 from django.contrib import messages
+
+import autocomplete_light.shortcuts as alforms
 
 from nine.versions import DJANGO_LTE_1_5
 
@@ -69,11 +70,9 @@ def bulk_change_dashboard_plugins(modeladmin, request, queryset):
         'opts': opts,
         'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
     }
-    return render_to_response(
-        'dash/admin/bulk_change_dashboard_plugins.html',
-        context,
-        context_instance=RequestContext(request)
-    )
+
+    return render('dash/admin/bulk_change_dashboard_plugins.html',
+                  context)
 
 
 class CompatModelAdmin(admin.ModelAdmin):
@@ -136,6 +135,26 @@ class DashboardEntryAdminForm(forms.ModelForm):
     plugin_uid = forms.ChoiceField(choices=get_registered_plugins())
 
 
+# *********************************************************
+class DashboardEntryForm(alforms.ModelForm):
+    """Dashboard entry form."""
+
+    plugins = get_registered_plugins()
+    plugin_choices = []
+    for plugin in plugins:
+        plugin_choices.append( (plugin[0], "{} ({})".format(plugin[1],plugin[0])) )
+
+    plugin_uid  = alforms.ModelChoiceField('DashboardPluginAutocomplete')
+
+    class Meta:
+        model   = DashboardEntry
+        fields = ( 'user', 'workspace', 'layout_uid', 'placeholder_uid', 'plugin_uid', 'plugin_data', 'position' )
+
+    def clean_plugin_uid(self):
+        plugin = self.cleaned_data['plugin_uid']
+        return plugin.plugin_uid
+
+
 class DashboardEntryAdmin(CompatModelAdmin):
     """Dashboard entry admin."""
     form = DashboardEntryAdminForm
@@ -155,6 +174,8 @@ class DashboardEntryAdmin(CompatModelAdmin):
             'fields': ('user',)
         }),
     )
+
+    form = DashboardEntryForm
 
     class Meta(object):
         """Meta."""
@@ -279,13 +300,14 @@ class DashboardPluginAdmin(CompatModelAdmin):
             return redirect('admin:dash_dashboardplugin_changelist')
 
     def get_urls(self):
+
         """Get urls."""
-        my_urls = patterns('',
+        my_urls = [
             # Bulk change dashboard plugins
             url(r'^bulk-change-dashboard-plugins/$',
                 self.bulk_change_dashboard_plugins,
                 name='bulk_change_dashboard_plugins'),
-        )
+        ]
         return my_urls + super(DashboardPluginAdmin, self).get_urls()
 
 admin.site.register(DashboardPlugin, DashboardPluginAdmin)

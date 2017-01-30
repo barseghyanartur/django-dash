@@ -51,6 +51,7 @@ class Migration(migrations.Migration):
                 ('layout_uid', models.CharField(max_length=25, verbose_name='Layout')),
                 ('title', models.CharField(max_length=255, verbose_name='Title')),
                 ('is_public', models.BooleanField(default=False, help_text='Makes your dashboard to be visible to the public. Visibility of workspaces could be adjust separately for each workspace, however setting your dashboard to be visible to public, makes your default workspace visible to public too.', verbose_name='Is public?')),
+                ('allow_different_layouts', models.BooleanField(default=False, help_text='Allows you to use different layouts for each workspace', verbose_name='Allow different layouts per workspace?')),
                 ('user', models.ForeignKey(verbose_name='User', to=settings.AUTH_USER_MODEL, unique=True)),
             ],
             options={

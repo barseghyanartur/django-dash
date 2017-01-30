@@ -1,7 +1,6 @@
-#Django>=1.5,<1.7
-Django>=1.5,<1.8
-South>=0.8.2
-django-admin-tools>=0.5.1
+Django==1.10.5
+psycopg2==2.6.1
+django-admin-tools>=0.8.0
 #django-autoslug==1.7.1
 django-debug-toolbar==0.11.0
 django-registration-redux>=1.1
@@ -9,10 +8,10 @@ django-registration-redux>=1.1
 ipdb==0.8
 ipython>=2.3.0
 lorem-ipsum-generator==0.3
-#MySQL-python==1.2.4
+easy-thumbnails==2.3
 ordereddict==1.1
 radar>=0.3,<1.0
-#selenium==2.42.1
 selenium
 simple-timer>=0.2
 tox
+#git+https://github.com/GMcD/django-dash@90c6b16bddb40f263f3dd32d69259972b5a7128e#egg=django-dash

@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.utils.translation import ugettext_lazy as _
 
 from dash.views import (
@@ -8,9 +8,9 @@ from dash.views import (
     create_dashboard_workspace, edit_dashboard_workspace,
     delete_dashboard_workspace, clone_dashboard_workspace, dashboard,
     edit_dashboard_settings, 
-    )
+)
 
-urlpatterns = patterns('dash.views',
+urlpatterns = [
     # Paste dashboard entry
     url(_(r'^entry/paste/(?P<placeholder_uid>[\w_]+)/(?P<workspace>[\w_\-]+)/pos/(?P<position>\d+)/$'),
         view=paste_dashboard_entry,
@@ -126,4 +126,4 @@ urlpatterns = patterns('dash.views',
     url(_(r'^$'),
         view=dashboard,
         name='dash.dashboard'),
-)
+]

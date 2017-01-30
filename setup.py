@@ -72,20 +72,28 @@ for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f)
                      for f in os.listdir(locale_dir)]
 
+# version = '0.5.1'
+
 install_requires = [
     'Pillow>=2.1.0',
     'django-autoslug>=1.7.1',
-    # 'django-slim>=0.7.5',
+    'django-slim>=0.8',
+    'django-autocomplete-light>=2.3.2,<=2.3.3',
     'django-tinymce>=1.5.3',
     'feedparser>=5.1.3',
     'ordereddict>=1.1',
     'pif>=0.5,<1.0',
     'six>=1.9',
-    'easy-thumbnails>=1.4,<2.0',
+    'easy-thumbnails>=2.3',
     'transliterate>=1.5,<2.0',
     'vishap>=0.1.3,<2.0',
     'django-nine>=0.1.1',
     'Unidecode',
+]
+
+dependency_links = [
+    # "git+ssh://git@github.com/GMcD/django-slim.git#egg=django-slim",
+    # "git+ssh://git@github.com/GMcD/django-localeurl.git#egg=django-localeurl"
 ]
 
 tests_require = [
@@ -124,6 +132,7 @@ setup(
     packages=find_packages(where='./src'),
     license='GPL 2.0/LGPL 2.1',
     install_requires=install_requires,
+    dependency_links = dependency_links,
     tests_require=tests_require,
     package_data={
         'dash': templates + static_files + locale_files

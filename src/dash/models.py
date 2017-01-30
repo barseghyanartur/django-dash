@@ -237,7 +237,6 @@ class DashboardEntry(models.Model):
     plugin_uid_code.allow_tags = True
     plugin_uid_code.short_description = _('UID')
 
-
 class DashboardPluginManager(models.Manager):
     """Manager for ``dash.models.DashboardPlugin``."""
 
@@ -313,3 +312,7 @@ class DashboardPlugin(models.Model):
         return ', '.join([u.username for u in self.users.all()])
     users_list.allow_tags = True
     users_list.short_description = _('Users')
+
+    @staticmethod
+    def autocomplete_search_fields():
+        return ["plugin_uid__icontains"]
