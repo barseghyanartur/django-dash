@@ -19,32 +19,35 @@ are used for versioning (schema follows below):
 ---
 yyyy-mm-dd (Not yet released)
 
+This is a transitional release. In upcoming versions support for older
+versions of Django (1.5, 1.6 and 1.7) will be dropped.
+
 - From now on it's possible to set a layout for the workspace. It means you
   may have different layouts for various workspaces of the same dashboard.
 - Moving static files of Android, Bootstrap2 and Windows8 layouts
   into a separate directory (android, bootstrap2 and windows8 respectively).
-- The `vishap` package dependency updated to the version 0.1.3 (which
+- The ``vishap`` package dependency updated to the version 0.1.3 (which
   contained an small yet important fix).
 - First discover the plugin modules, then the layouts (was the opposite).
 - Remove redundant assets (resulted to smaller package size).
 - Added the following templates to the layout definitions for simpler
   further customisation: 'dash/add_dashboard_entry_ajax.html' and
   'dash/edit_dashboard_entry_ajax.html'.
-- Better referencing the custom user model in foreing key relations by using
+- Better referencing the custom user model in foreign key relations by using
   ``settings.AUTH_USER_MODEL`` instead ``django.contrib.auth.get_user_model``.
 - Fix wrong app label of the dummy plugin (``dash.contrib.plugins.dummy``),
   which caused import errors on Django >= 1.7.
 - From now on it's possible to localise (translated) URLs.
-- Initial work on Django 1.8/1.9 compatibility.
+- Compatibility with Django 1.8/1.9/1.10.
 - Remove redundant dependencies. Mention, that some of the plugins do
   have additional dependencies.
 - Performing additional checks for collision detection when inserting a new
   plugin.
 - Improved autodiscover for Django>=1.7. Fix exception when using a dotted
-  path to an `AppConfig` in `INSTALLED_APPS` (instead of using the path to
+  path to an ``AppConfig`` in ``INSTALLED_APPS`` (instead of using the path to
   the app).
 - Fixed wrongly formed app config labels.
-- Minor Python 3 improvements.
+- Minor Python3 improvements.
 - Clean up the documentation.
 - Make a quick start.
 - Upgraded ``jquery.colorbox`` to the latest version (1.6.4).

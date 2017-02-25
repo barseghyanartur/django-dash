@@ -2,32 +2,16 @@
 All `uids` are supposed to be pythonic function names (see
 PEP http://www.python.org/dev/peps/pep-0008/#function-names).
 """
-__title__ = 'dash.base'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013-2015 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = (
-    'BaseDashboardLayout', 'BaseDashboardPlaceholder', 'BaseDashboardPlugin',
-    'BaseDashboardPluginWidget', 'layout_registry', 'plugin_widget_registry',
-    'get_registered_plugins', 'get_registered_plugin_uids', 'validate_plugin_uid',
-    'get_registered_layouts', 'get_registered_layout_uids', 'get_layout',
-    'validate_placeholder_uid', 'plugin_registry', 'ensure_autodiscover',
-    'DashboardPluginFormBase', 'collect_widget_media'
-    )
-
 import copy
+import logging
 import uuid
 
 from django.forms import ModelForm
 from django.http import Http404
 from django.template.loader import render_to_string
+from django.utils.translation import ugettext_lazy as _
 
 from nine.versions import DJANGO_GTE_1_8
-
-if DJANGO_GTE_1_8:
-    from django.forms.utils import ErrorList
-else:
-    from django.forms.util import ErrorList
 
 from dash.json_package import json
 from dash.discover import autodiscover
@@ -36,14 +20,43 @@ from dash.settings import (
     ACTIVE_LAYOUT, LAYOUT_CELL_UNITS, DEBUG,
     DEFAULT_PLACEHOLDER_VIEW_TEMPLATE_NAME,
     DEFAULT_PLACEHOLDER_EDIT_TEMPLATE_NAME
-    )
+)
 from dash.exceptions import InvalidRegistryItemType
 from dash.helpers import iterable_to_dict, uniquify_sequence, safe_text
 
-import logging
+if DJANGO_GTE_1_8:
+    from django.forms.utils import ErrorList
+else:
+    from django.forms.util import ErrorList
+
 logger = logging.getLogger(__name__)
 
-_ = lambda s: s
+# _ = lambda s: s
+
+__title__ = 'dash.base'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = 'Copyright (c) 2013-2017 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = (
+    'BaseDashboardLayout',
+    'BaseDashboardPlaceholder',
+    'BaseDashboardPlugin',
+    'BaseDashboardPluginWidget',
+    'layout_registry',
+    'plugin_widget_registry',
+    'get_registered_plugins',
+    'get_registered_plugin_uids',
+    'validate_plugin_uid',
+    'get_registered_layouts',
+    'get_registered_layout_uids',
+    'get_layout',
+    'validate_placeholder_uid',
+    'plugin_registry',
+    'ensure_autodiscover',
+    'DashboardPluginFormBase',
+    'collect_widget_media'
+)
+
 
 class DashboardPluginFormBase(object):
     """
