@@ -1,57 +1,57 @@
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('browse', 'detail')
-
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, InvalidPage
 from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils import translation
-from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, InvalidPage
-from django.views.decorators.csrf import csrf_exempt
 from django.utils.translation import ugettext_lazy as _
-
-from slim.helpers import get_language_from_request
+from django.views.decorators.csrf import csrf_exempt
 
 from dash.base import get_layout
 from dash.utils import get_or_create_dashboard_settings
-from news.models import NewsItem
+
 from news.constants import (
-    MAX_NUM_POSTS_LISTING, PAGE_URL_PARAM, NUM_POSTS_URL_PARAM
+    MAX_NUM_POSTS_LISTING,
+    PAGE_URL_PARAM,
+    NUM_POSTS_URL_PARAM
 )
 from news.defaults import DEFAULT_MAX_NEWS_ITEMS
+from news.models import NewsItem
+
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2013-2017 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = (
+    'browse',
+    'detail'
+)
+
 
 @csrf_exempt
 @login_required
-def browse(request, template_name='news/browse.html', \
+def browse(request, template_name='news/browse.html',
            template_name_ajax='news/browse_ajax.html'):
     """
-    In the template, we show all available NewsItems for current language.
+    In the template, we show all available NewsItems.
 
     :param django.http.HttpRequest request:
     :param string template_name:
+    :param string template_name_ajax:
     :return django.http.HttpResponse:
     """
     # Getting dashboard settings for the user. Then get users' layout.
     dashboard_settings = get_or_create_dashboard_settings(request.user)
     layout = get_layout(
         layout_uid=dashboard_settings.layout_uid, as_instance=True
-        )
-
-    language = get_language_from_request(request)
+    )
 
     results_kwargs = {}
 
-    if language is not None:
-        translation.activate(language)
-        results_kwargs.update({'language': language})
-
-    queryset = NewsItem._default_manager.filter(**results_kwargs) \
-                       .order_by('-date_published')
+    queryset = NewsItem.objects \
+        .filter(**results_kwargs) \
+        .order_by('-date_published')
 
     page = request.GET.get(PAGE_URL_PARAM, 1)
-    #import ipdb; ipdb.set_trace()
     num_posts = request.GET.get(NUM_POSTS_URL_PARAM, DEFAULT_MAX_NEWS_ITEMS)
 
     try:
@@ -77,6 +77,14 @@ def browse(request, template_name='news/browse.html', \
     except InvalidPage as e:
         raise Http404(_("Invalid page!"))
 
+    _next = ''
+    if page_obj.has_next() and page_obj.next_page_number() is not None:
+        _next = page_obj.next_page_number()
+
+    _prev = ''
+    if page_obj.has_previous() and page_obj.previous_page_number() is not None:
+        _prev = page_obj.previous_page_number()
+
     context = {
         'layout': layout,
 
@@ -90,8 +98,8 @@ def browse(request, template_name='news/browse.html', \
         'has_next': page_obj.has_next(),
         'has_previous': page_obj.has_previous(),
         'page': page_obj.number,
-        'next': page_obj.next_page_number() if page_obj.has_next() and page_obj.next_page_number() is not None else '',
-        'previous': page_obj.previous_page_number() if page_obj.has_previous() and page_obj.previous_page_number() is not None else '',
+        'next': _next,
+        'previous': _prev,
         'first_on_page': page_obj.start_index(),
         'last_on_page': page_obj.end_index(),
         'pages': paginator.num_pages,
@@ -106,44 +114,41 @@ def browse(request, template_name='news/browse.html', \
 
     return render_to_response(
         template_name, context, context_instance=RequestContext(request)
-        )
+    )
 
 
-def detail(request, slug, template_name='news/detail.html', \
+def detail(request, slug, template_name='news/detail.html',
            template_name_ajax='news/detail_ajax.html'):
-    """
-    News item detail. In the template, we show the title and the body of the
-    News item and links to all its' all available translations.
+    """News item detail.
+
+    In the template, we show the title and the body of the news item and
+    links.
 
     :param django.http.HttpRequest request:
     :param string slug: Foo item slug.
     :param string template_name:
+    :param string template_name_ajax:
     :return django.http.HttpResponse:
     """
     layout = get_layout(as_instance=True)
 
-    language = get_language_from_request(request)
-
-    if language is not None:
-        translation.activate(language)
-
     results_kwargs = {'slug': slug}
 
     try:
-        queryset = NewsItem._default_manager.filter(**results_kwargs)
+        queryset = NewsItem.objects.filter(**results_kwargs)
 
         item = queryset.get(**results_kwargs)
-    except Exception as e:
+    except NewsItem.DoesNotExist:
         raise Http404
 
     context = {
         'layout': layout,
         'item': item
-        }
+    }
 
     if request.is_ajax():
         template_name = template_name_ajax
 
     return render_to_response(
         template_name, context, context_instance=RequestContext(request)
-        )
+    )

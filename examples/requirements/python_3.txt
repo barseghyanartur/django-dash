@@ -1,4 +1,0 @@
-# If you are using Python 3, install a forked version of django-localeurl
-# (since official version does not yet have support for Python 3).
-#-e hg+https://bitbucket.org/barseghyanartur/django-localeurl@stable#egg=django-localeurl
-django-localeurl>=2.0.2

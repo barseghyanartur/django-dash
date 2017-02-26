@@ -286,8 +286,8 @@ INSTALLED_APPS = (
     'tinymce',  # TinyMCE
     'registration',  # Auth views and registration app
     'easy_thumbnails',  # Thumbnailer
-    'widget_tweaks', # For tweaking the forms
-    'slim', # Multi-lingual models app
+    'widget_tweaks',  # For tweaking the forms
+    # 'slim',  # Multi-lingual models app
 
     # Dash core, contrib layouts and apps
     'dash',  # Dash core
@@ -326,7 +326,7 @@ LOGIN_ERROR_URL = '/en/accounts/login/'
 LOGOUT_URL = '/en/accounts/logout/'
 
 # Tell slim to use localised language names
-SLIM_USE_LOCAL_LANGUAGE_NAMES = True
+# SLIM_USE_LOCAL_LANGUAGE_NAMES = True
 
 # django-admin-tools custom dashboard
 ADMIN_TOOLS_MENU = 'admin_tools_dashboard.menu.CustomMenu'

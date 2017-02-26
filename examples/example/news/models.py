@@ -1,8 +1,3 @@
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('NEWS_IMAGES_STORAGE_PATH', '_news_images', 'NewsItem',)
-
 import datetime
 
 from django.db import models
@@ -15,23 +10,38 @@ try:
 except ImportError:
     from django.db.models import TextField as HTMLField
 
-from slim import Slim, LanguageField
-from slim.models.decorators import auto_prepend_language
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2013-2017 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = (
+    'NEWS_IMAGES_STORAGE_PATH',
+    '_news_images',
+    'NewsItem',
+)
+
 
 NEWS_IMAGES_STORAGE_PATH = 'news-images'
 
+
 def _news_images(instance, filename):
-    """
-    Store the images in their own folder. This allows us to keep thumbnailed
-    versions of all images.
+    """Store the images in their own folder.
+
+    This allows us to keep thumbnailed versions of all images.
     """
     if instance.pk:
-        return '{0}/{1}-{2}'.format(NEWS_IMAGES_STORAGE_PATH, str(instance.pk), filename.replace(' ', '-'))
-    return '{0}/{1}'.format(NEWS_IMAGES_STORAGE_PATH, filename.replace(' ', '-'))
+        return '{0}/{1}-{2}'.format(
+            NEWS_IMAGES_STORAGE_PATH,
+            str(instance.pk),
+            filename.replace(' ', '-')
+        )
+    return '{0}/{1}'.format(
+        NEWS_IMAGES_STORAGE_PATH,
+        filename.replace(' ', '-')
+    )
 
-class NewsItem(models.Model, Slim):
-    """
-    News item.
+
+class NewsItem(models.Model):
+    """News item.
 
     - `title`: Title of the news item.
     - `body`: Teaser of the news item. WYSIWYG.
@@ -49,8 +59,6 @@ class NewsItem(models.Model, Slim):
                                           default=datetime.datetime.now())
     slug = models.SlugField(unique=True, verbose_name=_("Slug"))
 
-    language = LanguageField()
-
     date_created = models.DateTimeField(_("Date created"), blank=True, \
                                         null=True, auto_now_add=True, \
                                         editable=False)
@@ -65,10 +73,8 @@ class NewsItem(models.Model, Slim):
     def __unicode__(self):
         return self.title
 
-    @auto_prepend_language
     def get_absolute_url(self):
-        """
-        Absolute URL, which goes to the foo item detail page.
+        """Absolute URL, which goes to the foo item detail page.
 
         :return string:
         """
@@ -76,8 +82,9 @@ class NewsItem(models.Model, Slim):
         return reverse('news.detail', kwargs=kwargs)
 
     def admin_image_preview(self):
-        """
-        Preview of the ``image``. For admin use mainly.
+        """Preview of the ``image``.
+
+        For admin use mainly.
 
         :return string:
         """
@@ -85,7 +92,7 @@ class NewsItem(models.Model, Slim):
             return render_to_string(
                 'news/_image_preview.html',
                 {'alt': self.title, 'image_file': self.image}
-                )
+            )
         else:
             return u''
     admin_image_preview.allow_tags = True
