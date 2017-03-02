@@ -1,45 +1,58 @@
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-
 from dash.base import plugin_registry, plugin_widget_registry
 from dash.contrib.plugins.image.dash_plugins import BaseImagePlugin
 
 from foo.dash_widgets import (
     # Dummy
-    Dummy1x1ExampleMainWidget, Dummy2x2ExampleMainWidget,
+    Dummy1x1ExampleMainWidget,
+    Dummy2x2ExampleMainWidget,
     Dummy1x1ExampleTopShortcutsWidget,
-    Dummy1x1ExampleRightShortcutsWidget, Dummy2x2ExampleRightShortcutsWidget,
+    Dummy1x1ExampleRightShortcutsWidget,
+    Dummy2x2ExampleRightShortcutsWidget,
     Dummy1x1ExampleBottomShortcutsWidget,
-    Dummy1x1ExampleLeftShortcutsWidget, Dummy2x2ExampleLeftShortcutsWidget,
+    Dummy1x1ExampleLeftShortcutsWidget,
+    Dummy2x2ExampleLeftShortcutsWidget,
 
     # Image
-    Image1x1ExampleMainWidget, Image2x2ExampleMainWidget, Image3x2ExampleMainWidget, Image3x3ExampleMainWidget,
-    Image3x8ExampleLeftShortcutsWidget, Image3x8ExampleRightShortcutsWidget,
-    Image8x1ExampleTopShortcutsWidget, Image8x1ExampleBottomShortcutsWidget,
+    Image1x1ExampleMainWidget,
+    Image2x2ExampleMainWidget,
+    Image3x2ExampleMainWidget,
+    Image3x3ExampleMainWidget,
+    Image3x8ExampleLeftShortcutsWidget,
+    Image3x8ExampleRightShortcutsWidget,
+    Image8x1ExampleTopShortcutsWidget,
+    Image8x1ExampleBottomShortcutsWidget,
 
     # Memo
-    Memo2x2ExampleMainWidget, Memo3x3ExampleMainWidget,
+    Memo2x2ExampleMainWidget,
+    Memo3x3ExampleMainWidget,
 
     # TinyMCE memo
-    TinyMCE2x2ExampleMainWidget, TinyMCE3x3ExampleMainWidget,
+    TinyMCE2x2ExampleMainWidget,
+    TinyMCE3x3ExampleMainWidget,
 
     # URL
-    URL1x1ExampleMainWidget, URL2x2ExampleMainWidget,
-    URL2x2ExampleLeftShortcutsWidget, URL2x2ExampleRightShortcutsWidget,
+    URL1x1ExampleMainWidget,
+    URL2x2ExampleMainWidget,
+    URL2x2ExampleLeftShortcutsWidget,
+    URL2x2ExampleRightShortcutsWidget,
 
     # Video
-    Video2x2ExampleMainWidget, Video3x3ExampleMainWidget,
-    )
+    Video2x2ExampleMainWidget,
+    Video3x3ExampleMainWidget,
+)
+
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2013-2017 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
 
 # ******************************************************
 # ******************Extended plugins *******************
 # ******************************************************
 
+
 class Image3x8Plugin(BaseImagePlugin):
-    """
-    Image3x8 dashboard plugin.
-    """
+    """Image3x8 dashboard plugin."""
+
     uid = 'image_3x8'
 
 
@@ -47,9 +60,8 @@ plugin_registry.register(Image3x8Plugin)
 
 
 class Image8x1Plugin(BaseImagePlugin):
-    """
-    Image3x8 dashboard plugin.
-    """
+    """Image3x8 dashboard plugin."""
+
     uid = 'image_8x1'
 
 

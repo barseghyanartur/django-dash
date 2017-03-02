@@ -50,23 +50,26 @@ class NewsItem(models.Model):
         ``datetime.datetime.now``.
     - `language`: Language.
     """
+
     title = models.CharField(_("Title"), max_length=100)
     body = HTMLField(_("Body"))
-    image = models.ImageField(_("Headline image"), blank=True, null=True, \
+    image = models.ImageField(_("Headline image"), blank=True, null=True,
                               upload_to=_news_images)
-    date_published = models.DateTimeField(_("Date published"), blank=True, \
-                                          null=True, \
+    date_published = models.DateTimeField(_("Date published"), blank=True,
+                                          null=True,
                                           default=datetime.datetime.now())
     slug = models.SlugField(unique=True, verbose_name=_("Slug"))
 
-    date_created = models.DateTimeField(_("Date created"), blank=True, \
-                                        null=True, auto_now_add=True, \
+    date_created = models.DateTimeField(_("Date created"), blank=True,
+                                        null=True, auto_now_add=True,
                                         editable=False)
-    date_updated = models.DateTimeField(_("Date updated"), blank=True, \
-                                        null=True, auto_now=True, \
+    date_updated = models.DateTimeField(_("Date updated"), blank=True,
+                                        null=True, auto_now=True,
                                         editable=False)
 
     class Meta:
+        """Meta."""
+
         verbose_name = _("News item")
         verbose_name_plural = _("News items")
 

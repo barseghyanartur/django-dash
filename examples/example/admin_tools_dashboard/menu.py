@@ -13,10 +13,10 @@ from admin_tools.menu import items, Menu
 
 from admin_tools_dashboard import conf
 
+
 class CustomMenu(Menu):
-    """
-    Custom Menu.
-    """
+    """Custom Menu."""
+
     def __init__(self, **kwargs):
         Menu.__init__(self, **kwargs)
         self.children += [
@@ -24,38 +24,53 @@ class CustomMenu(Menu):
         ]
 
         # Foo
-        self.children.append(items.ModelList(_('Foo'),
-            models=conf.foo_apps
-        ))
+        self.children.append(
+            items.ModelList(
+                _('Foo'),
+                models=conf.foo_apps
+            )
+        )
 
         # News
-        self.children.append(items.ModelList(_('News'),
-            models=conf.news_apps
-        ))
+        self.children.append(
+            items.ModelList(
+                _('News'),
+                models=conf.news_apps
+            )
+        )
 
         # Bookmark
-        self.children.append(items.ModelList(_('Bookmark'),
-            models=conf.bookmark_apps
-        ))
+        self.children.append(
+            items.ModelList(
+                _('Bookmark'),
+                models=conf.bookmark_apps
+            )
+        )
 
         # Dash
-        self.children.append(items.ModelList(_('Dash'),
-            models=conf.dash_apps
-        ))
+        self.children.append(
+            items.ModelList(
+                _('Dash'),
+                models=conf.dash_apps
+            )
+        )
 
-         # Registration
-        self.children.append(items.ModelList(_('Registration'),
-            models=conf.registration_apps
-        ))
+        # Registration
+        self.children.append(
+            items.ModelList(
+                _('Registration'),
+                models=conf.registration_apps
+            )
+        )
 
         # append an app list module for "Administration"
-        self.children.append(items.AppList(
-            _('Administration'),
-            models=['django.contrib.*',]
-        ))
+        self.children.append(
+            items.AppList(
+                _('Administration'),
+                models=['django.contrib.*',]
+            )
+        )
 
     def init_with_context(self, context):
-        """
-            Use this method if you need to access the request context.
-        """
+        """Use this method if you need to access the request context."""
         return super(CustomMenu, self).init_with_context(context)

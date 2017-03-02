@@ -16,7 +16,8 @@ url_patterns_args = [
     url(r'^dashboard/', include('dash.urls')),
 
     # django-dash RSS contrib plugin URLs:
-    url(r'^dash/contrib/plugins/rss-feed/', include('dash.contrib.plugins.rss_feed.urls')),
+    url(r'^dash/contrib/plugins/rss-feed/',
+        include('dash.contrib.plugins.rss_feed.urls')),
 
     # django-dash News contrib plugin URLs:
     url(r'^news/', include('news.urls')),
@@ -40,4 +41,5 @@ else:
 
 if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

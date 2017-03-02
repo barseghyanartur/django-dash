@@ -23,4 +23,8 @@ registration_apps = [
 ]
 
 apps_to_exclude = ['django.contrib.*',]
-apps_to_exclude += foo_apps + news_apps + bookmark_apps + dash_apps + registration_apps
+apps_to_exclude += foo_apps + \
+                   news_apps + \
+                   bookmark_apps + \
+                   dash_apps + \
+                   registration_apps

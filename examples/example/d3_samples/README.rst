@@ -1,6 +1,6 @@
-============================================
+=============================
 Example app for `django-dash`
-============================================
+=============================
 Contains sample D3 plugins:
 
 - Bubble Chart, which is based on the original
@@ -11,12 +11,12 @@ Contains sample D3 plugins:
   `sample <http://bl.ocks.org/mbostock/4063423>`_.
 
 Usage
-============================================
+=====
 - Add the desired sample D3 plugin to your dashboard.
 
-Screenshots
-============================================
-Several screenshots of the sample D3 plugins (in Bootstrap2 layout) are
+Screen-shots
+============
+Several screen-shots of the sample D3 plugins (in Bootstrap2 layout) are
 presented below.
 
 - Bubble Chart, Stacked-to-Grouped Bars and Sunburst Partition (view dashboard
@@ -34,7 +34,7 @@ presented below.
         :width: 900px
 
 License
-============================================
+=======
 - The the `d3.js <https://github.com/mbostock/d3/>`_ (JavaScript library) is
   licensed under `BSD <https://github.com/mbostock/d3/blob/master/LICENSE>`_.
 - To the rest of the code falls under the license of the `django-dash`.

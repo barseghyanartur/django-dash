@@ -16,26 +16,27 @@ __all__ = (
 # ********************** Base widget for Memo plugin ********************
 # ***********************************************************************
 
+
 class BaseNewsWidget(BaseDashboardPluginWidget):
-    """
-    Base news widget.
-    """
+    """Base news widget."""
+
     media_css = [
         'css/dash_plugin_news.css',
     ]
 
     def render(self, request=None):
-        context = {'plugin': self.plugin,}
+        """Render."""
+        context = {'plugin': self.plugin}
         return render_to_string('news/render.html', context)
 
 # ***********************************************************************
 # ********************** Specific widgets for Memo plugin ***************
 # ***********************************************************************
 
+
 class News2x5Widget(BaseNewsWidget):
-    """
-    News plugin 2x5 widget.
-    """
+    """News plugin 2x5 widget."""
+
     plugin_uid = 'news_2x5'
     cols = 2
     rows = 5
@@ -46,9 +47,8 @@ class News2x5Widget(BaseNewsWidget):
 
 
 class News4x5Widget(BaseNewsWidget):
-    """
-    News plugin 4x5 widget.
-    """
+    """News plugin 4x5 widget."""
+
     plugin_uid = 'news_4x5'
     cols = 4
     rows = 5
@@ -58,9 +58,10 @@ class News4x5Widget(BaseNewsWidget):
     ]
 
     def render(self, request=None):
+        """Render."""
         context = {
             'plugin': self.plugin,
             'PAGE_URL_PARAM': PAGE_URL_PARAM,
             'NUM_POSTS_URL_PARAM': NUM_POSTS_URL_PARAM
-            }
+        }
         return render_to_string('news/render_4x5_main.html', context)
