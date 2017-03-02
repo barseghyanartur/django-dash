@@ -54,10 +54,10 @@ def bulk_change_dashboard_plugins(modeladmin, request, queryset):
         post['selected_dashboard_plugins'] = ','.join(selected)
     if 'POST' == request.method:
         form = BulkChangeDashboardPluginsForm(
-            data = post,
-            files = request.FILES,
+            data=post,
+            files=request.FILES,
             initial={'selected_dashboard_plugins': ','.join(selected)}
-            )
+        )
     else:
         form = BulkChangeDashboardPluginsForm(
             initial={'selected_dashboard_plugins': ','.join(selected)}
@@ -178,7 +178,7 @@ admin.site.register(DashboardEntry, DashboardEntryAdmin)
 
 
 class DashboardPluginAdminForm(forms.ModelForm):
-    """Dashbard plugin admin form."""
+    """Dashboard plugin admin form."""
 
     class Meta(object):
         """Meta."""
@@ -227,9 +227,9 @@ class DashboardPluginAdmin(CompatModelAdmin):
         if 'POST' == request.method:
             form_cls = BulkChangeDashboardPluginsForm
             form = form_cls(
-                data = request.POST,
-                files = request.FILES
-                )
+                data=request.POST,
+                files=request.FILES
+            )
             if form.is_valid():
                 ids = form.cleaned_data.pop(
                     'selected_dashboard_plugins'
@@ -268,7 +268,8 @@ class DashboardPluginAdmin(CompatModelAdmin):
                 messages.info(
                     request,
                     _('{0} Dashboard plugins were '
-                      'changed successfully.').format(len(ids)))
+                      'changed successfully.').format(len(ids))
+                )
 
                 return redirect('admin:dash_dashboardplugin_changelist')
         else:
@@ -280,13 +281,14 @@ class DashboardPluginAdmin(CompatModelAdmin):
 
     def get_urls(self):
         """Get urls."""
-        my_urls = patterns('',
+        my_urls = [
             # Bulk change dashboard plugins
             url(r'^bulk-change-dashboard-plugins/$',
                 self.bulk_change_dashboard_plugins,
                 name='bulk_change_dashboard_plugins'),
-        )
+        ]
         return my_urls + super(DashboardPluginAdmin, self).get_urls()
+
 
 admin.site.register(DashboardPlugin, DashboardPluginAdmin)
 

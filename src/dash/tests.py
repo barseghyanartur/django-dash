@@ -1,8 +1,3 @@
-__title__ = 'dash.tests'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-
 import unittest
 
 from optparse import OptionParser
@@ -10,13 +5,11 @@ from time import sleep
 
 from six import print_
 
-from django.test import TestCase
-from django.test import RequestFactory
 from django.core.management import call_command
-from django.test import LiveServerTestCase
-from django.test import Client
-from django.contrib.staticfiles.management.commands import collectstatic
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.contrib.staticfiles.management.commands import collectstatic
+from django.test import TestCase, RequestFactory, LiveServerTestCase, Client
 
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
@@ -27,15 +20,24 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 # from selenium.webdriver.remote.webdriver import WebDriver as RemoveWebDriver
 # from selenium.webdriver.support.wait import WebDriverWait
 
-from dash.discover import autodiscover
-from dash.base import plugin_registry, layout_registry
-from dash.base import get_registered_plugins, get_registered_layouts, get_layout
-from dash.utils import get_occupied_cells, get_user_plugins
-from dash.models import DashboardEntry
-from dash.management.commands import dash_sync_plugins
-from dash.settings import WAIT_BETWEEN_TEST_STEPS, WAIT_AT_TEST_END
-#from dash.compat import User
-from django.contrib.auth import get_user_model
+from dash.base import (
+    plugin_registry,
+    layout_registry,
+    get_registered_plugins,
+    get_registered_layouts,
+    get_layout
+)
+from .discover import autodiscover
+from .management.commands import dash_sync_plugins
+from .models import DashboardEntry
+from .settings import WAIT_BETWEEN_TEST_STEPS, WAIT_AT_TEST_END
+from .utils import get_occupied_cells, get_user_plugins
+
+__title__ = 'dash.tests'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2013-2017 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+
 
 DASH_TEST_USER_USERNAME = 'test_admin'
 DASH_TEST_USER_PASSWORD = 'test'
@@ -44,21 +46,12 @@ TRACK_TIME = False
 
 
 def print_info(func):
-    """
-    Prints some useful info.
-    """
+    """Prints some useful info."""
     if not PRINT_INFO:
         return func
 
     def inner(self, *args, **kwargs):
-        #if TRACK_TIME:
-        #    import simple_timer
-        #    timer = simple_timer.Timer() # Start timer
-
         result = func(self, *args, **kwargs)
-
-        #if TRACK_TIME:
-        #    timer.stop() # Stop timer
 
         print_('\n{0}'.format(func.__name__))
         print_('============================')
@@ -67,8 +60,6 @@ def print_info(func):
         print_('----------------------------')
         if result is not None:
             print_(result)
-        #if TRACK_TIME:
-        #    print_('done in {0} seconds'.format(timer.duration))
         print_('\n')
 
         return result
@@ -79,8 +70,8 @@ def create_dashboard_user():
     """
     Create a user for testing the dashboard.
 
-    TODO: At the moment an admin account is being tested. Automated tests with diverse accounts are
-    to be implemented.
+    TODO: At the moment an admin account is being tested. Automated tests with
+    diverse accounts are to be implemented.
     """
     User = get_user_model()
     u = User()
@@ -98,51 +89,36 @@ def create_dashboard_user():
 
 DASH_SET_UP = False
 
-def setup_dash():
-    """
-    Set up dash.
-    """
-    #global DASH_SET_UP
-    #if DASH_SET_UP is True:
-    #    return
 
+def setup_dash():
+    """Set up dash."""
     call_command('collectstatic', verbosity=3, interactive=False)
     call_command('dash_sync_plugins', verbosity=3, interactive=False)
-    #call_command('loaddata', 'dash', verbosity=3, interactive=False)
-
-    #DASH_SET_UP = True
 
 
 class DashCoreTest(TestCase):
-    """
-    Tests of django-dash core functionality.
-    """
+    """Tests of django-dash core functionality."""
+
     def setUp(self):
         setup_dash()
 
     @print_info
     def test_01_registered_layouts(self):
-        """
-        Test registered layouts (`get_registered_layouts`).
-        """
+        """Test registered layouts (`get_registered_layouts`)."""
         res = get_registered_layouts()
         self.assertTrue(len(res) > 0)
         return res
 
     @print_info
     def test_02_active_layout(self):
-        """
-        Test active layout (`get_layout`).
-        """
+        """Test active layout (`get_layout`)."""
         layout_cls = get_layout()
         self.assertTrue(layout_cls is not None)
         return layout_cls
 
     @print_info
     def test_03_get_layout_placeholders(self):
-        """
-        Test active layout placeholders (`get_placeholder_instances`).
-        """
+        """Test active layout placeholders (`get_placeholder_instances`)."""
         layout_cls = get_layout()
         layout = layout_cls()
         res = layout.get_placeholder_instances()
@@ -151,14 +127,13 @@ class DashCoreTest(TestCase):
 
     @print_info
     def test_04_active_layout_render_for_view(self):
-        """
-        Test active layout render (`render_for_view`).
-        """
+        """Test active layout render (`render_for_view`)."""
         try:
             # Create dashboard user
             create_dashboard_user()
         except:
             pass
+
         User = get_user_model()
         # Getting the admin (user with plugin data)
         user = User.objects.get(username=DASH_TEST_USER_USERNAME)
@@ -176,20 +151,22 @@ class DashCoreTest(TestCase):
         layout = get_layout(as_instance=True)
 
         # Fetching all dashboard entries for user and freezeing the queryset
-        dashboard_entries = DashboardEntry._default_manager \
-                                          .get_for_user(user=request.user, layout_uid=layout.uid, workspace=workspace) \
-                                          .select_related('workspace', 'user') \
-                                          .filter(plugin_uid__in=user_plugin_uids) \
-                                          .order_by('placeholder_uid', 'position')[:]
+        dashboard_entries = DashboardEntry \
+                                ._default_manager \
+                                .get_for_user(user=request.user,
+                                              layout_uid=layout.uid,
+                                              workspace=workspace) \
+                                .select_related('workspace', 'user') \
+                                .filter(plugin_uid__in=user_plugin_uids) \
+                                .order_by('placeholder_uid', 'position')[:]
 
-        res = layout.render_for_view(dashboard_entries=dashboard_entries, request=request)
+        res = layout.render_for_view(dashboard_entries=dashboard_entries,
+                                     request=request)
         return res
 
     @print_info
     def test_05_get_occupied_cells(self):
-        """
-        Test ``dash.utils.get_occupied_cells``.
-        """
+        """Test ``dash.utils.get_occupied_cells``."""
         # Fake dashboard entry
         class Entry(object):
             pass
@@ -220,18 +197,17 @@ class DashCoreTest(TestCase):
             # *********** Third test (the nasty one)
 
             # 3 x 3 widget
-            #r = get_occupied_cells(layout, placeholder, 'memo_3x3', 17)
+            # r = get_occupied_cells(layout, placeholder, 'memo_3x3', 17)
 
-            #self.assertEqual(r, [16, 17,18, 22, 23, 24, 28, 29, 30])
+            # self.assertEqual(r, [16, 17,18, 22, 23, 24, 28, 29, 30])
 
-            #res.append(r)
+            # res.append(r)
 
         return res
 
 
 class DashBrowserTest(LiveServerTestCase):
-    """
-    django-dash browser tests.
+    """django-dash browser tests.
 
     TODO: At the moment is done for admin only. Normal users shall be tested as well
     for plugin security workflow (permissions system used).
@@ -289,73 +265,96 @@ class DashBrowserTest(LiveServerTestCase):
         link = element.get_attribute('href')
         self.selenium.get(link)
 
-    def __add_plugin_widget_test(self, position, plugin_widget_name, plugin_widget_name_with_dimensions, \
-                                 plugin_widget_css_class, added_plugin_widget_css_classes, form_data={}, \
+    def __add_plugin_widget_test(self,
+                                 position,
+                                 plugin_widget_name,
+                                 plugin_widget_name_with_dimensions,
+                                 plugin_widget_css_class,
+                                 added_plugin_widget_css_classes,
+                                 form_data={},
                                  form_hook_func=None):
         """
         Test add any single plugin.
 
         :param string position: Example value "col-1 row-1"
         :param string plugin_widget_name: Example value "Dummy".
-        :param string plugin_widget_name_with_dimensions: Example value "Dummy (1x1)".
+        :param string plugin_widget_name_with_dimensions: Example
+            value "Dummy (1x1)".
         :param string plugin_widget_css_class: Example value "plugin-dummy1x1".
-        :param list added_plugin_widget_css_classes: Example value ['width-1', 'height-1'].
-        :param dict form_data: Example value {'title': "Lorem", 'text': "Lorem ipsum dolor sit amet"}.
-        :param callable form_hook_func: Function to when add form is opened (to populate the data).
+        :param list added_plugin_widget_css_classes: Example
+            value ['width-1', 'height-1'].
+        :param dict form_data: Example value
+            {
+                'title': "Lorem",
+                'text': "Lorem ipsum dolor sit amet"
+            }.
+        :param callable form_hook_func: Function to when add form is opened (
+            to populate the data).
 
         :example:
 
         Test 1x1 URL plugin widget::
 
             def choose_url_image():
-                # Hook function to select an image for test 1x1 URL plugin widget.
+                # Hook function to select an image for test 1x1
+                # URL plugin widget.
                 image_input = self.selenium.find_element_by_xpath(
                     '//select[@name="image"]/option[@value="icon-coffee"]'
-                    )
+                )
                 self.assertTrue(image_input is not None)
                 image_input.click()
 
+
             self.__add_plugin_widget_test(
-                position = "col-1 row-1",
-                plugin_widget_name = "URL",
-                plugin_widget_name_with_dimensions = "URL (1x1)",
-                plugin_widget_css_class = "plugin-url_1x1",
-                added_plugin_widget_css_classes = ('width-1', 'height-1'),
-                form_data = {'title': "Test 1x1 URL", 'url': "http://delusionalinsanity.com/portfolio/"},
-                form_hook_func = choose_url_image
-                )
+                position="col-1 row-1",
+                plugin_widget_name="URL",
+                plugin_widget_name_with_dimensions="URL (1x1)",
+                plugin_widget_css_class="plugin-url_1x1",
+                added_plugin_widget_css_classes ('width-1', 'height-1'),
+                form_data={
+                    'title': "Test 1x1 URL",
+                    'url': "http://delusionalinsanity.com/portfolio/"
+                },
+                form_hook_func=choose_url_image
+            )
 
         Test 2x1 Dummy plugin widget::
 
             self.__add_plugin_widget_test(
-                position = "col-2 row-1",
-                plugin_widget_name = "Dummy",
-                plugin_widget_name_with_dimensions = "Dummy (2x1)",
-                plugin_widget_css_class = "plugin-dummy2x1",
-                added_plugin_widget_css_classes = ('width-2', 'height-1')
-                )
+                position="col-2 row-1",
+                plugin_widget_name="Dummy",
+                plugin_widget_name_with_dimensions="Dummy (2x1)",
+                plugin_widget_css_class="plugin-dummy2x1",
+                added_plugin_widget_css_classes=('width-2', 'height-1')
+            )
 
         Test 3x3 Memo plugin widget::
 
             self.__add_plugin_widget_test(
-                position = "col-4 row-1",
-                plugin_widget_name = "Memo",
-                plugin_widget_name_with_dimensions = "Memo (3x3)",
-                plugin_widget_css_class = "plugin-memo_3x3",
-                added_plugin_widget_css_classes = ('width-3', 'height-3'),
-                form_data = {'title': "Lorem", 'text': "Lorem ipsum dolor sit amet"}
-                )
+                position="col-4 row-1",
+                plugin_widget_name="Memo",
+                plugin_widget_name_with_dimensions="Memo (3x3)",
+                plugin_widget_css_class="plugin-memo_3x3",
+                added_plugin_widget_css_classes=('width-3', 'height-3'),
+                form_data={
+                    'title': "Lorem",
+                    'text': "Lorem ipsum dolor sit amet"
+                }
+            )
 
         Test 3x3 Video plugin widget::
 
             self.__add_plugin_widget_test(
-                position = "col-1 row-2",
-                plugin_widget_name = "Video",
-                plugin_widget_name_with_dimensions = "Video (3x3)",
-                plugin_widget_css_class = "plugin-video_3x3",
-                added_plugin_widget_css_classes = ('width-3', 'height-3'),
-                form_data = {'title': "Test 3x3 video", 'url': "http://www.youtube.com/watch?v=8GVIui0JK0M"}
-                )
+                position="col-1 row-2",
+                plugin_widget_name="Video",
+                plugin_widget_name_with_dimensions="Video (3x3)",
+                plugin_widget_css_class="plugin-video_3x3",
+                added_plugin_widget_css_classes=('width-3', 'height-3'),
+                form_data = {
+                    'title': "Test 3x3 video",
+                    'url': "http://www.youtube.com/watch?v=8GVIui0JK0M"
+                }
+            )
         """
         # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -364,61 +363,77 @@ class DashBrowserTest(LiveServerTestCase):
         # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        live_server_url = self.LIVE_SERVER_URL if self.LIVE_SERVER_URL else self.live_server_url
+        live_server_url = self.LIVE_SERVER_URL \
+            if self.LIVE_SERVER_URL \
+            else self.live_server_url
         self.selenium.get('{0}{1}'.format(live_server_url, settings.LOGIN_URL))
         self.selenium.maximize_window()
         username_input = self.selenium.find_element_by_name("username")
         username_input.send_keys(DASH_TEST_USER_USERNAME)
         password_input = self.selenium.find_element_by_name("password")
         password_input.send_keys(DASH_TEST_USER_PASSWORD)
-        submit_button = self.selenium.find_element_by_xpath('//button[@type="submit"]')
+        submit_button = self.selenium.find_element_by_xpath(
+            '//button[@type="submit"]'
+        )
         submit_button.click()
 
         # Wait until the list view opens
         WebDriverWait(self.selenium, timeout=4).until(
-            #lambda driver: driver.find_element_by_id('id_main')
-            lambda driver: driver.find_element_by_xpath('//body[contains(@class, "layout")]')
+            lambda driver: driver.find_element_by_xpath(
+                '//body[contains(@class, "layout")]'
             )
+        )
 
         # Click the button to go to dashboard edit
-        dashboard_edit_link = self.selenium.find_element_by_xpath('//a[contains(@class, "menu-dashboard-edit")]')
+        dashboard_edit_link = self.selenium.find_element_by_xpath(
+            '//a[contains(@class, "menu-dashboard-edit")]'
+        )
         dashboard_edit_link.click()
 
         # Wait until the dashboard edit view opens
         WebDriverWait(self.selenium, timeout=4).until(
-            #lambda driver: driver.find_element_by_id('id_main')
-            lambda driver: driver.find_element_by_xpath('//body[contains(@class, "layout")]')
+            lambda driver: driver.find_element_by_xpath(
+                '//body[contains(@class, "layout")]'
             )
+        )
 
         # Click the add widget button to add a new widget to the dashboard
-        #self.selenium.find_element_by_xpath('//a[contains(@class, "add-plugin")]').click()
-        add_plugin_widget_div = self.selenium.find_element_by_xpath('//div[contains(@class, "{0}")]'.format(position))
-        add_plugin_link = add_plugin_widget_div.find_element_by_class_name('add-plugin')
+        add_plugin_widget_div = self.selenium.find_element_by_xpath(
+            '//div[contains(@class, "{0}")]'.format(position)
+        )
+        add_plugin_link = add_plugin_widget_div.find_element_by_class_name(
+            'add-plugin'
+        )
         # add_plugin_link.click()
         self._click(add_plugin_link)
 
         # Wait until the add widget view opens
         WebDriverWait(self.selenium, timeout=8).until(
-            #lambda driver: driver.find_element_by_xpath('//a[contains(@class, "widget-dummy")]')
-            lambda driver: driver.find_element_by_xpath('//a[text()="{0}"]'.format(plugin_widget_name_with_dimensions))
+            lambda driver: driver.find_element_by_xpath(
+                '//a[text()="{0}"]'.format(plugin_widget_name_with_dimensions)
             )
+        )
 
         # Wait until the accordion is really loaded
         WebDriverWait(self.selenium, timeout=4).until(
             lambda driver: driver.find_element_by_id('accordion')
-            )
+        )
 
         # Add a dummy (1x1) widget
         add_dummy_plugin_widget = self.selenium.find_element_by_xpath(
             '//a[text()="{0}"]'.format(plugin_widget_name_with_dimensions)
-            )
+        )
 
-        self.selenium.get('{0}'.format(add_dummy_plugin_widget.get_attribute('href')))
+        self.selenium.get('{0}'.format(
+            add_dummy_plugin_widget.get_attribute('href'))
+        )
 
         # Wait until the add dummy widget form opens
         WebDriverWait(self.selenium, timeout=4).until(
-            lambda driver: driver.find_element_by_xpath('//body[contains(@class, "standalone")]')
+            lambda driver: driver.find_element_by_xpath(
+                '//body[contains(@class, "standalone")]'
             )
+        )
 
         # Filling with test data
         if form_data:

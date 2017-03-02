@@ -1,27 +1,36 @@
-__title__ = 'dash.clipboard'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013-2015 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = (
-    'save_plugin_data_to_clipboard', 'get_plugin_data_from_clipboard',
-    'cut_entry_to_clipboard', 'copy_entry_to_clipboard',
-    'paste_from_clipboard', 'can_paste_from_clipboard'
-)
-
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import ugettext_lazy as _
 
-from dash.models import (
-    DashboardEntry, DashboardWorkspace
-    )
-from dash.base import validate_placeholder_uid#, validate_plugin_uid
-from dash.settings import PLUGIN_CLIPBOARD_KEY
-from dash.utils import (
-    get_occupied_cells, build_cells_matrix, get_user_plugin_uids
-    )
-from dash.helpers import (
-    lists_overlap, safe_text, clone_plugin_data
-    )
+from .base import validate_placeholder_uid
+from .helpers import (
+    lists_overlap,
+    safe_text,
+    clone_plugin_data
+)
+from .models import (
+    DashboardEntry,
+    DashboardWorkspace
+)
+from .settings import PLUGIN_CLIPBOARD_KEY
+from .utils import (
+    get_occupied_cells,
+    build_cells_matrix,
+    get_user_plugin_uids
+)
+
+__title__ = 'dash.clipboard'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2013-2017 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = (
+    'save_plugin_data_to_clipboard',
+    'get_plugin_data_from_clipboard',
+    'cut_entry_to_clipboard',
+    'copy_entry_to_clipboard',
+    'paste_from_clipboard',
+    'can_paste_from_clipboard'
+)
+
 
 def make_session_key(layout_uid):
     """
