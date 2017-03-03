@@ -1401,7 +1401,11 @@ class BaseDashboardPluginWidget(object):
         self.plugin = plugin
 
     def render(self, request=None):
-        """Render."""
+        """Render.
+
+        :param django.http.HttpRequest request:
+        :return str:
+        """
         return ''
 
     @classproperty
@@ -1674,7 +1678,7 @@ def get_registered_plugin_uids():
 def validate_placeholder_uid(layout, placeholder_uid):
     """Validate the placeholder.
 
-    :param string layout_uid:
+    :param string layout:
     :param string placeholder_uid:
     :return bool:
     """
@@ -1761,5 +1765,5 @@ def collect_widget_media(dashboard_entries):
             logger.debug(
                 "widget_cls empty for dashboard "
                 "entry {0}".format(dashboard_entry.__dict__)
-                )
+            )
     return {'js': media_js, 'css': media_css}

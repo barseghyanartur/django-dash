@@ -3,7 +3,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from dash.base import DashboardPluginFormBase
 from dash.widgets import BooleanRadioSelect
-from news.defaults import (
+
+from .defaults import (
     DEFAULT_MAX_NEWS_ITEMS,
     DEFAULT_TRUNCATE_AFTER,
     DEFAULT_CACHE_FOR,

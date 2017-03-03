@@ -1,7 +1,8 @@
 from django.template.loader import render_to_string
 
 from dash.base import BaseDashboardPluginWidget
-from news.constants import PAGE_URL_PARAM, NUM_POSTS_URL_PARAM
+
+from .constants import PAGE_URL_PARAM, NUM_POSTS_URL_PARAM
 
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2017 Artur Barseghyan'

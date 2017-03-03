@@ -9,7 +9,11 @@ __title__ = 'dash.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('DashboardWorkspaceForm',)
+__all__ = (
+    'DashboardWorkspaceForm',
+    'DashboardSettingsForm',
+    'BulkChangeDashboardPluginsForm'
+)
 
 
 class DashboardWorkspaceForm(forms.ModelForm):
@@ -73,7 +77,7 @@ class BulkChangeDashboardPluginsForm(forms.ModelForm):
         choices=ACTION_CHOICES,
         help_text=_("If set to ``replace``, the groups are replaced; "
                     "otherwise - appended.")
-        )
+    )
     groups_action = forms.ChoiceField(
         required=False,
         label=_("Groups action"),

@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from django.conf.urls import url
 
 from .views import browse, detail
@@ -16,6 +18,6 @@ urlpatterns = [
 
     # Detail URL
     url(r'^(?P<slug>(?!overview\-)[\w\-\_\.\,]+)/$',
-        view='detail',
-        name=detail),
+        view=detail,
+        name='detail'),
 ]

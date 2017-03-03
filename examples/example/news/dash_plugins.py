@@ -3,9 +3,9 @@ from django.utils.translation import ugettext_lazy as _
 from dash.base import BaseDashboardPlugin
 from dash.factory import plugin_factory, plugin_widget_factory
 
-from news.models import NewsItem
-from news.forms import NewsForm
-from news.dash_widgets import BaseNewsWidget
+from .dash_widgets import BaseNewsWidget
+from .forms import NewsForm
+from .models import NewsItem
 
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2017 Artur Barseghyan'

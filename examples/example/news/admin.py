@@ -1,29 +1,23 @@
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from slim.admin import SlimAdmin
+from .models import NewsItem
 
-from news.models import NewsItem
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2013-2017 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('NewsItemAdmin',)
 
-class NewsItemAdmin(SlimAdmin):
-    """
-    Foo item admin.
-    """
-    # If you don't inherit the SlimAdmin, append 'language' and 'available_translations_admin' to ``list_display``.
+
+class NewsItemAdmin(admin.ModelAdmin):
+    """Foo item admin."""
     list_display = ('title', 'admin_image_preview', 'date_published')
 
-    # If you don't inherit the SlimAdmin, append 'available_translations_exclude_current_admin' to ``readonly_fields``.
     readonly_fields = ('date_created', 'date_updated', )
 
     ordering = ('-date_published',)
 
     prepopulated_fields = {'slug': ('title',)}
-
-    collapse_slim_fieldset = False
 
     fieldsets = (
         (None, {

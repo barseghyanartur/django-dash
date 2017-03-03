@@ -10,13 +10,13 @@ from django.views.decorators.csrf import csrf_exempt
 from dash.base import get_layout
 from dash.utils import get_or_create_dashboard_settings
 
-from news.constants import (
+from .constants import (
     MAX_NUM_POSTS_LISTING,
     PAGE_URL_PARAM,
     NUM_POSTS_URL_PARAM
 )
-from news.defaults import DEFAULT_MAX_NEWS_ITEMS
-from news.models import NewsItem
+from .defaults import DEFAULT_MAX_NEWS_ITEMS
+from .models import NewsItem
 
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2017 Artur Barseghyan'
