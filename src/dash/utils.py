@@ -1,43 +1,63 @@
-__title__ = 'dash.utils'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = (
-    'get_allowed_plugin_uids', 'get_user_plugins', 'get_user_plugin_uids',
-    'get_widgets', 'update_plugin_data_for_entries', 'sync_plugins',
-    'get_workspaces', 'build_cells_matrix', 'get_or_create_dashboard_settings',
-    'get_dashboard_settings', 'get_public_dashboard_url'
-)
-
 import copy
 import datetime
 
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
-from dash.base import (
-    plugin_registry, get_registered_plugin_uids, ensure_autodiscover, 
-    get_registered_plugins, plugin_widget_registry, PluginWidgetRegistry,
-    get_layout, BaseDashboardLayout, BaseDashboardPlaceholder
-    )
-from dash.models import (
-    DashboardEntry, DashboardPlugin, DashboardWorkspace, DashboardSettings
-    )
-from dash.helpers import (
-    slugify_workspace, lists_overlap, clone_plugin_data, update_plugin_data,
+from .base import (
+    plugin_registry,
+    get_registered_plugin_uids,
+    ensure_autodiscover,
+    get_registered_plugins,
+    plugin_widget_registry,
+    PluginWidgetRegistry,
+    get_layout,
+    BaseDashboardLayout,
+    BaseDashboardPlaceholder
+)
+from .exceptions import PluginWidgetOutOfPlaceholderBoundaries
+from .helpers import (
+    slugify_workspace,
+    lists_overlap,
+    clone_plugin_data,
+    update_plugin_data,
     safe_text
-    )
-from dash.exceptions import PluginWidgetOutOfPlaceholderBoundaries
-from dash.settings import RESTRICT_PLUGIN_ACCESS, DEBUG
+)
+from .models import (
+    DashboardEntry,
+    DashboardPlugin,
+    DashboardWorkspace,
+    DashboardSettings
+)
+from .settings import RESTRICT_PLUGIN_ACCESS, DEBUG
 
 import logging
+
+__title__ = 'dash.utils'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2013-2017 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = (
+    'get_allowed_plugin_uids',
+    'get_user_plugins',
+    'get_user_plugin_uids',
+    'get_widgets',
+    'update_plugin_data_for_entries',
+    'sync_plugins',
+    'get_workspaces',
+    'build_cells_matrix',
+    'get_or_create_dashboard_settings',
+    'get_dashboard_settings',
+    'get_public_dashboard_url'
+)
+
+
 logger = logging.getLogger(__name__)
 
 _ = lambda s: s
 
 def get_allowed_plugin_uids(user):
-    """
-    Gets allowed plugins uids for user given.
+    """Gets allowed plugins uids for user given.
 
     :param django.contrib.auth.models import User:
     :return list:
@@ -57,9 +77,9 @@ def get_allowed_plugin_uids(user):
             logger.debug(e)
         return []
 
+
 def get_user_plugins(user):
-    """
-    Gets a list of user plugins in a form if tuple (plugin name, plugin
+    """Gets a list of user plugins in a form if tuple (plugin name, plugin
     description). If not yet autodiscovered, autodiscovers them.
 
     :return list:
@@ -164,8 +184,8 @@ def get_widgets(layout, placeholder, user=None, workspace=None, \
                 registered_widgets[plugin_group].append(
                     (
                         uid,
-                        '{0} ({1}x{2})'.format(widget_name, \
-                                               plugin_widget.cols, \
+                        '{0} ({1}x{2})'.format(widget_name,
+                                               plugin_widget.cols,
                                                plugin_widget.rows),
                         reverse('dash.add_dashboard_entry', kwargs=kwargs)
                     )
@@ -198,24 +218,25 @@ def get_widgets(layout, placeholder, user=None, workspace=None, \
                     kwargs.update({'position': position})
 
                 plugin_group = safe_text(plugin.group)
-                if not plugin_group in registered_widgets:
+                if plugin_group not in registered_widgets:
                     registered_widgets[plugin_group] = []
 
                 registered_widgets[plugin_group].append(
                     (
                         uid,
-                        '{0} ({1}x{2})'.format(safe_text(plugin.name), \
-                                               plugin_widget.cols, \
+                        '{0} ({1}x{2})'.format(safe_text(plugin.name),
+                                               plugin_widget.cols,
                                                plugin_widget.rows),
                         reverse('dash.add_dashboard_entry', kwargs=kwargs)
                     )
-                    )
+                )
 
     if sort_items:
         for key, prop in registered_widgets.items():
             prop.sort()
 
     return registered_widgets
+
 
 def update_plugin_data_for_entries(dashboard_entries=None, request=None):
     """
