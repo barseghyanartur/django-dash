@@ -28,9 +28,11 @@ except ImportError:
 from dash.lib.tinymce import settings as tinymce_settings
 from dash.json_package import json
 
+
 class TinyMCE(forms.Textarea):
-    """
-    TinyMCE widget. Set settings.TINYMCE_JS_URL to set the location of the
+    """TinyMCE widget.
+
+    Set settings.TINYMCE_JS_URL to set the location of the
     javascript file. Default is "MEDIA_URL + 'js/tiny_mce/tiny_mce.js'".
     You can customize the configuration with the mce_attrs argument to the
     constructor.
@@ -60,7 +62,8 @@ class TinyMCE(forms.Textarea):
         value = smart_unicode(value)
         final_attrs = self.build_attrs(attrs)
         final_attrs['name'] = name
-        assert 'id' in final_attrs, "TinyMCE widget attributes must contain 'id'"
+        assert 'id' in final_attrs, "TinyMCE widget attributes must " \
+                                    "contain 'id'"
 
         mce_config = tinymce_settings.DEFAULT_CONFIG.copy()
         mce_config.update(get_language_config(self.content_language))
@@ -87,10 +90,17 @@ class TinyMCE(forms.Textarea):
 
         for k in js_functions:
             index = mce_json.rfind('}')
-            mce_json = mce_json[:index]+', '+k+':'+js_functions[k].strip()+mce_json[index:]
+            mce_json = mce_json[:index] + \
+                ', ' + \
+                k + \
+                ':' + \
+                js_functions[k].strip() + \
+                mce_json[index:]
 
 
-        html = ['<textarea%s>%s</textarea>' % (flatatt(final_attrs), escape(value))]
+        html = [
+            '<textarea%s>%s</textarea>' % (flatatt(final_attrs), escape(value))
+        ]
         if tinymce_settings.USE_COMPRESSOR:
             compressor_config = {
                 'plugins': mce_config.get('plugins', ''),
@@ -100,7 +110,10 @@ class TinyMCE(forms.Textarea):
                 'debug': False,
             }
             compressor_json = json.dumps(compressor_config)
-            html.append('<script type="text/javascript">tinyMCE_GZ.init(%s)</script>' % compressor_json)
+            html.append(
+                '<script type="text/javascript">tinyMCE_GZ.init(%s)'
+                '</script>' % compressor_json
+            )
 
         if pos != -1:
             html.append('''<script type="text/javascript">
@@ -114,7 +127,10 @@ setTimeout(function () {
     if (typeof(window._tinymce_inited[id]) == 'undefined') {
         window._tinymce_inited[id] = true;
     } else {
-        var elements = id.replace(/__prefix__/, parseInt(document.getElementById('%sTOTAL_FORMS').value) - 1);
+        var elements = id.replace(
+            /__prefix__/,
+            parseInt(document.getElementById('%sTOTAL_FORMS').value) - 1
+        );
         if (document.getElementById(elements)) {
             tinymce.init(%s);
         }
@@ -122,7 +138,8 @@ setTimeout(function () {
 }, 0);
 </script>''' % (final_attrs['id'], final_attrs['id'][0:pos], mce_json))
         else:
-            html.append('<script type="text/javascript">tinyMCE.init(%s)</script>' % mce_json)
+            html.append('<script type="text/javascript">tinyMCE.init(%s)'
+                        '</script>' % mce_json)
 
         return mark_safe('\n'.join(html))
 
