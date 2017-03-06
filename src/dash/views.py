@@ -1,51 +1,76 @@
-__title__ = 'dash.views'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2013-2015 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = (
-    'dashboard', 'edit_dashboard', 'plugin_widgets',
-    'add_dashboard_entry', 'edit_dashboard_entry', 'delete_dashboard_entry',
-    'create_dashboard_workspace', 'edit_dashboard_workspace',
-    'delete_dashboard_workspace', 'dashboard_workspaces',
-    'edit_dashboard_settings', 'clone_dashboard_workspace',
-    'cut_dashboard_entry', 'copy_dashboard_entry', 'paste_dashboard_entry',
-    )
-
-from django.http import Http404, HttpResponse
-from django.template import RequestContext
-from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render_to_response, redirect
-from django.utils.translation import ugettext, ugettext_lazy as _
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
+from django.http import Http404, HttpResponse
+from django.shortcuts import render_to_response, redirect
+from django.template import RequestContext
+from django.utils.translation import ugettext, ugettext_lazy as _
 
-from dash.json_package import json
-from dash.base import (
-    validate_plugin_uid, get_layout, plugin_registry, validate_placeholder_uid,
-    plugin_widget_registry, PluginWidgetRegistry
-    )
-from dash.models import DashboardEntry, DashboardWorkspace
-from dash.decorators import (
-    edit_dashboard_permission_required, permissions_required, SATISFY_ALL,
-    use_clipboard_permission_required
-    )
-from dash.helpers import (
-    slugify_workspace, iterable_to_dict, clean_plugin_data, safe_text,
-    lists_overlap
-    )
-from dash.utils import (
-    get_widgets, get_user_plugins, get_workspaces, build_cells_matrix,
-    get_or_create_dashboard_settings, get_public_dashboard_url, clone_workspace,
-    get_occupied_cells
-    )
-from dash.forms import DashboardWorkspaceForm, DashboardSettingsForm
-from dash.clipboard import (
-    copy_entry_to_clipboard, cut_entry_to_clipboard,
-    paste_entry_from_clipboard, can_paste_entry_from_clipboard,
-    get_plugin_data_from_clipboard
-    )
-from dash.settings import RAISE_EXCEPTION_WHEN_PERMISSIONS_INSUFFICIENT
+from .base import (
+    get_layout,
+    plugin_registry,
+    plugin_widget_registry,
+    PluginWidgetRegistry,
+    validate_placeholder_uid,
+    validate_plugin_uid,
+)
+from .clipboard import (
+    can_paste_entry_from_clipboard,
+    copy_entry_to_clipboard,
+    cut_entry_to_clipboard,
+    get_plugin_data_from_clipboard,
+    paste_entry_from_clipboard,
+)
+from .decorators import (
+    edit_dashboard_permission_required,
+    permissions_required,
+    SATISFY_ALL,
+    use_clipboard_permission_required,
+)
+from .forms import DashboardWorkspaceForm, DashboardSettingsForm
+from .helpers import (
+    clean_plugin_data,
+    iterable_to_dict,
+    lists_overlap,
+    safe_text,
+    slugify_workspace,
+)
+from .models import DashboardEntry, DashboardWorkspace
+from .settings import RAISE_EXCEPTION_WHEN_PERMISSIONS_INSUFFICIENT
+from .utils import (
+    build_cells_matrix,
+    clone_workspace,
+    get_occupied_cells,
+    get_or_create_dashboard_settings,
+    get_public_dashboard_url,
+    get_user_plugins,
+    get_widgets,
+    get_workspaces,
+)
+from .json_package import json
+
+__title__ = 'dash.views'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2013-2017 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = (
+    'add_dashboard_entry',
+    'clone_dashboard_workspace',
+    'copy_dashboard_entry',
+    'create_dashboard_workspace',
+    'cut_dashboard_entry',
+    'dashboard',
+    'dashboard_workspaces',
+    'delete_dashboard_entry',
+    'delete_dashboard_workspace',
+    'edit_dashboard',
+    'edit_dashboard_entry',
+    'edit_dashboard_settings',
+    'edit_dashboard_workspace',
+    'paste_dashboard_entry',
+    'plugin_widgets',
+)
 
 # ***************************************************************************
 # ***************************************************************************

@@ -19,10 +19,10 @@ from .helpers import iterable_to_dict, uniquify_sequence, safe_text
 from .json_package import json
 from .settings import (
     ACTIVE_LAYOUT,
-    LAYOUT_CELL_UNITS,
     DEBUG,
+    DEFAULT_PLACEHOLDER_EDIT_TEMPLATE_NAME,
     DEFAULT_PLACEHOLDER_VIEW_TEMPLATE_NAME,
-    DEFAULT_PLACEHOLDER_EDIT_TEMPLATE_NAME
+    LAYOUT_CELL_UNITS,
 )
 
 
@@ -44,19 +44,19 @@ __all__ = (
     'BaseDashboardPlaceholder',
     'BaseDashboardPlugin',
     'BaseDashboardPluginWidget',
-    'layout_registry',
-    'plugin_widget_registry',
-    'get_registered_plugins',
-    'get_registered_plugin_uids',
-    'validate_plugin_uid',
-    'get_registered_layouts',
-    'get_registered_layout_uids',
-    'get_layout',
-    'validate_placeholder_uid',
-    'plugin_registry',
-    'ensure_autodiscover',
+    'collect_widget_media',
     'DashboardPluginFormBase',
-    'collect_widget_media'
+    'ensure_autodiscover',
+    'get_layout',
+    'get_registered_layout_uids',
+    'get_registered_layouts',
+    'get_registered_plugin_uids',
+    'get_registered_plugins',
+    'layout_registry',
+    'plugin_registry',
+    'plugin_widget_registry',
+    'validate_placeholder_uid',
+    'validate_plugin_uid',
 )
 
 

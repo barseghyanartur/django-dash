@@ -1,5 +1,6 @@
+=========================
 Release history and notes
-=====================================
+=========================
 `Sequence based identifiers
 <http://en.wikipedia.org/wiki/Software_versioning#Sequence-based_identifiers>`_
 are used for versioning (schema follows below):
@@ -75,7 +76,7 @@ upgrade to this version as soon as possible.
   the list of allowed user plugin uids for non-admins was always empty.
 
 0.4.11
--------------------------------------
+------
 2014-12-21
 
 - Clipboard module for copy, cut and paste operations.
@@ -88,14 +89,14 @@ upgrade to this version as soon as possible.
 - Minor improvements and fixes.
 
 0.4.10
--------------------------------------
+------
 2014-12-10
 
 - Minor fixes in Image plugin.
 - Minor fixes in RSS feed plugin.
 
 0.4.9
--------------------------------------
+-----
 2014-10-22
 
 - Fixed exceptions raised when unicode characters were used as dashboard
@@ -107,26 +108,26 @@ upgrade to this version as soon as possible.
 - Documentation improvements.
 
 0.4.8
--------------------------------------
+-----
 2014-10-12
 
 - Django 1.7 support.
 
 0.4.7
--------------------------------------
+-----
 2014-10-01
 
 - Sort widgets alphabetically.
 - UI improvements.
 
 0.4.6
--------------------------------------
+-----
 2014-07-09
 
 - Allow custom user model.
 
 0.4.5
--------------------------------------
+-----
 2014-05-21
 
 - Added 'rem', 'in', 'cm', 'mm', 'ex' and 'pc' units to the list of available
@@ -134,13 +135,13 @@ upgrade to this version as soon as possible.
 - Softened dependencies.
 
 0.4.4
--------------------------------------
+-----
 2014-03-26
 
 - Minor fixes.
 
 0.4.3
--------------------------------------
+-----
 2013-12-21
 
 - Add Bookmark plugin.
@@ -149,20 +150,20 @@ upgrade to this version as soon as possible.
   plugins.
 
 0.4.2
--------------------------------------
+-----
 2013-12-08
 
 - Fix extra (duplicate) menu appearing on the public dashboard of the "Bootstrap2
   Fluid" layout.
 
 0.4.1
--------------------------------------
+-----
 2013-12-08
 
 - Added Dutch and Russian translations for the missing parts.
 
 0.4
--------------------------------------
+---
 2013-12-07
 
 While core stayed almost intact, there have been major changes made to plugins
@@ -178,7 +179,7 @@ layout as example.
   widget code by 90%.
 - Dashboard workspace cloning feature added. There are two options. Either 
   clone your own workspace or if someone has marked his workspace as public
-  and clonable, an extra option appears on the public dashboard, which allows
+  and cloneable, an extra option appears on the public dashboard, which allows
   you to clone given workspace.
 - Clone dashboard entry feature added (at the moment, API level only).
 - In bootstrap 2 fluid layout, the menu items "Edit dashboard" and
@@ -194,46 +195,46 @@ layout as example.
   placeholders did work).
 
 0.3.2
--------------------------------------
+-----
 2013-11-24
 
-- Fix image plugin bug occuring with "Fit width" and "Fit height" resize
+- Fix image plugin bug occurring with "Fit width" and "Fit height" resize
   methods.
 
 0.3.1
--------------------------------------
+-----
 2013-11-24
 
 - Fixed issue when the left gray menu (workspaces) is empty in cases when only 
   default workspace is available.
 
 0.3
--------------------------------------
+---
 2013-11-24
 
 - Bootstrap 2 Fluid layout added.
 - Fixed permission issue (non-admins not able to edit current workspace).
-- Fixed image plugin unique filenames issue.
+- Fixed image plugin unique file names issue.
 - Fixed bug with placeholder rendering (wrong template chosen).
 - Placeholder cell margins definable for each placeholder.
 - Customisable form snippets for layouts.
 - The very essential core CSS moved to a separate file (dash_core.css).
 - Plugin and widget documentation brought in accordance with new naming
   conventions.
-- Overal cleanup and improvements.
+- Overall cleanup and improvements.
 
 0.2.4
--------------------------------------
+-----
 2013-11-09
 
-- Now when workspace is deleted, the plugin `delete_plugin_data` method is 
+- Now when workspace is deleted, the plugin ``delete_plugin_data`` method is
   fired for all dashboard entries so that all the related plugin data is wiped
   as well.
 - Move layout borders into separate stylesheet, making it easy to switch
   between those.
 
 0.2.3
--------------------------------------
+-----
 2013-11-08
 
 - Making it possible to refer to a placeholder by it's uid in templates.
@@ -244,20 +245,20 @@ layout as example.
 - Updated demo installer.
 
 0.2.2
--------------------------------------
+-----
 2013-11-07
 
 - Fixed bug with string translation (cyrillic) when adding a dashboard widget.
 - Russian translations added.
 
 0.2.1
--------------------------------------
+-----
 2013-11-07
 
 - Fixed resizing of images in Image widget for Windows 8 layout.
 
 0.2
--------------------------------------
+---
 2013-11-07
 
 - Added Image plugin.
@@ -266,39 +267,39 @@ layout as example.
   If you're using the old plugins, you're likely want to clean up your
   dashboard and start over.
 - Some improvements of core.
-- Adding `get_size`, `get_width` and `get_height` methods to the plugin widget
-  class.
+- Adding ``get_size``, ``get_width`` and ``get_height`` methods to the plugin
+  widget class.
 
 0.1.4
--------------------------------------
+-----
 2013-11-05
 
 - Added Dutch translations.
 - Better documentation.
 
 0.1.3
--------------------------------------
+-----
 2013-11-01
 
 - Fix adding up assets when switching between dashboard workspaces.
 - Better documentation.
 
 0.1.2
--------------------------------------
+-----
 2013-10-31
 
-- Replace `DISPLAY_LOGOUT_LINK` with `DISPLAY_AUTH_LINK`.
+- Replace ``DISPLAY_LOGOUT_LINK`` with ``DISPLAY_AUTH_LINK``.
 - Better documentation.
 
 0.1.1
--------------------------------------
+-----
 2013-10-31
 
 - Adding home page to example project.
 - Better documentation.
 
 0.1
--------------------------------------
+---
 2013-10-30
 
 - Initial.

@@ -2,21 +2,21 @@ from django.conf.urls import patterns, url
 from django.utils.translation import ugettext_lazy as _
 
 from .views import (
-    paste_dashboard_entry,
-    cut_dashboard_entry,
-    copy_dashboard_entry,
     add_dashboard_entry,
-    edit_dashboard_entry,
-    delete_dashboard_entry,
-    edit_dashboard,
-    plugin_widgets,
-    dashboard_workspaces,
-    create_dashboard_workspace,
-    edit_dashboard_workspace,
-    delete_dashboard_workspace,
     clone_dashboard_workspace,
+    copy_dashboard_entry,
+    create_dashboard_workspace,
+    cut_dashboard_entry,
     dashboard,
-    edit_dashboard_settings, 
+    dashboard_workspaces,
+    delete_dashboard_entry,
+    delete_dashboard_workspace,
+    edit_dashboard,
+    edit_dashboard_entry,
+    edit_dashboard_settings,
+    edit_dashboard_workspace,
+    paste_dashboard_entry,
+    plugin_widgets,
 )
 
 __title__ = 'dash.urls'

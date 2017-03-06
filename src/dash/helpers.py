@@ -9,14 +9,14 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'slugify_workspace',
-    'lists_overlap',
-    'iterable_to_dict',
-    'uniquify_sequence',
     'clean_plugin_data',
     'clone_plugin_data',
-    'update_plugin_data',
+    'iterable_to_dict',
+    'lists_overlap',
     'safe_text',
+    'slugify_workspace',
+    'uniquify_sequence',
+    'update_plugin_data',
 )
 
 

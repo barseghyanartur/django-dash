@@ -1,23 +1,23 @@
 from django import forms
-from django.contrib import admin
-from django.contrib.admin import helpers
-from django.utils.translation import ugettext_lazy as _
-from django.contrib.admin.views.decorators import staff_member_required
-from django.utils.decorators import method_decorator
 from django.conf.urls import patterns, url
+from django.contrib import admin
+from django.contrib import messages
+from django.contrib.admin import helpers
+from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
-from django.contrib import messages
+from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext_lazy as _
 
 from nine.versions import DJANGO_LTE_1_5
 
 from .base import get_registered_plugins, get_registered_layouts
 from .constants import ACTION_CHOICE_REPLACE
 from .models import (
-    DashboardWorkspace,
     DashboardEntry,
     DashboardPlugin,
-    DashboardSettings
+    DashboardSettings,
+    DashboardWorkspace,
 )
 from .forms import BulkChangeDashboardPluginsForm
 
@@ -28,10 +28,10 @@ __copyright__ = '2013-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'bulk_change_dashboard_plugins',
-    'DashboardWorkspaceAdmin',
     'DashboardEntryAdmin',
     'DashboardPluginAdmin',
     'DashboardSettingsAdmin',
+    'DashboardWorkspaceAdmin',
 )
 
 # *********************************************************

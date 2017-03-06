@@ -2,18 +2,18 @@ import logging
 
 from autoslug import AutoSlugField
 
+from django.conf import settings
+from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import Group
-from django.conf import settings
 
 from six import python_2_unicode_compatible
 
 from .base import (
-    plugin_registry,
+    get_registered_layouts,
     get_registered_plugins,
-    get_registered_layouts
+    plugin_registry,
 )
 from .helpers import slugify_workspace
 from .fields import OrderField
@@ -23,12 +23,12 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
+    'DashboardEntry',
+    'DashboardEntryManager',
+    'DashboardPlugin',
+    'DashboardPluginManager',
     'DashboardSettings',
     'DashboardWorkspace',
-    'DashboardEntryManager',
-    'DashboardEntry',
-    'DashboardPluginManager',
-    'DashboardPlugin',
 )
 
 AUTH_USER_MODEL = settings.AUTH_USER_MODEL

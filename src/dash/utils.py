@@ -5,31 +5,31 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
 from .base import (
-    plugin_registry,
-    get_registered_plugin_uids,
+    BaseDashboardLayout,
+    BaseDashboardPlaceholder,
     ensure_autodiscover,
+    get_layout,
+    get_registered_plugin_uids,
     get_registered_plugins,
+    plugin_registry,
     plugin_widget_registry,
     PluginWidgetRegistry,
-    get_layout,
-    BaseDashboardLayout,
-    BaseDashboardPlaceholder
 )
 from .exceptions import PluginWidgetOutOfPlaceholderBoundaries
 from .helpers import (
-    slugify_workspace,
-    lists_overlap,
     clone_plugin_data,
+    lists_overlap,
+    safe_text,
+    slugify_workspace,
     update_plugin_data,
-    safe_text
 )
 from .models import (
     DashboardEntry,
     DashboardPlugin,
+    DashboardSettings,
     DashboardWorkspace,
-    DashboardSettings
 )
-from .settings import RESTRICT_PLUGIN_ACCESS, DEBUG
+from .settings import DEBUG, RESTRICT_PLUGIN_ACCESS
 
 import logging
 
@@ -38,17 +38,17 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'get_allowed_plugin_uids',
-    'get_user_plugins',
-    'get_user_plugin_uids',
-    'get_widgets',
-    'update_plugin_data_for_entries',
-    'sync_plugins',
-    'get_workspaces',
     'build_cells_matrix',
-    'get_or_create_dashboard_settings',
+    'get_allowed_plugin_uids',
     'get_dashboard_settings',
-    'get_public_dashboard_url'
+    'get_or_create_dashboard_settings',
+    'get_public_dashboard_url',
+    'get_user_plugin_uids',
+    'get_user_plugins',
+    'get_widgets',
+    'get_workspaces',
+    'sync_plugins',
+    'update_plugin_data_for_entries',
 )
 
 
@@ -147,7 +147,7 @@ def get_widgets(layout, placeholder, user=None, workspace=None,
     :return list:
     """
     # We should get the layout, see loop through its' plugins and see which of
-    # those do have rendererrs. Then we get all the plugins (based on whether
+    # those do have renderers. Then we get all the plugins (based on whether
     # they are restricted or not - get the list) and then filter out those
     # that do not have renderers.
 
@@ -270,6 +270,7 @@ def update_plugin_data_for_entries(dashboard_entries=None, request=None):
     :param iterable dashboard_entries: If given, is used to iterate through
         and update the plugin data. If left empty, all dashboard entries will
         be updated.
+    :param django.http.HttpRequest request:
     """
     if dashboard_entries is None:
         dashboard_entries = DashboardEntry._default_manager.all()
