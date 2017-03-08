@@ -78,10 +78,10 @@ __all__ = (
 # ***************************************************************************
 # ***************************************************************************
 
+
 @login_required
 def dashboard(request, workspace=None):
-    """
-    Dashboard.
+    """Dashboard.
 
     :param django.http.HttpRequest request:
     :param string workspace: Workspace slug. If given, the workspace loaded.
@@ -103,7 +103,11 @@ def dashboard(request, workspace=None):
     )
 
     layout = get_layout(
-        layout_uid=workspaces['current_workspace'].layout_uid if workspaces['current_workspace'] else dashboard_settings.layout_uid,
+        layout_uid=(
+            workspaces['current_workspace'].layout_uid
+            if workspaces['current_workspace']
+            else dashboard_settings.layout_uid
+        ),
         as_instance=True
     )
 
@@ -121,22 +125,22 @@ def dashboard(request, workspace=None):
 
     # Getting the (frozen) queryset.
     dashboard_entries = DashboardEntry._default_manager \
-                                      .get_for_user(user=request.user, \
-                                                    layout_uid=layout.uid, \
-                                                    workspace=workspace) \
-                                      .select_related('workspace', 'user') \
-                                      .filter(plugin_uid__in=user_plugin_uids) \
-                                      .order_by('placeholder_uid', 'position')[:]
+        .get_for_user(user=request.user,
+                      layout_uid=layout.uid,
+                      workspace=workspace) \
+        .select_related('workspace', 'user') \
+        .filter(plugin_uid__in=user_plugin_uids) \
+        .order_by('placeholder_uid', 'position')[:]
 
     placeholders = layout.get_placeholder_instances(
         dashboard_entries, request=request
-        )
+    )
 
     layout.collect_widget_media(dashboard_entries)
 
     context = {
         'placeholders': placeholders,
-        'placeholders_dict': iterable_to_dict(placeholders, \
+        'placeholders_dict': iterable_to_dict(placeholders,
                                               key_attr_name='uid'),
         'css': layout.get_css(placeholders),
         'layout': layout,
@@ -147,19 +151,19 @@ def dashboard(request, workspace=None):
 
     context.update(
         {'public_dashboard_url': get_public_dashboard_url(dashboard_settings)}
-        )
+    )
 
     template_name = layout.get_view_template_name(request)
 
     return render_to_response(
         template_name, context, context_instance=RequestContext(request)
-        )
+    )
+
 
 @login_required
 @edit_dashboard_permission_required()
 def edit_dashboard(request, workspace=None):
-    """
-    Edit dashboard.
+    """Edit dashboard.
 
     :param django.http.HttpRequest request:
     :param string workspace: Workspace slug. If given, the workspace loaded.
@@ -181,7 +185,11 @@ def edit_dashboard(request, workspace=None):
     )
 
     layout = get_layout(
-        layout_uid=workspaces['current_workspace'].layout_uid if workspaces['current_workspace'] else dashboard_settings.layout_uid,
+        layout_uid=(
+            workspaces['current_workspace'].layout_uid
+            if workspaces['current_workspace']
+            else dashboard_settings.layout_uid
+        ),
         as_instance=True
     )
 
@@ -197,22 +205,23 @@ def edit_dashboard(request, workspace=None):
 
     # Getting the (frozen) queryset.
     dashboard_entries = DashboardEntry._default_manager \
-                                      .get_for_user(user=request.user, \
-                                                    layout_uid=layout.uid, \
-                                                    workspace=workspace) \
-                                      .select_related('workspace', 'user') \
-                                      .filter(plugin_uid__in=user_plugin_uids) \
-                                      .order_by('placeholder_uid', 'position')[:]
+        .get_for_user(user=request.user,
+                      layout_uid=layout.uid,
+                      workspace=workspace) \
+        .select_related('workspace', 'user') \
+        .filter(plugin_uid__in=user_plugin_uids) \
+        .order_by('placeholder_uid', 'position')[:]
 
     placeholders = layout.get_placeholder_instances(
         dashboard_entries, workspace=workspace, request=request
-        )
+    )
 
     layout.collect_widget_media(dashboard_entries)
 
     context = {
         'placeholders': placeholders,
-        'placeholders_dict': iterable_to_dict(placeholders, key_attr_name='uid'),
+        'placeholders_dict': iterable_to_dict(placeholders,
+                                              key_attr_name='uid'),
         'css': layout.get_css(placeholders),
         'layout': layout,
         'edit_mode': True,
@@ -223,13 +232,13 @@ def edit_dashboard(request, workspace=None):
 
     context.update(
         {'public_dashboard_url': get_public_dashboard_url(dashboard_settings)}
-        )
+    )
 
     template_name = layout.get_edit_template_name(request)
 
     return render_to_response(
         template_name, context, context_instance=RequestContext(request)
-        )
+    )
 
 # ***************************************************************************
 # ***************************************************************************
@@ -237,14 +246,18 @@ def edit_dashboard(request, workspace=None):
 # ***************************************************************************
 # ***************************************************************************
 
+
 @login_required
 @permission_required('dash.add_dashboardentry')
-def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None,
+def add_dashboard_entry(request,
+                        placeholder_uid,
+                        plugin_uid,
+                        workspace=None,
                         position=None,
                         template_name='dash/add_dashboard_entry.html',
-                        template_name_ajax='dash/add_dashboard_entry_ajax.html'):
-    """
-    Add dashboard entry.
+                        template_name_ajax='dash/add_dashboard_entry_ajax'
+                                           '.html'):
+    """Add dashboard entry.
 
     :param django.http.HttpRequest request:
     :param string placeholder_uid: Placeholder UID.
@@ -273,10 +286,13 @@ def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None,
             workspace = DashboardWorkspace._default_manager.get(**filters)
         except ObjectDoesNotExist as e:
             if dashboard_settings.allow_different_layouts:
-                message = _('The workspace with slug "{0}" was not foundi.').format(workspace_slug)
+                message = _('The workspace with slug "{0}" was not found.'
+                            '').format(workspace_slug)
             else:
-                message = __('The workspace with slug "{0}" does not belong to '
-                'layout "{1}".').format(workspace_slug, layout.name)
+                message = _(
+                    'The workspace with slug "{0}" does not belong to '
+                    'layout "{1}".'
+                ).format(workspace_slug, layout.name)
             messages.info(request, message)
             return redirect('dash.edit_dashboard')
 
@@ -301,17 +317,17 @@ def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None,
         placeholder,
         plugin_uid,
         position,
-        check_boundaries = True,
-        fail_silently = True
-        )
+        check_boundaries=True,
+        fail_silently=True
+    )
 
-    # Cells currently occupued in the workspace given.
+    # Cells currently occupied in the workspace given.
     occupied_cells = build_cells_matrix(
         request.user,
         layout,
         placeholder,
         workspace
-        )
+    )
 
     # Checking if it's still possible to insert a widget.
     if widget_occupied_cells is False \
@@ -344,10 +360,10 @@ def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None,
     if plugin_form:
         # If POST request and form data is valid, save the data and redirect
         # to the dashboard edit.
-        if 'POST' == request.method:
+        if request.method == 'POST':
             form = plugin.get_initialised_create_form_or_404(
                 data=request.POST, files=request.FILES
-                )
+            )
             if form.is_valid():
                 # Saving the plugin form data.
                 form.save_plugin_data(request=request)
@@ -358,7 +374,7 @@ def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None,
                 # If position given, use it.
                 try:
                     position = int(position)
-                except Exception as e:
+                except Exception:
                     position = None
 
                 if position:
@@ -367,14 +383,17 @@ def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None,
                 # Save the object.
                 obj.save()
 
-                messages.info(request, _('The dashboard widget "{0}" was added '
-                                         'successfully.').format(plugin.name))
+                messages.info(
+                    request,
+                    _('The dashboard widget "{0}" was added successfully.'
+                      '').format(plugin.name)
+                )
 
                 # Redirect to the dashboard view.
                 if obj.workspace:
                     return redirect(
                         'dash.edit_dashboard', workspace=obj.workspace.slug
-                        )
+                    )
                 else:
                     return redirect('dash.edit_dashboard')
 
@@ -384,7 +403,7 @@ def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None,
 
         context.update(
             {'form': form, 'plugin_uid': plugin_uid, 'plugin': plugin}
-            )
+        )
 
     # If plugin is not configurable, it's just saved as is.
     else:
@@ -396,7 +415,7 @@ def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None,
 
     context.update(
         {'add_dashboard_entry_ajax_template_name': template_name_ajax}
-        )
+    )
 
     if request.is_ajax():
         template_name = template_name_ajax
@@ -405,20 +424,22 @@ def add_dashboard_entry(request, placeholder_uid, plugin_uid, workspace=None,
 
     return render_to_response(
         template_name, context, context_instance=RequestContext(request)
-        )
+    )
+
 
 @login_required
 @permission_required('dash.change_dashboardentry')
-def edit_dashboard_entry(request, entry_id,
+def edit_dashboard_entry(request,
+                         entry_id,
                          template_name='dash/edit_dashboard_entry.html',
-                         template_name_ajax='dash/edit_dashboard_entry_ajax.html'):
-    """
-    Edit dashboard entry.
+                         template_name_ajax='dash/edit_dashboard_entry_ajax'
+                                            '.html'):
+    """Edit dashboard entry.
 
     :param django.http.HttpRequest request:
     :param int entry_id: ID of the dashboard entry to edit.
     :param string template_name:
-    :param string template_name_ajax: Tempalte used for AJAX requests.
+    :param string template_name_ajax: Template used for AJAX requests.
     :return django.http.HttpResponse:
     """
     # Getting dashboard settings for the user. Then get users' layout.
@@ -428,8 +449,8 @@ def edit_dashboard_entry(request, entry_id,
         obj = DashboardEntry._default_manager \
                             .select_related('workspace') \
                             .get(pk=entry_id, user=request.user)
-    except ObjectDoesNotExist as e:
-        raise Http404(e)
+    except ObjectDoesNotExist as err:
+        raise Http404(err)
 
     if obj.layout_uid:
         layout_uid = obj.layout_uid
@@ -438,7 +459,7 @@ def edit_dashboard_entry(request, entry_id,
 
     layout = get_layout(
         layout_uid=layout_uid, as_instance=True
-        )
+    )
 
     plugin = obj.get_plugin(fetch_related_data=True)
     plugin.request = request
@@ -458,11 +479,11 @@ def edit_dashboard_entry(request, entry_id,
     if plugin_form:
         # If POST request and form data is valid, save the data and redirect
         # to the dashboard edit.
-        if 'POST' == request.method:
+        if request.method == 'POST':
             form = plugin.get_initialised_edit_form_or_404(
                 data=request.POST,
                 files=request.FILES,
-                )
+            )
             if form.is_valid():
                 # Saving the plugin form data.
                 form.save_plugin_data(request=request)
@@ -473,14 +494,17 @@ def edit_dashboard_entry(request, entry_id,
                 # Save the object.
                 obj.save()
 
-                messages.info(request, _('The dashboard widget "{0}" was edited '
-                                         'successfully.').format(plugin.name))
+                messages.info(
+                    request,
+                    _('The dashboard widget "{0}" was edited '
+                      'successfully.').format(plugin.name)
+                )
 
                 # Redirect to edit dashboard view
                 if obj.workspace:
                     return redirect(
                         'dash.edit_dashboard', workspace=obj.workspace.slug
-                        )
+                    )
                 else:
                     return redirect('dash.edit_dashboard')
 
@@ -494,7 +518,7 @@ def edit_dashboard_entry(request, entry_id,
 
     context.update(
         {'edit_dashboard_entry_ajax_template_name': template_name_ajax}
-        )
+    )
 
     if request.is_ajax():
         template_name = template_name_ajax
@@ -503,7 +527,8 @@ def edit_dashboard_entry(request, entry_id,
 
     return render_to_response(
         template_name, context, context_instance=RequestContext(request)
-        )
+    )
+
 
 @login_required
 @permission_required('dash.delete_dashboardentry')
@@ -537,10 +562,10 @@ def delete_dashboard_entry(request, entry_id):
                 return redirect('dash.edit_dashboard', workspace=workspace)
             else:
                 return redirect('dash.edit_dashboard')
-    except ObjectDoesNotExist as e:
+    except ObjectDoesNotExist as err:
         if request.is_ajax():
             return HttpResponse(json.dumps({'success': 1}))
-        raise Http404(e)
+        raise Http404(err)
 
 # ***************************************************************************
 # ***************************************************************************
@@ -548,41 +573,48 @@ def delete_dashboard_entry(request, entry_id):
 # ***************************************************************************
 # ***************************************************************************
 
+
 @login_required
 @permission_required('dash.add_dashboardentry')
-def plugin_widgets(request, placeholder_uid, workspace=None, position=None, \
-                   template_name='dash/plugin_widgets.html', \
+def plugin_widgets(request,
+                   placeholder_uid,
+                   workspace=None,
+                   position=None,
+                   template_name='dash/plugin_widgets.html',
                    template_name_ajax='dash/plugin_widgets_ajax.html'):
-    """
-    Plugin widgets view. Lists all the widgets for the placeholder and
-    workspace given.
+    """Plugin widgets view.
+
+    Lists all the widgets for the placeholder and workspace given.
 
     :param django.http.HttpRequest request:
     :param string placeholder_uid: Placeholder UID.
+    :param mixed workspace:
     :param int position: Position on the dashboard to which the widget is to
         be added.
     :param string template_name:
-    :param string template_name_ajax: Tempalte used for AJAX requests.
+    :param string template_name_ajax: Template used for AJAX requests.
     :return django.http.HttpResponse:
     """
     # Getting dashboard settings for the user. Then get users' layout.
     dashboard_settings = get_or_create_dashboard_settings(request.user)
     layout = get_layout(
-        layout_uid = dashboard_settings.layout_uid,
-        as_instance = True
-        )
+        layout_uid=dashboard_settings.layout_uid,
+        as_instance=True
+    )
 
     placeholder = layout.get_placeholder(placeholder_uid)
 
     if not validate_placeholder_uid(layout, placeholder_uid):
-        raise Http404(ugettext("Invalid placeholder: {0}").format(placeholder_uid))
+        raise Http404(
+            ugettext("Invalid placeholder: {0}").format(placeholder_uid)
+        )
 
     occupied_cells = build_cells_matrix(
         request.user,
         layout,
         placeholder,
-        workspace = workspace
-        )
+        workspace=workspace
+    )
 
     # Here we checking if clipboard contains a plugin which is suitable for
     # being pasted into the cell given.
@@ -595,12 +627,12 @@ def plugin_widgets(request, placeholder_uid, workspace=None, position=None, \
     # being pasted into the position given.
     if clipboard_plugin_data:
         can_paste_from_clipboard = can_paste_entry_from_clipboard(
-            request = request,
-            layout = layout,
-            placeholder_uid = placeholder_uid,
-            position = position,
-            workspace = workspace
-            )
+            request=request,
+            layout=layout,
+            placeholder_uid=placeholder_uid,
+            position=position,
+            workspace=workspace
+        )
 
         if can_paste_from_clipboard:
             kwargs = {
@@ -608,12 +640,12 @@ def plugin_widgets(request, placeholder_uid, workspace=None, position=None, \
                 'position': position
             }
             if workspace:
-                kwargs.update({'workspace': workspace,})
+                kwargs.update({'workspace': workspace})
 
             paste_from_clipboard_url = reverse(
                 'dash.paste_dashboard_entry',
-                kwargs = kwargs
-                )
+                kwargs=kwargs
+            )
 
     context = {
         'layout': layout,
@@ -621,10 +653,10 @@ def plugin_widgets(request, placeholder_uid, workspace=None, position=None, \
             layout,
             placeholder,
             request.user,
-            workspace = workspace,
-            position = position,
-            occupied_cells = occupied_cells
-            ),
+            workspace=workspace,
+            position=position,
+            occupied_cells=occupied_cells
+        ),
         'dashboard_settings': dashboard_settings,
         'paste_from_clipboard_url': paste_from_clipboard_url,
     }
@@ -635,8 +667,8 @@ def plugin_widgets(request, placeholder_uid, workspace=None, position=None, \
     return render_to_response(
         template_name,
         context,
-        context_instance = RequestContext(request)
-        )
+        context_instance=RequestContext(request)
+    )
 
 # ***************************************************************************
 # ***************************************************************************
@@ -644,13 +676,15 @@ def plugin_widgets(request, placeholder_uid, workspace=None, position=None, \
 # ***************************************************************************
 # ***************************************************************************
 
+
 @login_required
 @permission_required('dash.add_dashboardworkspace')
 def create_dashboard_workspace(request,
-                               template_name='dash/create_dashboard_workspace.html',
-                               template_name_ajax='dash/create_dashboard_workspace_ajax.html'):
-    """
-    Create dashboard workspace.
+                               template_name='dash/create_dashboard_workspace'
+                                             '.html',
+                               template_name_ajax='dash/create_dashboard_'
+                                                  'workspace_ajax.html'):
+    """Create dashboard workspace.
 
     :param django.http.HttpRequest request:
     :param string template_name:
@@ -661,9 +695,9 @@ def create_dashboard_workspace(request,
     dashboard_settings = get_or_create_dashboard_settings(request.user)
     layout = get_layout(
         layout_uid=dashboard_settings.layout_uid, as_instance=True
-        )
+    )
 
-    if 'POST' == request.method:
+    if request.method == 'POST':
         form = DashboardWorkspaceForm(
             data=request.POST,
             files=request.FILES,
@@ -675,8 +709,11 @@ def create_dashboard_workspace(request,
             if not dashboard_settings.allow_different_layouts:
                 obj.layout_uid = layout.uid
             obj.save()
-            messages.info(request, _('The dashboard workspace "{0}" was '
-                                     'created successfully.').format(obj.name))
+            messages.info(
+                request,
+                _('The dashboard workspace "{0}" was '
+                  'created successfully.').format(obj.name)
+            )
             return redirect('dash.edit_dashboard', workspace=obj.slug)
 
     else:
@@ -689,7 +726,8 @@ def create_dashboard_workspace(request,
         )
 
     if layout.create_dashboard_workspace_ajax_template_name:
-        template_name_ajax = layout.create_dashboard_workspace_ajax_template_name
+        template_name_ajax = \
+            layout.create_dashboard_workspace_ajax_template_name
 
     if request.is_ajax():
         template_name = template_name_ajax
@@ -704,15 +742,17 @@ def create_dashboard_workspace(request,
 
     return render_to_response(
         template_name, context, context_instance=RequestContext(request)
-        )
+    )
+
 
 @login_required
 @permission_required('dash.change_dashboardworkspace')
 def edit_dashboard_workspace(request, workspace_id,
-                             template_name='dash/edit_dashboard_workspace.html',
-                             template_name_ajax='dash/edit_dashboard_workspace_ajax.html'):
-    """
-    Edit dashboard workspace.
+                             template_name='dash/edit_dashboard_workspace'
+                                           '.html',
+                             template_name_ajax='dash/edit_dashboard_'
+                                                'workspace_ajax.html'):
+    """Edit dashboard workspace.
 
     :param django.http.HttpRequest request:
     :param int workspace_id: DashboardWorkspace ID.
@@ -726,19 +766,19 @@ def edit_dashboard_workspace(request, workspace_id,
     # Check if user trying to edit the dashboard workspace actually owns it.
     try:
         obj = DashboardWorkspace._default_manager \
-                                .get(pk=workspace_id, user=request.user)
-    except ObjectDoesNotExist as e:
-        raise Http404(e)
+            .get(pk=workspace_id, user=request.user)
+    except ObjectDoesNotExist as err:
+        raise Http404(err)
 
     layout = get_layout(
         layout_uid=obj.layout_uid, as_instance=True
-        )
+    )
 
-    if 'POST' == request.method:
+    if request.method == 'POST':
         form = DashboardWorkspaceForm(
-            data = request.POST,
-            files = request.FILES,
-            instance = obj,
+            data=request.POST,
+            files=request.FILES,
+            instance=obj,
             different_layouts=dashboard_settings.allow_different_layouts
         )
         if form.is_valid():
@@ -747,8 +787,10 @@ def edit_dashboard_workspace(request, workspace_id,
             if not dashboard_settings.allow_different_layouts:
                 obj.layout_uid = layout.uid
             obj.save()
-            messages.info(request, _('The dashboard workspace "{0}" was '
-                                     'edited successfully.').format(obj.name))
+            messages.info(
+                request,
+                _('The dashboard workspace "{0}" was '
+                  'edited successfully.').format(obj.name))
             return redirect('dash.edit_dashboard', workspace=obj.slug)
 
     else:
@@ -774,15 +816,17 @@ def edit_dashboard_workspace(request, workspace_id,
 
     return render_to_response(
         template_name, context, context_instance=RequestContext(request)
-        )
+    )
+
 
 @login_required
 @permission_required('dash.delete_dashboardworkspace')
-def delete_dashboard_workspace(request, workspace_id, \
-                               template_name='dash/delete_dashboard_workspace.html', \
-                               template_name_ajax='dash/delete_dashboard_workspace_ajax.html'):
-    """
-    Delete dashboard workspace.
+def delete_dashboard_workspace(request, workspace_id,
+                               template_name='dash/delete_dashboard_workspace'
+                                             '.html',
+                               template_name_ajax='dash/delete_dashboard_'
+                                                  'workspace_ajax.html'):
+    """Delete dashboard workspace.
 
     :param django.http.HttpRequest request:
     :param int workspace_id: DashboardWorkspace id.
@@ -793,32 +837,37 @@ def delete_dashboard_workspace(request, workspace_id, \
     # Getting dashboard settings for the user. Then get users' layout.
     dashboard_settings = get_or_create_dashboard_settings(request.user)
 
-    # Check if user trying to edit the dashboard workspace actually owns it and then delete the workspace.
-    if 'POST' == request.method and 'delete' in request.POST is None and request.POST.get('next', None):
+    # Check if user trying to edit the dashboard workspace actually owns it
+    # and then delete the workspace.
+    if (
+            request.method == 'POST'
+            and 'delete' in request.POST is None
+            and request.POST.get('next', None)
+    ):
         return redirect(request.POST.get('next'))
 
     try:
         obj = DashboardWorkspace._default_manager \
                                 .get(pk=workspace_id, user=request.user)
 
-    except ObjectDoesNotExist as e:
-        raise Http404(e)
+    except ObjectDoesNotExist as err:
+        raise Http404(err)
 
     layout = get_layout(
         layout_uid=workspace.layout_uid, as_instance=True
         )
 
-    if 'POST' == request.method:
+    if request.method == 'POST':
         if 'delete' in request.POST:
             workspace_name = obj.name
 
             # Getting the (frozen) queryset.
             dashboard_entries = DashboardEntry._default_manager \
-                                    .filter(user=request.user, \
-                                            layout_uid=layout.uid, \
-                                            workspace__id=workspace_id) \
-                                    .select_related('workspace', 'user') \
-                                    .order_by('placeholder_uid', 'position')[:]
+                .filter(user=request.user,
+                        layout_uid=layout.uid,
+                        workspace__id=workspace_id) \
+                .select_related('workspace', 'user') \
+                .order_by('placeholder_uid', 'position')[:]
 
             # Cleaning the plugin data for the deleted entries.
             clean_plugin_data(dashboard_entries, request=request)
@@ -826,8 +875,11 @@ def delete_dashboard_workspace(request, workspace_id, \
             # Delete the workspace.
             obj.delete()
 
-            messages.info(request, _('The dashboard workspace "{0}" was deleted '
-                                     'successfully.').format(workspace_name))
+            messages.info(
+                request,
+                _('The dashboard workspace "{0}" was deleted '
+                  'successfully.').format(workspace_name)
+            )
             return redirect('dash.edit_dashboard')
 
         if request.POST.get('next', None):
@@ -844,14 +896,16 @@ def delete_dashboard_workspace(request, workspace_id, \
 
     return render_to_response(
         template_name, context, context_instance=RequestContext(request)
-        )
+    )
+
 
 @login_required
-def dashboard_workspaces(request, workspace=None, \
-                         template_name='dash/dashboard_workspaces.html', \
-                         template_name_ajax='dash/dashboard_workspaces_ajax.html'):
-    """
-    Workspaces list.
+def dashboard_workspaces(request,
+                         workspace=None,
+                         template_name='dash/dashboard_workspaces.html',
+                         template_name_ajax='dash/dashboard_workspaces_ajax'
+                                            '.html'):
+    """Workspaces list.
 
     :param django.http.HttpRequest request:
     :param string workspace: Workspace slug.
@@ -869,7 +923,8 @@ def dashboard_workspaces(request, workspace=None, \
         different_layouts=dashboard_settings.allow_different_layouts
     )
 
-    if dashboard_settings.allow_different_layouts and context['current_workspace']:
+    if dashboard_settings.allow_different_layouts \
+            and context['current_workspace']:
         layout_uid = context['current_workspace'].layout_uid
     else:
         layout_uid = dashboard_settings.layout_uid
@@ -888,7 +943,7 @@ def dashboard_workspaces(request, workspace=None, \
         template_name = template_name_ajax
     return render_to_response(
         template_name, context, context_instance=RequestContext(request)
-        )
+    )
 
 # ***************************************************************************
 # ***************************************************************************
@@ -896,13 +951,14 @@ def dashboard_workspaces(request, workspace=None, \
 # ***************************************************************************
 # ***************************************************************************
 
+
 @login_required
 @permission_required('dash.change_dashboardsettings')
-def edit_dashboard_settings(request, \
-                            template_name='dash/edit_dashboard_settings.html', \
-                            template_name_ajax='dash/edit_dashboard_settings_ajax.html'):
-    """
-    Edit dashboard settings.
+def edit_dashboard_settings(request,
+                            template_name='dash/edit_dashboard_settings.html',
+                            template_name_ajax='dash/edit_dashboard_settings_'
+                                               'ajax.html'):
+    """Edit dashboard settings.
 
     :param django.http.HttpRequest request:
     :param string template_name:
@@ -913,14 +969,14 @@ def edit_dashboard_settings(request, \
     dashboard_settings = get_or_create_dashboard_settings(request.user)
     layout = get_layout(
         layout_uid=dashboard_settings.layout_uid, as_instance=True
-        )
+    )
 
-    if 'POST' == request.method:
+    if request.method == 'POST':
         form = DashboardSettingsForm(
-            data = request.POST,
-            files = request.FILES,
-            instance = dashboard_settings
-            )
+            data=request.POST,
+            files=request.FILES,
+            instance=dashboard_settings
+        )
         if form.is_valid():
             form.save(commit=False)
             dashboard_settings.user = request.user
@@ -943,16 +999,15 @@ def edit_dashboard_settings(request, \
 
     return render_to_response(
         template_name, context, context_instance=RequestContext(request)
-        )
+    )
+
 
 @login_required
-@permissions_required(satisfy=SATISFY_ALL, \
+@permissions_required(satisfy=SATISFY_ALL,
                       perms=['dash.add_dashboardentry',
                              'dash.add_dashboardworkspace'])
 def clone_dashboard_workspace(request, workspace_id):
-    """
-    Clones dashboard workspace.
-    """
+    """Clones dashboard workspace."""
     redirect_to = request.GET.get('next', None)
 
     try:
@@ -978,10 +1033,10 @@ def clone_dashboard_workspace(request, workspace_id):
     dashboard_settings = get_or_create_dashboard_settings(request.user)
     cloned_workspace_layout = get_layout(
         layout_uid=workspace.layout_uid, as_instance=True
-        )
+    )
     layout = get_layout(
         layout_uid=dashboard_settings.layout_uid, as_instance=True
-        )
+    )
 
     if workspace.layout_uid == layout.uid or \
             dashboard_settings.allow_different_layouts:
@@ -990,7 +1045,7 @@ def clone_dashboard_workspace(request, workspace_id):
             request,
             _("Dashboard workspace `{0}` was successfully cloned into "
               "`{1}`.".format(workspace.name, cloned_workspace.name))
-            )
+        )
         return redirect('dash.edit_dashboard', workspace=cloned_workspace.slug)
 
     else:
@@ -998,16 +1053,16 @@ def clone_dashboard_workspace(request, workspace_id):
         messages.info(
             request,
             _("Dashboard workspace `{0}` was successfully cloned into `{1}` "
-              "(layout `{2}`), however your active layout is `{3}`. You should "
-              "switch to layout `{4}` (in your dashboard settings) in order to "
-              "see the cloned workspace.".format(
-                workspace.name,
-                cloned_workspace.name,
-                cloned_workspace_layout.name,
-                layout.name,
-                cloned_workspace_layout.name
-                ))
+              "(layout `{2}`), however your active layout is `{3}`. You "
+              "should switch to layout `{4}` (in your dashboard settings) "
+              "in order to see the cloned workspace."
+              "".format(workspace.name,
+                        cloned_workspace.name,
+                        cloned_workspace_layout.name,
+                        layout.name,
+                        cloned_workspace_layout.name)
             )
+        )
         return redirect('dash.edit_dashboard')
 
 # ***************************************************************************
@@ -1016,16 +1071,18 @@ def clone_dashboard_workspace(request, workspace_id):
 # ***************************************************************************
 # ***************************************************************************
 
+
 @login_required
-@use_clipboard_permission_required(raise_exception=RAISE_EXCEPTION_WHEN_PERMISSIONS_INSUFFICIENT)
+@use_clipboard_permission_required(
+    raise_exception=RAISE_EXCEPTION_WHEN_PERMISSIONS_INSUFFICIENT
+)
 def cut_dashboard_entry(request, entry_id):
-    """
-    Cut the given dashboard entry. It's not possible to remove undeletable
-    entries.
+    """Cut the given dashboard entry.
+
+    It's not possible to remove undeletable entries.
 
     :param django.http.HttpRequest request:
     :param int entry_id: ID of the DashboardEntry to cut to clipboard.
-    :param str template_name:
     :return django.http.HttpResponse:
     """
     dashboard_entry = DashboardEntry._default_manager \
@@ -1045,23 +1102,25 @@ def cut_dashboard_entry(request, entry_id):
     else:
         return redirect('dash.edit_dashboard')
 
+
 @login_required
-@use_clipboard_permission_required(raise_exception=RAISE_EXCEPTION_WHEN_PERMISSIONS_INSUFFICIENT)
+@use_clipboard_permission_required(
+    raise_exception=RAISE_EXCEPTION_WHEN_PERMISSIONS_INSUFFICIENT
+)
 def copy_dashboard_entry(request, entry_id):
-    """
-    Cut the given dashboard entry. It's not possible to remove undeletable
-    entries.
+    """Cut the given dashboard entry.
+
+    It's not possible to remove undeletable entries.
 
     :param django.http.HttpRequest request:
     :param int entry_id: ID of the DashboardEntry to cut to clipboard.
-    :param str template_name:
     :return django.http.HttpResponse:
     """
     # Getting dashboard settings for the user. Then get users' layout.
-    #dashboard_settings = get_or_create_dashboard_settings(request.user)
-    #layout = get_layout(
-    #    layout_uid=dashboard_settings.layout_uid, as_instance=True
-    #    )
+    # dashboard_settings = get_or_create_dashboard_settings(request.user)
+    # layout = get_layout(
+    #     layout_uid=dashboard_settings.layout_uid, as_instance=True
+    # )
 
     dashboard_entry = DashboardEntry._default_manager \
                                     .select_related('workspace') \
@@ -1080,14 +1139,16 @@ def copy_dashboard_entry(request, entry_id):
     else:
         return redirect('dash.edit_dashboard')
 
+
 @login_required
-@use_clipboard_permission_required(raise_exception=RAISE_EXCEPTION_WHEN_PERMISSIONS_INSUFFICIENT)
+@use_clipboard_permission_required(
+    raise_exception=RAISE_EXCEPTION_WHEN_PERMISSIONS_INSUFFICIENT
+)
 def paste_dashboard_entry(request, placeholder_uid, position, workspace=None):
-    """
-    Pastes the dashboard entry from clipboard if any available.
+    """Paste the dashboard entry from clipboard if any available.
 
     :param django.http.HttpRequest request:
-    :param str placeholder:
+    :param str placeholder_uid:
     :param int position:
     :param str workspace: Workspace slug.
     :return django.http.HttpResponse:
@@ -1096,14 +1157,14 @@ def paste_dashboard_entry(request, placeholder_uid, position, workspace=None):
     dashboard_settings = get_or_create_dashboard_settings(request.user)
     layout = get_layout(
         layout_uid=dashboard_settings.layout_uid, as_instance=True
-        )
+    )
 
     try:
         plugin_uid, success = paste_entry_from_clipboard(
             request, layout, placeholder_uid, position, workspace=workspace
-            )
-    except Exception as e:
-        plugin_uid, success = str(e), False
+        )
+    except Exception as err:
+        plugin_uid, success = str(err), False
 
     if plugin_uid and success:
         plugin = plugin_registry.get(plugin_uid)
@@ -1111,7 +1172,7 @@ def paste_dashboard_entry(request, placeholder_uid, position, workspace=None):
             request,
             _('The dashboard entry "{0}" was successfully pasted from '
               'clipboard.').format(safe_text(plugin.name))
-            )
+        )
     else:
         # In case if not success, ``plugin_uid`` would be holding the error
         # message.
@@ -1119,7 +1180,7 @@ def paste_dashboard_entry(request, placeholder_uid, position, workspace=None):
             request,
             _('Problems occurred while pasting from '
               'clipboard. {0}'.format(safe_text(plugin_uid)))
-            )
+        )
 
     if workspace:
         return redirect('dash.edit_dashboard', workspace=workspace)

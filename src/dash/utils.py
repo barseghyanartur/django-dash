@@ -325,9 +325,9 @@ def get_workspaces(user, layout_uid=None, workspace=None, public=False,
         q_kwargs.update({'is_public': public})
 
     workspaces = list(
-        DashboardWorkspace._default_manager \
-                          .filter(**q_kwargs) \
-                          .only('id', 'name', 'slug') \
+        DashboardWorkspace._default_manager
+                          .filter(**q_kwargs)
+                          .only('id', 'name', 'slug')
                           .order_by('position')[:]
     )
 
@@ -402,7 +402,7 @@ def get_occupied_cells(layout, placeholder, plugin_uid, position,
 
     :param dash.base.BaseDashboardLayout layout: Instance of
         subclassed ``dash.base.BaseDashboardLayout`` object.
-    :param dash.base.BaseDashboardPlaceholder placeholder: Instance of 
+    :param dash.base.BaseDashboardPlaceholder placeholder: Instance of
         subclassed ``dash.base.BaseDashboardPlaceholder`` object.
     :param string plugin_uid: UID of the plugin to check against.
     :param int position: Position of the plugin to check against.
@@ -498,15 +498,15 @@ def build_cells_matrix(user, layout, placeholder, workspace=None):
 
     # Getting the queryset for user and freezing it.
     dashboard_entries = DashboardEntry \
-                            ._default_manager \
-                            .get_for_user(
-                                user=user,
-                                layout_uid=layout.uid,
-                                workspace=workspace) \
-                            .select_related('workspace', 'user') \
-                            .filter(plugin_uid__in=user_plugin_uids) \
-                            .filter(placeholder_uid=placeholder.uid) \
-                            .order_by('placeholder_uid', 'position')[:]
+        ._default_manager \
+        .get_for_user(
+            user=user,
+            layout_uid=layout.uid,
+            workspace=workspace) \
+        .select_related('workspace', 'user') \
+        .filter(plugin_uid__in=user_plugin_uids) \
+        .filter(placeholder_uid=placeholder.uid) \
+        .order_by('placeholder_uid', 'position')[:]
 
     matrix = []
     for dashboard_entry in dashboard_entries:

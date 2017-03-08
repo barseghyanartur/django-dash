@@ -145,7 +145,7 @@ class DashboardEntryAdmin(CompatModelAdmin):
     list_filter = ('user', 'workspace', 'layout_uid', 'placeholder_uid',
                    'plugin_uid')
     list_editable = ('position',)
-    readonly_fields = ('plugin_uid_code',)    
+    readonly_fields = ('plugin_uid_code',)
     fieldsets = (
         (None, {
             'fields': ('plugin_uid', 'plugin_data', 'layout_uid',
@@ -262,8 +262,8 @@ class DashboardPluginAdmin(CompatModelAdmin):
                     if users_action == ACTION_CHOICE_REPLACE:
                         dashboard_plugin.users.clear()
 
-                    dashboard_plugin.groups.add(*groups) # Adding groups
-                    dashboard_plugin.users.add(*users) # Adding users
+                    dashboard_plugin.groups.add(*groups)  # Adding groups
+                    dashboard_plugin.users.add(*users)  # Adding users
 
                 messages.info(
                     request,

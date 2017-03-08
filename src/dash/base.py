@@ -116,14 +116,14 @@ class BaseDashboardLayout(object):
         - `uid` (string): Layout unique identifier (globally).
         - `name` (string): Layout name.
         - `description` (string): Layout description.
-        - `placeholders` (iterable): Iterable (list, tuple or set) 
+        - `placeholders` (iterable): Iterable (list, tuple or set)
           of ``dash.base.BaseDashboardPlaceholder` subclasses.
-        - `view_template_name` (string): Temlate used to render the
+        - `view_template_name` (string): Template used to render the
           layout (view).
         - `edit_template_name` (string): Template used to render the
           layout (edit).
-        - `plugin_widgets_template_name_ajax` (string): Temlate used to render
-          the plugin widgets popup.
+        - `plugin_widgets_template_name_ajax` (string): Template used to
+          render the plugin widgets popup.
         - `form_snippet_template_name` (string): Template used to render the
           forms.
         - `html_classes` (string): Extra HTML class that layout should get.
@@ -315,6 +315,7 @@ class BaseDashboardLayout(object):
 
         :param iterable dashboard_entries: Iterable of
             ``dash.models.DashboardEntry`` objects.
+        :param str workspace:
         :param django.http.HttpRequest request:
         :return list: List of `dash.base.BaseDashboardPlaceholder` subclassed
             instances.
@@ -555,8 +556,8 @@ class BaseDashboardPlaceholder(object):
         :return int:
         """
         return self.cell_margin_left + \
-               self.cell_margin_right + \
-               self.cell_width
+            self.cell_margin_right + \
+            self.cell_width
 
     def get_cell_height(self):
         """Get a single cell height, with respect to margins.
@@ -564,8 +565,8 @@ class BaseDashboardPlaceholder(object):
         :return int:
         """
         return self.cell_margin_top + \
-               self.cell_margin_bottom + \
-               self.cell_height
+            self.cell_margin_bottom + \
+            self.cell_height
 
     def widget_inner_width(self, cols):
         """The inner width of the widget to be rendered."""
@@ -686,7 +687,7 @@ class BaseDashboardPlaceholder(object):
 
         def plugin_sizes():
             """Plugin size based on its' `rows` and `cols` properties.
-                
+
             ..:Used CSS classes:
                 - `width-1`, `width-2`, etc.
                 - `height-1`, `height-2`, etc.
@@ -786,10 +787,10 @@ class BaseDashboardPlugin(object):
           'wysiwyg', 'news'.
         - `name` (string): Plugin name (obligatory). Example value:
           'Dummy plugin', 'WYSIWYG', 'Latest news'.
-        - `description` (string): Plugin decription (optional). Example value:
-          'Dummy plugin used just for testing'.
-        - `help_text` (string): Plugin help text (optional). This text would be
-          shown in ``dash.views.add_dashboard_entry`` 
+        - `description` (string): Plugin description (optional). Example
+          value: 'Dummy plugin used just for testing'.
+        - `help_text` (string): Plugin help text (optional). This text would
+          be shown in ``dash.views.add_dashboard_entry``.
           and ``dash.views.edit_dashboard_entry`` views.
         - `form`: Plugin form (optional). A subclass of ``django.forms.Form``.
           Should be given in case plugin is configurable.
@@ -926,9 +927,9 @@ class BaseDashboardPlugin(object):
                     # Trying to load the plugin data to JSON.
                     plugin_data = json.loads(plugin_data)
 
-                    # If a valid JSON object, feed it to our plugin and process 
-                    # the data. The ``process_data`` method should be defined
-                    # in your subclassed plugin class.
+                    # If a valid JSON object, feed it to our plugin and
+                    # process the data. The ``process_data`` method should
+                    # be defined in your subclassed plugin class.
                     if plugin_data:
                         self.load_plugin_data(plugin_data)
 
@@ -1176,10 +1177,10 @@ class BaseDashboardPlugin(object):
 
         Used in ``dash.management.commands.dash_update_plugin_data``.
 
-        Some plugins would contain data fetched from various sources (models, 
+        Some plugins would contain data fetched from various sources (models,
         remote data). Since dashboard entries are by definition loaded
         extremely much, you are advised to store as much data as possible in
-        ``plugin_data`` field of ``dash.models.DashboardEntry``. Some 
+        ``plugin_data`` field of ``dash.models.DashboardEntry``. Some
         externally fetched data becomes invalid after some time and needs
         updating. For that purpose, in case if your plugin needs that, redefine
         this method in your plugin. If you need your data to be periodically
@@ -1206,7 +1207,7 @@ class BaseDashboardPlugin(object):
     def delete_plugin_data(self):
         """Delete plugin data.
 
-        Used in ``dash.views.delete_dashboard_entry``. Fired automatically, 
+        Used in ``dash.views.delete_dashboard_entry``. Fired automatically,
         when ``dash.models.DashboardEntry`` object is about to be deleted. Make
         use of it if your plugin creates database records or files that are
         not monitored externally but by dash only.
@@ -1231,7 +1232,7 @@ class BaseDashboardPlugin(object):
 
         :param dash.models.DashboardEntry dashboard_entry: Instance of
             ``dash.models.DashboardEntry``.
-        :return string: JSON dumped string of the cloned plugin data. The 
+        :return string: JSON dumped string of the cloned plugin data. The
             returned value would be inserted as is into the
             ``dash.models.DashboardEntry.plugin_data`` field.
         """
@@ -1287,9 +1288,9 @@ class BaseDashboardPlugin(object):
 
         Redefine in your subclassed plugin when necessary.
 
-        Pre process plugin data (before rendering). This method is being called
-        before the data has been loaded into the plugin.
-        
+        Pre process plugin data (before rendering). This method is being
+        called before the data has been loaded into the plugin.
+
         Note, that request (django.http.HttpRequest) is
         available (self.request).
         """
@@ -1301,7 +1302,7 @@ class BaseDashboardPlugin(object):
 
         Post process plugin data here (before rendering). This method is being
         called after the data has been loaded into the plugin.
-        
+
         Note, that request (django.http.HttpRequest) is
         available (self.request).
         """
@@ -1353,7 +1354,7 @@ class BaseDashboardPluginWidget(object):
 
         >>> plugin_widget_registry.register(DummyPluginWidget)
 
-    Plugin widget is always being registered for a placeholder. Placeholder in 
+    Plugin widget is always being registered for a placeholder. Placeholder in
     its' turn has number of rows and columns. Since we register each widget
     for a (layout, placeholder, plugin) combination separately, it fits the
     needs and requirements perfectly. In that way we are able to tell, whether
@@ -1432,7 +1433,7 @@ class BaseDashboardPluginWidget(object):
 
     def get_size(self, delta_width=0, delta_height=0):
         """Get widget size.
-        
+
         :param int delta_width:
         :param int delta_height:
         :return tuple:
@@ -1744,7 +1745,7 @@ def collect_widget_media(dashboard_entries):
 
     :param iterable dashboard_entries: Iterable of
         ``dash.models.DashboardEntry`` instances.
-    :return dict: Returns a dict containing the 'js' and 'css' keys. 
+    :return dict: Returns a dict containing the 'js' and 'css' keys.
         Correspondent values of those keys are lists containing paths to the
         CSS and JS media files.
     """

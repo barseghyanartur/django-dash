@@ -148,13 +148,13 @@ class DashCoreTest(TestCase):
 
         # Fetching all dashboard entries for user and freezeing the queryset
         dashboard_entries = DashboardEntry \
-                                ._default_manager \
-                                .get_for_user(user=request.user,
-                                              layout_uid=layout.uid,
-                                              workspace=workspace) \
-                                .select_related('workspace', 'user') \
-                                .filter(plugin_uid__in=user_plugin_uids) \
-                                .order_by('placeholder_uid', 'position')[:]
+            ._default_manager \
+            .get_for_user(user=request.user,
+                          layout_uid=layout.uid,
+                          workspace=workspace) \
+            .select_related('workspace', 'user') \
+            .filter(plugin_uid__in=user_plugin_uids) \
+            .order_by('placeholder_uid', 'position')[:]
 
         res = layout.render_for_view(dashboard_entries=dashboard_entries,
                                      request=request)
@@ -186,7 +186,7 @@ class DashCoreTest(TestCase):
             # 3 x 3 widget
             r = get_occupied_cells(layout, placeholder, 'memo_3x3', 16)
 
-            self.assertEqual(r, [16, 17,18, 22, 23, 24, 28, 29, 30])
+            self.assertEqual(r, [16, 17, 18, 22, 23, 24, 28, 29, 30])
 
             res.append(r)
 
@@ -195,7 +195,7 @@ class DashCoreTest(TestCase):
             # 3 x 3 widget
             # r = get_occupied_cells(layout, placeholder, 'memo_3x3', 17)
 
-            # self.assertEqual(r, [16, 17,18, 22, 23, 24, 28, 29, 30])
+            # self.assertEqual(r, [16, 17, 18, 22, 23, 24, 28, 29, 30])
 
             # res.append(r)
 
@@ -205,8 +205,8 @@ class DashCoreTest(TestCase):
 class DashBrowserTest(LiveServerTestCase):
     """django-dash browser tests.
 
-    TODO: At the moment is done for admin only. Normal users shall be tested as well
-    for plugin security workflow (permissions system used).
+    TODO: At the moment is done for admin only. Normal users shall be tested
+    as well for plugin security workflow (permissions system used).
     """
     try:
         LIVE_SERVER_URL = settings.LIVE_SERVER_URL
@@ -451,13 +451,16 @@ class DashBrowserTest(LiveServerTestCase):
         # Wait until the edit dashboard page opens
         WebDriverWait(self.selenium, timeout=8).until(
             lambda driver: driver.find_element_by_xpath(
-                '//div[contains(@class, "{0}")]'.format(plugin_widget_css_class)
+                '//div[contains(@class, "{0}")]'.format(
+                    plugin_widget_css_class
                 )
             )
+        )
 
         # Make sure the success message is there
         self.selenium.find_element_by_xpath(
-            """//li[text()='The dashboard widget "{0}" was added successfully.']""".format(plugin_widget_name)
+            """//li[text()='The dashboard widget "{0}" was added """
+            """successfully.']""".format(plugin_widget_name)
         )
 
         dummy_plugin_widget = self.selenium.find_element_by_xpath(
@@ -672,7 +675,8 @@ class DashBrowserTest(LiveServerTestCase):
 
         # Make sure the success message is there
         self.selenium.find_element_by_xpath(
-            """//li[text()='The dashboard widget "{0}" was edited successfully.']""".format(plugin_widget_name)
+            """//li[text()='The dashboard widget "{0}" was edited """
+            """successfully.']""".format(plugin_widget_name)
         )
 
         dummy_plugin_widget = self.selenium.find_element_by_xpath(

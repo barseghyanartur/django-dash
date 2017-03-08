@@ -28,7 +28,8 @@ __all__ = ('urlpatterns',)
 
 urlpatterns = [
     # Paste dashboard entry
-    url(_(r'^entry/paste/(?P<placeholder_uid>[\w_]+)/(?P<workspace>[\w_\-]+)/pos/(?P<position>\d+)/$'),
+    url(_(r'^entry/paste/(?P<placeholder_uid>[\w_]+)/'
+          r'(?P<workspace>[\w_\-]+)/pos/(?P<position>\d+)/$'),
         view=paste_dashboard_entry,
         name='dash.paste_dashboard_entry'),
     url(_(r'^entry/paste/(?P<placeholder_uid>[\w_]+)/pos/(?P<position>\d+)/$'),
@@ -46,16 +47,20 @@ urlpatterns = [
         name='dash.copy_dashboard_entry'),
 
     # Add dashboard entry.
-    url(_(r'^entry/add/(?P<placeholder_uid>[\w_]+)/(?P<plugin_uid>[\w_\-]+)/ws/(?P<workspace>[\w_\-]+)/pos/(?P<position>\d+)/$'),
+    url(_(r'^entry/add/(?P<placeholder_uid>[\w_]+)/(?P<plugin_uid>[\w_\-]+)/'
+          r'ws/(?P<workspace>[\w_\-]+)/pos/(?P<position>\d+)/$'),
         view=add_dashboard_entry,
         name='dash.add_dashboard_entry'),
-    url(_(r'^entry/add/(?P<placeholder_uid>[\w_]+)/(?P<plugin_uid>[\w_\-]+)/ws/(?P<workspace>[\w_\-]+)/$'),
+    url(_(r'^entry/add/(?P<placeholder_uid>[\w_]+)/(?P<plugin_uid>[\w_\-]+)/'
+          r'ws/(?P<workspace>[\w_\-]+)/$'),
         view=add_dashboard_entry,
         name='dash.add_dashboard_entry'),
-    url(_(r'^entry/add/(?P<placeholder_uid>[\w_]+)/(?P<plugin_uid>[\w_\-]+)/pos/(?P<position>\d+)/$'),
+    url(_(r'^entry/add/(?P<placeholder_uid>[\w_]+)/(?P<plugin_uid>[\w_\-]+)/'
+          r'pos/(?P<position>\d+)/$'),
         view=add_dashboard_entry,
         name='dash.add_dashboard_entry'),
-    url(_(r'^entry/add/(?P<placeholder_uid>[\w_]+)/(?P<plugin_uid>[\w_\-]+)/$'),
+    url(_(r'^entry/add/(?P<placeholder_uid>[\w_]+)/'
+          r'(?P<plugin_uid>[\w_\-]+)/$'),
         view=add_dashboard_entry,
         name='dash.add_dashboard_entry'),
 
@@ -83,14 +88,17 @@ urlpatterns = [
     # ***************************************************************
     # ********************** Widgets for dashboard entries **********
     # ***************************************************************
-    url(_(r'^plugin-widgets/(?P<placeholder_uid>[\w_]+)/(?P<workspace>[\w_\-]+)/pos/(?P<position>\d+)/$'),
+    url(_(r'^plugin-widgets/(?P<placeholder_uid>[\w_]+)/'
+          r'(?P<workspace>[\w_\-]+)/pos/(?P<position>\d+)/$'),
         view=plugin_widgets,
         name='dash.plugin_widgets'),
     # Workspace should not be named `pos`. Add check. TODO.
-    url(_(r'^plugin-widgets/(?P<placeholder_uid>[\w_]+)/pos/(?P<position>\d+)/$'),
+    url(_(r'^plugin-widgets/(?P<placeholder_uid>[\w_]+)/pos/'
+          r'(?P<position>\d+)/$'),
         view=plugin_widgets,
         name='dash.plugin_widgets'),
-    url(_(r'^plugin-widgets/(?P<placeholder_uid>[\w_]+)/(?P<workspace>[\w_\-]+)/$'),
+    url(_(r'^plugin-widgets/(?P<placeholder_uid>[\w_]+)/'
+          r'(?P<workspace>[\w_\-]+)/$'),
         view=plugin_widgets,
         name='dash.plugin_widgets'),
     url(_(r'^plugin-widgets/(?P<placeholder_uid>[\w_]+)/$'),

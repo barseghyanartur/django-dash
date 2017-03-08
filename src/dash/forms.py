@@ -48,7 +48,7 @@ class DashboardSettingsForm(forms.ModelForm):
 
         model = DashboardSettings
         fields = ('user', 'layout_uid', 'title', 'is_public')
-    
+
     layout_uid = forms.ChoiceField(choices=get_registered_layouts())
 
     def __init__(self, *args, **kwargs):

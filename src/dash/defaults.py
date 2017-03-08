@@ -21,9 +21,13 @@ __all__ = (
     'WAIT_BETWEEN_TEST_STEPS',
 )
 
-gettext = lambda s: s
 
-# If set to True, plugins would be only accessible by the white-listed user(s) 
+def gettext(val):
+    """Fake gettext."""
+    return val
+
+
+# If set to True, plugins would be only accessible by the white-listed user(s)
 # or group(s). If set to False, all users have the same access rights to all
 # plugins.
 RESTRICT_PLUGIN_ACCESS = True

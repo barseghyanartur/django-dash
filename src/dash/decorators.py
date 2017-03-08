@@ -136,7 +136,7 @@ def edit_dashboard_permission_required(login_url=None, raise_exception=False):
 
     Simply, check is successful if any of the following permission checks are
     satisfied:
-    
+
         - Can add dashboard entry
         - Can change dashboard entry
         - Can delete dashboard entry
