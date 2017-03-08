@@ -9,10 +9,10 @@ __copyright__ = '2013-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('convert_to_datetime',)
 
-REGISTER = template.Library()
+register = template.Library()
 
 
-@REGISTER.filter
+@register.filter
 def convert_to_datetime(value):
     """Convert to datetime."""
 

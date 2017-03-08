@@ -1,6 +1,8 @@
+from __future__ import absolute_import
+
 from django.core.management.base import BaseCommand
 
-from ....utils import sync_plugins
+from ...utils import sync_plugins
 
 
 class Command(BaseCommand):

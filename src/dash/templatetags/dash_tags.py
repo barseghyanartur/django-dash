@@ -17,7 +17,7 @@ __all__ = (
 )
 
 
-REGISTER = Library()
+register = Library()
 
 # *****************************************************************************
 # *****************************************************************************
@@ -45,7 +45,7 @@ class GetDashPluginNode(Node):
         return ''
 
 
-@REGISTER.tag
+@register.tag
 def get_dash_plugin(parser, token):
     """Get the plugin.
 
@@ -116,7 +116,7 @@ class GetDashWorkspacesNode(Node):
         return ''
 
 
-@REGISTER.tag
+@register.tag
 def get_dash_workspaces(parser, token):
     """Get the workspaces queryset
 
@@ -202,9 +202,9 @@ def render_logout_link(context):
     return render_auth_link(context)
 
 
-REGISTER.inclusion_tag('dash/snippets/render_auth_link.html',
+register.inclusion_tag('dash/snippets/render_auth_link.html',
                        takes_context=True)(render_auth_link)
-REGISTER.inclusion_tag('dash/snippets/render_auth_link.html',
+register.inclusion_tag('dash/snippets/render_auth_link.html',
                        takes_context=True)(render_logout_link)
 
 # *****************************************************************************
@@ -260,7 +260,7 @@ class HasEditDashboardPermissionsNode(Node):
             return False
 
 
-@REGISTER.tag
+@register.tag
 def has_edit_dashboard_permissions(parser, token):
     """
     Gets the workspaces queryset
@@ -348,7 +348,7 @@ class GetFormFieldTypeNode(Node):
         return ''
 
 
-@REGISTER.tag
+@register.tag
 def get_form_field_type(parser, token):
     """Get form field type.
 
