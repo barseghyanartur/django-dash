@@ -2,6 +2,7 @@ from django.conf import settings
 
 from . import defaults
 
+__title__ = 'dash.conf'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
@@ -11,7 +12,7 @@ __all__ = ('get_setting',)
 def get_setting(setting, override=None):
     """Get setting.
 
-    Get a setting from `dash` conf module, falling back to the default.
+    Get a setting from ``dash`` conf module, falling back to the default.
 
     If override is not None, it will be used instead of the setting.
 

@@ -25,7 +25,10 @@ class Bookmark(models.Model):
     title = models.CharField(_("Title"), max_length=100)
     url = models.URLField(_("URL"), max_length=255)
     external = models.BooleanField(_("External"), default=False)
-    image = models.CharField(_("Image"), max_length=255, blank=True, null=True, \
+    image = models.CharField(_("Image"),
+                             max_length=255,
+                             blank=True,
+                             null=True,
                              choices=BOOKMARK_IMAGE_CHOICES_WITH_EMPTY_OPTION)
 
     class Meta(object):
