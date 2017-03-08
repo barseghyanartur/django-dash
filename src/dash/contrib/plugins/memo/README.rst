@@ -17,14 +17,14 @@ Installation
 ============
 Installation steps described below.
 
-# Add `dash.contrib.plugins.memo` to ``INSTALLED_APPS`` of your Django
-  project settings module.
+#) Add ``dash.contrib.plugins.memo`` to ``INSTALLED_APPS`` of your Django
+   project settings module.
 
-# From terminal run
+#) From terminal run:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py dash_sync_plugins
+        ./manage.py dash_sync_plugins
 
 License
 =======
