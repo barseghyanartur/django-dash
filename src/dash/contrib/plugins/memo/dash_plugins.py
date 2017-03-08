@@ -1,30 +1,31 @@
+from django.utils.translation import ugettext_lazy as _
+
+from ....base import BaseDashboardPlugin
+from ....factory import plugin_factory
+from .forms import MemoForm, TinyMCEMemoForm
+
+__title__ = 'dash.contrib.plugins.memo.dash_plugins'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__copyright__ = '2013-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('BaseMemoPlugin', 'BaseTinyMCEMemoPlugin',)
 
-from django.utils.translation import ugettext_lazy as _
+# ****************************************************************************
+# ******************************* Base memo plugin ***************************
+# ****************************************************************************
 
-from dash.base import BaseDashboardPlugin
-from dash.factory import plugin_factory
-from dash.contrib.plugins.memo.forms import MemoForm, TinyMCEMemoForm
-
-# ********************************************************************************
-# ******************************* Base memo plugin *******************************
-# ********************************************************************************
 
 class BaseMemoPlugin(BaseDashboardPlugin):
-    """
-    Base memo plugin.
-    """
+    """Base memo plugin."""
+
     name = _("Memo")
     group = _("Memo")
     form = MemoForm
 
 
-# ********************************************************************************
-# ********** Generating and registering the plugins using factory ****************
-# ********************************************************************************
+# ****************************************************************************
+# ********** Generating and registering the plugins using factory ************
+# ****************************************************************************
 
 sizes = (
     (1, 1),
@@ -37,23 +38,23 @@ sizes = (
 
 plugin_factory(BaseMemoPlugin, 'memo', sizes)
 
-# ********************************************************************************
-# ******************************* Base TinyMCE memo plugin ***********************
-# ********************************************************************************
+# ****************************************************************************
+# ******************************* Base TinyMCE memo plugin *******************
+# ****************************************************************************
+
 
 class BaseTinyMCEMemoPlugin(BaseDashboardPlugin):
-    """
-    Memo dashboard plugin.
-    """
+    """Memo dashboard plugin."""
+
     name = _("TinyMCE memo")
     group = _("Memo")
     form = TinyMCEMemoForm
-    help_text = _("""TinyMCE tags are available here.""")
+    help_text = _("TinyMCE tags are available here.")
 
 
-# ********************************************************************************
-# ********** Generating and registering the plugins using factory ****************
-# ********************************************************************************
+# ****************************************************************************
+# ********** Generating and registering the plugins using factory ************
+# ****************************************************************************
 
 sizes = (
     (2, 2),

@@ -18,7 +18,7 @@ class BooleanRadioSelect(RadioSelect):
     """Boolean radio select for Django.
 
     :example:
-    
+
     >>> class DummyForm(forms.Form):
     >>>     agree = forms.BooleanField(label=_("Agree?"), required=False,
     >>>                                widget=BooleanRadioSelect)

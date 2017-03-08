@@ -70,7 +70,7 @@ def get_dash_plugin(parser, token):
             raise TemplateSyntaxError(
                 "Invalid syntax for {0}. Incorrect number of "
                 "arguments.".format(bits[0])
-                )
+            )
         as_var = bits[-1]
     else:
         raise TemplateSyntaxError(
@@ -136,7 +136,7 @@ def get_dash_workspaces(parser, token):
         raise TemplateSyntaxError(
                 "Invalid syntax for {0}. Incorrect number "
                 "of arguments.".format(bits[0])
-                )
+        )
 
     if 4 == len(bits):
         layout_uid = parser.compile_filter(bits[1])

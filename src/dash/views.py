@@ -533,8 +533,7 @@ def edit_dashboard_entry(request,
 @login_required
 @permission_required('dash.delete_dashboardentry')
 def delete_dashboard_entry(request, entry_id):
-    """
-    Remove dashboard entry.
+    """Remove dashboard entry.
 
     :param django.http.HttpRequest request:
     :param int entry_id: ID of the dashboard entry to delete.
@@ -1156,12 +1155,17 @@ def paste_dashboard_entry(request, placeholder_uid, position, workspace=None):
     # Getting dashboard settings for the user. Then get users' layout.
     dashboard_settings = get_or_create_dashboard_settings(request.user)
     layout = get_layout(
-        layout_uid=dashboard_settings.layout_uid, as_instance=True
+        layout_uid=dashboard_settings.layout_uid,
+        as_instance=True
     )
 
     try:
         plugin_uid, success = paste_entry_from_clipboard(
-            request, layout, placeholder_uid, position, workspace=workspace
+            request,
+            layout,
+            placeholder_uid,
+            position,
+            workspace=workspace
         )
     except Exception as err:
         plugin_uid, success = str(err), False
