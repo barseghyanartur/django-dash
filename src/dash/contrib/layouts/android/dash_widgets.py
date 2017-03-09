@@ -1,14 +1,17 @@
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = (
-    'URL1x1AndroidMainWidget', 'URL1x1AndroidShortcutWidget',
-    'BaseBookmarkAndroidWidget'
+from ....contrib.plugins.url.dash_widgets import (
+    BaseBookmarkWidget,
+    URL1x1Widget,
 )
 
-from dash.contrib.plugins.url.dash_widgets import (
-    URL1x1Widget, BaseBookmarkWidget
-    )
+__title__ = 'dash.contrib.layouts.android.dash_widgets'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2013-2017 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = (
+    'BaseBookmarkAndroidWidget'
+    'URL1x1AndroidMainWidget',
+    'URL1x1AndroidShortcutWidget',
+)
 
 # *********************************************************
 # *********************************************************
@@ -16,22 +19,20 @@ from dash.contrib.plugins.url.dash_widgets import (
 # *********************************************************
 # *********************************************************
 
+
 class URL1x1AndroidMainWidget(URL1x1Widget):
-    """
-    URL plugin widget for Android layout (placeholder `main`).
-    """
+    """URL plugin widget for Android layout (placeholder `main`)."""
+
     layout_uid = 'android'
     placeholder_uid = 'main'
-
     media_css = (
         'css/dash_plugin_url_android.css',
     )
 
 
 class URL1x1AndroidShortcutWidget(URL1x1AndroidMainWidget):
-    """
-    URL plugin widget for Android layout (placeholder `shortcuts`).
-    """
+    """URL plugin widget for Android layout (placeholder `shortcuts`)."""
+
     placeholder_uid = 'shortcuts'
 
 
@@ -42,9 +43,8 @@ class URL1x1AndroidShortcutWidget(URL1x1AndroidMainWidget):
 # *********************************************************
 
 class BaseBookmarkAndroidWidget(BaseBookmarkWidget):
-    """
-    Base Bookmark plugin widget for Android layout.
-    """
+    """Base Bookmark plugin widget for Android layout."""
+
     media_css = (
         'css/dash_plugin_bookmark_android.css',
     )

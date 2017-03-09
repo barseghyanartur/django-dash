@@ -1,24 +1,29 @@
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = (
-    'URLBootstrapTwo1x1Bootstrap2FluidMainWidget',
-    'URLBootstrapTwo2x2Bootstrap2FluidMainWidget',
-    'BaseBookmarkBootstrapTwoWidget'
+from ....contrib.plugins.url.dash_widgets import (
+    BaseBookmarkWidget,
+    BaseURLWidget,
 )
 
-from dash.contrib.plugins.url.dash_widgets import (
-    BaseURLWidget, BaseBookmarkWidget
-    )
+__title__ = 'dash.contrib.layouts.bootstrap2.dash_widgets'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2013-2017 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = (
+    'BaseBookmarkBootstrapTwoWidget',
+    'URLBootstrapTwo1x1Bootstrap2FluidMainWidget',
+    'URLBootstrapTwo2x2Bootstrap2FluidMainWidget',
+)
 
 # *************************************************************
 # ******************* URL widgets *****************************
 # *************************************************************
 
+
 class URLBootstrapTwo1x1Bootstrap2FluidMainWidget(BaseURLWidget):
+    """URL plugin 1x1 widget for Bootstrap 2 Fluid layout.
+
+    Placeholder `main` widget.
     """
-    URL plugin 1x1 widget for Bootstrap 2 Fluid layout (placeholder `main`).
-    """
+
     layout_uid = 'bootstrap2_fluid'
     placeholder_uid = 'main'
     plugin_uid = 'url_bootstrap_two_1x1'
@@ -27,10 +32,14 @@ class URLBootstrapTwo1x1Bootstrap2FluidMainWidget(BaseURLWidget):
     )
 
 
-class URLBootstrapTwo2x2Bootstrap2FluidMainWidget(URLBootstrapTwo1x1Bootstrap2FluidMainWidget):
+class URLBootstrapTwo2x2Bootstrap2FluidMainWidget(
+    URLBootstrapTwo1x1Bootstrap2FluidMainWidget
+):
+    """URL2x2 plugin widget for Bootstrap 2 Fluid layout.
+
+    Placeholder `main` widget.
     """
-    URL2x2 plugin widget for Bootstrap 2 Fluid layout (placeholder `main`).
-    """
+
     plugin_uid = 'url_bootstrap_two_2x2'
     cols = 2
     rows = 2
@@ -41,10 +50,10 @@ class URLBootstrapTwo2x2Bootstrap2FluidMainWidget(URLBootstrapTwo1x1Bootstrap2Fl
 # *********************************************************
 # *********************************************************
 
+
 class BaseBookmarkBootstrapTwoWidget(BaseBookmarkWidget):
-    """
-    Base Bookmark plugin widget for Bootstrap 2 Fluid layout.
-    """
+    """Base Bookmark plugin widget for Bootstrap 2 Fluid layout."""
+
     media_css = (
         'css/dash_plugin_bookmark_bootstrap2.css',
     )
