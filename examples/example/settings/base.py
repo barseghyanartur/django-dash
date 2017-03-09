@@ -1,25 +1,16 @@
 # Django settings for example project.
 import os
+import sys
+
 from nine.versions import (
     DJANGO_GTE_1_7,
     DJANGO_LTE_1_7,
     DJANGO_GTE_1_8,
     DJANGO_GTE_1_9,
-    DJANGO_GTE_1_10
+    DJANGO_GTE_1_10,
 )
 
-
-def project_dir(base):
-    return os.path.abspath(
-        os.path.join(os.path.dirname(__file__), base).replace('\\', '/')
-    )
-
-PROJECT_DIR = project_dir
-
-
-def gettext(s):
-    return s
-
+from .helpers import PROJECT_DIR, gettext
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -67,7 +58,7 @@ TIME_ZONE = 'America/Chicago'
 LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
-    ('en', gettext("English")), # Main language!
+    ('en', gettext("English")),  # Main language!
     ('hy', gettext("Armenian")),
     ('nl', gettext("Dutch")),
     ('ru', gettext("Russian")),
@@ -368,16 +359,16 @@ LOGGING = {
             'formatter': 'verbose'
         },
         'django_log': {
-            'level':'DEBUG',
-            'class':'logging.handlers.RotatingFileHandler',
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': PROJECT_DIR("../../logs/django.log"),
             'maxBytes': 1048576,
             'backupCount': 99,
             'formatter': 'verbose',
         },
         'dash_log': {
-            'level':'DEBUG',
-            'class':'logging.handlers.RotatingFileHandler',
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': PROJECT_DIR("../../logs/dash.log"),
             'maxBytes': 1048576,
             'backupCount': 99,
@@ -410,7 +401,7 @@ if DJANGO_GTE_1_7 or DJANGO_GTE_1_8:
                 if 'south' in INSTALLED_APPS else None
             INSTALLED_APPS.remove('tinymce') \
                 if 'tinymce' in INSTALLED_APPS else None
-        except Exception as e:
+        except Exception:
             pass
 
     # Django 1.8 specific checks
@@ -423,7 +414,7 @@ PHANTOM_JS_EXECUTABLE_PATH = None
 
 # Do not put any settings below this line
 try:
-    from local_settings import *
+    from .local_settings import *
 except Exception:
     pass
 
@@ -450,6 +441,5 @@ if DEBUG and DEBUG_TOOLBAR:
 
 # Make the `django-dash` package available without installation.
 if DEV:
-    import sys
     dash_source_path = os.environ.get('DASH_SOURCE_PATH', 'src')
     sys.path.insert(0, dash_source_path)

@@ -3,12 +3,12 @@ from django.utils.translation import ugettext_lazy as _
 from dash.base import BaseDashboardPlugin
 from dash.factory import plugin_factory, plugin_widget_factory
 
-from d3_samples.dash_widgets import (
+from .dash_widgets import (
     BaseBubbleChartWidget,
     BaseStackedToGroupedBarsChartWidget,
-    BaseSunburstPartitionChartWidget
+    BaseSunburstPartitionChartWidget,
 )
-from d3_samples.forms import ChartForm
+from .forms import ChartForm
 
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2017 Artur Barseghyan'
@@ -50,6 +50,8 @@ class BaseSunburstPartitionChartPlugin(BaseChartPlugin):
 # *****************************************************************************
 # ********** Generating and registering the plugins using factory *************
 # *****************************************************************************
+
+
 sizes = (
     (4, 4),
     (5, 5),
@@ -57,7 +59,9 @@ sizes = (
     (7, 7),
 )
 
-plugin_factory(BaseBubbleChartPlugin, 'd3_bubble_chart', sizes)
+plugin_factory(BaseBubbleChartPlugin,
+               'd3_bubble_chart',
+               sizes)
 plugin_factory(BaseStackedToGroupedBarsChartPlugin,
                'd3_stacked_to_grouped_bars_chart',
                sizes)

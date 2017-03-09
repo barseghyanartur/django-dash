@@ -7,21 +7,21 @@ from dash.contrib.plugins.image.dash_widgets import (
     Image1x1Widget,
     Image2x2Widget,
     Image3x2Widget,
-    Image3x3Widget
+    Image3x3Widget,
 )
 from dash.contrib.plugins.memo.dash_widgets import (
     Memo2x2Widget,
     Memo3x3Widget,
     TinyMCEMemo2x2Widget,
-    TinyMCEMemo3x3Widget
+    TinyMCEMemo3x3Widget,
 )
 from dash.contrib.plugins.url.dash_widgets import (
     URL1x1Widget,
-    URL2x2Widget
+    URL2x2Widget,
 )
 from dash.contrib.plugins.video.dash_widgets import (
     Video2x2Widget,
-    Video3x3Widget
+    Video3x3Widget,
 )
 
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -31,6 +31,7 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 # *************************************************************
 # ***************** Dummy widgets *****************************
 # *************************************************************
+
 
 class Dummy1x1ExampleMainWidget(Dummy1x1Widget):
     """Dummy1x1 plugin widget for Example layout (placeholder `main`)."""

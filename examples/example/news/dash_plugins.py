@@ -32,23 +32,28 @@ class BaseNewsPlugin(BaseDashboardPlugin):
             .filter(**results_kwargs) \
             .order_by('-date_published')[:self.data.max_items]
 
+
 # *****************************************************************************
 # ********** Generating and registering the plugins using factory *************
 # *****************************************************************************
-
 sizes = (
     (2, 5),
     (4, 5)
 )
 
-plugin_factory(BaseNewsPlugin, 'news', sizes)
+plugin_factory(BaseNewsPlugin,
+               'news',
+               sizes)
 
 # ****************************************************************************
 # ****************** Registering widgets for News plugin *********************
 # ****************************************************************************
-
 main_sizes = (
     (2, 5),
     (4, 5),
 )
-plugin_widget_factory(BaseNewsWidget, 'android', 'main', 'news', main_sizes)
+plugin_widget_factory(BaseNewsWidget,
+                      'android',
+                      'main',
+                      'news',
+                      main_sizes)

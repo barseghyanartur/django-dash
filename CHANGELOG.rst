@@ -54,6 +54,7 @@ versions of Django (1.5, 1.6 and 1.7) will be dropped.
 - Upgraded ``jquery.colorbox`` to the latest version (1.6.4).
 - Stopped using ``django-localeurl``.
 - Stopped using ``django-slim`` for translations.
+- pep8 conform code.
 
 0.4.13
 ------

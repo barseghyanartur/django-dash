@@ -11,6 +11,7 @@ __all__ = ('NewsItemAdmin',)
 
 class NewsItemAdmin(admin.ModelAdmin):
     """Foo item admin."""
+
     list_display = ('title', 'admin_image_preview', 'date_published')
 
     readonly_fields = ('date_created', 'date_updated', )
@@ -33,7 +34,9 @@ class NewsItemAdmin(admin.ModelAdmin):
         })
     )
 
-    class Meta:
+    class Meta(object):
+        """Meta."""
+
         app_label = _('News item')
 
 

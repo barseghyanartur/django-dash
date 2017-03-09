@@ -1,21 +1,21 @@
-import subprocess
-import random
-import os
-import uuid
 import logging
-import zipfile
+import os
+import random
 import shutil
+import subprocess
+import uuid
+import zipfile
 
 from six import text_type, PY3
 from six.moves.urllib import request
 
 import radar
 
+from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.utils.text import slugify
-from django.conf import settings
 
-from news.models import NewsItem, NEWS_IMAGES_STORAGE_PATH
+from ...models import NewsItem, NEWS_IMAGES_STORAGE_PATH
 
 if PY3:
     from string import punctuation
@@ -148,7 +148,11 @@ def split_words(val):
 
     if PY3:
         return list(
-            set(val.lower().translate(str.maketrans("", "", punctuation)).split())
+            set(
+                val.lower().translate(
+                    str.maketrans("", "", punctuation)
+                ).split()
+            )
         )
     else:
         return list(
@@ -241,7 +245,8 @@ def _build_image_factory():
 def build_image_factory():
     """Downloads the
     //github.com/barseghyanartur/delusionalinsanity.images/archive/latest.zip
-    locally, unpacks it to grab the images. Then makes a list of all the images.
+    locally, unpacks it to grab the images. Then makes a list of all the
+    images.
 
     :return list: List of relative paths to images.
     """
@@ -306,7 +311,7 @@ class Command(BaseCommand):
         images = build_image_factory()
 
         if not len(images):
-            images = [None for img in range(NUM_ITEMS)]
+            images = [None for __img in range(NUM_ITEMS)]
 
         while len(images):
             item = NewsItem()

@@ -3,6 +3,7 @@ This file was generated with the custommenu management command, it contains
 the classes for the admin menu, you can customize this class as you want.
 
 To activate your custom menu add the following to your settings.py::
+
     ADMIN_TOOLS_MENU = 'admin_tools_dashboard.menu.CustomMenu'
 """
 
@@ -63,11 +64,11 @@ class CustomMenu(Menu):
             )
         )
 
-        # append an app list module for "Administration"
+        # Append an app list module for "Administration"
         self.children.append(
             items.AppList(
                 _('Administration'),
-                models=['django.contrib.*',]
+                models=['django.contrib.*']
             )
         )
 
