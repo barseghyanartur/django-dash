@@ -18,7 +18,8 @@ def get_setting(setting, override=None):
     If override is not None, it will be used instead of the setting.
 
     :param setting: String with setting name
-    :param override: Value to use when no setting is available. Defaults to None.
+    :param override: Value to use when no setting is available. Defaults to
+        None.
     :return: Setting value.
     """
     attr_name = 'DASH_LAYOUT_BOOTSTRAP2_{0}'.format(setting)
