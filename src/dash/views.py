@@ -3,15 +3,17 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import redirect
 from django.template import RequestContext
 from django.utils.translation import ugettext, ugettext_lazy as _
+
+from nine import versions
 
 from .base import (
     get_layout,
     plugin_registry,
-    plugin_widget_registry,
-    PluginWidgetRegistry,
+    # plugin_widget_registry,
+    # PluginWidgetRegistry,
     validate_placeholder_uid,
     validate_plugin_uid,
 )
@@ -49,6 +51,11 @@ from .utils import (
     get_workspaces,
 )
 from .json_package import json
+
+if versions.DJANGO_GTE_1_10:
+    from django.shortcuts import render
+else:
+    from django.shortcuts import render_to_response
 
 __title__ = 'dash.views'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -155,9 +162,12 @@ def dashboard(request, workspace=None):
 
     template_name = layout.get_view_template_name(request)
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-    )
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 
 @login_required
@@ -236,9 +246,13 @@ def edit_dashboard(request, workspace=None):
 
     template_name = layout.get_edit_template_name(request)
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-    )
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
+
 
 # ***************************************************************************
 # ***************************************************************************
@@ -422,9 +436,12 @@ def add_dashboard_entry(request,
     elif layout.add_dashboard_entry_template_name:
         template_name = layout.add_dashboard_entry_template_name
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-    )
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 
 @login_required
@@ -525,9 +542,12 @@ def edit_dashboard_entry(request,
     elif layout.edit_dashboard_entry_template_name:
         template_name = layout.edit_dashboard_entry_template_name
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-    )
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 
 @login_required
@@ -663,11 +683,12 @@ def plugin_widgets(request,
     if request.is_ajax():
         template_name = layout.plugin_widgets_template_name_ajax
 
-    return render_to_response(
-        template_name,
-        context,
-        context_instance=RequestContext(request)
-    )
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 # ***************************************************************************
 # ***************************************************************************
@@ -739,9 +760,12 @@ def create_dashboard_workspace(request,
         'dashboard_settings': dashboard_settings
     }
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-    )
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 
 @login_required
@@ -813,9 +837,12 @@ def edit_dashboard_workspace(request, workspace_id,
         'dashboard_settings': dashboard_settings
     }
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-    )
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 
 @login_required
@@ -893,9 +920,12 @@ def delete_dashboard_workspace(request, workspace_id,
         'dashboard_settings': dashboard_settings
     }
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-    )
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 
 @login_required
@@ -940,9 +970,13 @@ def dashboard_workspaces(request,
 
     if request.is_ajax():
         template_name = template_name_ajax
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-    )
+
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 # ***************************************************************************
 # ***************************************************************************
@@ -996,9 +1030,12 @@ def edit_dashboard_settings(request,
         'dashboard_settings': dashboard_settings
     }
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-    )
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 
 @login_required

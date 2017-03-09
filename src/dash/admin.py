@@ -4,12 +4,12 @@ from django.contrib import admin
 from django.contrib import messages
 from django.contrib.admin import helpers
 from django.contrib.admin.views.decorators import staff_member_required
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import redirect
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 
-from nine.versions import DJANGO_LTE_1_5
+from nine.versions import DJANGO_LTE_1_5, DJANGO_GTE_1_10
 
 from .base import get_registered_plugins, get_registered_layouts
 from .constants import ACTION_CHOICE_REPLACE
@@ -20,6 +20,11 @@ from .models import (
     DashboardWorkspace,
 )
 from .forms import BulkChangeDashboardPluginsForm
+
+if DJANGO_GTE_1_10:
+    from django.shortcuts import render
+else:
+    from django.shortcuts import render_to_response
 
 staff_member_required_m = method_decorator(staff_member_required)
 
@@ -69,11 +74,15 @@ def bulk_change_dashboard_plugins(modeladmin, request, queryset):
         'opts': opts,
         'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
     }
-    return render_to_response(
-        'dash/admin/bulk_change_dashboard_plugins.html',
-        context,
-        context_instance=RequestContext(request)
-    )
+
+    template_name = 'dash/admin/bulk_change_dashboard_plugins.html'
+
+    if DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 
 class CompatModelAdmin(admin.ModelAdmin):

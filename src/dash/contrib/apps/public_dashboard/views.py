@@ -3,14 +3,21 @@ import logging
 from django.contrib import messages
 from django.db.models import Q
 from django.http import Http404
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import redirect
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
+
+from nine import versions
 
 from ....base import get_layout
 from ....helpers import iterable_to_dict
 from ....models import DashboardEntry
 from ....utils import get_user_plugins, get_workspaces, get_dashboard_settings
+
+if versions.DJANGO_GTE_1_10:
+    from django.shortcuts import render
+else:
+    from django.shortcuts import render_to_response
 
 __title__ = 'dash.contrib.apps.public_dashboard.views'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -104,8 +111,9 @@ def public_dashboard(request,
 
     context.update(workspaces)
 
-    return render_to_response(
-        template_name,
-        context,
-        context_instance=RequestContext(request)
-    )
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )

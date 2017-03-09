@@ -1,9 +1,11 @@
 import datetime
 
-from django.db import models
-from django.utils.translation import ugettext_lazy as _
-from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
+from django.db import models
+from django.template.loader import render_to_string
+from django.utils.translation import ugettext_lazy as _
+
+from six import python_2_unicode_compatible
 
 try:
     from tinymce.models import HTMLField
@@ -14,8 +16,8 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'NEWS_IMAGES_STORAGE_PATH',
     '_news_images',
+    'NEWS_IMAGES_STORAGE_PATH',
     'NewsItem',
 )
 
@@ -40,6 +42,7 @@ def _news_images(instance, filename):
     )
 
 
+@python_2_unicode_compatible
 class NewsItem(models.Model):
     """News item.
 
@@ -53,9 +56,12 @@ class NewsItem(models.Model):
 
     title = models.CharField(_("Title"), max_length=100)
     body = HTMLField(_("Body"))
-    image = models.ImageField(_("Headline image"), blank=True, null=True,
+    image = models.ImageField(_("Headline image"),
+                              blank=True,
+                              null=True,
                               upload_to=_news_images)
-    date_published = models.DateTimeField(_("Date published"), blank=True,
+    date_published = models.DateTimeField(_("Date published"),
+                                          blank=True,
                                           null=True,
                                           default=datetime.datetime.now())
     slug = models.SlugField(unique=True, verbose_name=_("Slug"))
@@ -67,13 +73,13 @@ class NewsItem(models.Model):
                                         null=True, auto_now=True,
                                         editable=False)
 
-    class Meta:
+    class Meta(object):
         """Meta."""
 
         verbose_name = _("News item")
         verbose_name_plural = _("News items")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_absolute_url(self):
