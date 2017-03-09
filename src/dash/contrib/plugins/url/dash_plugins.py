@@ -7,7 +7,7 @@ from ....factory import plugin_factory
 from .forms import URLForm, BookmarkForm
 from .models import Bookmark
 
-__title__ = 'dash.contrib.plugins.url.dash_plugins'
+__title__ = 'dash.contrib.plugins.image.dash_plugins'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'

@@ -1,46 +1,49 @@
+from django.utils.translation import ugettext_lazy as _
+
+from ....base import BaseDashboardPlugin
+from ....factory import plugin_factory
+
+from .forms import ImageForm
+from .helpers import delete_file, clone_file
+
+__title__ = 'dash.contrib.plugins.image.dash_plugins'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__copyright__ = '2013-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('BaseImagePlugin',)
 
-from django.utils.translation import ugettext_lazy as _
 
-from dash.base import BaseDashboardPlugin
-from dash.factory import plugin_factory
-from dash.contrib.plugins.image.forms import ImageForm
-from dash.contrib.plugins.image.helpers import delete_file, clone_file
+# ****************************************************************************
+# ***************************** Base Image plugin ****************************
+# ****************************************************************************
 
-# *****************************************************************************
-# ***************************** Base Image plugin *****************************
-# *****************************************************************************
+
 class BaseImagePlugin(BaseDashboardPlugin):
-    """
-    Base image plugin.
-    """
+    """Base image plugin."""
+
     name = _("Image")
     group = _("Image")
     form = ImageForm
     html_classes = ['pictonic']
 
     def delete_plugin_data(self):
-        """
-        Deletes uploaded file.
-        """
+        """Deletes uploaded file."""
         delete_file(self.data.image)
 
     def clone_plugin_data(self, dashboard_entry):
-        """
-        Clone plugin data, which means we make a copy of the original image.
+        """Clone plugin data, which means we make a copy of the original image.
 
-        TODO: Perhaps rely more on data of `dashboard_entry`?
+        TODO: Perhaps rely more on data of ``dashboard_entry``?
         """
         cloned_image = clone_file(self.data.image, relative_path=True)
         return self.get_cloned_plugin_data(update={'image': cloned_image})
 
 
-# *****************************************************************************
-# ********** Generating and registering the plugins using factory *************
-# *****************************************************************************
+# ****************************************************************************
+# ********** Generating and registering the plugins using factory ************
+# ****************************************************************************
+
+
 sizes = (
     (1, 1),
     (1, 2),
