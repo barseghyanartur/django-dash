@@ -1059,8 +1059,7 @@ def clone_dashboard_workspace(request, workspace_id):
                         cloned_workspace.name,
                         cloned_workspace_layout.name,
                         layout.name,
-                        cloned_workspace_layout.name)
-            )
+                        cloned_workspace_layout.name))
         )
         return redirect('dash.edit_dashboard')
 
