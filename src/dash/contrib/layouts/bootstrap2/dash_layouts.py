@@ -40,7 +40,7 @@ class Bootstrap2FluidLayout(BaseDashboardLayout):
     plugin_widgets_template_name_ajax = 'bootstrap2/plugin_widgets_ajax.html'
     form_snippet_template_name = \
         'bootstrap2/snippets/generic_form_snippet.html'
-    placeholders = [Bootstrap2FluidMainPlaceholder,]
+    placeholders = [Bootstrap2FluidMainPlaceholder]
     cell_units = 'px'
     media_css = (
         'bootstrap2/css/bootstrap.css',

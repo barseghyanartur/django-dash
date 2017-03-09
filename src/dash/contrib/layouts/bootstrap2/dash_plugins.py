@@ -1,12 +1,3 @@
-__title__ = 'dash.contrib.layouts.bootstrap2.dash_plugins'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2013-2017 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = (
-    'URLBootstrapTwo1x1Plugin',
-    'URLBootstrapTwo2x2Plugin',
-)
-
 from ....base import plugin_registry, plugin_widget_registry
 from ....factory import plugin_widget_factory
 
@@ -26,6 +17,15 @@ from .dash_widgets import (
     URLBootstrapTwo2x2Bootstrap2FluidMainWidget,
 )
 from .forms import URLBootstrapTwoForm
+
+__title__ = 'dash.contrib.layouts.bootstrap2.dash_plugins'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2013-2017 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = (
+    'URLBootstrapTwo1x1Plugin',
+    'URLBootstrapTwo2x2Plugin',
+)
 
 # **************************************************************************
 # ****************************** Custom plugins ****************************
