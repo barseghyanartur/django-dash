@@ -54,7 +54,7 @@ class Bootstrap2FluidLayout(BaseDashboardLayout):
 
     def get_view_template_name(self, request=None, origin=None):
         """Override the master view template for public dashboard app."""
-        if 'dash.public_dashboard' == origin:
+        if origin == 'dash.public_dashboard':
             return 'bootstrap2/fuild_public_dashboard_view_layout.html'
         else:
             return super(Bootstrap2FluidLayout, self).get_view_template_name(
