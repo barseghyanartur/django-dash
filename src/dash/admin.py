@@ -1,5 +1,5 @@
 from django import forms
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.contrib import admin
 from django.contrib import messages
 from django.contrib.admin import helpers
