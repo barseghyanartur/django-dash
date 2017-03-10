@@ -1,7 +1,13 @@
-from django.core.context_processors import csrf
 from django.template.loader import render_to_string
 
+from nine import versions
+
 from ....base import BaseDashboardPluginWidget
+
+if versions.DJANGO_GTE_1_8:
+    from django.template.context_processors import csrf
+else:
+    from django.core.context_processors import csrf
 
 __title__ = 'dash.contrib.plugins.rss_feed.dash_widgets'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

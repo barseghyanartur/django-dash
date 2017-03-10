@@ -273,7 +273,6 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
 
     # Third party apps used in the project
-    'south',  # Database migration app
     'tinymce',  # TinyMCE
     'registration',  # Auth views and registration app
     'easy_thumbnails',  # Thumbnailer
@@ -307,6 +306,11 @@ INSTALLED_APPS = (
     'news',  # Sample news plugin for Dash
     # 'customauth',  # Custom user model
 )
+
+if DJANGO_LTE_1_7:
+    INSTALLED_APPS += (
+        'south',  # Database migration app
+    )
 
 # Using custom user model
 # AUTH_USER_MODEL = 'customauth.MyUser'
@@ -407,6 +411,15 @@ if DJANGO_GTE_1_7 or DJANGO_GTE_1_8:
     # Django 1.8 specific checks
     if DJANGO_GTE_1_8:
         pass
+
+MIGRATION_MODULES = {
+    'dash': 'dash.migrations',
+    'easy_thumbnails': 'easy_thumbnails.migrations',
+}
+SOUTH_MIGRATION_MODULES = {
+    'dash': 'dash.south_migrations',
+    'easy_thumbnails': 'easy_thumbnails.south_migrations',
+}
 
 # For Selenium tests
 FIREFOX_BIN_PATH = ''
