@@ -24,8 +24,7 @@ syntax: regexp
 ^examples/db/example\.db
 ^examples/db/example_OLD\.db
 ^examples/tmp/
-^examples/logs/django\.log
-^examples/logs/dash\.log
+^examples/logs/
 ^examples/media/news-images/
 ^examples/media/news-images-/
 ^examples/media/dash-image-plugin-images/

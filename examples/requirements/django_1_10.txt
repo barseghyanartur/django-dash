@@ -1,0 +1,11 @@
+-r debug.txt
+-r test.txt
+
+Django>=1.10,<1.11
+sqlparse==0.1.9
+django-admin-tools>=0.6.0
+django-autoslug==1.9.3
+django-debug-toolbar==1.4
+django-registration-redux>=1.4
+django-widget-tweaks
+lorem-ipsum-generator==0.3
