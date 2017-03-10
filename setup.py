@@ -101,7 +101,7 @@ setup(
     version=version,
     description="Customisable, modular dashboard application framework "
                 "for Django.",
-    long_description="{0}{1}".format(readme, screenshots),
+    long_description="{0}{1}".format(readme, screen_shots),
     classifiers=[
         "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
