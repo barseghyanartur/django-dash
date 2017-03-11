@@ -2,8 +2,8 @@
 -r test.txt
 
 Django>=1.9,<1.10
-sqlparse==0.1.9
-django-admin-tools>=0.6.0
+sqlparse==0.2.2
+django-admin-tools>=0.7.1
 django-autoslug==1.9.3
 django-debug-toolbar==1.4
 django-registration-redux>=1.4

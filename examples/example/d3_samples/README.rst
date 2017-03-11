@@ -1,7 +1,7 @@
-=============================
-Example app for `django-dash`
-=============================
-Contains sample D3 plugins:
+==========
+d3_samples
+==========
+Example app for ``django-dash``. Contains sample D3 plugins:
 
 - Bubble Chart, which is based on the original
   `sample <http://bl.ocks.org/mbostock/4063269>`_.
@@ -9,6 +9,39 @@ Contains sample D3 plugins:
   `sample <http://bl.ocks.org/mbostock/3943967>`_.
 - Sunburst Partition, which is based on the original
   `sample <http://bl.ocks.org/mbostock/4063423>`_.
+
+Installation
+============
+Installation steps described below.
+
+#) Add ``d3_samples`` to ``INSTALLED_APPS`` of your Django project settings
+   module.
+
+    .. code-block:: python
+
+        INSTALLED_APPS = (
+            # ...
+            'dash',
+            'dash.contrib.layouts.android',
+            'dash.contrib.layouts.bootstrap2',
+            'dash.contrib.layouts.windows8',
+            'dash.contrib.plugins.dummy',
+            'dash.contrib.plugins.image',
+            'dash.contrib.plugins.memo',
+            'dash.contrib.plugins.rss_feed',
+            'dash.contrib.plugins.url',
+            'dash.contrib.plugins.video',
+            'dash.contrib.plugins.weather',
+            # ...
+            'd3_samples',
+            # ...
+        )
+
+#) From terminal run
+
+    .. code-block:: sh
+
+        ./manage.py dash_sync_plugins
 
 Usage
 =====
@@ -39,3 +72,14 @@ License
   licensed under `BSD <https://github.com/mbostock/d3/blob/master/LICENSE>`_.
 - To the rest of the code falls under the license of the `django-dash`.
 
+License
+=======
+GPL 2.0/LGPL 2.1
+
+Support
+=======
+For any issues contact me at the e-mail given in the `Author`_ section.
+
+Author
+======
+Artur Barseghyan <artur.barseghyan@gmail.com>

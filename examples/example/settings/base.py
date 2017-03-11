@@ -3,6 +3,7 @@ import os
 import sys
 
 from nine.versions import (
+    DJANGO_LTE_1_6,
     DJANGO_GTE_1_7,
     DJANGO_LTE_1_7,
     DJANGO_GTE_1_8,
@@ -17,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 DEBUG = False
 DEBUG_TOOLBAR = False
-TEMPLATE_DEBUG = DEBUG
+# TEMPLATE_DEBUG = DEBUG
 DEV = False
 
 ADMINS = (
@@ -114,10 +115,9 @@ STATICFILES_FINDERS = (
 
 # ***************************************
 
-
 try:
     from .local_settings import DEBUG_TEMPLATE
-except Exception as err:
+except ImportError:
     DEBUG_TEMPLATE = False
 
 if DJANGO_GTE_1_10:
@@ -185,7 +185,7 @@ else:
         'django.template.loaders.eggs.Loader',
 
     ]
-    if DJANGO_GTE_1_7:
+    if DJANGO_GTE_1_8:
         TEMPLATE_LOADERS.append('admin_tools.template_loaders.Loader')
 
     TEMPLATE_CONTEXT_PROCESSORS = (
@@ -307,7 +307,7 @@ INSTALLED_APPS = (
     # 'customauth',  # Custom user model
 )
 
-if DJANGO_LTE_1_7:
+if DJANGO_LTE_1_6:
     INSTALLED_APPS += (
         'south',  # Database migration app
     )
@@ -401,8 +401,6 @@ if DJANGO_GTE_1_7 or DJANGO_GTE_1_8:
     # Django 1.7 specific checks
     if DJANGO_GTE_1_7 or DJANGO_GTE_1_8:
         try:
-            INSTALLED_APPS.remove('south') \
-                if 'south' in INSTALLED_APPS else None
             INSTALLED_APPS.remove('tinymce') \
                 if 'tinymce' in INSTALLED_APPS else None
         except Exception:
@@ -425,32 +423,15 @@ SOUTH_MIGRATION_MODULES = {
 FIREFOX_BIN_PATH = ''
 PHANTOM_JS_EXECUTABLE_PATH = None
 
-# Do not put any settings below this line
 try:
-    from .local_settings import *
-except Exception:
+    from .local_settings import DEV
+except ImportError:
     pass
 
-if DEBUG and DEBUG_TOOLBAR:
-    try:
-        # Make sure the django-debug-toolbar is installed
-        import debug_toolbar
-
-        # debug_toolbar
-        MIDDLEWARE_CLASSES += (
-            'debug_toolbar.middleware.DebugToolbarMiddleware',
-        )
-
-        INSTALLED_APPS += (
-            'debug_toolbar',
-        )
-
-        DEBUG_TOOLBAR_CONFIG = {
-            'INTERCEPT_REDIRECTS': False,
-        }
-
-    except ImportError as err:
-        pass
+try:
+    from .local_settings import FIREFOX_BIN_PATH, PHANTOM_JS_EXECUTABLE_PATH
+except ImportError:
+    pass
 
 # Make the `django-dash` package available without installation.
 if DEV:

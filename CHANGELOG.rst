@@ -55,6 +55,9 @@ versions of Django (1.5, 1.6 and 1.7) will be dropped.
 - Stopped using ``django-localeurl``.
 - Stopped using ``django-slim`` for translations.
 - pep8 conform code.
+- Use OneToOneField instead of ForeignKey on DashboardSettings module. Remove
+  null=True from DashPlugin module users and groups relations in order to
+  get rid of Django system warnings. Added necessary migrations.
 
 0.4.13
 ------

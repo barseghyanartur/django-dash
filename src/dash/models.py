@@ -47,8 +47,7 @@ class DashboardSettings(models.Model):
           mode).
     """
 
-    user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_("User"),
-                             unique=True)
+    user = models.OneToOneField(AUTH_USER_MODEL, verbose_name=_("User"))
     layout_uid = models.CharField(_("Layout"), max_length=25)
     title = models.CharField(_("Title"), max_length=255)
     allow_different_layouts = models.BooleanField(
@@ -262,9 +261,8 @@ class DashboardPlugin(models.Model):
     plugin_uid = models.CharField(_("Plugin UID"), max_length=255,
                                   unique=True, editable=False)
     users = models.ManyToManyField(AUTH_USER_MODEL, verbose_name=_("User"),
-                                   null=True, blank=True)
-    groups = models.ManyToManyField(Group, verbose_name=_("Group"), null=True,
-                                    blank=True)
+                                   blank=True)
+    groups = models.ManyToManyField(Group, verbose_name=_("Group"), blank=True)
 
     objects = DashboardPluginManager()
 
@@ -288,7 +286,7 @@ class DashboardPlugin(models.Model):
 
     def plugin_uid_admin(self):
         """Mainly used in admin."""
-        return self.__unicode__()
+        return self.__str__()
     plugin_uid_admin.allow_tags = True
     plugin_uid_admin.short_description = _('Plugin')
 

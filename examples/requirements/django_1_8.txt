@@ -3,7 +3,7 @@
 
 Django>=1.8,<1.9
 sqlparse==0.1.9
-django-admin-tools>=0.6.0
+django-admin-tools>=0.7.0
 django-autoslug==1.9.3
 django-debug-toolbar==1.4
 django-registration-redux>=1.4

@@ -1,6 +1,6 @@
-=================================
-Example project for `django-dash`
-=================================
+===================================
+Example project for ``django-dash``
+===================================
 Follow instructions below to install the example project. Commands below are
 written for Ubuntu/Debian, but may work on other Linux distributions as well.
 
