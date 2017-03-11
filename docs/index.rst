@@ -28,9 +28,7 @@ Past
   0.5. As of 0.5 everything is still backwards compatible with above mentioned
   versions , but in future versions compatibility with these versions will be
   wiped out.
-- Dropping support of Python 2.6 has been announced in version 0.5. As of 0.5
-  everything is still backwards compatible with Python 2.6, but in future
-  versions compatibility with it will be wiped out.
+- Support of Python 2.6 has been dropped in version 0.5.
 
 Key concepts
 ============

@@ -1,4 +1,4 @@
-pip install -r examples/requirements.txt
+pip install -r examples/requirements/latest.txt
 python setup.py install
 mkdir examples/logs
 mkdir examples/db

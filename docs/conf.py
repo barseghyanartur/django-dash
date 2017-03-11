@@ -15,10 +15,13 @@
 import sys
 import os
 
+from django.conf import settings
+
+from nine import versions
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../src'))
 sys.path.insert(0, os.path.abspath('../examples'))
 sys.path.insert(0, os.path.abspath('../examples/example'))
@@ -28,13 +31,13 @@ try:
     version = dash.__version__
     project = dash.__title__
     copyright = dash.__copyright__
-except Exception as e:
+except Exception as err:
     version = '0.1'
     project = u'django-dash'
-    copyright = u'2013-2014, Artur Barseghyan <artur.barseghyan@gmail.com>'
+    copyright = u'2013-2017, Artur Barseghyan <artur.barseghyan@gmail.com>'
 
 # -- Django configuration ------------------------------------------------------
-from django.conf import settings
+
 if not settings.configured:
     INSTALLED_APPS = list(example_settings.INSTALLED_APPS)
     if 'foo' in INSTALLED_APPS:
@@ -42,24 +45,35 @@ if not settings.configured:
     if 'bar' in INSTALLED_APPS:
         INSTALLED_APPS.remove('bar')
 
-    settings.configure(
-        DATABASES = example_settings.DATABASES,
-        INSTALLED_APPS = INSTALLED_APPS,
-        LANGUAGES = example_settings.LANGUAGES,
-        MEDIA_ROOT = example_settings.MEDIA_ROOT,
-        MEDIA_URL = example_settings.MEDIA_URL,
-        MIDDLEWARE_CLASSES = example_settings.MIDDLEWARE_CLASSES,
-        ROOT_URLCONF = example_settings.ROOT_URLCONF,
-        SECRET_KEY = example_settings.SECRET_KEY,
-        SITE_ID = example_settings.SITE_ID,
-        STATICFILES_DIRS = example_settings.STATICFILES_DIRS,
-        STATICFILES_FINDERS = example_settings.STATICFILES_FINDERS,
-        STATIC_URL = example_settings.STATIC_URL,
-        STATIC_ROOT = example_settings.STATIC_ROOT,
-        TEMPLATE_CONTEXT_PROCESSORS = example_settings.TEMPLATE_CONTEXT_PROCESSORS,
-        TEMPLATE_DIRS = example_settings.TEMPLATE_DIRS,
-        TEMPLATE_LOADERS = example_settings.TEMPLATE_LOADERS,
-        )
+    django_configuration = {
+        'DATABASES': example_settings.DATABASES,
+        'INSTALLED_APPS': INSTALLED_APPS,
+        'LANGUAGES': example_settings.LANGUAGES,
+        'MEDIA_ROOT': example_settings.MEDIA_ROOT,
+        'MEDIA_URL': example_settings.MEDIA_URL,
+        'MIDDLEWARE_CLASSES': example_settings.MIDDLEWARE_CLASSES,
+        'ROOT_URLCONF': example_settings.ROOT_URLCONF,
+        'SECRET_KEY': example_settings.SECRET_KEY,
+        'SITE_ID': example_settings.SITE_ID,
+        'STATICFILES_DIRS': example_settings.STATICFILES_DIRS,
+        'STATICFILES_FINDERS': example_settings.STATICFILES_FINDERS,
+        'STATIC_URL': example_settings.STATIC_URL,
+        'STATIC_ROOT': example_settings.STATIC_ROOT,
+    }
+
+    if versions.DJANGO_GTE_1_8:
+        django_configuration.update({
+            'TEMPLATES': example_settings.TEMPLATES
+        })
+    else:
+        django_configuration.update({
+            'TEMPLATE_CONTEXT_PROCESSORS':
+                example_settings.TEMPLATE_CONTEXT_PROCESSORS,
+            'TEMPLATE_DIRS': example_settings.TEMPLATE_DIRS,
+            'TEMPLATE_LOADERS': example_settings.TEMPLATE_LOADERS,
+        })
+
+    settings.configure(**django_configuration)
 
 # -- General configuration ------------------------------------------------
 
