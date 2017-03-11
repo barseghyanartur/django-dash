@@ -3,9 +3,10 @@
 
 Django>=1.6,<1.7
 sqlparse==0.1.9
-django-admin-tools>=0.5.1
+django-admin-tools==0.6.0
 django-debug-toolbar==0.11.0
-django-registration-redux>=1.1
-#django-localeurl>=2.0.2
+django-tinymce==1.5.3
+django-registration-redux==1.3
+django-widget-tweaks==1.4
 lorem-ipsum-generator==0.3
 ordereddict==1.1
