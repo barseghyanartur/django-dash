@@ -1,7 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect
 from django.template import RequestContext
@@ -54,7 +53,9 @@ from .json_package import json
 
 if versions.DJANGO_GTE_1_10:
     from django.shortcuts import render
+    from django.urls import reverse
 else:
+    from django.core.urlresolvers import reverse
     from django.shortcuts import render_to_response
 
 __title__ = 'dash.views'
@@ -1048,7 +1049,7 @@ def clone_dashboard_workspace(request, workspace_id):
 
     try:
         workspace = DashboardWorkspace._default_manager.get(pk=workspace_id)
-    except:
+    except DashboardWorkspace.DoesNotExist:
         messages.info(request, _("Invalid dashboard workspace."))
         if redirect_to:
             return redirect(redirect_to)

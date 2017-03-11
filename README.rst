@@ -15,11 +15,6 @@ and apps) or Windows 8 for tablets or desktops.
 Dash inherits all those concepts and makes it possible to implement a dashboard
 system for Django applications with minimal efforts.
 
-Important
-=========
-Current master is a (temporary) development branch. Latest stable version is
-`0.4.13 <https://github.com/barseghyanartur/django-dash/tree/0.4.13>`_.
-
 Prerequisites
 =============
 Present

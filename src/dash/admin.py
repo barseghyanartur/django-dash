@@ -28,6 +28,7 @@ else:
 
 staff_member_required_m = method_decorator(staff_member_required)
 
+__title__ = 'dash.admin'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'

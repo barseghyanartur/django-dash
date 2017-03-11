@@ -1,8 +1,10 @@
 import copy
 import datetime
+import logging
 
-from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
+
+from nine import versions
 
 from .base import (
     BaseDashboardLayout,
@@ -31,7 +33,10 @@ from .models import (
 )
 from .settings import DEBUG, RESTRICT_PLUGIN_ACCESS
 
-import logging
+if versions.DJANGO_GTE_1_10:
+    from django.urls import reverse, NoReverseMatch
+else:
+    from django.core.urlresolvers import reverse, NoReverseMatch
 
 __title__ = 'dash.utils'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -582,7 +587,7 @@ def get_public_dashboard_url(dashboard_settings):
                 'dash.public_dashboard',
                 kwargs={'username': dashboard_settings.user.username}
             )
-        except:
+        except NoReverseMatch:
             # Most likely, the public dashboard is not present
             pass
     return ''

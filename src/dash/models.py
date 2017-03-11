@@ -4,19 +4,25 @@ from autoslug import AutoSlugField
 
 from django.conf import settings
 from django.contrib.auth.models import Group
-from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+
+from nine import versions
 
 from six import python_2_unicode_compatible
 
 from .base import (
-    get_registered_layouts,
+    # get_registered_layouts,
     get_registered_plugins,
     plugin_registry,
 )
 from .helpers import slugify_workspace
 from .fields import OrderField
+
+if versions.DJANGO_GTE_1_10:
+    from django.urls import reverse
+else:
+    from django.core.urlresolvers import reverse
 
 __title__ = 'dash.models'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

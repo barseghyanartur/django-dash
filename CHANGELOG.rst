@@ -18,7 +18,7 @@ are used for versioning (schema follows below):
 
 0.5
 ---
-yyyy-mm-dd (Not yet released)
+2017-03-11
 
 This is a transitional release. In upcoming versions support for older
 versions of Django (1.5, 1.6 and 1.7) will be dropped.
@@ -54,10 +54,11 @@ versions of Django (1.5, 1.6 and 1.7) will be dropped.
 - Upgraded ``jquery.colorbox`` to the latest version (1.6.4).
 - Stopped using ``django-localeurl``.
 - Stopped using ``django-slim`` for translations.
-- pep8 conform code.
+- PEP8 conform code.
 - Use OneToOneField instead of ForeignKey on DashboardSettings module. Remove
   null=True from DashPlugin module users and groups relations in order to
   get rid of Django system warnings. Added necessary migrations.
+- Using pytest as test runner. Using coverage.
 
 0.4.13
 ------

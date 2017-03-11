@@ -1,17 +1,22 @@
-from optparse import OptionParser
+# from optparse import OptionParser
 from time import sleep
 import unittest
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.staticfiles.management.commands import collectstatic
+# from django.contrib.staticfiles.management.commands import collectstatic
 from django.core.management import call_command
-from django.test import TestCase, RequestFactory, LiveServerTestCase, Client
+from django.test import (
+    TestCase,
+    RequestFactory,
+    LiveServerTestCase,
+    # Client,
+)
 
 from selenium import webdriver
-from selenium.common.exceptions import WebDriverException
+# from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-from selenium.webdriver.firefox.webdriver import WebDriver
+# from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 
 from six import print_
@@ -19,12 +24,12 @@ from six import print_
 from .base import (
     get_layout,
     get_registered_layouts,
-    get_registered_plugins,
-    layout_registry,
-    plugin_registry,
+    # get_registered_plugins,
+    # layout_registry,
+    # plugin_registry,
 )
-from .discover import autodiscover
-from .management.commands import dash_sync_plugins
+# from .discover import autodiscover
+# from .management.commands import dash_sync_plugins
 from .models import DashboardEntry
 from .settings import WAIT_BETWEEN_TEST_STEPS, WAIT_AT_TEST_END
 from .utils import get_occupied_cells, get_user_plugins
@@ -79,7 +84,7 @@ def create_dashboard_user():
 
     try:
         u.save()
-    except Exception as e:
+    except Exception as err:
         pass
 
 
@@ -127,7 +132,7 @@ class DashCoreTest(TestCase):
         try:
             # Create dashboard user
             create_dashboard_user()
-        except:
+        except Exception:
             pass
 
         User = get_user_model()
@@ -485,7 +490,7 @@ class DashBrowserTest(LiveServerTestCase):
         try:
             # Create dashboard user
             create_dashboard_user()
-        except:
+        except Exception:
             pass
 
         # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -810,7 +815,7 @@ class DashBrowserTest(LiveServerTestCase):
                 )
             )
             found = True
-        except:
+        except Exception:
             pass
 
         self.assertTrue(not found)

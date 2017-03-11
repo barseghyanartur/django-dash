@@ -71,7 +71,7 @@ class BaseWeatherPlugin(BaseDashboardPlugin):
 
             try:
                 current_condition = data['current_condition'][0]
-            except:
+            except (KeyError, TypeError, IndexError):
                 current_condition = None
 
             if current_condition:
@@ -84,18 +84,18 @@ class BaseWeatherPlugin(BaseDashboardPlugin):
                 try:
                     self.data.current_weather_desc = \
                         current_condition['weatherDesc'][0]['value']
-                except Exception:
+                except (KeyError, TypeError, IndexError):
                     pass
 
                 try:
                     self.data.current_weather_icon_url = \
                         current_condition['weatherIconUrl'][0]['value']
-                except Exception:
+                except (KeyError, TypeError, IndexError):
                     pass
 
             try:
                 weather = data['weather'][0]
-            except:
+            except (KeyError, TypeError, IndexError):
                 weather = None
 
             if weather:
@@ -106,13 +106,13 @@ class BaseWeatherPlugin(BaseDashboardPlugin):
 
                 try:
                     self.data.weather_desc = weather['weatherDesc'][0]['value']
-                except Exception:
+                except (KeyError, TypeError, IndexError):
                     pass
 
                 try:
                     self.data.weather_icon_url = \
                         weather['weatherIconUrl'][0]['value']
-                except Exception:
+                except (KeyError, TypeError, IndexError):
                     pass
 
 

@@ -79,5 +79,5 @@ try:
     ]
 
     add_introspection_rules(rules, ["^dash\.fields"])
-except:
+except ImportError:
     pass
