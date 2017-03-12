@@ -4,11 +4,11 @@
 Django==1.11b1
 sqlparse==0.2.2
 django-admin-tools>=0.8.0
-django-autoslug==1.9.3
+django-autoslug>=1.9.3
 django-debug-toolbar==1.5
 django-registration-redux>=1.4
 django-widget-tweaks
 lorem-ipsum-generator==0.3
 
 # easy-thumbnails, compatible with Django 1.11
-https://github.com/django/django-formtools/archive/master.tar.gz
+https://github.com/SmileyChris/easy-thumbnails/archive/master.tar.gz
