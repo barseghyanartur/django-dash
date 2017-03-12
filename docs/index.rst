@@ -1,7 +1,7 @@
 ===========
 django-dash
 ===========
-`django-dash` (later on named Dash) is a customisable, modular dashboard
+``django-dash`` (later on named Dash) is a customisable, modular dashboard
 application framework for Django.
 
 Dash allows users to create their own custom dashboards. Supports theeming (in
@@ -19,7 +19,7 @@ Prerequisites
 =============
 Present
 -------
-- Django 1.8, 1.9, 1.10
+- Django 1.8, 1.9, 1.10, 1.11
 - Python >=2.7, >=3.4
 
 Past
@@ -105,7 +105,7 @@ quick installer) has been created (works on Ubuntu/Debian, may work on other
 Linux systems as well, although not guaranteed). Follow the instructions
 below for having the demo running within a minute.
 
-Grab the latest `django_dash_example_app_installer.sh`:
+Grab the latest ``django_dash_example_app_installer.sh``:
 
 .. code-block:: sh
 
@@ -136,14 +136,14 @@ Django admin interface:
 
 If quick installer doesn't work for you, see the manual steps on running the
 `example project
-<https://github.com/barseghyanartur/django-dash/tree/stable/example>`__.
+<https://github.com/barseghyanartur/django-dash/tree/stable/examples>`__.
 
 Take a look at the templates in "example/example/templates" directory for
 getting a better idea of how to transform your own or third-party templates
 into Dash templates.
 
 Also, the `example project
-<https://github.com/barseghyanartur/django-dash/tree/stable/example/example/foo>`__
+<https://github.com/barseghyanartur/django-dash/tree/stable/examples/example/foo>`__
 has example layouts, plugins and widgets implemented. Take it as a good example
 of how to add widgets for existing plugins to your own custom layout.
 Make sure to see how same is done for the `bundled layouts
@@ -194,7 +194,7 @@ Or latest stable version from BitBucket:
 3. Make sure that ``django.core.context_processors.request`` is in
    ``TEMPLATE_CONTEXT_PROCESSORS``.
 
-4. Add necessary URL patterns to your `urls` module.
+4. Add necessary URL patterns to your ``urls`` module.
 
    .. code-block:: python
 
@@ -285,7 +285,7 @@ To make it clear, see following cases:
 
 There are some rules/guidelines you should follow.
 
-Let's assume that layout is named `example`. The layout directory should then
+Let's assume that layout is named ``example``. The layout directory should then
 have the following structure.
 
 .. code-block:: text
@@ -306,10 +306,11 @@ have the following structure.
     ├── dash_plugins.py # Where layout specific plugins and plugin widgets are defined and registered
     └── dash_widgets.py # Where layout specific plugin widgets are defined
 
-Layout and placeholder classes should be placed in the `dash_layouts.py` file.
+Layout and placeholder classes should be placed in the ``dash_layouts.py``
+file.
 
 Each layout should be put into the ``INSTALLED_APPS`` of your Django projects'
-`settings.py` module.
+``settings.py`` module.
 
 .. code-block:: python
 
@@ -923,11 +924,11 @@ Management commands
 ===================
 There are several management commands.
 
-- `dash_find_broken_dashboard_entries`. Find broken dashboard entries that 
+- ``dash_find_broken_dashboard_entries``. Find broken dashboard entries that
   occur when some plugin which did exist in the system, no longer exists.
-- `dash_sync_plugins`. Should be ran each time a new plugin is being added
+- ``dash_sync_plugins``. Should be ran each time a new plugin is being added
   to the Dash.
-- `dash_update_plugin_data`. A mechanism to update existing plugin data in 
+- ``dash_update_plugin_data``. A mechanism to update existing plugin data in
   case if it had become invalid after a change in a plugin. In order for it
   to work, each plugin should implement and ``update`` method, in which the
   data update happens.
@@ -937,14 +938,14 @@ Tuning
 There are number of Dash settings you can override in the `settings.py` module
 of your Django project:
 
-- `DASH_RESTRICT_PLUGIN_ACCESS` (bool): If set to True, (Django) permission 
+- ``DASH_RESTRICT_PLUGIN_ACCESS`` (bool): If set to True, (Django) permission
   system for dash plugins is enabled. Defaults to True. Setting this to False
   makes all plugins available for all users.
-- `DASH_ACTIVE_LAYOUT` (str): Active (default) layout UID. Defaults to
+- ``DASH_ACTIVE_LAYOUT`` (str): Active (default) layout UID. Defaults to
   "android".
-- `DASH_LAYOUT_CELL_UNITS` (str): Allowed values for layout cell units.
+- ``DASH_LAYOUT_CELL_UNITS`` (str): Allowed values for layout cell units.
   Defaults to ("em", "px", "pt", "%").
-- `DASH_DISPLAY_AUTH_LINK` (bool): If set to True, the log out link is shown 
+- ``DASH_DISPLAY_AUTH_LINK`` (bool): If set to True, the log out link is shown
   in the Dash drop-down menu. Defaults to True.
 
 For tuning of specific contrib plugin, see the docs in the plugin directory.
@@ -1087,7 +1088,7 @@ Troubleshooting
 - If you somehow get problems installing ``Dash``, check the `example
   <https://github.com/barseghyanartur/django-dash/tree/master/examples>`__
   project and the `requirements.txt
-  <https://raw.githubusercontent.com/barseghyanartur/django-dash/master/examples/requirements.txt>`__.
+  <https://raw.githubusercontent.com/barseghyanartur/django-dash/master/examples/requirements/latest.txt>`__.
 
 Testing
 =======
