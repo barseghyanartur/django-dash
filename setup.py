@@ -96,7 +96,7 @@ template_dirs = [
     # Bootstrap 2 layouts
     "src/dash/contrib/layouts/bootstrap2/templates/bootstrap2",
     # Bootstrap 3 layouts
-    "src/dash/contrib/layouts/bootstrap3/templates/bootstrap3",
+    # "src/dash/contrib/layouts/bootstrap3/templates/bootstrap3",
     # Windows 8 layout
     "src/dash/contrib/layouts/windows8/templates/windows8",
     "src/dash/contrib/plugins/dummy/templates/dummy",  # Dummy plugin

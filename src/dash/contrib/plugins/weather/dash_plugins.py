@@ -3,6 +3,8 @@ import logging
 from django.utils.translation import ugettext_lazy as _
 from django.core.cache import cache
 
+from nine import versions
+
 from six.moves.urllib.request import urlopen
 
 from ....base import BaseDashboardPlugin
@@ -12,6 +14,11 @@ from ....settings import DEBUG
 
 from .forms import WeatherForm
 from .settings import API_KEY, API_ENDPOINT_URL
+
+if versions.DJANGO_GTE_1_10:
+    from django.urls import reverse
+else:
+    from django.core.urlresolvers import reverse
 
 __title__ = 'dash.contrib.plugins.weather.dash_plugins'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
