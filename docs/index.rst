@@ -112,7 +112,7 @@ Grab the latest ``django_dash_example_app_installer.sh``:
     wget https://raw.github.com/barseghyanartur/django-dash/stable/examples/django_dash_example_app_installer.sh
 
 Assign execute rights to the installer and run the
-`django_dash_example_app_installer.sh`:
+``django_dash_example_app_installer.sh``:
 
 .. code-block:: sh
 
@@ -216,23 +216,23 @@ Creating a new layout
 Dash comes with several bundled layouts. Do check their source code as example. 
 
 Let's say, our imaginary layout has two placeholders. One large placeholder for
-all kinds of widgets (called `main`) and a tiny one for shortcuts (called
-`shortcuts`).
+all kinds of widgets (called ``main``) and a tiny one for shortcuts (called
+``shortcuts``).
 
-Placeholder `main`:
+Placeholder ``main``:
 
 - Single cell size  :  150 x 110 pixels
 - Dimensions        :  6 cols, 5 rows
 
-Placeholder `shortcuts`:
+Placeholder ``shortcuts``:
 
 - Single cell size  :  60 x 55 pixels
 - Dimensions        :  1 cols, 10 rows
 
 See the figure below to get an idea of what placeholders are:
 
-- Placeholder `main` consts of cells from 11 to 56.
-- Placeholder `shortcuts` consists of cells from 1 to 10.
+- Placeholder ``main`` consts of cells from 11 to 56.
+- Placeholder ``shortcuts`` consists of cells from 1 to 10.
 
 A single plugin widget may occupy one or more cells. Plugin widgets are
 rectangles.
@@ -250,7 +250,7 @@ To make it clear, see following cases:
 
 .. code-block:: text
 
-                                     `main`                                `shortcuts`
+                                    ``main``                               ``shortcuts``
     ┌───────────┬───────────┬───────────┬───────────┬───────────┬───────────┐ ┌─────┐
     │           │           │           │           │           │           │ │  1  │
     │           │           │           │           │           │           │ │     │
@@ -324,8 +324,8 @@ path/to/layout/example/dash_layouts.py
 --------------------------------------
 Step by step review of a how to create and register a layout and placeholders.
 Note, that Dash auto-discovers your layouts by name of the file
-`dash_layouts.py`. The module, in which the layouts are defined, has to be
-named `dash_layouts.py`.
+``dash_layouts.py``. The module, in which the layouts are defined, has to be
+named ``dash_layouts.py``.
 
 Required imports.
 
@@ -422,7 +422,7 @@ In case of Android layout (UID "android") it would be as follows.
 
 Base your layout specific custom CSS on presence of those classes.
 
-Same goes for Placeholders. Each placeholder gets `id_` + placeholders' UID
+Same goes for Placeholders. Each placeholder gets ``id_`` + placeholders' UID
 and the classes "placeholder" and "placeholder-" + placeholders' UID. So, the
 ``ExampleMainPlaceholder`` would look as follows.
 
@@ -482,7 +482,7 @@ Dash comes with several bundled plugins. Do check their source code as example.
 Making of a plugin or a plugin widget is quite simple, although there are some
 rules/guidelines you should follow.
 
-Let's assume that plugin is named `sample_memo`. The plugin directory should
+Let's assume that plugin is named ``sample_memo``. The plugin directory should
 then have the following structure.
 
 Note, that you are advised to prefix all your plugin specific media files
@@ -499,8 +499,8 @@ with ``dash_plugin_`` for the sake of common sense.
     │       └── dash_plugin_sample_memo.js # Plugin specific JavaScripts
     ├── templates
     │   └── sample_memo
-    │       ├── render_main.html # Plugin widget templ. for `main` Placeholder
-    │       └── render_short.html # Plugin widget templ. for `shortcuts` Placeholder
+    │       ├── render_main.html # Plugin widget template for ``main`` Placeholder
+    │       └── render_short.html # Plugin widget template for ``shortcuts`` Placeholder
     ├── __init__.py
     ├── dash_plugins.py # Where plugins and widgets are defined and registered
     ├── dash_widgets.py # Where the plugin widgets are defined
@@ -509,13 +509,13 @@ with ``dash_plugin_`` for the sake of common sense.
 In some cases, you would need plugin specific overridable settings (see
 ``dash.contrib.plugins.weather`` plugin as an example. You are advised to
 write your settings in such a way, that variables of your Django projects'
-`settings.py` module would have ``DASH_PLUGIN_`` prefix.
+``settings.py`` module would have ``DASH_PLUGIN_`` prefix.
 
 path/to/plugin/sample_memo/dash_plugins.py
 ------------------------------------------
 Step by step review of a how to create and register a plugin and plugin
 widgets. Note, that Dash auto-discovers your plugins if you place them into a
-file named `dash_plugins.py` of any Django app listed in ``INSTALLED_APPS``
+file named ``dash_plugins.py`` of any Django app listed in ``INSTALLED_APPS``
 of your Django projects' settings module.
 
 Define and register the plugin
@@ -534,7 +534,7 @@ Required imports.
     from dash.base import BaseDashboardPlugin, plugin_registry
     from path.to.plugin.sample_memo.forms import SampleMemoForm
 
-Defining the Sample Memo plugin (2x2) (to be used in the `main` placeholder).
+Defining the Sample Memo plugin (2x2) (to be used in the ``main`` placeholder).
 
 .. code-block:: python
 
@@ -552,7 +552,7 @@ Registering the Sample Memo plugin.
 
     plugin_registry.register(SampleMemo2x2Plugin)
 
-Defining the Sample Memo plugin (1x1) (to be used in the `shortcuts`
+Defining the Sample Memo plugin (1x1) (to be used in the ``shortcuts``
 placeholder).
 
 .. code-block:: python
@@ -574,7 +574,7 @@ Factory register plugins
 ~~~~~~~~~~~~~~~~~~~~~~~~
 Alternatively, you can define just a single plugin base class and have it
 factory registered for the given sizes. The code below would produce and
-register classes for in sizes 1x1 and 2x2. When you need to register a plgin
+register classes for in sizes 1x1 and 2x2. When you need to register a plugin
 for 10 sizes, this approach clearly wins. Besides, it's very easy to get a
 clear overview of all plugins sizes registered.
 
@@ -615,8 +615,8 @@ information would be appended to it ("sample_memo_1x1", "sample_memo_2x2").
 
 Register plugin widgets
 ~~~~~~~~~~~~~~~~~~~~~~~
-Plugin widgets are defined in `dash_widgets.py` module (described later), but
-registered in the `dash_plugins.py`, which is auto-discovered by Dash.
+Plugin widgets are defined in ``dash_widgets.py`` module (described later), but
+registered in the ``dash_plugins.py``, which is auto-discovered by Dash.
 
 Required imports.
 
@@ -628,15 +628,15 @@ Required imports.
         SampleMemo2x2ExampleMainWidget
     )
 
-Registering the Sample Memo plugin widget for placeholder `main` of layout
-`example`.
+Registering the Sample Memo plugin widget for placeholder ``main`` of layout
+`example``.
 
 .. code-block:: python
 
     plugin_widget_registry.register(SampleMemo2x2ExampleMainWidget)
 
-Registering the Sample Memo plugin widget for placeholder `shortcuts` of layout
-`example`.
+Registering the Sample Memo plugin widget for placeholder ``shortcuts`` of
+layout ``example``.
 
 .. code-block:: python
 
@@ -646,11 +646,11 @@ path/to/plugin/sample_memo/dash_widgets.py
 ------------------------------------------
 Why to have another file for defining widgets? Just to keep the code clean and
 less messy, although you could perfectly define all your plugin widgets in the
-module `dash_plugins.py`, it's recommended to keep it separate.
+module ``dash_plugins.py``, it's recommended to keep it separate.
 
-Take into consideration, that `dash_widgets.py` is not an auto-discovered file
-pattern. All your plugin widgets should be registered in modules named
-`dash_plugins.py`.
+Take into consideration, that ``dash_widgets.py`` is not an auto-discovered
+file pattern. All your plugin widgets should be registered in modules named
+``dash_plugins.py``.
 
 Define and register the plugin widget
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -661,7 +661,7 @@ Required imports.
     from django.template.loader import render_to_string
     from dash.base import BaseDashboardPluginWidget
 
-Memo plugin widget for Example layout (placeholder `main`).
+Memo plugin widget for Example layout (placeholder ``main``).
 
 .. code-block:: python
 
@@ -773,7 +773,7 @@ Memo form (for `Sample Memo` plugin).
             super(MemoForm, self).__init__(*args, **kwargs)
 
 Now, that everything is ready, make sure your that both layout and the plugin
-modules are added to ``INSTALLED_APPS`` for your projects' Django `settings.py`
+modules are added to ``INSTALLED_APPS`` for your projects' Django ``settings.py``
 module.
 
 .. code-block:: python
@@ -882,8 +882,8 @@ useful:
   reside in ``dash.contrib.layouts``), create a new module named
   ``dash_custom`` (or any other name that you prefer) and factory
   generate/register your layout specific plugin widgets in a module named
-  `dash_plugins.py` (do not forget to add the module to ``INSTALLED_APPS``, so
-  that it auto-discovered).
+  ``dash_plugins.py`` (do not forget to add the module to ``INSTALLED_APPS``,
+  so that it auto-discovered).
 
 Permissions
 ===========
@@ -1014,7 +1014,8 @@ Demo plugins
 
 Bundled layouts
 ---------------
-Below a short overview of the layouts. See the README.rst file in directory of each layout for details.
+Below a short overview of the layouts. See the README.rst file in directory
+of each layout for details.
 
 - `Android 
   <https://github.com/barseghyanartur/django-dash/tree/stable/src/dash/contrib/layouts/android>`_
@@ -1106,7 +1107,7 @@ To test against specific environment, type:
 
 .. code-block:: sh
 
-    tox -e pypy-django18
+    tox -e py35-django18
 
 To test just your working environment type:
 

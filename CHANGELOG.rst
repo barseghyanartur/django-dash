@@ -16,6 +16,12 @@ are used for versioning (schema follows below):
   0.3.2 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.5.2
+-----
+2017-03-13
+
+- Fixes in demo.
+
 0.5.1
 -----
 2017-03-12
