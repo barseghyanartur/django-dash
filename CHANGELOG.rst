@@ -21,6 +21,7 @@ are used for versioning (schema follows below):
 2017-03-13
 
 - Fixes in demo.
+- Minor fixes.
 
 0.5.1
 -----

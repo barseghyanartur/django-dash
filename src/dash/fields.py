@@ -42,7 +42,7 @@ class OrderField(models.IntegerField):
     >>>     ]
     """
 
-    def pre_save(self, model_instance, value):
+    def pre_save(self, model_instance, add):
         # if the model is new and not an update
         if model_instance.pk is None:
             records = model_instance.__class__.objects.aggregate(
