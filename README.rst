@@ -153,43 +153,43 @@ Installation
 ============
 1. Install latest stable version from PyPI:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    pip install django-dash
+        pip install django-dash
 
-Or latest stable version from GitHub:
+    Or latest stable version from GitHub:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    pip install https://github.com/barseghyanartur/django-dash/archive/stable.tar.gz
+        pip install https://github.com/barseghyanartur/django-dash/archive/stable.tar.gz
 
-Or latest stable version from BitBucket:
+    Or latest stable version from BitBucket:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    pip install https://bitbucket.org/barseghyanartur/django-dash/get/stable.tar.gz
+        pip install https://bitbucket.org/barseghyanartur/django-dash/get/stable.tar.gz
 
-2. Add `dash` to ``INSTALLED_APPS`` of the your projects' Django settings. 
+2. Add `dash` to ``INSTALLED_APPS`` of the your projects' Django settings.
    Furthermore, all layouts and plugins to be used, shall be added to the
    ``INSTALLED_APPS`` as well.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'dash',
-        'dash.contrib.layouts.android',
-        'dash.contrib.layouts.bootstrap2',
-        'dash.contrib.layouts.windows8',
-        'dash.contrib.plugins.dummy',
-        'dash.contrib.plugins.image',
-        'dash.contrib.plugins.memo',
-        'dash.contrib.plugins.rss_feed',
-        'dash.contrib.plugins.url',
-        'dash.contrib.plugins.video',
-        'dash.contrib.plugins.weather',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'dash',
+            'dash.contrib.layouts.android',
+            'dash.contrib.layouts.bootstrap2',
+            'dash.contrib.layouts.windows8',
+            'dash.contrib.plugins.dummy',
+            'dash.contrib.plugins.image',
+            'dash.contrib.plugins.memo',
+            'dash.contrib.plugins.rss_feed',
+            'dash.contrib.plugins.url',
+            'dash.contrib.plugins.video',
+            'dash.contrib.plugins.weather',
+            # ...
+        )
 
 3. Make sure that ``django.core.context_processors.request`` is in
    ``TEMPLATE_CONTEXT_PROCESSORS``.

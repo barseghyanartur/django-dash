@@ -285,7 +285,7 @@ INSTALLED_APPS = (
     # Dash contrib layouts
     'dash.contrib.layouts.android',  # Android layout for Dash
     'dash.contrib.layouts.bootstrap2',  # Bootstrap 2 layouts for Dash
-    'dash.contrib.layouts.bootstrap3',  # Bootstrap 3 layouts for Dash
+    # 'dash.contrib.layouts.bootstrap3',  # Bootstrap 3 layouts for Dash
     'dash.contrib.layouts.windows8',  # Windows 8 layout for Dash
 
     # Dash contrib plugins
