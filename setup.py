@@ -177,12 +177,13 @@ if DJANGO_INSTALLED:
         install_requires.append('django-tinymce>=1.5.3,<2.0.0')
 
     if DJANGO_GTE_1_11:
-        install_requires.append('easy-thumbnails')
-        dependency_links.append(
-            'https://github.com/SmileyChris/easy-thumbnails/archive/'
-            'master.tar.gz'
-            '#egg=easy-thumbnails'
-        )
+        install_requires.append('easy-thumbnails==2.4.1')
+        # install_requires.append('easy-thumbnails')
+        # dependency_links.append(
+        #     'https://github.com/SmileyChris/easy-thumbnails/archive/'
+        #     'master.tar.gz'
+        #     '#egg=easy-thumbnails'
+        # )
     elif PY3:
         install_requires.append('easy-thumbnails>=2.3')
     else:
@@ -232,6 +233,7 @@ setup(
     license='GPL 2.0/LGPL 2.1',
     install_requires=install_requires,
     tests_require=tests_require,
+    dependency_links=dependency_links,
     package_data={
         'dash': templates + static_files + locale_files
     },
