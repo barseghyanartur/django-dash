@@ -7,6 +7,8 @@ Contents:
 .. toctree::
    :maxdepth: 20
 
+   index
+   quickstart
    dash
 
 Indices and tables
