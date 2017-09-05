@@ -11,6 +11,7 @@ syntax: regexp
 \.py,cover
 ^ghostdriver\.log
 
+^\.idea\/
 ^TRASH\.rst
 ^MANIFEST\.in~
 ^tmp/

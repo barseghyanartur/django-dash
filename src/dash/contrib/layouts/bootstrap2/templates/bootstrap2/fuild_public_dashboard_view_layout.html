@@ -17,18 +17,18 @@
                 {% comment %}
                 <ul class="nav pull-right">
                 {% if request.user.is_authenticated %}
-                    <li><a href="{% url 'django.contrib.auth.views.logout' %}">{% trans "Log out" %}</a></li>
+                    <li><a href="{% url AUTH_LOGOUT_URL_NAME %}">{% trans "Log out" %}</a></li>
                 {% else %}
-                    <li><a href="{% url 'django.contrib.auth.views.login' %}?next={{ request.path }}">{% trans "Log in" %}</a></li>
+                    <li><a href="{% url AUTH_LOGIN_URL_NAME %}?next={{ request.path }}">{% trans "Log in" %}</a></li>
                 {% endif %}
                 </ul>
                 {% endcomment %}
 
                 <p class="navbar-text pull-right">
                     {% if request.user.is_authenticated %}
-                    <a class="navbar-link" href="{% url 'django.contrib.auth.views.logout' %}">{% trans "Log out" %}</a>
+                    <a class="navbar-link" href="{% url AUTH_LOGOUT_URL_NAME %}">{% trans "Log out" %}</a>
                     {% else %}
-                    <a class="navbar-link" href="{% url 'django.contrib.auth.views.login' %}?next={{ request.path }}">{% trans "Log in" %}</a>
+                    <a class="navbar-link" href="{% url AUTH_LOGIN_URL_NAME %}?next={{ request.path }}">{% trans "Log in" %}</a>
                     {% endif %}
                 </p>                
 

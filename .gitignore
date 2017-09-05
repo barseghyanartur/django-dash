@@ -12,6 +12,7 @@
 /ghostdriver.log
 /var/
 
+/.idea/
 /TRASH.rst
 MANIFEST.in~
 tmp/

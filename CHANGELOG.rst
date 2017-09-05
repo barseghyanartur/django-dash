@@ -16,6 +16,16 @@ are used for versioning (schema follows below):
   0.3.2 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.5.3
+-----
+2017-09-05
+
+- From now on, URL names for login and logout views are defined in the
+  settings, in ``AUTH_LOGIN_URL_NAME`` and ``AUTH_LOGOUT_URL_NAME``
+  respectively. Defaults are ``auth_login`` and ``auth_logout`` (as in
+  ``django-registration`` package, that most of the developers would be
+  using).
+
 0.5.2
 -----
 2017-03-13
