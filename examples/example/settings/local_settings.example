@@ -13,7 +13,7 @@ DATABASES = {
         # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'ENGINE': 'django.db.backends.sqlite3',
         # Or path to database file if using sqlite3.
-        'NAME': PROJECT_DIR('../../db/example.db'),
+        'NAME': PROJECT_DIR(os.path.join('..', '..', 'db', 'example.db')),
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -28,7 +28,7 @@ DATABASES = {
 INTERNAL_IPS = ('127.0.0.1',)
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = PROJECT_DIR('../../tmp')
+EMAIL_FILE_PATH = PROJECT_DIR(os.path.join('..', '..', 'tmp'))
 
 DEFAULT_FROM_EMAIL = '<no-reply@example.com>'
 
@@ -45,5 +45,5 @@ PHANTOM_JS_EXECUTABLE_PATH = ''
 
 os.environ.setdefault(
     'DASH_SOURCE_PATH',
-    '/home/user/repos/django-dash/src'
+    os.path.join('home', 'user', 'repos', 'django-dash', 'src')
 )

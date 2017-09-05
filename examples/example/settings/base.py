@@ -365,7 +365,7 @@ LOGGING = {
         'django_log': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': PROJECT_DIR("../../logs/django.log"),
+            'filename': PROJECT_DIR(os.path.join("..", "..", "logs", "django.log")),
             'maxBytes': 1048576,
             'backupCount': 99,
             'formatter': 'verbose',
@@ -373,7 +373,7 @@ LOGGING = {
         'dash_log': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': PROJECT_DIR("../../logs/dash.log"),
+            'filename': PROJECT_DIR(os.path.join("..", "..", "logs", "dash.log")),
             'maxBytes': 1048576,
             'backupCount': 99,
             'formatter': 'verbose',
