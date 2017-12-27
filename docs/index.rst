@@ -124,13 +124,13 @@ Open your browser and test the app.
 
 Dashboard:
 
-- URL: http://127.0.0.1:8001/dashboard/
+- URL: http://127.0.0.1:8001/en/dashboard/
 - Admin username: test_admin
 - Admin password: test
 
 Django admin interface:
 
-- URL: http://127.0.0.1:8001/administration/
+- URL: http://127.0.0.1:8001/en/administration/
 - Admin username: test_admin
 - Admin password: test
 
