@@ -329,6 +329,5 @@ class Command(BaseCommand):
                 words.remove(random_name)
 
             except Exception as err:
-                import ipdb; ipdb.set_trace()
                 images.append(item.image)
                 logger.debug(err)
