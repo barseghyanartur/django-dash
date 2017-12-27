@@ -38,7 +38,7 @@ DASH_DEBUG = True
 
 # Key for API weather
 DASH_PLUGIN_WEATHER_API_KEY = ''
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0',]
 
 FIREFOX_BIN_PATH = '/usr/lib/firefox47/firefox'
 PHANTOM_JS_EXECUTABLE_PATH = ''
