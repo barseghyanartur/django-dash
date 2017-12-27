@@ -21,10 +21,18 @@ url_patterns_args = [
 
     # django-dash News contrib plugin URLs:
     url(r'^news/', include('news.urls')),
+]
 
-    # Uncomment the next line to enable the admin:
-    url(r'^administration/', include(admin.site.urls)),
+if versions.DJANGO_GTE_2_0:
+    url_patterns_args += [
+        url(r'^administration/', admin.site.urls),
+    ]
+else:
+    url_patterns_args += [
+        url(r'^administration/', include(admin.site.urls)),
+    ]
 
+url_patterns_args += [
     # django-registration URLs:
     url(r'^accounts/', include('registration.backends.default.urls')),
 
@@ -43,3 +51,16 @@ if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
+
+if getattr(settings, 'DEBUG', False) \
+        and getattr(settings, 'DEBUG_TOOLBAR', False):
+    import debug_toolbar
+
+    if versions.DJANGO_GTE_2_0:
+        urlpatterns = [
+            url(r'^__debug__/', include(debug_toolbar.urls)),
+        ] + urlpatterns
+    else:
+        urlpatterns = [
+            url(r'^__debug__/', include(debug_toolbar.urls)),
+        ] + urlpatterns

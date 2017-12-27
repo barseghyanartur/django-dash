@@ -606,7 +606,7 @@ def clone_workspace(workspace, for_user, request=None):
     cloned_workspace.pk = None
     cloned_workspace.user = for_user
     cloned_workspace.is_public = False
-    cloned_workspace.is_clonable = False
+    cloned_workspace.is_cloneable = False
     cloned_workspace.name = "{0} cloned on {1}".format(
         cloned_workspace.name,
         datetime.datetime.now()

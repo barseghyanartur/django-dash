@@ -29,7 +29,7 @@ class DashboardWorkspaceForm(forms.ModelForm):
         """Meta."""
 
         model = DashboardWorkspace
-        fields = ('layout_uid', 'user', 'name', 'is_public', 'is_clonable')
+        fields = ('layout_uid', 'user', 'name', 'is_public', 'is_cloneable')
 
     def __init__(self, *args, **kwargs):
         different_layouts = kwargs.pop('different_layouts', False)

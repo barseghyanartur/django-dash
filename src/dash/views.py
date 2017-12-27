@@ -1056,7 +1056,7 @@ def clone_dashboard_workspace(request, workspace_id):
         else:
             return redirect('dash.edit_dashboard')
 
-    if not (workspace.is_clonable or request.user.pk == workspace.user.pk):
+    if not (workspace.is_cloneable or request.user.pk == workspace.user.pk):
         messages.info(request, _("You are not allowed to clone the given "
                                  "workspace."))
         if redirect_to:

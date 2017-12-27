@@ -1360,7 +1360,7 @@ Dashboard workspace (view mode) of the above mentioned dashboard workspace
     :width: 900px
 
 Documentation!
-===============================================
+==============
 
 Contents:
 
@@ -1369,10 +1369,11 @@ Contents:
 
    index
    quickstart
+   changelog
    dash
 
 Indices and tables
-===============================================
+==================
 
 * :ref:`genindex`
 * :ref:`modindex`

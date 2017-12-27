@@ -3,6 +3,8 @@ from django.conf import settings
 from django.template import Library, TemplateSyntaxError, Node
 from django.utils.translation import ugettext_lazy as _
 
+from nine.versions import DJANGO_GTE_1_10
+
 from ..settings import ACTIVE_LAYOUT, DISPLAY_AUTH_LINK
 from ..utils import get_workspaces
 
@@ -167,7 +169,12 @@ def render_auth_link(context):
         return {}
 
     request = context.get('request', None)
-    if request and request.user.is_authenticated():
+    if DJANGO_GTE_1_10:
+        user_is_authenticated = request.user.is_authenticated
+    else:
+        user_is_authenticated = request.user.is_authenticated()
+
+    if request and user_is_authenticated:
         try:
             auth_url = settings.LOGOUT_URL
             auth_icon_class = 'icon-signout'

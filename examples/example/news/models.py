@@ -1,11 +1,17 @@
 import datetime
 
-from django.core.urlresolvers import reverse
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
 from six import python_2_unicode_compatible
+
+from nine.versions import DJANGO_GTE_1_10
+
+if DJANGO_GTE_1_10:
+    from django.urls import reverse
+else:
+    from django.core.urlresolvers import reverse
 
 try:
     from tinymce.models import HTMLField

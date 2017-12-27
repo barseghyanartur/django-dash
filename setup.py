@@ -4,7 +4,7 @@ import sys
 from distutils.version import LooseVersion
 from setuptools import find_packages, setup
 
-version = '0.5.3'
+version = '0.5.4'
 
 # ***************************************************************************
 # ************************** Python version *********************************
@@ -167,9 +167,11 @@ install_requires = [
 
 if DJANGO_INSTALLED:
     if DJANGO_LTE_1_6:
-        install_requires.append('django-autoslug==1.7.1')
+        # install_requires.append('django-autoslug==1.7.1')
+        install_requires.append('django-autoslug-iplweb')
     else:
-        install_requires.append('django-autoslug>=1.9.3')
+        # install_requires.append('django-autoslug>=1.9.3')
+        install_requires.append('django-autoslug-iplweb')
 
     if DJANGO_GTE_1_8:
         install_requires.append('django-tinymce>=2.0.0')
@@ -177,7 +179,7 @@ if DJANGO_INSTALLED:
         install_requires.append('django-tinymce>=1.5.3,<2.0.0')
 
     if DJANGO_GTE_1_11:
-        install_requires.append('easy-thumbnails==2.4.1')
+        install_requires.append('easy-thumbnails>=2.4.1')
         # install_requires.append('easy-thumbnails')
         # dependency_links.append(
         #     'https://github.com/SmileyChris/easy-thumbnails/archive/'
@@ -190,7 +192,8 @@ if DJANGO_INSTALLED:
         install_requires.append('easy-thumbnails>=1.4')
 else:
     # We consider Django 1.8 as a default.
-    install_requires.append('django-autoslug>=1.9.3')
+    # install_requires.append('django-autoslug>=1.9.3')
+    install_requires.append('django-autoslug-iplweb')
     install_requires.append('django-tinymce>=2.0.0')
     install_requires.append('easy-thumbnails>=1.4')
 

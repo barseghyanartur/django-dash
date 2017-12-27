@@ -53,7 +53,11 @@ class DashboardSettings(models.Model):
           mode).
     """
 
-    user = models.OneToOneField(AUTH_USER_MODEL, verbose_name=_("User"))
+    user = models.OneToOneField(
+        AUTH_USER_MODEL,
+        verbose_name=_("User"),
+        on_delete=models.CASCADE
+    )
     layout_uid = models.CharField(_("Layout"), max_length=25)
     title = models.CharField(_("Title"), max_length=255)
     allow_different_layouts = models.BooleanField(
@@ -93,12 +97,16 @@ class DashboardWorkspace(models.Model):
         - `slug` (str): Dashboard slug.
         - `position` (int): Dashboard position.
         - `is_public` (int): If set to True, is visible to public.
-        - `is_clonable` (bool): If set to True, is cloneable.
+        - `is_cloneable` (bool): If set to True, is cloneable.
         - `shared_with` (django.db.models.ManyToManyField): Users the workspace
           shared with. If workspace is shared with specific user, then the
           user it's shared with can also clone the workspace.
     """
-    user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_("User"))
+    user = models.ForeignKey(
+        AUTH_USER_MODEL,
+        verbose_name=_("User"),
+        on_delete=models.CASCADE
+    )
     layout_uid = models.CharField(_("Layout"), max_length=25)
     name = models.CharField(_("Name"), max_length=255)
     slug = AutoSlugField(populate_from='name', verbose_name=_("Slug"),
@@ -109,7 +117,7 @@ class DashboardWorkspace(models.Model):
         default=False,
         help_text=_("Makes your workspace to be visible to the public.")
     )
-    is_clonable = models.BooleanField(
+    is_cloneable = models.BooleanField(
         _("Is cloneable?"),
         default=False,
         help_text=_("Makes your workspace to be cloneable by other users.")
@@ -124,6 +132,11 @@ class DashboardWorkspace(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def is_clonable(self):
+        """For backwards compatibility."""
+        return self.is_cloneable
 
     def get_entries(self, user):
         """Get all dashboard entries for user given.
@@ -181,9 +194,19 @@ class DashboardEntry(models.Model):
         - `plugin_data` (str): JSON formatted string with plugin data.
         - `position` (int): Entry position.
     """
-    user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_("User"))
-    workspace = models.ForeignKey(DashboardWorkspace, null=True, blank=True,
-                                  verbose_name=_("Workspace"), )
+    user = models.ForeignKey(
+        AUTH_USER_MODEL,
+        verbose_name=_("User"),
+        on_delete=models.CASCADE
+    )
+    workspace = models.ForeignKey(
+        DashboardWorkspace,
+        null=True,
+        blank=True,
+        verbose_name=_("Workspace"),
+        on_delete=models.CASCADE,
+
+    )
     layout_uid = models.CharField(_("Layout"), max_length=25)
     placeholder_uid = models.CharField(_("Placeholder"), max_length=255)
     plugin_uid = models.CharField(_("Plugin name"), max_length=255)
@@ -196,6 +219,7 @@ class DashboardEntry(models.Model):
 
     class Meta(object):
         """Meta."""
+
         verbose_name = _("Dashboard entry")
         verbose_name_plural = _("Dashboard entries")
 
@@ -266,9 +290,16 @@ class DashboardPlugin(models.Model):
 
     plugin_uid = models.CharField(_("Plugin UID"), max_length=255,
                                   unique=True, editable=False)
-    users = models.ManyToManyField(AUTH_USER_MODEL, verbose_name=_("User"),
-                                   blank=True)
-    groups = models.ManyToManyField(Group, verbose_name=_("Group"), blank=True)
+    users = models.ManyToManyField(
+        AUTH_USER_MODEL,
+        verbose_name=_("User"),
+        blank=True
+    )
+    groups = models.ManyToManyField(
+        Group,
+        verbose_name=_("Group"),
+        blank=True
+    )
 
     objects = DashboardPluginManager()
 

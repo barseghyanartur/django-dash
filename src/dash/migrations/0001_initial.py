@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ('plugin_uid', models.CharField(max_length=255, verbose_name='Plugin name')),
                 ('plugin_data', models.TextField(null=True, verbose_name='Plugin data', blank=True)),
                 ('position', models.PositiveIntegerField(null=True, verbose_name='Position', blank=True)),
-                ('user', models.ForeignKey(verbose_name='User', to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(verbose_name='User', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Dashboard entry',
@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
                 ('layout_uid', models.CharField(max_length=25, verbose_name='Layout')),
                 ('title', models.CharField(max_length=255, verbose_name='Title')),
                 ('is_public', models.BooleanField(default=False, help_text='Makes your dashboard to be visible to the public. Visibility of workspaces could be adjust separately for each workspace, however setting your dashboard to be visible to public, makes your default workspace visible to public too.', verbose_name='Is public?')),
-                ('user', models.ForeignKey(verbose_name='User', to=settings.AUTH_USER_MODEL, unique=True)),
+                ('user', models.ForeignKey(verbose_name='User', to=settings.AUTH_USER_MODEL, unique=True, on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Dashboard settings',
@@ -68,7 +68,7 @@ class Migration(migrations.Migration):
                 ('position', dash.fields.OrderField(null=True, verbose_name='Position', blank=True)),
                 ('is_public', models.BooleanField(default=False, help_text='Makes your workspace to be visible to the public.', verbose_name='Is public?')),
                 ('is_clonable', models.BooleanField(default=False, help_text='Makes your workspace to be cloneable by other users.', verbose_name='Is cloneable?')),
-                ('user', models.ForeignKey(verbose_name='User', to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(verbose_name='User', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Dashboard workspace',
@@ -78,7 +78,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='dashboardentry',
             name='workspace',
-            field=models.ForeignKey(verbose_name='Workspace', blank=True, to='dash.DashboardWorkspace', null=True),
+            field=models.ForeignKey(verbose_name='Workspace', blank=True, to='dash.DashboardWorkspace', null=True, on_delete=models.CASCADE),
         ),
         migrations.AlterUniqueTogether(
             name='dashboardworkspace',

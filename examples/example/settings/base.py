@@ -9,6 +9,7 @@ from nine.versions import (
     DJANGO_GTE_1_8,
     DJANGO_GTE_1_9,
     DJANGO_GTE_1_10,
+    DJANGO_GTE_2_0,
 )
 
 from .helpers import PROJECT_DIR, gettext
@@ -140,7 +141,7 @@ if DJANGO_GTE_1_10:
                 'loaders': [
                     'django.template.loaders.filesystem.Loader',
                     'django.template.loaders.app_directories.Loader',
-                    'django.template.loaders.eggs.Loader',
+                    # 'django.template.loaders.eggs.Loader',
                     'admin_tools.template_loaders.Loader',
                 ],
                 'debug': DEBUG_TEMPLATE,
@@ -219,15 +220,26 @@ SECRET_KEY = '6sf18c*w971i8a-m^1coasrmur2k6+q5_kyn*)s@(*_dk5q3&r'
 #     'django.template.loaders.eggs.Loader',
 # )
 
-MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+if DJANGO_GTE_2_0:
+    MIDDLEWARE = [
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.common.CommonMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        # Uncomment the next line for simple clickjacking protection:
+        # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    ]
+else:
+    MIDDLEWARE_CLASSES = (
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.common.CommonMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        # Uncomment the next line for simple clickjacking protection:
+        # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    )
 
 ROOT_URLCONF = 'urls'
 
