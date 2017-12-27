@@ -21,7 +21,7 @@ are used for versioning (schema follows below):
 2017-12-27
 
 - Django 2.0 support (experimental).
- - Some work on removing Django < 1.8 code.
+- Some work on removing Django < 1.8 code.
 
 0.5.3
 -----
