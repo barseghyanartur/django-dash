@@ -329,5 +329,5 @@ class Command(BaseCommand):
                 words.remove(random_name)
 
             except Exception as err:
-                images.append(item.image)
+                # images.append(item.image)
                 logger.debug(err)
