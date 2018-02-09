@@ -20,6 +20,8 @@ are used for versioning (schema follows below):
 -----
 2018-02-09
 
+- Minor fixes.
+
 0.5.4
 -----
 2017-12-27
