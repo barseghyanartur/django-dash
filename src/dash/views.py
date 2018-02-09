@@ -881,7 +881,7 @@ def delete_dashboard_workspace(request, workspace_id,
         raise Http404(err)
 
     layout = get_layout(
-        layout_uid=workspace.layout_uid, as_instance=True
+        layout_uid=obj.layout_uid, as_instance=True
         )
 
     if request.method == 'POST':
