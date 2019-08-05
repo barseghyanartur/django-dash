@@ -11,7 +11,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.admin import widgets as admin_widgets
 from django.core.urlresolvers import reverse
-from django.forms.widgets import flatatt
+from django.forms.utils import flatatt
 from django.utils.html import escape
 from django.utils.datastructures import SortedDict
 from django.utils.safestring import mark_safe
