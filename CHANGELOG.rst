@@ -20,7 +20,7 @@ are used for versioning (schema follows below):
 -----
 2019-08-06
 
-- Some improvements in Django 1.11.
+- Some improvements in Django 1.11 support.
 
 0.5.5
 -----
