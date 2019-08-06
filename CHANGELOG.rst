@@ -18,6 +18,12 @@ are used for versioning (schema follows below):
 
 0.5.5
 -----
+2019-08-06
+
+- Some improvements in Django 1.11.
+
+0.5.5
+-----
 2018-02-09
 
 - Minor fixes.

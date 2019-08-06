@@ -4,7 +4,7 @@ import sys
 from distutils.version import LooseVersion
 from setuptools import find_packages, setup
 
-version = '0.5.5'
+version = '0.5.6'
 
 # ***************************************************************************
 # ************************** Python version *********************************
@@ -149,7 +149,6 @@ for locale_dir in locale_dirs:
 
 dependency_links = []
 
-install_requires = []
 # If certain version of Django is already installed, choose version agnostic
 # dependencies.
 
