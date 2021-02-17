@@ -4,7 +4,7 @@ import sys
 from distutils.version import LooseVersion
 from setuptools import find_packages, setup
 
-version = '0.5.6'
+version = '0.6'
 
 # ***************************************************************************
 # ************************** Python version *********************************
@@ -30,7 +30,7 @@ try:
     # Loose versions
     LOOSE_VERSIONS = (
         '1.4', '1.5', '1.6', '1.7', '1.8', '1.9', '1.10', '1.11', '2.0', '2.1',
-        '2.2', '3.0'
+        '2.2', '3.0', '3.1', '3.2', '4.0', '4.1', '4.2',
     )
 
     for v in LOOSE_VERSIONS:
@@ -160,7 +160,7 @@ install_requires = [
     'six>=1.9',
     'transliterate>=1.5,<2.0',
     'vishap>=0.1.3,<2.0',
-    'django-nine>=0.1.1',
+    'django-nine>=0.2.4',
     'Unidecode',
 ]
 
@@ -212,11 +212,11 @@ setup(
                 "for Django.",
     long_description="{0}{1}".format(readme, screen_shots),
     classifiers=[
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Environment :: Web Environment",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "License :: OSI Approved :: GNU Lesser General Public License v2 "
@@ -226,13 +226,20 @@ setup(
         "Operating System :: OS Independent",
         "Development Status :: 4 - Beta",
     ],
+    project_urls={
+        "Bug Tracker": "https://github.com/barseghyanartur/django-dash/issues",
+        "Documentation": "https://django-dash.readthedocs.io/",
+        "Source Code": "https://github.com/barseghyanartur/django-dash",
+        "Changelog": "https://django-dash.readthedocs.io/"
+                     "en/latest/changelog.html",
+    },
     keywords='dashboard, django, django dashboard',
     author='Artur Barseghyan',
     author_email='artur.barseghyan@gmail.com',
     url='https://github.com/barseghyanartur/django-dash/',
     package_dir={'': 'src'},
     packages=find_packages(where='./src'),
-    license='GPL 2.0/LGPL 2.1',
+    license='GPL-2.0-only OR LGPL-2.1-or-later',
     install_requires=install_requires,
     tests_require=tests_require,
     dependency_links=dependency_links,

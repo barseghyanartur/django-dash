@@ -1,8 +1,7 @@
-import datetime
-
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 
 from six import python_2_unicode_compatible
 
@@ -69,7 +68,7 @@ class NewsItem(models.Model):
     date_published = models.DateTimeField(_("Date published"),
                                           blank=True,
                                           null=True,
-                                          default=datetime.datetime.now())
+                                          default=timezone.now)
     slug = models.SlugField(unique=True, verbose_name=_("Slug"))
 
     date_created = models.DateTimeField(_("Date created"), blank=True,

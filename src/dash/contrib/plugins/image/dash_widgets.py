@@ -6,7 +6,6 @@ from ....base import BaseDashboardPluginWidget
 from .helpers import get_crop_filter
 from .settings import FIT_METHOD_FIT_WIDTH, FIT_METHOD_FIT_HEIGHT
 
-__title__ = 'dash.contrib.plugins.image.dash_widgets'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
@@ -57,7 +56,7 @@ class BaseImageWidget(BaseDashboardPluginWidget):
             'plugin': self.plugin,
             'MEDIA_URL': settings.MEDIA_URL,
             'crop': crop,
-            'thumb_size': thumb_size
+            'thumb_size': 'x'.join([str(_val) for _val in thumb_size])
         }
         return render_to_string('image/render.html', context)
 
@@ -126,6 +125,14 @@ class Image3x4Widget(BaseImageWidget):
     cols = 3
     rows = 4
     plugin_uid = 'image_3x4'
+
+
+class Image4x3Widget(BaseImageWidget):
+    """Image4x3 plugin widget."""
+
+    cols = 4
+    rows = 3
+    plugin_uid = 'image_4x3'
 
 
 class Image4x4Widget(BaseImageWidget):

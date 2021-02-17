@@ -5,7 +5,7 @@ try:
     from .local_settings import *
 except ImportError:
     pass
-
+TEMPLATE_DEBUG = True
 if DEBUG and DEBUG_TOOLBAR:
     try:
         # Make sure the django-debug-toolbar is installed
@@ -23,6 +23,7 @@ if DEBUG and DEBUG_TOOLBAR:
 
         INSTALLED_APPS += (
             'debug_toolbar',
+            'template_debug',
         )
 
         DEBUG_TOOLBAR_CONFIG = {

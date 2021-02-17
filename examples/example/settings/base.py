@@ -319,11 +319,6 @@ INSTALLED_APPS = (
     # 'customauth',  # Custom user model
 )
 
-if DJANGO_LTE_1_6:
-    INSTALLED_APPS += (
-        'south',  # Database migration app
-    )
-
 # Using custom user model
 # AUTH_USER_MODEL = 'customauth.MyUser'
 
