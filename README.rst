@@ -17,18 +17,8 @@ system for Django applications with minimal efforts.
 
 Prerequisites
 =============
-Present
--------
-- Django 1.8, 1.9, 1.10, 1.11, 2.0
-- Python >=2.7, >=3.4
-
-Past
-----
-- Dropping support of Django 1.5, 1.6 and 1.7 has been announced in version
-  0.5. As of 0.5 everything is still backwards compatible with above mentioned
-  versions , but in future versions compatibility with these versions will be
-  wiped out.
-- Support of Python 2.6 has been dropped in version 0.5.
+- Django 2.0, 3.0 and 3.1
+- Python 3.6, 3.7, 3.8 and 3.9.
 
 Key concepts
 ============
@@ -56,7 +46,7 @@ Key concepts
 
 Main features
 =============
-- Customisable layouts (aka theeming).
+- Customisable layouts (aka theming).
 - Multiple workspaces.
 - Tunable access permissions to plugins.
 - Public dashboards (as a contrib app).
@@ -153,43 +143,43 @@ Installation
 ============
 1. Install latest stable version from PyPI:
 
-    .. code-block:: sh
+   .. code-block:: sh
 
         pip install django-dash
 
-    Or latest stable version from GitHub:
+   Or latest stable version from GitHub:
 
-    .. code-block:: sh
+   .. code-block:: sh
 
-        pip install https://github.com/barseghyanartur/django-dash/archive/stable.tar.gz
+       pip install https://github.com/barseghyanartur/django-dash/archive/stable.tar.gz
 
-    Or latest stable version from BitBucket:
+   Or latest stable version from BitBucket:
 
-    .. code-block:: sh
+   .. code-block:: sh
 
-        pip install https://bitbucket.org/barseghyanartur/django-dash/get/stable.tar.gz
+       pip install https://bitbucket.org/barseghyanartur/django-dash/get/stable.tar.gz
 
 2. Add `dash` to ``INSTALLED_APPS`` of the your projects' Django settings.
    Furthermore, all layouts and plugins to be used, shall be added to the
    ``INSTALLED_APPS`` as well.
 
-    .. code-block:: python
+   .. code-block:: python
 
-        INSTALLED_APPS = (
-            # ...
-            'dash',
-            'dash.contrib.layouts.android',
-            'dash.contrib.layouts.bootstrap2',
-            'dash.contrib.layouts.windows8',
-            'dash.contrib.plugins.dummy',
-            'dash.contrib.plugins.image',
-            'dash.contrib.plugins.memo',
-            'dash.contrib.plugins.rss_feed',
-            'dash.contrib.plugins.url',
-            'dash.contrib.plugins.video',
-            'dash.contrib.plugins.weather',
-            # ...
-        )
+       INSTALLED_APPS = (
+           # ...
+           'dash',
+           'dash.contrib.layouts.android',
+           'dash.contrib.layouts.bootstrap2',
+           'dash.contrib.layouts.windows8',
+           'dash.contrib.plugins.dummy',
+           'dash.contrib.plugins.image',
+           'dash.contrib.plugins.memo',
+           'dash.contrib.plugins.rss_feed',
+           'dash.contrib.plugins.url',
+           'dash.contrib.plugins.video',
+           'dash.contrib.plugins.weather',
+           # ...
+       )
 
 3. Make sure that ``django.core.context_processors.request`` is in
    ``TEMPLATE_CONTEXT_PROCESSORS``.
@@ -1206,7 +1196,7 @@ PhantomJS.
 
 License
 =======
-GPL 2.0/LGPL 2.1
+GPL-2.0-only OR LGPL-2.1-or-later
 
 Support
 =======

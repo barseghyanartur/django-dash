@@ -2,9 +2,6 @@ from autoslug.settings import slugify
 
 from django.utils.encoding import force_text
 
-from six import PY3
-
-__title__ = 'dash.helpers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
@@ -30,10 +27,7 @@ def safe_text(text):
 
     :return str:
     """
-    if PY3:
-        return force_text(text, encoding='utf-8')
-    else:
-        return force_text(text, encoding='utf-8').encode('utf-8')
+    return force_text(text, encoding='utf-8')
 
 
 def lists_overlap(sub, main):

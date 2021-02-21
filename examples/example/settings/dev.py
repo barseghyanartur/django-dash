@@ -12,14 +12,9 @@ if DEBUG and DEBUG_TOOLBAR:
         import debug_toolbar
 
         # debug_toolbar
-        if DJANGO_GTE_2_0:
-            MIDDLEWARE += (
-                'debug_toolbar.middleware.DebugToolbarMiddleware',
-            )
-        else:
-            MIDDLEWARE_CLASSES += (
-                'debug_toolbar.middleware.DebugToolbarMiddleware',
-            )
+        MIDDLEWARE += (
+            'debug_toolbar.middleware.DebugToolbarMiddleware',
+        )
 
         INSTALLED_APPS += (
             'debug_toolbar',

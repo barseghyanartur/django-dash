@@ -2,16 +2,6 @@
 import os
 import sys
 
-from nine.versions import (
-    DJANGO_LTE_1_6,
-    DJANGO_GTE_1_7,
-    DJANGO_LTE_1_7,
-    DJANGO_GTE_1_8,
-    DJANGO_GTE_1_9,
-    DJANGO_GTE_1_10,
-    DJANGO_GTE_2_0,
-)
-
 from .helpers import PROJECT_DIR, gettext
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -121,92 +111,34 @@ try:
 except ImportError:
     DEBUG_TEMPLATE = False
 
-if DJANGO_GTE_1_10:
-    TEMPLATES = [
-        {
-            'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            # 'APP_DIRS': True,
-            'DIRS': [PROJECT_DIR(os.path.join('..', 'templates'))],
-            'OPTIONS': {
-                'context_processors': [
-                    "django.template.context_processors.debug",
-                    'django.template.context_processors.request',
-                    "django.contrib.auth.context_processors.auth",
-                    # "django.core.context_processors.i18n",
-                    # "django.core.context_processors.media",
-                    # "django.core.context_processors.static",
-                    # "django.core.context_processors.tz",
-                    "django.contrib.messages.context_processors.messages",
-                ],
-                'loaders': [
-                    'django.template.loaders.filesystem.Loader',
-                    'django.template.loaders.app_directories.Loader',
-                    # 'django.template.loaders.eggs.Loader',
-                    'admin_tools.template_loaders.Loader',
-                ],
-                'debug': DEBUG_TEMPLATE,
-            }
-        },
-    ]
-elif DJANGO_GTE_1_8:
-    TEMPLATES = [
-        {
-            'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            # 'APP_DIRS': True,
-            'DIRS': [PROJECT_DIR(os.path.join('..', 'templates'))],
-            'OPTIONS': {
-                'context_processors': [
-                    "django.contrib.auth.context_processors.auth",
-                    "django.template.context_processors.debug",
-                    "django.template.context_processors.i18n",
-                    "django.template.context_processors.media",
-                    "django.template.context_processors.static",
-                    "django.template.context_processors.tz",
-                    "django.contrib.messages.context_processors.messages",
-                    "django.template.context_processors.request",
-                ],
-                'loaders': [
-                    'django.template.loaders.filesystem.Loader',
-                    'django.template.loaders.app_directories.Loader',
-                    'django.template.loaders.eggs.Loader',
-                    'admin_tools.template_loaders.Loader',
-                ],
-                'debug': DEBUG_TEMPLATE,
-            }
-        },
-    ]
-else:
-    TEMPLATE_DEBUG = DEBUG_TEMPLATE
 
-    # List of callables that know how to import templates from various
-    # sources.
-    TEMPLATE_LOADERS = [
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-        'django.template.loaders.eggs.Loader',
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # 'APP_DIRS': True,
+        'DIRS': [PROJECT_DIR(os.path.join('..', 'templates'))],
+        'OPTIONS': {
+            'context_processors': [
+                "django.template.context_processors.debug",
+                'django.template.context_processors.request',
+                "django.contrib.auth.context_processors.auth",
+                # "django.core.context_processors.i18n",
+                # "django.core.context_processors.media",
+                # "django.core.context_processors.static",
+                # "django.core.context_processors.tz",
+                "django.contrib.messages.context_processors.messages",
+            ],
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                # 'django.template.loaders.eggs.Loader',
+                'admin_tools.template_loaders.Loader',
+            ],
+            'debug': DEBUG_TEMPLATE,
+        }
+    },
+]
 
-    ]
-    if DJANGO_GTE_1_8:
-        TEMPLATE_LOADERS.append('admin_tools.template_loaders.Loader')
-
-    TEMPLATE_CONTEXT_PROCESSORS = (
-        "django.contrib.auth.context_processors.auth",
-        "django.core.context_processors.debug",
-        "django.core.context_processors.i18n",
-        "django.core.context_processors.media",
-        "django.core.context_processors.static",
-        "django.core.context_processors.tz",
-        "django.contrib.messages.context_processors.messages",
-        "django.core.context_processors.request"
-    )
-
-    TEMPLATE_DIRS = (
-        # Put strings here, like "/home/html/django_templates" or
-        # "C:/www/django/templates".
-        # Always use forward slashes, even on Windows.
-        # Don't forget to use absolute paths, not relative paths.
-        PROJECT_DIR(os.path.join('..', 'templates')),
-    )
 
 # ***************************************
 
@@ -220,26 +152,16 @@ SECRET_KEY = '6sf18c*w971i8a-m^1coasrmur2k6+q5_kyn*)s@(*_dk5q3&r'
 #     'django.template.loaders.eggs.Loader',
 # )
 
-if DJANGO_GTE_2_0:
-    MIDDLEWARE = [
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.common.CommonMiddleware',
-        'django.middleware.csrf.CsrfViewMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-        # Uncomment the next line for simple clickjacking protection:
-        # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    ]
-else:
-    MIDDLEWARE_CLASSES = (
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.common.CommonMiddleware',
-        'django.middleware.csrf.CsrfViewMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-        # Uncomment the next line for simple clickjacking protection:
-        # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    )
+
+MIDDLEWARE = [
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    # Uncomment the next line for simple clickjacking protection:
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
 
 ROOT_URLCONF = 'urls'
 
@@ -285,7 +207,7 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
 
     # Third party apps used in the project
-    'tinymce',  # TinyMCE
+    # 'tinymce',  # TinyMCE
     'registration',  # Auth views and registration app
     'easy_thumbnails',  # Thumbnailer
     'widget_tweaks',  # For tweaking the forms
@@ -402,33 +324,28 @@ LOGGING = {
 
 # Make settings quite compatible among various Django versions used.
 
-if DJANGO_GTE_1_7 or DJANGO_GTE_1_8:
-    INSTALLED_APPS = list(INSTALLED_APPS)
-
-    # Django 1.7 specific checks
-    if DJANGO_GTE_1_7 or DJANGO_GTE_1_8:
-        try:
-            INSTALLED_APPS.remove('tinymce') \
-                if 'tinymce' in INSTALLED_APPS else None
-        except Exception:
-            pass
-
-    # Django 1.8 specific checks
-    if DJANGO_GTE_1_8:
-        pass
-
 MIGRATION_MODULES = {
     'dash': 'dash.migrations',
     'easy_thumbnails': 'easy_thumbnails.migrations',
 }
-SOUTH_MIGRATION_MODULES = {
-    'dash': 'dash.south_migrations',
-    'easy_thumbnails': 'easy_thumbnails.south_migrations',
-}
 
 # For Selenium tests
-FIREFOX_BIN_PATH = ''
+FIREFOX_BIN_PATH = None
 PHANTOM_JS_EXECUTABLE_PATH = None
+
+# CHROME_DRIVER_EXECUTABLE_PATH = os.environ.get('CHROME_BIN', None)
+CHROME_DRIVER_EXECUTABLE_PATH = None
+IS_TRAVIS = 'TRAVIS' in os.environ
+
+if IS_TRAVIS:
+    CHROME_DRIVER_EXECUTABLE_PATH = '/home/travis/chromedriver'
+
+from selenium import webdriver
+CHROME_DRIVER_OPTIONS = webdriver.ChromeOptions()
+CHROME_DRIVER_OPTIONS.add_argument('-headless')
+CHROME_DRIVER_OPTIONS.add_argument('-no-sandbox')
+CHROME_DRIVER_OPTIONS.set_capability('chrome.binary', "/usr/bin/google-chrome")
+# CHROME_DRIVER_OPTIONS.add_argument('-single-process')
 
 try:
     from .local_settings import DEV
@@ -436,7 +353,12 @@ except ImportError:
     pass
 
 try:
-    from .local_settings import FIREFOX_BIN_PATH, PHANTOM_JS_EXECUTABLE_PATH
+    from .local_settings import (
+        FIREFOX_BIN_PATH,
+        PHANTOM_JS_EXECUTABLE_PATH,
+        CHROME_DRIVER_EXECUTABLE_PATH,
+        CHROME_DRIVER_OPTIONS,
+    )
 except ImportError:
     pass
 

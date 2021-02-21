@@ -1,5 +1,5 @@
-from django.conf.urls import url
-from django.utils.translation import ugettext_lazy as _
+from django.urls import re_path as url
+from django.utils.translation import gettext_lazy as _
 
 from .views import (
     add_dashboard_entry,
@@ -19,7 +19,6 @@ from .views import (
     plugin_widgets,
 )
 
-__title__ = 'dash.urls'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'

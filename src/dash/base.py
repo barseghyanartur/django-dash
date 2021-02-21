@@ -3,20 +3,20 @@ All `uids` are supposed to be pythonic function names (see
 PEP http://www.python.org/dev/peps/pep-0008/#function-names).
 """
 import copy
+import json
 import logging
 import uuid
 
 from django.forms import ModelForm
+from django.forms.utils import ErrorList
 from django.http import Http404
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext_lazy as _
-
-from nine.versions import DJANGO_GTE_1_8
+from django.utils.translation import gettext_lazy as _
 
 from .discover import autodiscover
 from .exceptions import LayoutDoesNotExist, InvalidRegistryItemType
 from .helpers import iterable_to_dict, uniquify_sequence, safe_text
-from .json_package import json
+
 from .settings import (
     ACTIVE_LAYOUT,
     DEBUG,
@@ -25,17 +25,8 @@ from .settings import (
     LAYOUT_CELL_UNITS,
 )
 
-
-if DJANGO_GTE_1_8:
-    from django.forms.utils import ErrorList
-else:
-    from django.forms.util import ErrorList
-
 logger = logging.getLogger(__name__)
 
-# _ = lambda s: s
-
-__title__ = 'dash.base'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
@@ -44,8 +35,9 @@ __all__ = (
     'BaseDashboardPlaceholder',
     'BaseDashboardPlugin',
     'BaseDashboardPluginWidget',
-    'collect_widget_media',
     'DashboardPluginFormBase',
+    'PluginWidgetRegistry',
+    'collect_widget_media',
     'ensure_autodiscover',
     'get_layout',
     'get_registered_layout_uids',

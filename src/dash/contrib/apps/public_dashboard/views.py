@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import redirect
 from django.template import RequestContext
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from nine import versions
 

@@ -1,7 +1,7 @@
 import logging
 
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ....models import DashboardEntry
 from ....utils import update_plugin_data_for_entries
@@ -27,7 +27,7 @@ class BookmarkAdmin(admin.ModelAdmin):
         }),
     )
 
-    class Meta(object):
+    class Meta:
         """Meta."""
 
         app_label = _('Bookmark')

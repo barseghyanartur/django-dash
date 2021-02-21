@@ -8,15 +8,16 @@ http://code.djangoproject.com/wiki/CustomWidgetsTinyMCE
 from __future__ import unicode_literals
 
 from collections import OrderedDict
+import json
 
 from django import forms
 from django.conf import settings
 from django.contrib.admin import widgets as admin_widgets
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.forms.utils import flatatt
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
-from django.utils.translation import get_language, ugettext as _
+from django.utils.translation import get_language, gettext as _
 
 try:
     from django.utils.encoding import smart_text as smart_unicode
@@ -27,7 +28,7 @@ except ImportError:
         from django.forms.util import smart_unicode
 
 from dash.lib.tinymce import settings as tinymce_settings
-from dash.json_package import json
+
 
 
 class TinyMCE(forms.Textarea):

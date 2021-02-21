@@ -1,16 +1,8 @@
 from django.db import models
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 from django.utils import timezone
-
-from six import python_2_unicode_compatible
-
-from nine.versions import DJANGO_GTE_1_10
-
-if DJANGO_GTE_1_10:
-    from django.urls import reverse
-else:
-    from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext_lazy as _
 
 try:
     from tinymce.models import HTMLField
@@ -47,7 +39,6 @@ def _news_images(instance, filename):
     )
 
 
-@python_2_unicode_compatible
 class NewsItem(models.Model):
     """News item.
 
@@ -78,7 +69,7 @@ class NewsItem(models.Model):
                                         null=True, auto_now=True,
                                         editable=False)
 
-    class Meta(object):
+    class Meta:
         """Meta."""
 
         verbose_name = _("News item")

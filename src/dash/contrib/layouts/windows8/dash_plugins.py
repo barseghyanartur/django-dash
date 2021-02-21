@@ -17,7 +17,6 @@ from ....contrib.layouts.windows8.dash_widgets import (
     URL1x1Windows8SidebarWidget,
 )
 
-__title__ = 'dash.contrib.layouts.windows8.dash_plugins'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'

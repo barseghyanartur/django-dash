@@ -4,12 +4,9 @@ from django.contrib import admin
 from django.contrib import messages
 from django.contrib.admin import helpers
 from django.contrib.admin.views.decorators import staff_member_required
-from django.shortcuts import redirect
-from django.template import RequestContext
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext_lazy as _
-
-from nine.versions import DJANGO_LTE_1_5, DJANGO_GTE_1_10
+from django.utils.translation import gettext_lazy as _
 
 from .base import get_registered_plugins, get_registered_layouts
 from .constants import ACTION_CHOICE_REPLACE
@@ -21,14 +18,8 @@ from .models import (
 )
 from .forms import BulkChangeDashboardPluginsForm
 
-if DJANGO_GTE_1_10:
-    from django.shortcuts import render
-else:
-    from django.shortcuts import render_to_response
-
 staff_member_required_m = method_decorator(staff_member_required)
 
-__title__ = 'dash.admin'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
@@ -78,31 +69,10 @@ def bulk_change_dashboard_plugins(modeladmin, request, queryset):
 
     template_name = 'dash/admin/bulk_change_dashboard_plugins.html'
 
-    if DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
-class CompatModelAdmin(admin.ModelAdmin):
-    """Compatibility model admin."""
-
-    def __init__(self, *args, **kwargs):
-        self.queryset = self.get_queryset
-        super(CompatModelAdmin, self).__init__(*args, **kwargs)
-
-    def get_queryset(self, request):
-        """Get queryset."""
-        superobj = super(CompatModelAdmin, self)
-        if getattr(superobj, 'get_queryset', None):
-            return superobj.get_queryset(request)
-
-        if getattr(superobj, 'queryset', None):
-            return superobj.queryset(request)
-
-
+@admin.register(DashboardWorkspace)
 class DashboardWorkspaceAdmin(admin.ModelAdmin):
     """Dashboard workspace admin."""
 
@@ -124,19 +94,16 @@ class DashboardWorkspaceAdmin(admin.ModelAdmin):
         }),
     )
 
-    class Meta(object):
+    class Meta:
         """Meta."""
 
         app_label = _('Dashboard workspace')
 
 
-admin.site.register(DashboardWorkspace, DashboardWorkspaceAdmin)
-
-
 class DashboardEntryAdminForm(forms.ModelForm):
     """Dashboard entry admin form."""
 
-    class Meta(object):
+    class Meta:
         """Meta."""
 
         model = DashboardEntry
@@ -146,7 +113,8 @@ class DashboardEntryAdminForm(forms.ModelForm):
     plugin_uid = forms.ChoiceField(choices=get_registered_plugins())
 
 
-class DashboardEntryAdmin(CompatModelAdmin):
+@admin.register(DashboardEntry)
+class DashboardEntryAdmin(admin.ModelAdmin):
     """Dashboard entry admin."""
     form = DashboardEntryAdminForm
     list_display = ('plugin_uid', 'plugin_uid_code', 'plugin_data',
@@ -166,31 +134,21 @@ class DashboardEntryAdmin(CompatModelAdmin):
         }),
     )
 
-    class Meta(object):
+    class Meta:
         """Meta."""
 
         app_label = _('Dashboard entry')
 
-    def __queryset(self, request):
-        if DJANGO_LTE_1_5:
-            queryset = super(DashboardEntryAdmin, self).queryset(request)
-        else:
-            queryset = super(DashboardEntryAdmin, self).get_queryset(request)
+    def get_queryset(self, request):
+        queryset = super(DashboardEntryAdmin, self).get_queryset(request)
         queryset = queryset.select_related('workspace', 'user')
         return queryset
-
-    get_queryset = __queryset
-    if DJANGO_LTE_1_5:
-        queryset = __queryset
-
-
-admin.site.register(DashboardEntry, DashboardEntryAdmin)
 
 
 class DashboardPluginAdminForm(forms.ModelForm):
     """Dashboard plugin admin form."""
 
-    class Meta(object):
+    class Meta:
         """Meta."""
 
         model = DashboardPlugin
@@ -199,7 +157,8 @@ class DashboardPluginAdminForm(forms.ModelForm):
     plugin_uid = forms.ChoiceField(choices=get_registered_plugins())
 
 
-class DashboardPluginAdmin(CompatModelAdmin):
+@admin.register(DashboardPlugin)
+class DashboardPluginAdmin(admin.ModelAdmin):
     """Dashboard plugin admin."""
 
     form = DashboardPluginAdminForm
@@ -213,23 +172,15 @@ class DashboardPluginAdmin(CompatModelAdmin):
     filter_horizontal = ('users', 'groups',)
     actions = [bulk_change_dashboard_plugins]
 
-    class Meta(object):
+    class Meta:
         """Meta."""
 
         app_label = _('Dashboard plugin')
 
-    def __queryset(self, request):
-        if DJANGO_LTE_1_5:
-            queryset = super(DashboardPluginAdmin, self).queryset(request)
-        else:
-            queryset = super(DashboardPluginAdmin, self).get_queryset(request)
-
+    def get_queryset(self, request):
+        queryset = super(DashboardPluginAdmin, self).get_queryset(request)
         queryset = queryset.prefetch_related('users', 'groups')
         return queryset
-
-    get_queryset = __queryset
-    if DJANGO_LTE_1_5:
-        queryset = __queryset
 
     @staff_member_required_m
     def bulk_change_dashboard_plugins(self, request):
@@ -250,7 +201,7 @@ class DashboardPluginAdmin(CompatModelAdmin):
                 groups_action = form.cleaned_data.pop('groups_action')
                 cleaned_data = dict(
                     (key, val) for (key, val)
-                    in form.cleaned_data.iteritems()
+                    in form.cleaned_data.items()
                     if val is not None
                 )
 
@@ -300,13 +251,10 @@ class DashboardPluginAdmin(CompatModelAdmin):
         return my_urls + super(DashboardPluginAdmin, self).get_urls()
 
 
-admin.site.register(DashboardPlugin, DashboardPluginAdmin)
-
-
 class DashboardSettingsAdminForm(forms.ModelForm):
     """Dashboard settings admin form."""
 
-    class Meta(object):
+    class Meta:
         """Meta."""
 
         model = DashboardSettings
@@ -315,7 +263,8 @@ class DashboardSettingsAdminForm(forms.ModelForm):
     layout_uid = forms.ChoiceField(choices=get_registered_layouts())
 
 
-class DashboardSettingsAdmin(CompatModelAdmin):
+@admin.register(DashboardSettings)
+class DashboardSettingsAdmin(admin.ModelAdmin):
     """Dashboard settings admin."""
 
     form = DashboardSettingsAdminForm
@@ -327,23 +276,11 @@ class DashboardSettingsAdmin(CompatModelAdmin):
         }),
     )
 
-    class Meta(object):
+    class Meta:
         """Meta."""
         app_label = _('Dashboard settings')
 
-    def __queryset(self, request):
-        if DJANGO_LTE_1_5:
-            queryset = super(DashboardSettingsAdmin, self).queryset(request)
-        else:
-            queryset = \
-                super(DashboardSettingsAdmin, self).get_queryset(request)
-
+    def get_queryset(self, request):
+        queryset = super(DashboardSettingsAdmin, self).get_queryset(request)
         queryset = queryset.select_related('user')
         return queryset
-
-    get_queryset = __queryset
-    if DJANGO_LTE_1_5:
-        queryset = __queryset
-
-
-admin.site.register(DashboardSettings, DashboardSettingsAdmin)

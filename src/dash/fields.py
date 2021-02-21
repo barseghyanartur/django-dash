@@ -1,6 +1,5 @@
 from django.db import models
 
-__title__ = 'dash.fields'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
@@ -65,19 +64,3 @@ class OrderField(models.IntegerField):
     # prevent the field from being displayed in the admin interface
     def formfield_(self, **kwargs):
         return None
-
-
-# For south
-try:
-    from south.modelsinspector import add_introspection_rules
-    rules = [
-        (
-            (OrderField,),
-            [],
-            {},  # takes widget only, which is standard
-        ),
-    ]
-
-    add_introspection_rules(rules, ["^dash\.fields"])
-except ImportError:
-    pass

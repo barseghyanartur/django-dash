@@ -5,7 +5,7 @@ from ....contrib.plugins.dummy.dash_widgets import BaseDummyWidget
 from ....contrib.plugins.image.dash_widgets import BaseImageWidget
 from ....contrib.plugins.memo.dash_widgets import (
     BaseMemoWidget,
-    BaseTinyMCEMemoWidget
+    BaseTinyMCEMemoWidget,
 )
 # from ....contrib.plugins.rss_feed.dash_widgets import BaseReadRSSFeedWidget
 from ....contrib.plugins.video.dash_widgets import BaseVideoWidget
@@ -18,7 +18,6 @@ from .dash_widgets import (
 )
 from .forms import URLBootstrapTwoForm
 
-__title__ = 'dash.contrib.layouts.bootstrap2.dash_plugins'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'

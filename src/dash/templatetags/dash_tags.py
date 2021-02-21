@@ -1,9 +1,7 @@
 from django import forms
 from django.conf import settings
 from django.template import Library, TemplateSyntaxError, Node
-from django.utils.translation import ugettext_lazy as _
-
-from nine.versions import DJANGO_GTE_1_10
+from django.utils.translation import gettext_lazy as _
 
 from ..settings import ACTIVE_LAYOUT, DISPLAY_AUTH_LINK
 from ..utils import get_workspaces
@@ -14,7 +12,7 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'get_dash_plugin',
     'get_dash_workspaces',
-    'has_edit_dashboard_permissions'
+    'has_edit_dashboard_permissions',
     'render_auth_link',
 )
 
@@ -169,10 +167,7 @@ def render_auth_link(context):
         return {}
 
     request = context.get('request', None)
-    if DJANGO_GTE_1_10:
-        user_is_authenticated = request.user.is_authenticated
-    else:
-        user_is_authenticated = request.user.is_authenticated()
+    user_is_authenticated = request.user.is_authenticated
 
     if request and user_is_authenticated:
         try:

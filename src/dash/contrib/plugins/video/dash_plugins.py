@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from vishap import render_video
 
@@ -7,7 +7,6 @@ from ....factory import plugin_factory
 
 from .forms import VideoForm
 
-__title__ = 'dash.contrib.plugins.video.dash_plugins'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'

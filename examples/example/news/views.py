@@ -1,15 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, InvalidPage
 from django.http import Http404
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 
 from dash.base import get_layout
 from dash.utils import get_or_create_dashboard_settings
-
-from nine import versions
 
 from .constants import (
     MAX_NUM_POSTS_LISTING,
@@ -18,11 +15,6 @@ from .constants import (
 )
 from .defaults import DEFAULT_MAX_NEWS_ITEMS
 from .models import NewsItem
-
-if versions.DJANGO_GTE_1_10:
-    from django.shortcuts import render
-else:
-    from django.shortcuts import render_to_response
 
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
@@ -118,12 +110,7 @@ def browse(request, template_name='news/browse.html',
     if request.is_ajax():
         template_name = template_name_ajax
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 def detail(request, slug, template_name='news/detail.html',
@@ -158,9 +145,4 @@ def detail(request, slug, template_name='news/detail.html',
     if request.is_ajax():
         template_name = template_name_ajax
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
