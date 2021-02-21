@@ -61,6 +61,9 @@ install:
 #  - wget http://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
   - unzip chromedriver_linux64.zip -d /home/travis/
   - pip install -r examples/requirements/test.txt
+  - mkdir examples/logs
+  - mkdir examples/media
+  - mkdir examples/media/static
 
 before_script:
   - export CHROME_BIN=/home/travis/chromedriver
