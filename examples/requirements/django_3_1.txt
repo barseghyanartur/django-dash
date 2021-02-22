@@ -5,7 +5,7 @@ Django>=3.1,<4.0
 django-admin-tools>=0.8.0
 django-autoslug>=1.9.8
 django-debug-toolbar>=2.1
-django-registration-redux>=2.4
+django-registration>=3.1.1
 django-widget-tweaks>=1.4.8
 django-template-debug==0.3.5
 easy-thumbnails>=2.7.0

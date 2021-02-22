@@ -208,7 +208,7 @@ INSTALLED_APPS = (
 
     # Third party apps used in the project
     # 'tinymce',  # TinyMCE
-    'registration',  # Auth views and registration app
+    'django_registration',  # Auth views and registration app
     'easy_thumbnails',  # Thumbnailer
     'widget_tweaks',  # For tweaking the forms
     # 'slim',  # Multi-lingual models app

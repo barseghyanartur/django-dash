@@ -25,7 +25,7 @@ url_patterns_args = [
     re_path(r'^administration/', admin.site.urls),
 
     # django-registration URLs:
-    re_path(r'^accounts/', include('registration.backends.default.urls')),
+    re_path(r'^accounts/', include('django_registration.backends.one_step.urls')),
     re_path(r'^accounts/', include('django.contrib.auth.urls')),
 
     re_path(r'^$', TemplateView.as_view(template_name='home.html')),

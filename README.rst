@@ -17,7 +17,7 @@ system for Django applications with minimal efforts.
 
 Prerequisites
 =============
-- Django 2.0, 3.0 and 3.1
+- Django 2.2, 3.0 and 3.1
 - Python 3.6, 3.7, 3.8 and 3.9.
 
 Key concepts
@@ -61,10 +61,10 @@ FAQ
 
   Answer: Yes. Check the source code of the following sample plugins:
 
-    - `Sample D3 plugins
-      <https://github.com/barseghyanartur/django-dash/tree/master/examples/example/d3_samples>`_.
-    - `Sample Polychart2 plugin
-      <https://github.com/barseghyanartur/django-dash/tree/master/examples/example/bar>`_.
+  - `Sample D3 plugins
+    <https://github.com/barseghyanartur/django-dash/tree/master/examples/example/d3_samples>`_.
+  - `Sample Polychart2 plugin
+    <https://github.com/barseghyanartur/django-dash/tree/master/examples/example/bar>`_.
 
 Some screenshots
 ================
