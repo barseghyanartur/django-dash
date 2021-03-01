@@ -1,6 +1,6 @@
 from autoslug.settings import slugify
 
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
@@ -27,7 +27,7 @@ def safe_text(text):
 
     :return str:
     """
-    return force_text(text, encoding='utf-8')
+    return force_str(text, encoding='utf-8')
 
 
 def lists_overlap(sub, main):

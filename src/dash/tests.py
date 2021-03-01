@@ -9,6 +9,7 @@ from django.test import (
     RequestFactory,
     LiveServerTestCase,
 )
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
@@ -30,7 +31,6 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 
 DASH_TEST_USER_USERNAME = 'test_admin'
 DASH_TEST_USER_PASSWORD = 'test'
-log_info = True
 TRACK_TIME = False
 
 
@@ -81,7 +81,6 @@ DASH_SET_UP = False
 
 def setup_dash():
     """Set up dash."""
-    call_command('collectstatic', verbosity=3, interactive=False)
     call_command('dash_sync_plugins', verbosity=3, interactive=False)
 
 
@@ -157,7 +156,7 @@ class DashCoreTest(TestCase):
     def test_05_get_occupied_cells(self):
         """Test ``dash.utils.get_occupied_cells``."""
         # Fake dashboard entry
-        class Entry(object):
+        class Entry:
             pass
 
         layout = get_layout(as_instance=True)
@@ -195,7 +194,7 @@ class DashCoreTest(TestCase):
         return res
 
 
-class DashBrowserTest(LiveServerTestCase):
+class DashBrowserTest(StaticLiveServerTestCase):
     """django-dash browser tests.
 
     TODO: At the moment is done for admin only. Normal users shall be tested
@@ -209,7 +208,6 @@ class DashBrowserTest(LiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         """Set up class."""
-        # cls.selenium = WebDriver()
         chrome_driver_path = getattr(
             settings,
             'CHROME_DRIVER_EXECUTABLE_PATH',
@@ -241,7 +239,7 @@ class DashBrowserTest(LiveServerTestCase):
             cls.selenium = webdriver.Firefox(firefox_binary=binary)
         else:
             cls.selenium = webdriver.Firefox()
-
+        # cls.selenium = webdriver.Firefox()
         setup_dash()
 
         super(DashBrowserTest, cls).setUpClass()
@@ -260,9 +258,13 @@ class DashBrowserTest(LiveServerTestCase):
                      allow_cascade=False,
                      inhibit_post_migrate=False)
 
+    def _sleep(self, secs=10):
+        sleep(secs)
+
     def _click(self, element):
         """Click on any element."""
-        self.selenium.execute_script("$(arguments[0]).click();", element)
+        # self.selenium.execute_script("$(arguments[0]).click();", element)
+        self.selenium.execute_script("arguments[0].click();", element)
 
     def _agressive_click(self, element):
         """Agressive click."""
@@ -804,12 +806,13 @@ class DashBrowserTest(LiveServerTestCase):
         self._click(remove_plugin_link)
 
         # Wait until the edit dashboard page opens
-        WebDriverWait(self.selenium, timeout=8).until(
+        WebDriverWait(self.selenium, timeout=16).until(
             lambda driver: driver.find_element_by_xpath(
                 '//body[contains(@class, "layout")]'
             )
         )
 
+        self._sleep(2)
         found = False
         try:
             plugin_widget = self.selenium.find_element_by_xpath(
