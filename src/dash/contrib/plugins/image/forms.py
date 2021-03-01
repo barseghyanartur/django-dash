@@ -7,7 +7,6 @@ from ....widgets import BooleanRadioSelect
 from .helpers import handle_uploaded_file
 from .settings import FIT_METHODS_CHOICES, DEFAULT_FIT_METHOD
 
-
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'

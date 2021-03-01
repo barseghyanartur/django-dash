@@ -31,7 +31,7 @@ class BaseReadRSSFeedWidget(BaseDashboardPluginWidget):
         """Render."""
         context = {
             'plugin': self.plugin,
-            'csrfmiddlewaretoken': csrf(request)
+            'csrfmiddlewaretoken': csrf(request),
         }
         return render_to_string('rss_feed/render.html', context)
 

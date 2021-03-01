@@ -3,14 +3,9 @@ from ....factory import plugin_widget_factory
 
 from ....contrib.plugins.dummy.dash_widgets import BaseDummyWidget
 from ....contrib.plugins.image.dash_widgets import BaseImageWidget
-from ....contrib.plugins.memo.dash_widgets import (
-    BaseMemoWidget,
-    # BaseTinyMCEMemoWidget,
-)
-# from ....contrib.plugins.news.dash_widgets import BaseNewsWidget
+from ....contrib.plugins.memo.dash_widgets import BaseMemoWidget
 from ....contrib.plugins.rss_feed.dash_widgets import BaseReadRSSFeedWidget
 from ....contrib.plugins.video.dash_widgets import BaseVideoWidget
-# from ....contrib.plugins.weather.dash_widgets import BaseWeatherWidget
 from ....contrib.layouts.windows8.dash_widgets import (
     BaseBookmarkWindows8Widget,
     URL1x1Windows8MainWidget,

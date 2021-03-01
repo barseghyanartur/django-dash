@@ -1,6 +1,7 @@
 from django import forms
 from django.conf import settings
-from django.template import Library, TemplateSyntaxError, Node
+from django.template.base import TemplateSyntaxError, Node
+from django.template.library import Library
 from django.utils.translation import gettext_lazy as _
 
 from ..settings import ACTIVE_LAYOUT, DISPLAY_AUTH_LINK
@@ -319,8 +320,8 @@ class FormFieldType(object):
         By default all of them are false. Provide only property
         names that should be set to True.
         """
-        for property in properties:
-            setattr(self, property, True)
+        for prop in properties:
+            setattr(self, prop, True)
 
 
 class GetFormFieldTypeNode(Node):

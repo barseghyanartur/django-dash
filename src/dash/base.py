@@ -52,7 +52,7 @@ __all__ = (
 )
 
 
-class DashboardPluginFormBase(object):
+class DashboardPluginFormBase:
     """Not a form actually. Defined for magic only.
 
     :property iterable plugin_data_fields: Fields to get when calling the
@@ -99,7 +99,7 @@ class DashboardPluginFormBase(object):
         """Dummy, but necessary."""
 
 
-class BaseDashboardLayout(object):
+class BaseDashboardLayout:
     """Base layout.
 
     Layouts consist of placeholders.
@@ -373,8 +373,10 @@ class BaseDashboardLayout(object):
         )
         context = {
             'placeholders': placeholders,
-            'placeholders_dict': iterable_to_dict(placeholders,
-                                                  key_attr_name='uid'),
+            'placeholders_dict': iterable_to_dict(
+                placeholders,
+                key_attr_name='uid'
+            ),
             'request': request,
             'css': self.get_css(placeholders)
         }
@@ -397,15 +399,17 @@ class BaseDashboardLayout(object):
         )
         context = {
             'placeholders': placeholders,
-            'placeholders_dict': iterable_to_dict(placeholders,
-                                                  key_attr_name='uid'),
+            'placeholders_dict': iterable_to_dict(
+                placeholders,
+                key_attr_name='uid'
+            ),
             'request': request,
             'css':  self.get_css(placeholders)
         }
         return render_to_string(self.get_edit_template_name(request), context)
 
 
-class BaseDashboardPlaceholder(object):
+class BaseDashboardPlaceholder:
     """Base placeholder.
 
     :Properties:
@@ -449,6 +453,7 @@ class BaseDashboardPlaceholder(object):
         self.layout = layout
         self.dashboard_entries = None
         self.request = None
+        self.workspace = None
 
     @property
     def cell_units(self):
@@ -504,7 +509,7 @@ class BaseDashboardPlaceholder(object):
             'placeholder': self,
             'dashboard_entries': self.dashboard_entries,
             'request': self.request,
-            'workspace': self.workspace
+            'workspace': self.workspace,
         }
         return render_to_string(self.get_view_template_name(), context)
 
@@ -514,8 +519,6 @@ class BaseDashboardPlaceholder(object):
         Return a list of tuples, where the first element represents the cell
         class and the second element represents the cell position.
 
-        :param string workspace: Current workspace slug.
-        :param django.http.HttpRequest request:
         :return list:
         """
         empty_cells = []
@@ -767,11 +770,11 @@ class BaseDashboardPlaceholder(object):
         return css
 
 
-class DashboardPluginDataStorage(object):
+class DashboardPluginDataStorage:
     """Storage for plugin data."""
 
 
-class BaseDashboardPlugin(object):
+class BaseDashboardPlugin:
     """Base dashboard plugin from which every plugin should inherit.
 
     :Properties:
@@ -888,21 +891,18 @@ class BaseDashboardPlugin(object):
         """
         try:
             widget = self.get_widget()
-
+            row, col = self.get_position()
             html_class = [
                 'plugin-{0} {1} {2}'.format(
                     self.uid,
                     widget.html_class,
                     ' '.join(self.html_classes)
-                )
+                ),
+                'width-{0}'.format(widget.cols),
+                'height-{0}'.format(widget.rows),
+                'row-{0}'.format(row),
+                'col-{0}'.format(col),
             ]
-
-            html_class.append('width-{0}'.format(widget.cols))
-            html_class.append('height-{0}'.format(widget.rows))
-
-            row, col = self.get_position()
-            html_class.append('row-{0}'.format(row))
-            html_class.append('col-{0}'.format(col))
 
             return ' '.join(html_class)
         except Exception as err:
@@ -1338,7 +1338,7 @@ class ClassProperty(property):
 classproperty = ClassProperty
 
 
-class BaseDashboardPluginWidget(object):
+class BaseDashboardPluginWidget:
     """Base plugin widget.
 
     So, if we would want to register a plugin widget (renderer) for some
@@ -1440,7 +1440,7 @@ class BaseDashboardPluginWidget(object):
         )
 
 
-class BaseRegistry(object):
+class BaseRegistry:
     """Registry of dash plugins.
 
     It's essential, that class registered has the``uid`` property.
@@ -1527,7 +1527,7 @@ class LayoutRegistry(BaseRegistry):
     type = BaseDashboardLayout
 
 
-class PluginWidgetRegistry(object):
+class PluginWidgetRegistry:
     """Registry of dash plugins widgets (renderers)."""
 
     type = BaseDashboardPluginWidget

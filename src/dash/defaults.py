@@ -47,7 +47,7 @@ LAYOUT_CELL_UNITS = (
     'cm',
     'mm',
     'ex',
-    'pc'
+    'pc',
 )
 
 # Name of the default dashboard workspace (no workspace).

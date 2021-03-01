@@ -245,14 +245,15 @@ def edit_dashboard(request, workspace=None):
 
 @login_required
 @permission_required('dash.add_dashboardentry')
-def add_dashboard_entry(request,
-                        placeholder_uid,
-                        plugin_uid,
-                        workspace=None,
-                        position=None,
-                        template_name='dash/add_dashboard_entry.html',
-                        template_name_ajax='dash/add_dashboard_entry_ajax'
-                                           '.html'):
+def add_dashboard_entry(
+    request,
+    placeholder_uid,
+    plugin_uid,
+    workspace=None,
+    position=None,
+    template_name='dash/add_dashboard_entry.html',
+    template_name_ajax='dash/add_dashboard_entry_ajax.html'
+):
     """Add dashboard entry.
 
     :param django.http.HttpRequest request:
@@ -300,7 +301,9 @@ def add_dashboard_entry(request,
     layout = get_layout(layout_uid=layout_uid, as_instance=True)
 
     if not validate_placeholder_uid(layout, placeholder_uid):
-        raise Http404(gettext("Invalid placeholder: {0}").format(placeholder))
+        raise Http404(
+            gettext("Invalid placeholder: {0}").format(placeholder_uid)
+        )
 
     if not validate_plugin_uid(plugin_uid):
         raise Http404(gettext("Invalid plugin name: {0}").format(plugin_uid))
@@ -423,11 +426,12 @@ def add_dashboard_entry(request,
 
 @login_required
 @permission_required('dash.change_dashboardentry')
-def edit_dashboard_entry(request,
-                         entry_id,
-                         template_name='dash/edit_dashboard_entry.html',
-                         template_name_ajax='dash/edit_dashboard_entry_ajax'
-                                            '.html'):
+def edit_dashboard_entry(
+    request,
+    entry_id,
+    template_name='dash/edit_dashboard_entry.html',
+    template_name_ajax='dash/edit_dashboard_entry_ajax.html'
+):
     """Edit dashboard entry.
 
     :param django.http.HttpRequest request:
@@ -666,11 +670,11 @@ def plugin_widgets(request,
 
 @login_required
 @permission_required('dash.add_dashboardworkspace')
-def create_dashboard_workspace(request,
-                               template_name='dash/create_dashboard_workspace'
-                                             '.html',
-                               template_name_ajax='dash/create_dashboard_'
-                                                  'workspace_ajax.html'):
+def create_dashboard_workspace(
+    request,
+    template_name='dash/create_dashboard_workspace.html',
+    template_name_ajax='dash/create_dashboard_workspace_ajax.html'
+):
     """Create dashboard workspace.
 
     :param django.http.HttpRequest request:
@@ -732,11 +736,12 @@ def create_dashboard_workspace(request,
 
 @login_required
 @permission_required('dash.change_dashboardworkspace')
-def edit_dashboard_workspace(request, workspace_id,
-                             template_name='dash/edit_dashboard_workspace'
-                                           '.html',
-                             template_name_ajax='dash/edit_dashboard_'
-                                                'workspace_ajax.html'):
+def edit_dashboard_workspace(
+    request,
+    workspace_id,
+    template_name='dash/edit_dashboard_workspace.html',
+    template_name_ajax='dash/edit_dashboard_workspace_ajax.html'
+):
     """Edit dashboard workspace.
 
     :param django.http.HttpRequest request:
@@ -804,11 +809,12 @@ def edit_dashboard_workspace(request, workspace_id,
 
 @login_required
 @permission_required('dash.delete_dashboardworkspace')
-def delete_dashboard_workspace(request, workspace_id,
-                               template_name='dash/delete_dashboard_workspace'
-                                             '.html',
-                               template_name_ajax='dash/delete_dashboard_'
-                                                  'workspace_ajax.html'):
+def delete_dashboard_workspace(
+    request,
+    workspace_id,
+    template_name='dash/delete_dashboard_workspace.html',
+    template_name_ajax='dash/delete_dashboard_workspace_ajax.html'
+):
     """Delete dashboard workspace.
 
     :param django.http.HttpRequest request:
@@ -881,17 +887,18 @@ def delete_dashboard_workspace(request, workspace_id,
 
 
 @login_required
-def dashboard_workspaces(request,
-                         workspace=None,
-                         template_name='dash/dashboard_workspaces.html',
-                         template_name_ajax='dash/dashboard_workspaces_ajax'
-                                            '.html'):
+def dashboard_workspaces(
+    request,
+    workspace=None,
+    template_name='dash/dashboard_workspaces.html',
+    template_name_ajax='dash/dashboard_workspaces_ajax.html'
+):
     """Workspaces list.
 
     :param django.http.HttpRequest request:
     :param string workspace: Workspace slug.
     :param string template_name:
-    :param string template_name_ajax: Tempalte used for AJAX requests.
+    :param string template_name_ajax: Template used for AJAX requests.
     :return django.http.HttpResponse:
     """
     # Getting dashboard settings for the user. Then get users' layout.
@@ -934,10 +941,11 @@ def dashboard_workspaces(request,
 
 @login_required
 @permission_required('dash.change_dashboardsettings')
-def edit_dashboard_settings(request,
-                            template_name='dash/edit_dashboard_settings.html',
-                            template_name_ajax='dash/edit_dashboard_settings_'
-                                               'ajax.html'):
+def edit_dashboard_settings(
+    request,
+    template_name='dash/edit_dashboard_settings.html',
+    template_name_ajax='dash/edit_dashboard_settings_ajax.html'
+):
     """Edit dashboard settings.
 
     :param django.http.HttpRequest request:

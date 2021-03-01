@@ -6,7 +6,7 @@ __all__ = (
     'ImproperlyConfigured',
     'InvalidRegistryItemType',
     'LayoutDoesNotExist',
-    'NoActiveLayout',
+    'NoActiveLayoutChosen',
     'PluginWidgetOutOfPlaceholderBoundaries',
 )
 

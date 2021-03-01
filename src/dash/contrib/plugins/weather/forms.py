@@ -59,5 +59,4 @@ class WeatherForm(forms.Form, DashboardPluginFormBase):
             try:
                 self.cleaned_data['public_ip'] = get_public_ip()
             except Exception as err:
-                if DEBUG:
-                    logger.debug(err)
+                logger.debug(err)

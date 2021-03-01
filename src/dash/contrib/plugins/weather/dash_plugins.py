@@ -1,10 +1,9 @@
 import json
 import logging
+from urllib.request import urlopen
 
 from django.utils.translation import gettext_lazy as _
 from django.core.cache import cache
-
-from six.moves.urllib.request import urlopen
 
 from ....base import BaseDashboardPlugin
 from ....factory import plugin_factory
