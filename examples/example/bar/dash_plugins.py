@@ -1,10 +1,10 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from dash.base import BaseDashboardPlugin
 from dash.factory import plugin_factory, plugin_widget_factory
 
-from bar.dash_widgets import BaseChartWidget
-from bar.forms import ChartForm
+from .dash_widgets import BaseChartWidget
+from .forms import ChartForm
 
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'

@@ -5,9 +5,8 @@ import shutil
 import subprocess
 import uuid
 import zipfile
-
-from six import text_type, PY3
-from six.moves.urllib import request
+from string import punctuation
+from urllib import request
 
 import radar
 
@@ -16,11 +15,6 @@ from django.core.management.base import BaseCommand
 from django.utils.text import slugify
 
 from ...models import NewsItem, NEWS_IMAGES_STORAGE_PATH
-
-if PY3:
-    from string import punctuation
-else:
-    from string import translate, maketrans, punctuation
 
 logger = logging.getLogger(__file__)
 
@@ -145,24 +139,13 @@ FACTORY = """
 
 def split_words(val):
     """Split words."""
-
-    if PY3:
-        return list(
-            set(
-                val.lower().translate(
-                    str.maketrans("", "", punctuation)
-                ).split()
-            )
+    return list(
+        set(
+            val.lower().translate(
+                str.maketrans("", "", punctuation)
+            ).split()
         )
-    else:
-        return list(
-            set(
-                translate(
-                    val.lower(),
-                    maketrans(punctuation, ' ' * len(punctuation))
-                ).split()
-            )
-        )
+    )
 
 
 def split_sentences(val):
@@ -316,10 +299,10 @@ class Command(BaseCommand):
         while len(images):
             item = NewsItem()
             random_name = words[random.randint(0, len(words) - 1)]
-            item.title = text_type(random_name).capitalize()
+            item.title = str(random_name).capitalize()
             item.slug = "{0}-{1}".format(slugify(item.title), uuid.uuid4())
             item.image = images.pop()
-            item.body = text_type(
+            item.body = str(
                 SENTENCES[random.randint(0, len(SENTENCES) - 1)]
             )
             item.date_published = radar.random_datetime()
