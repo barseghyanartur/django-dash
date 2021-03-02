@@ -1,7 +1,5 @@
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
-
-from six import python_2_unicode_compatible
+from django.utils.translation import gettext_lazy as _
 
 from .settings import BOOKMARK_IMAGE_CHOICES_WITH_EMPTY_OPTION
 
@@ -12,7 +10,6 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('Bookmark',)
 
 
-@python_2_unicode_compatible
 class Bookmark(models.Model):
     """Bookmark.
 
@@ -31,7 +28,7 @@ class Bookmark(models.Model):
                              null=True,
                              choices=BOOKMARK_IMAGE_CHOICES_WITH_EMPTY_OPTION)
 
-    class Meta(object):
+    class Meta:
         """Meta."""
 
         verbose_name = _("Bookmark")

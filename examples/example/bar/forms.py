@@ -1,9 +1,9 @@
 from django import forms
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from dash.base import DashboardPluginFormBase
 
-from bar.defaults import DEFAULT_DATE_VALUE, DEFAULT_OPEN_VALUE
+from .defaults import DEFAULT_DATE_VALUE, DEFAULT_OPEN_VALUE
 
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'

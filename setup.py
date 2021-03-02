@@ -1,75 +1,7 @@
 import os
-import sys
-
-from distutils.version import LooseVersion
 from setuptools import find_packages, setup
 
-version = '0.5.6'
-
-# ***************************************************************************
-# ************************** Python version *********************************
-# ***************************************************************************
-PY2 = sys.version_info[0] == 2
-PY3 = sys.version_info[0] == 3
-LTE_PY26 = PY2 and (7 > sys.version_info[1])
-PYPY = hasattr(sys, 'pypy_translation_info')
-
-# ***************************************************************************
-# ************************** Django version *********************************
-# ***************************************************************************
-DJANGO_INSTALLED = False
-try:
-    import django
-    DJANGO_INSTALLED = True
-
-    LOOSE_DJANGO_VERSION = LooseVersion(django.get_version())
-    LOOSE_DJANGO_MINOR_VERSION = LooseVersion(
-        '.'.join([str(i) for i in LOOSE_DJANGO_VERSION.version[0:2]])
-    )
-
-    # Loose versions
-    LOOSE_VERSIONS = (
-        '1.4', '1.5', '1.6', '1.7', '1.8', '1.9', '1.10', '1.11', '2.0', '2.1',
-        '2.2', '3.0'
-    )
-
-    for v in LOOSE_VERSIONS:
-        var_name = 'LOOSE_VERSION_{0}'.format(v.replace('.', '_'))
-        globals()[var_name] = LooseVersion(v)
-
-    # Exact versions
-    EXACT_VERSIONS = LOOSE_VERSIONS[:-1]
-
-    for i, v in enumerate(EXACT_VERSIONS):
-        l_cur = globals()['LOOSE_VERSION_{0}' \
-                          ''.format(LOOSE_VERSIONS[i].replace('.', '_'))]
-        l_nxt = globals()['LOOSE_VERSION_{0}' \
-                          ''.format(LOOSE_VERSIONS[i + 1].replace('.', '_'))]
-        var_name = 'DJANGO_{0}'.format(v.replace('.', '_'))
-        globals()[var_name] = (l_cur <= LOOSE_DJANGO_VERSION < l_nxt)
-
-    # LTE list
-    LTE_VERSIONS = LOOSE_VERSIONS[:-1]
-
-    for i, v in enumerate(EXACT_VERSIONS):
-        l_cur = globals()['LOOSE_VERSION_{0}' \
-                          ''.format(LOOSE_VERSIONS[i].replace('.', '_'))]
-        var_name = 'DJANGO_LTE_{0}'.format(v.replace('.', '_'))
-        globals()[var_name] = (LOOSE_DJANGO_MINOR_VERSION <= l_cur)
-
-    # GTE list
-    GTE_VERSIONS = LOOSE_VERSIONS[:-1]
-
-    for i, v in enumerate(EXACT_VERSIONS):
-        l_cur = globals()['LOOSE_VERSION_{0}' \
-                          ''.format(LOOSE_VERSIONS[i].replace('.', '_'))]
-        var_name = 'DJANGO_GTE_{0}'.format(v.replace('.', '_'))
-        globals()[var_name] = (
-            LOOSE_DJANGO_MINOR_VERSION >= l_cur
-        )
-
-except Exception as err:
-    pass
+version = '0.6'
 
 # ***************************************************************************
 # **************************** Package data *********************************
@@ -160,41 +92,12 @@ install_requires = [
     'six>=1.9',
     'transliterate>=1.5,<2.0',
     'vishap>=0.1.3,<2.0',
-    'django-nine>=0.1.1',
+    'django-nine>=0.2.4',
     'Unidecode',
+    'django-autoslug>=1.9.4',
+    'django-tinymce>=2.0.0',
+    'easy-thumbnails>=2.4.1'
 ]
-
-if DJANGO_INSTALLED:
-    if DJANGO_LTE_1_6:
-        # install_requires.append('django-autoslug==1.7.1')
-        install_requires.append('django-autoslug-iplweb')
-    else:
-        # install_requires.append('django-autoslug>=1.9.3')
-        install_requires.append('django-autoslug-iplweb')
-
-    if DJANGO_GTE_1_8:
-        install_requires.append('django-tinymce>=2.0.0')
-    else:
-        install_requires.append('django-tinymce>=1.5.3,<2.0.0')
-
-    if DJANGO_GTE_1_11:
-        install_requires.append('easy-thumbnails>=2.4.1')
-        # install_requires.append('easy-thumbnails')
-        # dependency_links.append(
-        #     'https://github.com/SmileyChris/easy-thumbnails/archive/'
-        #     'master.tar.gz'
-        #     '#egg=easy-thumbnails'
-        # )
-    elif PY3:
-        install_requires.append('easy-thumbnails>=2.3')
-    else:
-        install_requires.append('easy-thumbnails>=1.4')
-else:
-    # We consider Django 1.8 as a default.
-    # install_requires.append('django-autoslug>=1.9.3')
-    install_requires.append('django-autoslug-iplweb')
-    install_requires.append('django-tinymce>=2.0.0')
-    install_requires.append('easy-thumbnails>=1.4')
 
 tests_require = [
     'radar>=0.3,<1.0',
@@ -212,11 +115,11 @@ setup(
                 "for Django.",
     long_description="{0}{1}".format(readme, screen_shots),
     classifiers=[
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Environment :: Web Environment",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "License :: OSI Approved :: GNU Lesser General Public License v2 "
@@ -226,13 +129,20 @@ setup(
         "Operating System :: OS Independent",
         "Development Status :: 4 - Beta",
     ],
+    project_urls={
+        "Bug Tracker": "https://github.com/barseghyanartur/django-dash/issues",
+        "Documentation": "https://django-dash.readthedocs.io/",
+        "Source Code": "https://github.com/barseghyanartur/django-dash",
+        "Changelog": "https://django-dash.readthedocs.io/"
+                     "en/latest/changelog.html",
+    },
     keywords='dashboard, django, django dashboard',
     author='Artur Barseghyan',
     author_email='artur.barseghyan@gmail.com',
     url='https://github.com/barseghyanartur/django-dash/',
     package_dir={'': 'src'},
     packages=find_packages(where='./src'),
-    license='GPL 2.0/LGPL 2.1',
+    license='GPL-2.0-only OR LGPL-2.1-or-later',
     install_requires=install_requires,
     tests_require=tests_require,
     dependency_links=dependency_links,

@@ -4,13 +4,13 @@ from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
-from django.template import RequestContext
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
 import feedparser
 
-from nine import versions
+from ....settings import DEBUG
 
 from .defaults import (
     DEFAULT_MAX_FEED_ITEMS,
@@ -20,12 +20,7 @@ from .defaults import (
 from .forms import ReadRSSFeedForm
 from .helpers import max_num_template
 
-if versions.DJANGO_GTE_1_10:
-    from django.shortcuts import render
-else:
-    from django.shortcuts import render_to_response
 
-__title__ = 'dash.contrib.plugins.rss_feed.views'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
@@ -110,9 +105,4 @@ def get_feed(request,
     if request.is_ajax():
         template_name = template_name_ajax
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)

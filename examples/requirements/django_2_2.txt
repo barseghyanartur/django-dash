@@ -1,0 +1,14 @@
+-r debug.txt
+-r test.txt
+
+Django>=2.2,<2.3
+django-admin-tools>=0.8.0
+django-autoslug==1.9.8
+django-debug-toolbar>=1.6
+django-registration>=3.1.1
+django-widget-tweaks>=1.4.8
+#django-template-debug==0.3.5
+https://github.com/kimetrica/django-template-debug/archive/b8ebaa639350ee0c03d589368153a0a0cb9eb110.zip
+easy-thumbnails>=2.5.0
+#lorem-ipsum-generator==0.3
+https://github.com/Riamse/lorem-ipsum-generator/archive/f2e7d7aa07afb41eb27f668b0a674c409931d243.zip

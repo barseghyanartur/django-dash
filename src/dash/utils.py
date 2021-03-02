@@ -3,8 +3,7 @@ import datetime
 import logging
 
 from django.core.exceptions import ObjectDoesNotExist
-
-from nine import versions
+from django.urls import reverse, NoReverseMatch
 
 from .base import (
     BaseDashboardLayout,
@@ -33,19 +32,15 @@ from .models import (
 )
 from .settings import DEBUG, RESTRICT_PLUGIN_ACCESS
 
-if versions.DJANGO_GTE_1_10:
-    from django.urls import reverse, NoReverseMatch
-else:
-    from django.core.urlresolvers import reverse, NoReverseMatch
-
-__title__ = 'dash.utils'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'build_cells_matrix',
+    'clone_workspace',
     'get_allowed_plugin_uids',
     'get_dashboard_settings',
+    'get_occupied_cells',
     'get_or_create_dashboard_settings',
     'get_public_dashboard_url',
     'get_user_plugin_uids',

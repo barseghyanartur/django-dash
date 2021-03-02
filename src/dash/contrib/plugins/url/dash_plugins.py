@@ -1,5 +1,5 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ....base import BaseDashboardPlugin
 from ....factory import plugin_factory
@@ -7,7 +7,6 @@ from ....factory import plugin_factory
 from .forms import URLForm, BookmarkForm
 from .models import Bookmark
 
-__title__ = 'dash.contrib.plugins.image.dash_plugins'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'

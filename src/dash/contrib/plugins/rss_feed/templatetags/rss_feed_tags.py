@@ -3,7 +3,6 @@ from time import struct_time
 
 from django import template
 
-__title__ = 'dash.contrib.plugins.rss_feed.templatetags.rss_feed_tags'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'

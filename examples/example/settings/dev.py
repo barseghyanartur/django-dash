@@ -5,24 +5,20 @@ try:
     from .local_settings import *
 except ImportError:
     pass
-
+TEMPLATE_DEBUG = True
 if DEBUG and DEBUG_TOOLBAR:
     try:
         # Make sure the django-debug-toolbar is installed
         import debug_toolbar
 
         # debug_toolbar
-        if DJANGO_GTE_2_0:
-            MIDDLEWARE += (
-                'debug_toolbar.middleware.DebugToolbarMiddleware',
-            )
-        else:
-            MIDDLEWARE_CLASSES += (
-                'debug_toolbar.middleware.DebugToolbarMiddleware',
-            )
+        MIDDLEWARE += (
+            'debug_toolbar.middleware.DebugToolbarMiddleware',
+        )
 
         INSTALLED_APPS += (
             'debug_toolbar',
+            'template_debug',
         )
 
         DEBUG_TOOLBAR_CONFIG = {

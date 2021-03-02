@@ -8,26 +8,19 @@ http://code.djangoproject.com/wiki/CustomWidgetsTinyMCE
 from __future__ import unicode_literals
 
 from collections import OrderedDict
+import json
 
 from django import forms
 from django.conf import settings
 from django.contrib.admin import widgets as admin_widgets
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.forms.utils import flatatt
+from django.utils.encoding import smart_text
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
-from django.utils.translation import get_language, ugettext as _
-
-try:
-    from django.utils.encoding import smart_text as smart_unicode
-except ImportError:
-    try:
-        from django.utils.encoding import smart_unicode
-    except ImportError:
-        from django.forms.util import smart_unicode
+from django.utils.translation import get_language, gettext as _
 
 from dash.lib.tinymce import settings as tinymce_settings
-from dash.json_package import json
 
 
 class TinyMCE(forms.Textarea):
@@ -58,12 +51,12 @@ class TinyMCE(forms.Textarea):
             content_language = mce_attrs.get('language', None)
         self.content_language = content_language
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         """Render."""
         if value is None:
             value = ''
 
-        value = smart_unicode(value)
+        value = smart_text(value)
         final_attrs = self.build_attrs(attrs)
         final_attrs['name'] = name
 
@@ -184,8 +177,9 @@ def get_language_config(content_language=None):
     else:
         content_language = language
 
-    config = {}
-    config['language'] = language
+    config = {
+        'language': language,
+    }
 
     lang_names = OrderedDict()
     for lang, name in settings.LANGUAGES:

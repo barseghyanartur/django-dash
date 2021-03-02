@@ -1,6 +1,3 @@
-from django.utils.translation import ugettext
-
-__title__ = 'dash.defaults'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
@@ -20,11 +17,6 @@ __all__ = (
     'WAIT_AT_TEST_END',
     'WAIT_BETWEEN_TEST_STEPS',
 )
-
-
-def gettext(val):
-    """Fake gettext."""
-    return val
 
 
 # If set to True, plugins would be only accessible by the white-listed user(s)
@@ -55,7 +47,7 @@ LAYOUT_CELL_UNITS = (
     'cm',
     'mm',
     'ex',
-    'pc'
+    'pc',
 )
 
 # Name of the default dashboard workspace (no workspace).

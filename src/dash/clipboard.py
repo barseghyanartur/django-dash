@@ -1,5 +1,5 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .base import validate_placeholder_uid
 from .helpers import (
@@ -18,16 +18,17 @@ from .utils import (
     get_user_plugin_uids
 )
 
-__title__ = 'dash.clipboard'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'can_paste_from_clipboard',
+    'can_paste_entry_from_clipboard',
+    'clear_clipboard_data',
     'copy_entry_to_clipboard',
     'cut_entry_to_clipboard',
     'get_plugin_data_from_clipboard',
-    'paste_from_clipboard',
+    'make_session_key',
+    'paste_entry_from_clipboard',
     'save_plugin_data_to_clipboard',
 )
 

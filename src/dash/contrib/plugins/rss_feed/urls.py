@@ -1,8 +1,7 @@
-from django.conf.urls import url
+from django.urls import re_path as url
 
 from .views import get_feed
 
-__title__ = 'dash.contrib.plugins.rss_feed.urls'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'

@@ -19,5 +19,4 @@ class Command(BaseCommand):
     """
 
     def handle(self, *args, **options):
-
         update_plugin_data_for_entries()

@@ -9,12 +9,11 @@ from django.test import (
     RequestFactory,
     LiveServerTestCase,
 )
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.support.wait import WebDriverWait
-
-from six import print_
 
 from .base import (
     get_layout,
@@ -32,26 +31,25 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 
 DASH_TEST_USER_USERNAME = 'test_admin'
 DASH_TEST_USER_PASSWORD = 'test'
-PRINT_INFO = True
 TRACK_TIME = False
 
 
-def print_info(func):
+def log_info(func):
     """Prints some useful info."""
-    if not PRINT_INFO:
+    if not log_info:
         return func
 
     def inner(self, *args, **kwargs):
         result = func(self, *args, **kwargs)
 
-        print_('\n{0}'.format(func.__name__))
-        print_('============================')
+        print('\n{0}'.format(func.__name__))
+        print('============================')
         if func.__doc__:
-            print_('""" {0} """'.format(func.__doc__.strip()))
-        print_('----------------------------')
+            print('""" {0} """'.format(func.__doc__.strip()))
+        print('----------------------------')
         if result is not None:
-            print_(result)
-        print_('\n')
+            print(result)
+        print('\n')
 
         return result
     return inner
@@ -83,7 +81,6 @@ DASH_SET_UP = False
 
 def setup_dash():
     """Set up dash."""
-    call_command('collectstatic', verbosity=3, interactive=False)
     call_command('dash_sync_plugins', verbosity=3, interactive=False)
 
 
@@ -93,21 +90,21 @@ class DashCoreTest(TestCase):
     def setUp(self):
         setup_dash()
 
-    @print_info
+    @log_info
     def test_01_registered_layouts(self):
         """Test registered layouts (`get_registered_layouts`)."""
         res = get_registered_layouts()
         self.assertTrue(len(res) > 0)
         return res
 
-    @print_info
+    @log_info
     def test_02_active_layout(self):
         """Test active layout (`get_layout`)."""
         layout_cls = get_layout()
         self.assertTrue(layout_cls is not None)
         return layout_cls
 
-    @print_info
+    @log_info
     def test_03_get_layout_placeholders(self):
         """Test active layout placeholders (`get_placeholder_instances`)."""
         layout_cls = get_layout()
@@ -116,7 +113,7 @@ class DashCoreTest(TestCase):
         self.assertTrue(len(res) > 0)
         return res
 
-    @print_info
+    @log_info
     def test_04_active_layout_render_for_view(self):
         """Test active layout render (`render_for_view`)."""
         try:
@@ -155,11 +152,11 @@ class DashCoreTest(TestCase):
                                      request=request)
         return res
 
-    @print_info
+    @log_info
     def test_05_get_occupied_cells(self):
         """Test ``dash.utils.get_occupied_cells``."""
         # Fake dashboard entry
-        class Entry(object):
+        class Entry:
             pass
 
         layout = get_layout(as_instance=True)
@@ -197,7 +194,7 @@ class DashCoreTest(TestCase):
         return res
 
 
-class DashBrowserTest(LiveServerTestCase):
+class DashBrowserTest(StaticLiveServerTestCase):
     """django-dash browser tests.
 
     TODO: At the moment is done for admin only. Normal users shall be tested
@@ -211,12 +208,26 @@ class DashBrowserTest(LiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         """Set up class."""
-        # cls.selenium = WebDriver()
+        chrome_driver_path = getattr(
+            settings,
+            'CHROME_DRIVER_EXECUTABLE_PATH',
+            None
+        )
+        chrome_driver_options = getattr(
+            settings,
+            'CHROME_DRIVER_OPTIONS',
+            None
+        )
         firefox_bin_path = getattr(settings, 'FIREFOX_BIN_PATH', None)
         phantom_js_executable_path = getattr(
             settings, 'PHANTOM_JS_EXECUTABLE_PATH', None
         )
-        if phantom_js_executable_path is not None:
+        if chrome_driver_path is not None:
+            cls.selenium = webdriver.Chrome(
+                executable_path=chrome_driver_path,
+                options=chrome_driver_options
+            )
+        elif phantom_js_executable_path is not None:
             if phantom_js_executable_path:
                 cls.selenium = webdriver.PhantomJS(
                     executable_path=phantom_js_executable_path
@@ -228,7 +239,7 @@ class DashBrowserTest(LiveServerTestCase):
             cls.selenium = webdriver.Firefox(firefox_binary=binary)
         else:
             cls.selenium = webdriver.Firefox()
-
+        # cls.selenium = webdriver.Firefox()
         setup_dash()
 
         super(DashBrowserTest, cls).setUpClass()
@@ -247,9 +258,13 @@ class DashBrowserTest(LiveServerTestCase):
                      allow_cascade=False,
                      inhibit_post_migrate=False)
 
+    def _sleep(self, secs=10):
+        sleep(secs)
+
     def _click(self, element):
         """Click on any element."""
-        self.selenium.execute_script("$(arguments[0]).click();", element)
+        # self.selenium.execute_script("$(arguments[0]).click();", element)
+        self.selenium.execute_script("arguments[0].click();", element)
 
     def _agressive_click(self, element):
         """Agressive click."""
@@ -791,12 +806,13 @@ class DashBrowserTest(LiveServerTestCase):
         self._click(remove_plugin_link)
 
         # Wait until the edit dashboard page opens
-        WebDriverWait(self.selenium, timeout=8).until(
+        WebDriverWait(self.selenium, timeout=16).until(
             lambda driver: driver.find_element_by_xpath(
                 '//body[contains(@class, "layout")]'
             )
         )
 
+        self._sleep(2)
         found = False
         try:
             plugin_widget = self.selenium.find_element_by_xpath(
@@ -846,18 +862,18 @@ class DashBrowserTest(LiveServerTestCase):
 
         return flow
 
-    @print_info
+    @log_info
     def test_01_add_dashboard_entry(self):
         """Add dashboard entry test."""
         return self.__add_dashboard_entry_test(wait=WAIT_AT_TEST_END)
 
-    @print_info
+    @log_info
     def test_02_edit_dashboard_entry(self):
         """Edit dashboard entry test."""
         self.__add_dashboard_entry_test(wait=WAIT_BETWEEN_TEST_STEPS)
         return self.__edit_dashboard_entry_test(wait=WAIT_AT_TEST_END)
 
-    @print_info
+    @log_info
     def test_03_delete_dashboard_entry(self):
         """Delete dashboard entry test."""
         self.__add_dashboard_entry_test(wait=WAIT_BETWEEN_TEST_STEPS)

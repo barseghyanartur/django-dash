@@ -1,1 +1,1 @@
--r django_1_10.txt
+-r django_3_1.txt

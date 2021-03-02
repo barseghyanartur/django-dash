@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from dash.base import BaseDashboardPlugin
 from dash.factory import plugin_factory, plugin_widget_factory

@@ -5,11 +5,8 @@ from autoslug import AutoSlugField
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
-
-from nine import versions
-
-from six import python_2_unicode_compatible
+from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from .base import (
     # get_registered_layouts,
@@ -19,12 +16,6 @@ from .base import (
 from .helpers import slugify_workspace
 from .fields import OrderField
 
-if versions.DJANGO_GTE_1_10:
-    from django.urls import reverse
-else:
-    from django.core.urlresolvers import reverse
-
-__title__ = 'dash.models'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
@@ -41,7 +32,6 @@ AUTH_USER_MODEL = settings.AUTH_USER_MODEL
 logger = logging.getLogger(__name__)
 
 
-@python_2_unicode_compatible
 class DashboardSettings(models.Model):
     """Dashboard settings.
 
@@ -75,7 +65,7 @@ class DashboardSettings(models.Model):
                     "visible to public too.")
     )
 
-    class Meta(object):
+    class Meta:
         """Meta."""
 
         verbose_name = _("Dashboard settings")
@@ -85,7 +75,6 @@ class DashboardSettings(models.Model):
         return self.title
 
 
-@python_2_unicode_compatible
 class DashboardWorkspace(models.Model):
     """Dashboard workspace.
 
@@ -123,7 +112,7 @@ class DashboardWorkspace(models.Model):
         help_text=_("Makes your workspace to be cloneable by other users.")
     )
 
-    class Meta(object):
+    class Meta:
         """Meta."""
 
         verbose_name = _("Dashboard workspace")
@@ -177,7 +166,6 @@ class DashboardEntryManager(models.Manager):
         )
 
 
-@python_2_unicode_compatible
 class DashboardEntry(models.Model):
     """Dashboard entry (widget).
 
@@ -217,7 +205,7 @@ class DashboardEntry(models.Model):
 
     objects = DashboardEntryManager()
 
-    class Meta(object):
+    class Meta:
         """Meta."""
 
         verbose_name = _("Dashboard entry")
@@ -273,7 +261,6 @@ class DashboardPluginManager(models.Manager):
     """Manager for ``dash.models.DashboardPlugin``."""
 
 
-@python_2_unicode_compatible
 class DashboardPlugin(models.Model):
     """Dashboard plugin.
 
@@ -303,7 +290,7 @@ class DashboardPlugin(models.Model):
 
     objects = DashboardPluginManager()
 
-    class Meta(object):
+    class Meta:
         """Meta."""
 
         verbose_name = _("Dashboard plugin")

@@ -1,14 +1,14 @@
 import logging
 
-from six import PY2
-
 from django import forms
 from django.utils.text import Truncator
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from transliterate.contrib.apps.translipsum import TranslipsumGenerator
+from transliterate.contrib.apps.translipsum.utils import Generator
 
 from ....base import DashboardPluginFormBase
+from ....settings import DEBUG
 from ....widgets import BooleanRadioSelect
 from .defaults import (
     DEFAULT_MAX_CHARS,
@@ -16,13 +16,6 @@ from .defaults import (
     LANGUAGE_CHOICES_KEYS,
 )
 
-if PY2:
-    from lipsum import Generator
-else:
-    from transliterate.contrib.apps.translipsum.utils import Generator
-
-
-__title__ = 'dash.contrib.plugins.dummy.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'

@@ -1,18 +1,18 @@
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import user_passes_test
 
-__title__ = 'dash.decorators'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'all_permissions_required',
-    'any_permission_required',
     'DEFAULT_SATISFY',
-    'edit_dashboard_permission_required',
-    'permissions_required',
     'SATISFY_ALL',
     'SATISFY_ANY',
+    'all_permissions_required',
+    'any_permission_required',
+    'edit_dashboard_permission_required',
+    'permissions_required',
+    'use_clipboard_permission_required',
 )
 
 SATISFY_ANY = 'any'

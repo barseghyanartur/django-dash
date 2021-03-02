@@ -46,3 +46,4 @@ examples/example/settings/local_settings.py
 /demos/heroku_demo/db.sqlite3
 /demos/heroku_demo/staticfiles/
 /src/dash/contrib/layouts/bootstrap3/
+geckodriver.log
