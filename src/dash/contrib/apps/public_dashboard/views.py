@@ -16,7 +16,7 @@ from ....settings import AUTH_LOGIN_URL_NAME, AUTH_LOGOUT_URL_NAME
 __title__ = 'dash.contrib.apps.public_dashboard.views'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__license__ = 'GPL-2.0-only OR LGPL-2.1-or-later'
 __all__ = ('public_dashboard',)
 
 logger = logging.getLogger(__name__)

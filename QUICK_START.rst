@@ -89,18 +89,10 @@ Add ``dash`` core and the plugins to the ``INSTALLED_APPS`` of the your
             # ...
         )
 
-TEMPLATE_CONTEXT_PROCESSORS
+Template context processors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Add ``django.core.context_processors.request`` to
-``TEMPLATE_CONTEXT_PROCESSORS`` of your ``settings`` module.
-
-.. code-block:: python
-
-    TEMPLATE_CONTEXT_PROCESSORS = (
-        # ...
-        "django.core.context_processors.request",
-        # ...
-    )
+``TEMPLATES["OPTIONS"]["context_processors"]`` of your ``settings`` module.
 
 urlpatterns
 ^^^^^^^^^^^
@@ -112,21 +104,21 @@ Add the following line to ``urlpatterns`` of your ``urls`` module.
         # ...
 
         # django-dash URLs:
-        url(r'^dashboard/', include('dash.urls')),
+        re_path(r'^dashboard/', include('dash.urls')),
 
         # django-dash RSS contrib plugin URLs:
-        url(r'^dash/contrib/plugins/rss-feed/',
-            include('dash.contrib.plugins.rss_feed.urls')),
+        re_path(r'^dash/contrib/plugins/rss-feed/',
+                include('dash.contrib.plugins.rss_feed.urls')),
 
         # django-dash News contrib plugin URLs:
-        #url(r'^news/', include('news.urls')),
+        #re_path(r'^news/', include('news.urls')),
 
         # django-dash public dashboards contrib app:
-        url(r'^dash/public/',
-            include('dash.contrib.apps.public_dashboard.urls')),
+        re_path(r'^dash/public/',
+                include('dash.contrib.apps.public_dashboard.urls')),
 
         # Admin URLs
-        url(r'^admin/', include(admin.site.urls)),
+        re_path(r'^admin/', admin.site.urls),
 
         # ...
     ]
@@ -138,7 +130,6 @@ Update the database
 
     .. code-block:: sh
 
-        ./manage.py syncdb
         ./manage.py migrate
 
 #) Sync installed ``dash`` plugins. Go to terminal and type the following
@@ -176,11 +167,11 @@ as well.
 
 Also, make sure to have the Django model permissions set for following models:
 
-- `fobi.models.FormEntry
-  <https://github.com/barseghyanartur/django-fobi/blob/stable/src/fobi/models.py#L253>`_
-- `fobi.models.FormElementEntry
-  <https://github.com/barseghyanartur/django-fobi/blob/stable/src/fobi/models.py#L427>`_
-- `fobi.models.FormHandlerEntry
-  <https://github.com/barseghyanartur/django-fobi/blob/stable/src/fobi/models.py#L463>`_
-- `fobi.contrib.plugins.form_handlers.db_store.models.SavedFormDataEntry
-  <https://github.com/barseghyanartur/django-fobi/blob/stable/src/fobi/contrib/plugins/form_handlers/db_store/models.py#L52>`_
+- `dash.models.DashboardEntry
+  <https://github.com/barseghyanartur/django-dash/blob/master/src/dash/models.py#L169>`_
+- `dash.models.DashboardPlugin
+  <https://github.com/barseghyanartur/django-dash/blob/master/src/dash/models.py#L264>`_
+- `dash.models.DashboardSettings
+  <https://github.com/barseghyanartur/django-dash/blob/master/src/dash/models.py#L35>`_
+- `dash.models.DashboardWorkspace
+  <https://github.com/barseghyanartur/django-dash/blob/master/src/dash/models.py#L78>`_

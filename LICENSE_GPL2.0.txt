@@ -292,7 +292,7 @@ the "copyright" line and a pointer to where the full notice is found.
 
     django-dash - a customisable, modular dashboard application framework for
     Django.
-    Copyright (C) 2013-2018 Artur Barseghyan
+    Copyright (C) 2013-2021 Artur Barseghyan
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

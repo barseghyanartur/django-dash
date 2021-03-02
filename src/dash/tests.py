@@ -25,8 +25,8 @@ from .utils import get_occupied_cells, get_user_plugins
 
 __title__ = 'dash.tests'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2013-2018 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__copyright__ = '2013-2021 Artur Barseghyan'
+__license__ = 'GPL-2.0-only OR LGPL-2.1-or-later'
 
 
 DASH_TEST_USER_USERNAME = 'test_admin'
@@ -239,7 +239,7 @@ class DashBrowserTest(StaticLiveServerTestCase):
             cls.selenium = webdriver.Firefox(firefox_binary=binary)
         else:
             cls.selenium = webdriver.Firefox()
-        # cls.selenium = webdriver.Firefox()
+
         setup_dash()
 
         super(DashBrowserTest, cls).setUpClass()
