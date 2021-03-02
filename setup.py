@@ -85,18 +85,16 @@ dependency_links = []
 # dependencies.
 
 install_requires = [
-    'Pillow>=2.1.0',
-    'feedparser>=5.1.3',
-    'ordereddict>=1.1',
+    'Pillow>=6.0.0',
+    'feedparser>=6.0.0',
     'pif>=0.5,<1.0',
-    'six>=1.9',
     'transliterate>=1.5,<2.0',
     'vishap>=0.1.3,<2.0',
     'django-nine>=0.2.4',
     'Unidecode',
-    'django-autoslug>=1.9.4',
-    'django-tinymce>=2.0.0',
-    'easy-thumbnails>=2.4.1'
+    'django-autoslug>=1.9.8',
+    'django-tinymce>=3.2.0',
+    'easy-thumbnails>=2.5.0'
 ]
 
 tests_require = [

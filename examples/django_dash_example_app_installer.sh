@@ -15,7 +15,6 @@ mkdir ../db/
 mkdir ../logs/
 mkdir ../tmp/
 cp settings/local_settings.example settings/local_settings.py
-#./manage.py syncdb --noinput --traceback -v 3
 ./manage.py migrate --noinput
 ./manage.py collectstatic --noinput --traceback -v 3
 ./manage.py news_create_test_data

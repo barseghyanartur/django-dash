@@ -1,8 +1,8 @@
 [run]
 omit =
     src/dash/migrations/*
-    src/dash/south_migrations/*
     src/dash/tests.py
+    src/dash/contrib/plugins/url/migrations/*
     example/example/settings/*
     example/example/settings*
     example/example/wsgi.py

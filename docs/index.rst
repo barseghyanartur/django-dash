@@ -15,20 +15,34 @@ and apps) or Windows 8 for tablets or desktops.
 Dash inherits all those concepts and makes it possible to implement a dashboard
 system for Django applications with minimal efforts.
 
+.. image:: https://img.shields.io/pypi/v/django-dash.svg
+   :target: https://pypi.python.org/pypi/django-dash
+   :alt: PyPI Version
+
+.. image:: https://img.shields.io/pypi/pyversions/django-dash.svg
+    :target: https://pypi.python.org/pypi/django-dash/
+    :alt: Supported Python versions
+
+.. image:: https://img.shields.io/travis/barseghyanartur/django-dash/master.svg
+   :target: http://travis-ci.org/barseghyanartur/django-dash
+   :alt: Build Status
+
+.. image:: https://readthedocs.org/projects/django-dash/badge/?version=latest
+    :target: http://django-dash.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
+.. image:: https://img.shields.io/badge/license-GPL--2.0--only%20OR%20LGPL--2.1--or--later-blue.svg
+   :target: https://github.com/barseghyanartur/django-dash/#License
+   :alt: GPL-2.0-only OR LGPL-2.1-or-later
+
+.. image:: https://coveralls.io/repos/github/barseghyanartur/django-dash/badge.svg?branch=master
+    :target: https://coveralls.io/github/barseghyanartur/django-dash?branch=master
+    :alt: Coverage
+
 Prerequisites
 =============
-Present
--------
-- Django 1.8, 1.9, 1.10, 1.11, 2.0
-- Python >=2.7, >=3.4
-
-Past
-----
-- Dropping support of Django 1.5, 1.6 and 1.7 has been announced in version
-  0.5. As of 0.5 everything is still backwards compatible with above mentioned
-  versions , but in future versions compatibility with these versions will be
-  wiped out.
-- Support of Python 2.6 has been dropped in version 0.5.
+- Django 2.2, 3.0 and 3.1
+- Python 3.6, 3.7, 3.8 and 3.9.
 
 Key concepts
 ============
@@ -56,7 +70,7 @@ Key concepts
 
 Main features
 =============
-- Customisable layouts (aka theeming).
+- Customisable layouts (aka theming).
 - Multiple workspaces.
 - Tunable access permissions to plugins.
 - Public dashboards (as a contrib app).
@@ -71,16 +85,15 @@ FAQ
 
   Answer: Yes. Check the source code of the following sample plugins:
 
-    - `Sample D3 plugins
-      <https://github.com/barseghyanartur/django-dash/tree/master/examples/example/d3_samples>`_.
-    - `Sample Polychart2 plugin
-      <https://github.com/barseghyanartur/django-dash/tree/master/examples/example/bar>`_.
+  - `Sample D3 plugins
+    <https://github.com/barseghyanartur/django-dash/tree/master/examples/example/d3_samples>`_.
+  - `Sample Polychart2 plugin
+    <https://github.com/barseghyanartur/django-dash/tree/master/examples/example/bar>`_.
 
 Some screenshots
 ================
 See the documentation for some screen shots:
 
-- `PythonHosted <http://pythonhosted.org/django-dash/#screenshots>`_
 - `ReadTheDocs <http://django-dash.readthedocs.org/en/latest/#screenshots>`_
 
 Demo
@@ -153,43 +166,43 @@ Installation
 ============
 1. Install latest stable version from PyPI:
 
-    .. code-block:: sh
+   .. code-block:: sh
 
         pip install django-dash
 
-    Or latest stable version from GitHub:
+   Or latest stable version from GitHub:
 
-    .. code-block:: sh
+   .. code-block:: sh
 
-        pip install https://github.com/barseghyanartur/django-dash/archive/stable.tar.gz
+       pip install https://github.com/barseghyanartur/django-dash/archive/stable.tar.gz
 
-    Or latest stable version from BitBucket:
+   Or latest stable version from BitBucket:
 
-    .. code-block:: sh
+   .. code-block:: sh
 
-        pip install https://bitbucket.org/barseghyanartur/django-dash/get/stable.tar.gz
+       pip install https://bitbucket.org/barseghyanartur/django-dash/get/stable.tar.gz
 
 2. Add `dash` to ``INSTALLED_APPS`` of the your projects' Django settings.
    Furthermore, all layouts and plugins to be used, shall be added to the
    ``INSTALLED_APPS`` as well.
 
-    .. code-block:: python
+   .. code-block:: python
 
-        INSTALLED_APPS = (
-            # ...
-            'dash',
-            'dash.contrib.layouts.android',
-            'dash.contrib.layouts.bootstrap2',
-            'dash.contrib.layouts.windows8',
-            'dash.contrib.plugins.dummy',
-            'dash.contrib.plugins.image',
-            'dash.contrib.plugins.memo',
-            'dash.contrib.plugins.rss_feed',
-            'dash.contrib.plugins.url',
-            'dash.contrib.plugins.video',
-            'dash.contrib.plugins.weather',
-            # ...
-        )
+       INSTALLED_APPS = (
+           # ...
+           'dash',
+           'dash.contrib.layouts.android',
+           'dash.contrib.layouts.bootstrap2',
+           'dash.contrib.layouts.windows8',
+           'dash.contrib.plugins.dummy',
+           'dash.contrib.plugins.image',
+           'dash.contrib.plugins.memo',
+           'dash.contrib.plugins.rss_feed',
+           'dash.contrib.plugins.url',
+           'dash.contrib.plugins.video',
+           'dash.contrib.plugins.weather',
+           # ...
+       )
 
 3. Make sure that ``django.core.context_processors.request`` is in
    ``TEMPLATE_CONTEXT_PROCESSORS``.
@@ -198,18 +211,18 @@ Installation
 
    .. code-block:: python
 
-       url(r'^dashboard/', include('dash.urls')),
+       re_path(r'^dashboard/', include('dash.urls')),
 
    Additionally, add all URLs of any Dash apps or plugins
 
    .. code-block:: python
 
        # django-dash RSS contrib plugin URLs:
-       url(r'^dash/contrib/plugins/rss-feed/',
-           include('dash.contrib.plugins.rss_feed.urls')),
+       re_path(r'^dash/contrib/plugins/rss-feed/',
+               include('dash.contrib.plugins.rss_feed.urls')),
 
        # django-dash public dashboards contrib app:
-       url(r'^', include('dash.contrib.apps.public_dashboard.urls')),
+       re_path(r'^', include('dash.contrib.apps.public_dashboard.urls')),
 
 Creating a new layout
 =====================
@@ -625,7 +638,7 @@ Required imports.
     from dash.base import plugin_widget_registry
     from path.to.plugin.sample_memo.dash_widgets import (
         SampleMemo1x1ExampleMainWidget,
-        SampleMemo2x2ExampleMainWidget
+        SampleMemo2x2ExampleMainWidget,
     )
 
 Registering the Sample Memo plugin widget for placeholder ``main`` of layout
@@ -1130,31 +1143,28 @@ install the test requirements:
 
 Browser tests
 -------------
-For browser tests you may choose between Firefox, headless Firefox and
-PhantomJS. PhantomJS is faster, headless Firefox is fast as well, but
-normal Firefox tests tell you more (as you see what exactly happens on the
-screen). Both cases require some effort and both have disadvantages regarding
-the installation (although once you have them installed they work perfect).
+For browser tests you may choose between (headless) Firefox or (headless)
+Chrome. Going headless is faster, but normal browser tests tell you more (as
+you see what exactly happens on the screen). Both cases require some effort
+and both have disadvantages regarding the installation (although once you have
+them installed they work perfect).
 
-Latest versions of Firefox are often not supported by Selenium. Current
-version of the Selenium for Python (2.53.6) works fine with Firefox 47.
-Thus, instead of using system Firefox you could better use a custom one.
-
-For PhantomJS you need to have NodeJS installed.
-
-Set up Firefox 47
-~~~~~~~~~~~~~~~~~
-1. Download Firefox 47 from
-   `this
-   <https://ftp.mozilla.org/pub/firefox/releases/47.0.1/linux-x86_64/en-GB/firefox-47.0.1.tar.bz2>`__
-   location and unzip it into ``/usr/lib/firefox47/``
+Set up Firefox
+~~~~~~~~~~~~~~
+1. Download the latest version of geckodriver
+   ("geckodriver-vX.XX.X-linux64.tar.gz") from `this location
+   <https://github.com/mozilla/geckodriver/releases>`__
+   and unpack it somewhere (```tar -xvzf geckodriver-vX.XX.X-linux64.tar.gz```).
+   Then give executable permissions to geckodriver (```chmod +x geckodriver```)
+   move the geckodriver binary to ``/usr/local/bin`` or any location on your
+   system PATH.
 
 2. Specify the full path to your Firefox in ``FIREFOX_BIN_PATH``
    setting. Example:
 
    .. code-block:: python
 
-       FIREFOX_BIN_PATH = '/usr/lib/firefox47/firefox'
+       FIREFOX_BIN_PATH = '/usr/lib/firefox/firefox'
 
    If you set ``FIREFOX_BIN_PATH`` to None, system Firefox would be used.
 
@@ -1180,33 +1190,41 @@ Set up headless Firefox
 
         ./scripts/tox.sh
 
-Setup PhantomJS
-~~~~~~~~~~~~~~~
-You could also run tests in headless mode (faster). For that you will need
-PhantomJS.
+Setup Chrome
+~~~~~~~~~~~~
+1. Download the latest version of chromedriver
+   ("chromedriver_linux64.zip") from `this location
+   <https://chromedriver.chromium.org/downloads>`__
+   and unpack it somewhere. Then give executable permissions to chromedriver
+   (```chmod +x chromedriver```)
+   move the chromedriver binary to ``/usr/local/bin`` or any location on your
+   system PATH.
 
-1. Install PhantomJS and dependencies.
-
-   .. code-block:: sh
-
-       curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh
-       sudo bash nodesource_setup.sh
-       sudo apt-get install nodejs
-       sudo apt-get install build-essential libssl-dev
-       sudo npm -g install phantomjs-prebuilt
-
-2. Specify the ``PHANTOM_JS_EXECUTABLE_PATH`` setting. Example:
+2. Specify the full path to your Firefox in ``CHROME_DRIVER_EXECUTABLE_PATH``
+   setting. Example:
 
    .. code-block:: python
 
-       PHANTOM_JS_EXECUTABLE_PATH = ""
+       CHROME_DRIVER_EXECUTABLE_PATH = '/usr/bin/chromedriver'
 
-   If you want to use Firefox for testing, set
-   ``PHANTOM_JS_EXECUTABLE_PATH`` to None.
+
+Set up headless Chrome
+~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: python
+
+    from selenium import webdriver
+    CHROME_DRIVER_OPTIONS = webdriver.ChromeOptions()
+    CHROME_DRIVER_OPTIONS.add_argument('-headless')
+    CHROME_DRIVER_OPTIONS.add_argument('-no-sandbox')
+    CHROME_DRIVER_OPTIONS.set_capability('chrome.binary', "/usr/bin/google-chrome")
+
+    CHROME_DRIVER_EXECUTABLE_PATH = '/usr/bin/chromedriver'
+
+After that your Selenium tests would work.
 
 License
 =======
-GPL 2.0/LGPL 2.1
+GPL-2.0-only OR LGPL-2.1-or-later
 
 Support
 =======

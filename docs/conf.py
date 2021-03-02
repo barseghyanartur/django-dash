@@ -34,7 +34,7 @@ try:
 except Exception as err:
     version = '0.1'
     project = u'django-dash'
-    copyright = u'2013-2017, Artur Barseghyan <artur.barseghyan@gmail.com>'
+    copyright = u'2013-2021, Artur Barseghyan <artur.barseghyan@gmail.com>'
 
 # -- Django configuration ------------------------------------------------------
 
@@ -59,19 +59,8 @@ if not settings.configured:
         'STATICFILES_FINDERS': example_settings.STATICFILES_FINDERS,
         'STATIC_URL': example_settings.STATIC_URL,
         'STATIC_ROOT': example_settings.STATIC_ROOT,
+        'TEMPLATES': example_settings.TEMPLATES,
     }
-
-    if versions.DJANGO_GTE_1_8:
-        django_configuration.update({
-            'TEMPLATES': example_settings.TEMPLATES
-        })
-    else:
-        django_configuration.update({
-            'TEMPLATE_CONTEXT_PROCESSORS':
-                example_settings.TEMPLATE_CONTEXT_PROCESSORS,
-            'TEMPLATE_DIRS': example_settings.TEMPLATE_DIRS,
-            'TEMPLATE_LOADERS': example_settings.TEMPLATE_LOADERS,
-        })
 
     settings.configure(**django_configuration)
 
