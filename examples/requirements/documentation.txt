@@ -1,2 +1,2 @@
 -r docs.txt
--r django_1_11.txt
+-r latest.txt
