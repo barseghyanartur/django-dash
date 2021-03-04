@@ -2,196 +2,29 @@ from time import sleep
 import unittest
 
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.core.management import call_command
-from django.test import (
-    TestCase,
-    RequestFactory,
-    LiveServerTestCase,
-)
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.support.wait import WebDriverWait
 
+from ..settings import WAIT_BETWEEN_TEST_STEPS, WAIT_AT_TEST_END
 from .base import (
-    get_layout,
-    get_registered_layouts,
+    log_info,
+    setup_dash,
+    create_dashboard_user,
+    DASH_TEST_USER_USERNAME,
+    DASH_TEST_USER_PASSWORD,
 )
-from .models import DashboardEntry
-from .settings import WAIT_BETWEEN_TEST_STEPS, WAIT_AT_TEST_END
-from .utils import get_occupied_cells, get_user_plugins
 
 __title__ = 'dash.tests'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2021 Artur Barseghyan'
 __license__ = 'GPL-2.0-only OR LGPL-2.1-or-later'
-
-
-DASH_TEST_USER_USERNAME = 'test_admin'
-DASH_TEST_USER_PASSWORD = 'test'
-TRACK_TIME = False
-
-
-def log_info(func):
-    """Prints some useful info."""
-    if not log_info:
-        return func
-
-    def inner(self, *args, **kwargs):
-        result = func(self, *args, **kwargs)
-
-        print('\n{0}'.format(func.__name__))
-        print('============================')
-        if func.__doc__:
-            print('""" {0} """'.format(func.__doc__.strip()))
-        print('----------------------------')
-        if result is not None:
-            print(result)
-        print('\n')
-
-        return result
-    return inner
-
-
-def create_dashboard_user():
-    """
-    Create a user for testing the dashboard.
-
-    TODO: At the moment an admin account is being tested. Automated tests with
-    diverse accounts are to be implemented.
-    """
-    User = get_user_model()
-    u = User()
-    u.username = DASH_TEST_USER_USERNAME
-    u.email = 'admin@dev.django-dash.com'
-    u.is_superuser = True
-    u.is_staff = True
-    u.set_password(DASH_TEST_USER_PASSWORD)
-
-    try:
-        u.save()
-    except Exception as err:
-        pass
-
-
-DASH_SET_UP = False
-
-
-def setup_dash():
-    """Set up dash."""
-    call_command('dash_sync_plugins', verbosity=3, interactive=False)
-
-
-class DashCoreTest(TestCase):
-    """Tests of django-dash core functionality."""
-
-    def setUp(self):
-        setup_dash()
-
-    @log_info
-    def test_01_registered_layouts(self):
-        """Test registered layouts (`get_registered_layouts`)."""
-        res = get_registered_layouts()
-        self.assertTrue(len(res) > 0)
-        return res
-
-    @log_info
-    def test_02_active_layout(self):
-        """Test active layout (`get_layout`)."""
-        layout_cls = get_layout()
-        self.assertTrue(layout_cls is not None)
-        return layout_cls
-
-    @log_info
-    def test_03_get_layout_placeholders(self):
-        """Test active layout placeholders (`get_placeholder_instances`)."""
-        layout_cls = get_layout()
-        layout = layout_cls()
-        res = layout.get_placeholder_instances()
-        self.assertTrue(len(res) > 0)
-        return res
-
-    @log_info
-    def test_04_active_layout_render_for_view(self):
-        """Test active layout render (`render_for_view`)."""
-        try:
-            # Create dashboard user
-            create_dashboard_user()
-        except Exception:
-            pass
-
-        User = get_user_model()
-        # Getting the admin (user with plugin data)
-        user = User.objects.get(username=DASH_TEST_USER_USERNAME)
-
-        # Faking the Django request
-        request_factory = RequestFactory()
-        request = request_factory.get('/dashboard/', data={'user': user})
-        request.user = user
-        workspace = None
-
-        # Getting the list of plugins that user is allowed to use.
-        registered_plugins = get_user_plugins(request.user)
-        user_plugin_uids = [uid for uid, repr in registered_plugins]
-
-        layout = get_layout(as_instance=True)
-
-        # Fetching all dashboard entries for user and freezeing the queryset
-        dashboard_entries = DashboardEntry \
-            ._default_manager \
-            .get_for_user(user=request.user,
-                          layout_uid=layout.uid,
-                          workspace=workspace) \
-            .select_related('workspace', 'user') \
-            .filter(plugin_uid__in=user_plugin_uids) \
-            .order_by('placeholder_uid', 'position')[:]
-
-        res = layout.render_for_view(dashboard_entries=dashboard_entries,
-                                     request=request)
-        return res
-
-    @log_info
-    def test_05_get_occupied_cells(self):
-        """Test ``dash.utils.get_occupied_cells``."""
-        # Fake dashboard entry
-        class Entry:
-            pass
-
-        layout = get_layout(as_instance=True)
-        placeholder = layout.get_placeholder('main')
-
-        res = []
-
-        if 'android' == layout.uid:
-            # *********** First test
-            # 2 x 2 widget
-            r = get_occupied_cells(layout, placeholder, 'memo_2x2', 3)
-
-            self.assertEqual(r, [3, 4, 9, 10])
-
-            res.append(r)
-
-            # *********** Second test
-
-            # 3 x 3 widget
-            r = get_occupied_cells(layout, placeholder, 'memo_3x3', 16)
-
-            self.assertEqual(r, [16, 17, 18, 22, 23, 24, 28, 29, 30])
-
-            res.append(r)
-
-            # *********** Third test (the nasty one)
-
-            # 3 x 3 widget
-            # r = get_occupied_cells(layout, placeholder, 'memo_3x3', 17)
-
-            # self.assertEqual(r, [16, 17, 18, 22, 23, 24, 28, 29, 30])
-
-            # res.append(r)
-
-        return res
+__all__ = (
+    'DashBrowserTest',
+)
 
 
 class DashBrowserTest(StaticLiveServerTestCase):
@@ -270,6 +103,54 @@ class DashBrowserTest(StaticLiveServerTestCase):
         """Agressive click."""
         link = element.get_attribute('href')
         self.selenium.get(link)
+
+    def __login(self):
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # +++++++++++++ Step 1: Dashboard user logs in ++++++++++++++++++
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        try:
+            # Create dashboard user
+            create_dashboard_user()
+        except Exception:
+            pass
+
+        live_server_url = self.LIVE_SERVER_URL \
+            if self.LIVE_SERVER_URL \
+            else self.live_server_url
+        self.selenium.get('{0}{1}'.format(live_server_url, settings.LOGIN_URL))
+        self.selenium.maximize_window()
+        username_input = self.selenium.find_element_by_name("username")
+        username_input.send_keys(DASH_TEST_USER_USERNAME)
+        password_input = self.selenium.find_element_by_name("password")
+        password_input.send_keys(DASH_TEST_USER_PASSWORD)
+        submit_button = self.selenium.find_element_by_xpath(
+            '//button[@type="submit"]'
+        )
+        submit_button.click()
+
+        # Wait until the list view opens
+        WebDriverWait(self.selenium, timeout=4).until(
+            lambda driver: driver.find_element_by_xpath(
+                '//body[contains(@class, "layout")]'
+            )
+        )
+
+        # Click the button to go to dashboard edit
+        dashboard_edit_link = self.selenium.find_element_by_xpath(
+            '//a[contains(@class, "menu-dashboard-edit")]'
+        )
+        dashboard_edit_link.click()
+
+        # Wait until the dashboard edit view opens
+        WebDriverWait(self.selenium, timeout=4).until(
+            lambda driver: driver.find_element_by_xpath(
+                '//body[contains(@class, "layout")]'
+            )
+        )
 
     def __add_plugin_widget_test(self,
                                  position,
@@ -362,46 +243,8 @@ class DashBrowserTest(StaticLiveServerTestCase):
                 }
             )
         """
-        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        # +++++++++++++ Step 1: Dashboard user logs in ++++++++++++++++++
-        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        live_server_url = self.LIVE_SERVER_URL \
-            if self.LIVE_SERVER_URL \
-            else self.live_server_url
-        self.selenium.get('{0}{1}'.format(live_server_url, settings.LOGIN_URL))
-        self.selenium.maximize_window()
-        username_input = self.selenium.find_element_by_name("username")
-        username_input.send_keys(DASH_TEST_USER_USERNAME)
-        password_input = self.selenium.find_element_by_name("password")
-        password_input.send_keys(DASH_TEST_USER_PASSWORD)
-        submit_button = self.selenium.find_element_by_xpath(
-            '//button[@type="submit"]'
-        )
-        submit_button.click()
-
-        # Wait until the list view opens
-        WebDriverWait(self.selenium, timeout=4).until(
-            lambda driver: driver.find_element_by_xpath(
-                '//body[contains(@class, "layout")]'
-            )
-        )
-
-        # Click the button to go to dashboard edit
-        dashboard_edit_link = self.selenium.find_element_by_xpath(
-            '//a[contains(@class, "menu-dashboard-edit")]'
-        )
-        dashboard_edit_link.click()
-
-        # Wait until the dashboard edit view opens
-        WebDriverWait(self.selenium, timeout=4).until(
-            lambda driver: driver.find_element_by_xpath(
-                '//body[contains(@class, "layout")]'
-            )
-        )
+        # Login
+        self.__login()
 
         # Click the add widget button to add a new widget to the dashboard
         add_plugin_widget_div = self.selenium.find_element_by_xpath(
@@ -491,13 +334,6 @@ class DashBrowserTest(StaticLiveServerTestCase):
         :param int wait: Number of seconds to sleep at the end of the test.
         """
         flow = []
-
-        try:
-            # Create dashboard user
-            create_dashboard_user()
-        except Exception:
-            pass
-
         # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -708,7 +544,6 @@ class DashBrowserTest(StaticLiveServerTestCase):
                 '//select[@name="image"]/option[@value="icon-camera"]'
             )
             self.assertTrue(image_input is not None)
-            # image_input.click()
             self._click(image_input)  # Unsure
 
         self.__edit_plugin_widget_test(
@@ -756,7 +591,7 @@ class DashBrowserTest(StaticLiveServerTestCase):
         return flow
 
     def __delete_plugin_widget_test(self, plugin_widget_css_class):
-        """Test delete any single plugin.
+        """Test delete any single plugin widget.
 
         :param string plugin_widget_css_class: Example value "plugin-dummy1x1".
 
@@ -858,6 +693,211 @@ class DashBrowserTest(StaticLiveServerTestCase):
         )
 
         if wait:
+            self._sleep(wait)
+
+        return flow
+
+    def __copy_plugin_widget_test(self, plugin_widget_css_class):
+        """Test copy any single plugin widget.
+
+        :param string plugin_widget_css_class: Example value "plugin-dummy1x1".
+
+        :example:
+
+        Test 1x1 URL plugin widget::
+
+            self.__copy_plugin_widget_test(
+                plugin_widget_css_class="plugin-url_1x1"
+            )
+
+        Test 2x1 Dummy plugin widget::
+
+            self.__copy_plugin_widget_test(
+                plugin_widget_css_class="plugin-dummy_2x1"
+            )
+
+        Test 3x3 Memo plugin widget::
+
+            self.__copy_plugin_widget_test(
+                plugin_widget_css_class="plugin-memo_3x3"
+            )
+
+        Test 3x3 Video plugin widget::
+
+            self.__copy_plugin_widget_test(
+                plugin_widget_css_class="plugin-video_3x3"
+            )
+        """
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # +++++++++++++ Step 2: User copies the plugin widgets ++++++++++
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        # Click the add widget button to edit the widget on the dashboard
+        edit_plugin_widget_div = self.selenium.find_element_by_xpath(
+            '//div[contains(@class, "{0}")]'.format(plugin_widget_css_class)
+        )
+
+        copy_plugin_link = edit_plugin_widget_div.find_element_by_class_name(
+            'copy-plugin'
+        )
+        # remove_plugin_link.click()
+        self._click(copy_plugin_link)
+
+        # Wait until the edit dashboard page opens
+        WebDriverWait(self.selenium, timeout=16).until(
+            lambda driver: driver.find_element_by_xpath(
+                """//li[contains(text(), 'was successfully copied and """
+                """placed into the clipboard') """
+                """and contains(@class, "alert-info")]"""
+            )
+        )
+
+    def __create_dashboard_workspace_test(self, wait=0, do_login=True):
+        """Test create dashboard workspace."""
+        if do_login:
+            # Login
+            self.__login()
+        # Click the menu button to create a new workspace
+        menu_div = self.selenium.find_element_by_xpath(
+            '//a[contains(@class, "menu-dashboard-settings")]'
+        )
+        # Click on it
+        self._click(menu_div)
+
+        # Wait until the create workspace link is visible
+        WebDriverWait(self.selenium, timeout=16).until(
+            lambda driver: driver.find_element_by_xpath(
+                """//a[contains(@title, 'Create a workspace') """
+                """and contains(@class, "menu-dashboard-create-workspace")]"""
+            )
+        )
+
+        # Get the create workspace link element
+        create_workspace_link = self.selenium.find_element_by_xpath(
+            """//a[contains(@title, 'Create a workspace') """
+            """and contains(@class, "menu-dashboard-create-workspace")]"""
+        )
+        # Click on it
+        self._click(create_workspace_link)
+
+        # Wait until the create dashboard dialogue opens up
+        WebDriverWait(self.selenium, timeout=16).until(
+            lambda driver: driver.find_element_by_xpath(
+                """//h2[contains(text(), 'Add dashboard workspace') """
+                """and contains(@class, "content-title")]"""
+            )
+        )
+
+        self._sleep(2)
+
+        # Fill in the value
+        field_input = self.selenium.find_element_by_name('name')
+        field_input.send_keys("Copy workspace")
+
+        # Click add widget button
+        submit_button = self.selenium.find_element_by_xpath(
+            '//button[@type="submit"]'
+        )
+        submit_button.click()
+
+        # Wait until the new page opens
+        WebDriverWait(self.selenium, timeout=16).until(
+            lambda driver: driver.find_element_by_xpath(
+                """//li[contains(text(), 'The dashboard workspace "Copy """
+                """workspace" was created successfully.') """
+                """and contains(@class, "alert-info")]"""
+            )
+        )
+
+        if wait:
+            sleep(wait)
+
+    def __paste_plugin_widget_test(self, plugin_widget_css_class, wait=0):
+        """Test paste any single plugin widget.
+
+        :param string plugin_widget_css_class: Example value
+            "empty-widget-cell col-1 row-1".
+        """
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # ++++++++++ Step 2: User pastes the copied plugin widgets ++++++
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # Click the add widget button to edit the widget on the dashboard
+        add_plugin_widget_div = self.selenium.find_element_by_xpath(
+            '//div[contains(@class, "{0}")]'.format(plugin_widget_css_class)
+        )
+        add_plugin_link = add_plugin_widget_div.find_element_by_tag_name('a')
+        self._click(add_plugin_link)
+
+        # Wait until the widget dialog opens
+        WebDriverWait(self.selenium, timeout=16).until(
+            lambda driver: driver.find_element_by_xpath(
+                """//h2[contains(text(), 'Widgets') """
+                """and contains(@class, "content-title")]"""
+            )
+        )
+
+        self._sleep(2)
+
+        # Find paste element
+        paste_div = self.selenium.find_element_by_xpath(
+            '//div[contains(@class, "paste-from-clipboard")]'
+        )
+        # Click it
+        paste_link = paste_div.find_element_by_tag_name('a')
+        self._click(paste_link)
+
+        # Wait until the new page opens
+        WebDriverWait(self.selenium, timeout=16).until(
+            lambda driver: driver.find_element_by_xpath(
+                """//li[contains(text(), 'was successfully pasted """
+                """from clipboard') """
+                """and contains(@class, "alert-info")]"""
+            )
+        )
+
+        if wait:
+            sleep(wait)
+
+    def __copy_dashboard_entry_test(self, wait=0):
+        """Copy dashboard entry test.
+
+        :param int wait: Number of seconds to sleep at the end of the test.
+        """
+        flow = []
+
+        # Test 1x1 URL plugin widget::
+
+        self.__copy_plugin_widget_test(
+            plugin_widget_css_class="plugin-url_1x1"
+        )
+
+        # Test 2x1 Dummy plugin widget::
+
+        self.__copy_plugin_widget_test(
+            plugin_widget_css_class="plugin-dummy_2x1"
+        )
+
+        # Test 3x3 Memo plugin widget::
+
+        self.__copy_plugin_widget_test(
+            plugin_widget_css_class="plugin-memo_3x3"
+        )
+
+        # Test 3x3 Video plugin widget::
+
+        self.__copy_plugin_widget_test(
+            plugin_widget_css_class="plugin-video_3x3"
+        )
+
+        if wait:
             sleep(wait)
 
         return flow
@@ -878,6 +918,25 @@ class DashBrowserTest(StaticLiveServerTestCase):
         """Delete dashboard entry test."""
         self.__add_dashboard_entry_test(wait=WAIT_BETWEEN_TEST_STEPS)
         return self.__delete_dashboard_entry_test(wait=WAIT_AT_TEST_END)
+
+    @log_info
+    def test_04_create_dashboard_workspace(self):
+        """Create dashboard workspace test."""
+        self.__create_dashboard_workspace_test()
+
+    @log_info
+    def test_05_copy_paste_dashboard_entry(self):
+        """Copy/paste dashboard entry test."""
+        self.__add_dashboard_entry_test(wait=WAIT_BETWEEN_TEST_STEPS)
+        self.__copy_dashboard_entry_test(wait=WAIT_BETWEEN_TEST_STEPS)
+        self.__create_dashboard_workspace_test(
+            wait=WAIT_BETWEEN_TEST_STEPS,
+            do_login=False
+        )
+        self.__paste_plugin_widget_test(
+            'empty-widget-cell col-1 row-1',
+            wait=WAIT_AT_TEST_END
+        )
 
 
 if __name__ == '__main__':
