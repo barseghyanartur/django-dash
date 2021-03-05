@@ -51,7 +51,7 @@ if not settings.configured:
         'LANGUAGES': example_settings.LANGUAGES,
         'MEDIA_ROOT': example_settings.MEDIA_ROOT,
         'MEDIA_URL': example_settings.MEDIA_URL,
-        'MIDDLEWARE_CLASSES': example_settings.MIDDLEWARE_CLASSES,
+        'MIDDLEWARE': example_settings.MIDDLEWARE,
         'ROOT_URLCONF': example_settings.ROOT_URLCONF,
         'SECRET_KEY': example_settings.SECRET_KEY,
         'SITE_ID': example_settings.SITE_ID,

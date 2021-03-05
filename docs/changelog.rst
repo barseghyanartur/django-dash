@@ -16,13 +16,26 @@ are used for versioning (schema follows below):
   0.3.2 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.6.1
+-----
+2021-03-05
+
+- Minor fixes.
+- More tests.
+
 0.6
 ---
 2021-03-02
 
+.. note::
+
+    Release dedicated to defenders of Armenia and Artsakh (Nagorno Karabakh)
+    and all the victims of Turkish and Azerbaijani aggression.
+
 - Drop support for Django < 2.2.
 - Drop support for Python < 3.6.
 - Add support for Django 2.2, 3.0 and 3.1.
+- Fixes in documentation.
 
 0.5.5
 -----
