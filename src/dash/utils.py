@@ -494,7 +494,7 @@ def build_cells_matrix(user, layout, placeholder, workspace=None):
 
     # Getting the list of plugins that user is allowed to use.
     registered_plugins = get_user_plugins(user)
-    user_plugin_uids = [uid for uid, repr in registered_plugins]
+    user_plugin_uids = [uid for uid, _repr in registered_plugins]
 
     # Getting the queryset for user and freezing it.
     dashboard_entries = DashboardEntry \

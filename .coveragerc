@@ -2,7 +2,9 @@
 omit =
     src/dash/migrations/*
     src/dash/tests.py
+    src/dash/tests/*
     src/dash/contrib/plugins/url/migrations/*
+    src/dash/contrib/layouts/bootstrap3/*
     example/example/settings/*
     example/example/settings*
     example/example/wsgi.py

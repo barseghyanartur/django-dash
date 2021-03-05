@@ -23,6 +23,9 @@ class BaseDummyPlugin(BaseDashboardPlugin):
 
     def get_form(self):
         """Get form."""
+        # This is just to show that it's possible to fetch the form
+        # dynamically based on some local attributes. Normally, you
+        # would just use the same form and same type of configs.
         if 'sidebar' == self.placeholder:
             return DummyShortcutsForm
         else:

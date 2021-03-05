@@ -159,7 +159,8 @@ class DashBrowserTest(StaticLiveServerTestCase):
                                  plugin_widget_css_class,
                                  added_plugin_widget_css_classes,
                                  form_data={},
-                                 form_hook_func=None):
+                                 form_hook_func=None,
+                                 do_login=True):
         """
         Test add any single plugin.
 
@@ -243,8 +244,9 @@ class DashBrowserTest(StaticLiveServerTestCase):
                 }
             )
         """
-        # Login
-        self.__login()
+        if do_login:
+            # Login
+            self.__login()
 
         # Click the add widget button to add a new widget to the dashboard
         add_plugin_widget_div = self.selenium.find_element_by_xpath(
@@ -327,13 +329,12 @@ class DashBrowserTest(StaticLiveServerTestCase):
             self.assertTrue(added_plugin_widget_css_class
                             in dummy_plugin_widget_classes)
 
-    def __add_dashboard_entry_test(self, wait=0):
+    def __add_dashboard_entry_test(self, wait=0, do_login=True):
         """
         Add dashboard entry test.
 
         :param int wait: Number of seconds to sleep at the end of the test.
         """
-        flow = []
         # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -361,9 +362,12 @@ class DashBrowserTest(StaticLiveServerTestCase):
             plugin_widget_name_with_dimensions="URL (1x1)",
             plugin_widget_css_class="plugin-url_1x1",
             added_plugin_widget_css_classes=('width-1', 'height-1'),
-            form_data={'title': "Test 1x1 URL",
-                       'url': "http://delusionalinsanity.com/portfolio/"},
-            form_hook_func=choose_url_image
+            form_data={
+                'title': "Test 1x1 URL",
+                'url': "http://delusionalinsanity.com/portfolio/",
+            },
+            form_hook_func=choose_url_image,
+            do_login=do_login
         )
 
         # Test 2x1 Dummy plugin widget
@@ -372,7 +376,8 @@ class DashBrowserTest(StaticLiveServerTestCase):
             plugin_widget_name="Dummy",
             plugin_widget_name_with_dimensions="Dummy (2x1)",
             plugin_widget_css_class="plugin-dummy_2x1",
-            added_plugin_widget_css_classes=('width-2', 'height-1')
+            added_plugin_widget_css_classes=('width-2', 'height-1'),
+            do_login=do_login
         )
 
         # Test 3x3 Memo plugin widget
@@ -382,8 +387,11 @@ class DashBrowserTest(StaticLiveServerTestCase):
             plugin_widget_name_with_dimensions="Memo (3x3)",
             plugin_widget_css_class="plugin-memo_3x3",
             added_plugin_widget_css_classes=('width-3', 'height-3'),
-            form_data={'title': "Test 3x3 memo",
-                       'text': "Lorem ipsum dolor sit amet."}
+            form_data={
+                'title': "Test 3x3 memo",
+                'text': "Lorem ipsum dolor sit amet.",
+            },
+            do_login=do_login
         )
 
         # Test 3x3 Video plugin widget
@@ -393,14 +401,15 @@ class DashBrowserTest(StaticLiveServerTestCase):
             plugin_widget_name_with_dimensions="Video (3x3)",
             plugin_widget_css_class="plugin-video_3x3",
             added_plugin_widget_css_classes=('width-3', 'height-3'),
-            form_data={'title': "Test 3x3 video",
-                       'url': "http://www.youtube.com/watch?v=8GVIui0JK0M"}
+            form_data={
+                'title': "Test 3x3 video",
+                'url': "http://www.youtube.com/watch?v=8GVIui0JK0M",
+            },
+            do_login=do_login
         )
 
         if wait:
             sleep(wait)
-
-        return flow
 
     def __edit_plugin_widget_test(self,
                                   plugin_widget_name,
@@ -534,8 +543,6 @@ class DashBrowserTest(StaticLiveServerTestCase):
 
         :param int wait: Number of seconds to sleep at the end of the test.
         """
-        flow = []
-
         # Test 1x1 URL plugin widget::
 
         def choose_url_image():
@@ -587,8 +594,6 @@ class DashBrowserTest(StaticLiveServerTestCase):
 
         if wait:
             sleep(wait)
-
-        return flow
 
     def __delete_plugin_widget_test(self, plugin_widget_css_class):
         """Test delete any single plugin widget.
@@ -666,8 +671,6 @@ class DashBrowserTest(StaticLiveServerTestCase):
 
         :param int wait: Number of seconds to sleep at the end of the test.
         """
-        flow = []
-
         # Test 1x1 URL plugin widget::
 
         self.__delete_plugin_widget_test(
@@ -694,8 +697,6 @@ class DashBrowserTest(StaticLiveServerTestCase):
 
         if wait:
             self._sleep(wait)
-
-        return flow
 
     def __copy_plugin_widget_test(self, plugin_widget_css_class):
         """Test copy any single plugin widget.
@@ -816,6 +817,157 @@ class DashBrowserTest(StaticLiveServerTestCase):
         if wait:
             sleep(wait)
 
+    def __edit_dashboard_workspace_test(self, wait=0):
+        """Test edit dashboard workspace."""
+        # Click the menu button to create a new workspace
+        menu_div = self.selenium.find_element_by_xpath(
+            '//a[contains(@class, "menu-dashboard-settings")]'
+        )
+        # Click on it
+        self._click(menu_div)
+
+        # Wait until the create workspace link is visible
+        WebDriverWait(self.selenium, timeout=16).until(
+            lambda driver: driver.find_element_by_xpath(
+                """//a[contains(@title, 'Edit current workspace') """
+                """and contains(@class, "menu-dashboard-edit-workspace")]"""
+            )
+        )
+
+        # Get the edit workspace link element
+        edit_workspace_link = self.selenium.find_element_by_xpath(
+            """//a[contains(@title, 'Edit current workspace') """
+            """and contains(@class, "menu-dashboard-edit-workspace")]"""
+        )
+        # Click on it
+        self._click(edit_workspace_link)
+
+        # Wait until the edit dashboard dialogue opens up
+        WebDriverWait(self.selenium, timeout=16).until(
+            lambda driver: driver.find_element_by_xpath(
+                """//h2[contains(text(), 'Edit dashboard workspace') """
+                """and contains(@class, "content-title")]"""
+            )
+        )
+
+        self._sleep(2)
+
+        # Fill in the value
+        field_input = self.selenium.find_element_by_name('is_public')
+        field_input.send_keys(True)
+
+        field_input = self.selenium.find_element_by_name('is_cloneable')
+        field_input.send_keys(True)
+
+        # Click add widget button
+        submit_button = self.selenium.find_element_by_xpath(
+            '//button[@type="submit"]'
+        )
+        submit_button.click()
+
+        # Wait until the new page opens
+        WebDriverWait(self.selenium, timeout=16).until(
+            lambda driver: driver.find_element_by_xpath(
+                """//li[contains(text(), 'The dashboard workspace "Copy """
+                """workspace" was edited successfully.') """
+                """and contains(@class, "alert-info")]"""
+            )
+        )
+
+        if wait:
+            sleep(wait)
+
+    def __clone_dashboard_workspace_test(self, wait=0):
+        """Test clone dashboard workspace."""
+        # Click the menu button to create a new workspace
+        menu_div = self.selenium.find_element_by_xpath(
+            '//a[contains(@class, "menu-dashboard-settings")]'
+        )
+        # Click on it
+        self._click(menu_div)
+
+        # Wait until the create workspace link is visible
+        WebDriverWait(self.selenium, timeout=16).until(
+            lambda driver: driver.find_element_by_xpath(
+                """//a[contains(@title, 'Clone current workspace') """
+                """and contains(@class, "menu-dashboard-clone-workspace")]"""
+            )
+        )
+
+        # Get the clone workspace link element
+        clone_workspace_link = self.selenium.find_element_by_xpath(
+            """//a[contains(@title, 'Clone current workspace') """
+            """and contains(@class, "menu-dashboard-clone-workspace")]"""
+        )
+        # Click on it
+        self._click(clone_workspace_link)
+
+        # Wait until the new page opens
+        WebDriverWait(self.selenium, timeout=16).until(
+            lambda driver: driver.find_element_by_xpath(
+                """//li[contains(text(), 'Dashboard workspace `Copy """
+                """workspace` was successfully cloned into') """
+                """and contains(@class, "alert-info")]"""
+            )
+        )
+
+        if wait:
+            sleep(wait)
+
+    def __delete_dashboard_workspace_test(self, wait=0):
+        """Test delete dashboard workspace."""
+        # Click the menu button to create a new workspace
+        menu_div = self.selenium.find_element_by_xpath(
+            '//a[contains(@class, "menu-dashboard-settings")]'
+        )
+        # Click on it
+        self._click(menu_div)
+
+        # Wait until the delete workspace link is visible
+        WebDriverWait(self.selenium, timeout=16).until(
+            lambda driver: driver.find_element_by_xpath(
+                """//a[contains(@title, 'Delete current workspace') """
+                """and contains(@class, "menu-dashboard-delete-workspace")]"""
+            )
+        )
+
+        # Get the delete workspace link element
+        clone_workspace_link = self.selenium.find_element_by_xpath(
+            """//a[contains(@title, 'Delete current workspace') """
+            """and contains(@class, "menu-dashboard-delete-workspace")]"""
+        )
+        # Click on it
+        self._click(clone_workspace_link)
+
+        # Wait until the delete dashboard dialogue opens up
+        WebDriverWait(self.selenium, timeout=16).until(
+            lambda driver: driver.find_element_by_xpath(
+                """//h2[contains(text(), 'Delete dashboard workspace') """
+                """and contains(@class, "content-title")]"""
+            )
+        )
+
+        self._sleep(2)
+
+        # Click add widget button
+        submit_button = self.selenium.find_element_by_xpath(
+            '//button[@type="submit" and contains(@name, "delete")]'
+        )
+        submit_button.click()
+
+        # Wait until the new page opens
+        WebDriverWait(self.selenium, timeout=16).until(
+            lambda driver: driver.find_element_by_xpath(
+                """//li[contains(text(), 'The dashboard workspace "Copy """
+                """workspace') """
+                """and contains(text(), 'was deleted successfully')"""
+                """and contains(@class, "alert-info")]"""
+            )
+        )
+
+        if wait:
+            sleep(wait)
+
     def __paste_plugin_widget_test(self, plugin_widget_css_class, wait=0):
         """Test paste any single plugin widget.
 
@@ -871,8 +1023,6 @@ class DashBrowserTest(StaticLiveServerTestCase):
 
         :param int wait: Number of seconds to sleep at the end of the test.
         """
-        flow = []
-
         # Test 1x1 URL plugin widget::
 
         self.__copy_plugin_widget_test(
@@ -900,8 +1050,6 @@ class DashBrowserTest(StaticLiveServerTestCase):
         if wait:
             sleep(wait)
 
-        return flow
-
     @log_info
     def test_01_add_dashboard_entry(self):
         """Add dashboard entry test."""
@@ -911,18 +1059,18 @@ class DashBrowserTest(StaticLiveServerTestCase):
     def test_02_edit_dashboard_entry(self):
         """Edit dashboard entry test."""
         self.__add_dashboard_entry_test(wait=WAIT_BETWEEN_TEST_STEPS)
-        return self.__edit_dashboard_entry_test(wait=WAIT_AT_TEST_END)
+        self.__edit_dashboard_entry_test(wait=WAIT_AT_TEST_END)
 
     @log_info
     def test_03_delete_dashboard_entry(self):
         """Delete dashboard entry test."""
         self.__add_dashboard_entry_test(wait=WAIT_BETWEEN_TEST_STEPS)
-        return self.__delete_dashboard_entry_test(wait=WAIT_AT_TEST_END)
+        self.__delete_dashboard_entry_test(wait=WAIT_AT_TEST_END)
 
     @log_info
     def test_04_create_dashboard_workspace(self):
         """Create dashboard workspace test."""
-        self.__create_dashboard_workspace_test()
+        self.__create_dashboard_workspace_test(wait=WAIT_AT_TEST_END)
 
     @log_info
     def test_05_copy_paste_dashboard_entry(self):
@@ -937,6 +1085,31 @@ class DashBrowserTest(StaticLiveServerTestCase):
             'empty-widget-cell col-1 row-1',
             wait=WAIT_AT_TEST_END
         )
+
+    @log_info
+    def test_06_add_dashboard_entry_to_workspace(self):
+        """Add dashboard entry to workspace test."""
+        self.__create_dashboard_workspace_test(wait=WAIT_AT_TEST_END)
+        self.__add_dashboard_entry_test(wait=WAIT_AT_TEST_END, do_login=False)
+
+    @log_info
+    def test_07_edit_dashboard_workspace(self):
+        """Edit dashboard workspace test."""
+        self.__create_dashboard_workspace_test(wait=WAIT_AT_TEST_END)
+        self.__edit_dashboard_workspace_test(wait=WAIT_AT_TEST_END)
+
+    @log_info
+    def test_08_clone_dashboard_workspace(self):
+        """Clone dashboard workspace test."""
+        self.__create_dashboard_workspace_test(wait=WAIT_AT_TEST_END)
+        self.__add_dashboard_entry_test(wait=WAIT_AT_TEST_END, do_login=False)
+        self.__clone_dashboard_workspace_test(wait=WAIT_AT_TEST_END)
+
+    @log_info
+    def test_09_delete_dashboard_workspace(self):
+        """Clone dashboard workspace test."""
+        self.__create_dashboard_workspace_test(wait=WAIT_AT_TEST_END)
+        self.__delete_dashboard_workspace_test(wait=WAIT_AT_TEST_END)
 
 
 if __name__ == '__main__':
