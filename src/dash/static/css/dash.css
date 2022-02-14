@@ -237,7 +237,7 @@ ul.messagelist {
     padding: 0 0 5px;
 }
     ul.messagelist li {
-        background: url("../admin/img/icon_success.gif") no-repeat scroll 5px 0.3em #ffffcc;
+        background: url("../admin/img/icon-yes.svg") no-repeat scroll 5px 0.3em #ffffcc;
         border-top: 1px solid #ddd;
         border-bottom: 1px solid #ddd;
         color: #666;
