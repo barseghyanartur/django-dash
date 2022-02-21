@@ -4,7 +4,7 @@ django-dash
 ``django-dash`` (later on named Dash) is a customisable, modular dashboard
 application framework for Django.
 
-Dash allows users to create their own custom dashboards. Supports theeming (in
+Dash allows users to create their own custom dashboards. Supports theming (in
 Dash themes are called layouts) and multiple workspaces. Dash comes with
 extensive pythonic API which allows developers to create new Dash plugins, as
 well as to modify bundled ones.
